@@ -82,3 +82,11 @@ $ git clone https://github.com/yeasy/docker-compose-files
 $ cd docker-compose-files/hyperledger
 $ docker-compose up
 ```
+
+### 服务端口
+Hyperledger 默认监听的服务端口包括：
+
+* 5000: REST 服务端口，推荐 NVP 节点开放；
+* 30303: Peer 服务监听端口；
+* 30304: CLI 从 chaincode 的回调端口；
+* 31315: VP 上的事件服务端口。
