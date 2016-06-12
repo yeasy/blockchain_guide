@@ -3,7 +3,7 @@
 
 区块链已经成为当下最受人关注的开源技术，有人说它将颠覆金融行业的未来。然而对很多人来说，区块链技术难以理解和实现，而且缺乏统一的规范。
 
-2016 年刚过去三个多月，[Linux 基金](http://www.linuxfoundation.org/) 会牵头，联合三十家初始成员（包括各大金融、科技公司和相关开源组织），共同[宣告](https://www.hyperledger.org/news/announcement/2016/02/hyperledger-project-announces-30-founding-members) 了 [Hyperledger](https://www.hyperledger.org) 项目的成立。该项目试图打造一个超级账本项目，作为区块链技术的开源规范和标准，让更多的应用能更容易的建立在区块链技术之上。
+2015 年底，[Linux 基金](http://www.linuxfoundation.org/) 会牵头，联合三十家初始成员（包括各大金融、科技公司和相关开源组织），共同 [宣告](https://www.hyperledger.org/news/announcement/2016/02/hyperledger-project-announces-30-founding-members) 了 [Hyperledger](https://www.hyperledger.org) 项目的成立。该项目试图打造一个超级账本项目，作为区块链技术的开源规范和标准，让更多的应用能更容易的建立在区块链技术之上。
 
 如果说以比特币为代表的货币区块链技术为 1.0，以以太坊为代表的合同区块链技术为 2.0，那么实现了完备的权限控制和安全保障的 Hyperledger 项目毫无疑问代表着 3.0 时代的到来。
 
