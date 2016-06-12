@@ -6,6 +6,7 @@
    * [什么是区块链](intro/what.md)
    * [关键技术](intro/tech.md)
    * [商业价值](intro/business.md)
+   * [小结](intro/summary.md)
 * [一致性问题与算法](consensus/README.md)
 * [密码学知识](crypto/README.md)
 * [Hyperledger 项目](hyperledger/README.md)
