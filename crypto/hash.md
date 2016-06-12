@@ -1,2 +1,33 @@
 ## hash 算法
 
+## 定义
+hash （哈希或散列）算法是信息技术领域非常基础也非常重要的技术。它能任意长度的二进制值（明文）映射为较短的固定长度的二进制值（hash 值），并且不同的明文很难映射为相同的 hash 值。
+
+例如计算一段话“hello blockchain world, this is yeasy@github”的 md5 hash 值为 89242549883a2ef85dc81b90fb606046。
+
+```sh
+$ echo "hello blockchain world, this is yeasy@github"|md5
+89242549883a2ef85dc81b90fb606046
+```
+
+这意味着我们只要对某文件进行 md5 hash 计算，得到结果为 89242549883a2ef85dc81b90fb606046，这就说明文件内容极大概率上就是 “hello blockchain world, this is yeasy@github”。
+
+*注：md5 是一个著名的 hash 算法，已被证明安全性不足应用于商业场景。*
+
+一个优秀的 hash 算法，将能实现：
+
+* 正向快速：给定明文和 hash 算法，在有限时间和有限资源内能计算出 hash 值。
+* 逆向困难：给定（若干） hash 值，在有限时间内很难（基本不可能）逆推出明文。
+* 输入敏感：原始输入信息修改一点信息，产生的 hash 值看起来应该都有很大不同。 
+* 冲突避免：很难找到两段内容不同的明文，使得它们的 hash 值一致（发生冲突）。
+
+## 流行的算法
+
+目前流行的 hash 算法包括 MD5（已被证明不够安全）和 SHA-1，两者均以 MD4 为基础设计的。
+
+MD4（RFC 1320）是 MIT 的 Ronald L. Rivest 在 1990 年设计的，MD 是 Message Digest 的缩写。其输出为 128 位。MD4 并不足够安全。
+
+MD5（RFC 1321）是 Rivest 于1991年对 MD4 的改进版本。它对输入仍以 512 位分组，其输出是 128 位。MD5 比 MD4 复杂，并且计算速度要慢一点，但更安全一些。MD5 并不足够安全。
+
+SHA1 是由 NIST NSA 设计，它的输出为长度 160 位的 hash 值，因此抗穷举性更好。SHA-1 设计时基于和 MD4 相同原理,并且模仿了该算法。
+
