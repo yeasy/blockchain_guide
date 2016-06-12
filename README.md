@@ -1,7 +1,7 @@
 区块链技术指南
 ======
 
-0.1.0
+0.4.0
 
 区块链技术是现在主流数字货币的主要支持技术，被认为在包括金融、物联网、贸易结算等众多领域拥有广泛的应用前景。但由于区块链技术自身还处于快速发展的初级阶段，并且涉及技术领域过杂，为实践应用带来了不小的挑战。
 
@@ -12,7 +12,13 @@
 在线阅读：[GitBook](https://www.gitbook.io/book/yeasy/blockchain_guide)。
 
 ## 主要版本历史
-* 0.1.0: 2016-06-08
+* 0.4.0: 2016-06-02
+    * 添加应用场景分析;
+* 0.3.0: 2016-05-12
+    * 添加数字货币问题分析;
+* 0.2.0: 2016-04-07
+    * 添加 hyperledger 项目简介;
+* 0.1.0: 2016-01-17
     * 添加区块链简介;
 
 区块链技术自身仍在快速发展中，生态环境也在蓬勃成长。源码开源托管在 Github 上，欢迎参与维护：[https://github.com/yeasy/blockchain_guide](https://github.com/yeasy/blockchain_guide)。贡献者 [名单](https://github.com/yeasy/blockchain_guide/graphs/contributors)。
