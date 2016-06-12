@@ -10,7 +10,7 @@ v0.1.0
 在线阅读：[GitBook](https://www.gitbook.io/book/yeasy/blockchain_guide)。
 
 ## 主要版本历史
-* 0.1: 2016-06-08
+* 0.1.0: 2016-06-08
     * 添加基本内容;
 
 区块链技术自身仍在快速发展中，生态环境也在蓬勃成长。源码开源托管在 Github 上，欢迎参与维护：[https://github.com/yeasy/blockchain_guide](https://github.com/yeasy/blockchain_guide)。贡献者 [名单](https://github.com/yeasy/blockchain_guide/graphs/contributors)。
