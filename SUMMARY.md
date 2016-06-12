@@ -27,6 +27,7 @@
 * [比特币项目](bitcoin/README.md)
    * [简介](bitcoin/introductin.md)
    * [工具](bitcoin/tools.md)
+   * [挖矿](bitcoin/mining.md)
    * [原理和设计](bitcoin/design.md)
    * [一致性协议](bitcoin/consensus.md)
 * [Hyperledger 项目](hyperledger/README.md)
