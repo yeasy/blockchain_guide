@@ -9,7 +9,7 @@
 
 本书适用于对区块链技术感兴趣，且具备一定计算机基础知识的读者。
 
-在线阅读：[GitBook](https://www.gitbook.io/book/yeasy/blockchain_guide)。
+在线阅读：[本地阅读](SUMMARY.md)，或 [GitBook](https://www.gitbook.com/book/yeasy/blockchain_guide)。
 
 ## 主要版本历史
 * 0.4.0: 2016-06-02
