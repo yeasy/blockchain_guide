@@ -14,14 +14,16 @@
 在线阅读：[GitBook](https://www.gitbook.com/book/yeasy/blockchain_guide) 或 [GitHub](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md)。
 
 ## 主要版本历史
+* 0.4.x: 2016-06-?
+    * 完善内容。
 * 0.4.0: 2016-06-02
-    * 添加应用场景分析;
+    * 添加应用场景分析。
 * 0.3.0: 2016-05-12
-    * 添加数字货币问题分析;
+    * 添加数字货币问题分析。
 * 0.2.0: 2016-04-07
-    * 添加 hyperledger 项目简介;
+    * 添加 hyperledger 项目简介。
 * 0.1.0: 2016-01-17
-    * 添加区块链简介;
+    * 添加区块链简介。
 
 区块链技术自身仍在快速发展中，生态环境也在蓬勃成长。源码开源托管在 Github 上，欢迎参与维护：[https://github.com/yeasy/blockchain_guide](https://github.com/yeasy/blockchain_guide)。贡献者 [名单](https://github.com/yeasy/blockchain_guide/graphs/contributors)。
 
