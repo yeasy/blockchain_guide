@@ -1,7 +1,7 @@
 # Summary
 
 * [前言](README.md)
-* [区块链背景](intro/README.md)
+* [背景知识](intro/README.md)
    * [从数字货币说起](intro/currency.md)
    * [什么是比特币](intro/bitcoin.md)
    * [什么是区块链](intro/what.md)
