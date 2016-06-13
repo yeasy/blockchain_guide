@@ -1,5 +1,5 @@
 # 区块链技术指南
-0.4.1
+0.4.2
 
 区块链技术是比特币的主要支持技术，并被认为在包括金融、物联网、贸易结算等众多领域拥有广泛的应用前景。
 
@@ -12,6 +12,8 @@
 在线阅读：[GitBook](https://www.gitbook.com/book/yeasy/blockchain_guide) 或 [GitHub](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md)。
 
 ## 版本历史
+* 0.4.2: 2016-06-13
+    * 添加常见问题。
 * 0.4.1: 2016-06-12
     * 添加比特币项目；
     * 完善内容。
