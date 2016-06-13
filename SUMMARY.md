@@ -40,5 +40,6 @@
    * [工具](ethereum/tools.md)
    * [协议设计](ethereum/design.md)
 * [附录一：术语](appendix/terms.md)
-* [附录二：资源链接](appendix/resources.md)
+* [附录二：常见问题](appendix/faq.md)
+* [附录三：资源链接](appendix/resources.md)
 
