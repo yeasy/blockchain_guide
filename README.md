@@ -13,8 +13,13 @@
 
 在线阅读：[GitBook](https://www.gitbook.com/book/yeasy/blockchain_guide) 或 [GitHub](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md)。
 
+欢迎大家加入区块链技术讨论群：
+
+* QQ 群：335626996
+
 ## 版本历史
 * 0.4.3: 2016-06-14
+    * 增加关于 hyperledger 项目介绍内容；
     * 添加区块链即服务。
 * 0.4.2: 2016-06-13
     * 添加常见问题。
