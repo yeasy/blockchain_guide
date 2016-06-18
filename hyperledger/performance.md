@@ -73,6 +73,6 @@
 ##### pbft:sieve
 | clients | VP Nodes | iteration |   tps  |
 | -------- | ------- | --------- | ------ |
-|    1     |    4    |    2000   | 253.49 |
+|    1     |    4    |    2000   | 253.49* |
 
 *注：sieve 算法在所有交易完成后较长时间内并没有取得最终的结果，出现大量类似“vp0_1  | 07:49:26.388 [consensus/obcpbft] main -> WARN 23348 Sieve replica 0 custody expired, complaining: 3kwyMkdCSL4rbajn65v+iYWyJ5aqagXvRR9QU8qezpAZXY4y6uy2MB31SGaAiaSyPMM77TYADdBmAaZveM38zA==”警告信息。*

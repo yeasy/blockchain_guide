@@ -30,7 +30,7 @@
    * [挖矿](bitcoin/mining.md)
    * [原理和设计](bitcoin/design.md)
    * [一致性协议](bitcoin/consensus.md)
-* [开源区块链 -- Hyperledger 项目](hyperledger/README.md)
+* [Hyperledger 项目](hyperledger/README.md)
    * [简介](hyperledger/basic.md)
    * [安装部署](hyperledger/install.md)
    * [应用案例](hyperledger/usage.md)
