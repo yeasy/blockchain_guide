@@ -14,6 +14,7 @@
    * [金融交易](scenario/trading.md)
    * [投资管理](scenario/capital.md)
    * [物联网](scenario/iot.md)
+   * [小结](scenario/summary.md)
 * [分布式一致性](consensus/README.md)
    * [问题定义](consensus/problem.md)
    * [拜占庭系列算法](consensus/bft.md)
