@@ -7,13 +7,15 @@
 
 > A blockchain[1][2][3]—originally, block chain[4][5][6]—is a distributed database that maintains a continuously-growing list of data records hardened against tampering and revision. It consists of data structure blocks—which hold exclusively data in initial blockchain implementations,[7] and both data and programs in some of the more recent implementations—with each block holding batches of individual transactions and the results of any blockchain executables.[8][better source needed] Each block contains a timestamp and information linking it to a previous block.[9]
 
-最早出现区块链是在比特币项目。作为比特币背后的分布式记账平台，区块链在无集中式监管的情况下，稳定运行了近八年时间，支持了海量的交易记录，并未出现严重的漏洞。
+最早区块链技术出现在比特币项目。作为比特币背后的分布式记账平台，区块链在无集中式监管的情况下，稳定运行了近八年时间，支持了海量的交易记录，并未出现严重的漏洞。
 
 *注：比特币历史上唯一已知的漏洞事件曾导致比特币的恶意增发，但问题很快被发现并修正，相关非法交易被撤销。*
 
-公认的最早关于区块链的描述性文献是中本聪所撰写的 [比特币：一种点对点的电子现金系统](https://bitcoin.org/bitcoin.pdf)，但该文献重点在于讨论比特币系统，实际上并没有明确提出区块链的定义和概念。
+公认的最早关于区块链的描述性文献是中本聪所撰写的 [比特币：一种点对点的电子现金系统](https://bitcoin.org/bitcoin.pdf)，但该文献重点在于讨论比特币系统，实际上并没有明确提出区块链的定义和概念。在其中，区块链被描述用于进行记录比特币交易的账目。
 
-客观地看，区块链属于一种分布式的记录技术。参与到系统上的节点，能获取到历史记录信息；区块链数据由所有节点共同维护，每个参与维护节点都能复制获得一份完整记录的拷贝。
+记账技术历史悠久，[现代复式记账系统](https://zh.wikipedia.org/wiki/%E5%A4%8D%E5%BC%8F%E7%B0%BF%E8%AE%B0)（Double Entry Bookkeeping）是由意大利数学家卢卡·帕西奥利，1494 年在《Summa de arithmetica, geometrica, proportioni et proportionalità》一书中最早制定。从记账技术的角度，区块链是首个大规模的数字记账技术实现。
+
+更广泛意义地看，区块链属于一种分布式的记录技术。参与到系统上的节点，能获取到历史记录信息；区块链数据由所有节点共同维护，每个参与维护节点都能复制获得一份完整记录的拷贝。
 
 跟传统的数据库技术相比，其特点应该包括：
 
