@@ -18,7 +18,7 @@ $ docker-compose -f docker-compose-with-membersrvc.yml up
 ```
 
 ###用户登陆
-URL：
+以jim账户登录，URL：
 ```sh
 POST  HOST:5000/registrar
 ```
@@ -37,6 +37,7 @@ Response：
 }
 ```
 ###chaincode deploy
+将https://github.com//hyperledger/fabric/examples/chaincode/go/chaincode_example02 的chaincode部署到pbft集群上，并初始化a、b两个账户。
 URL：
 ```sh
 POST  HOST:5000/chaincode
@@ -74,7 +75,7 @@ Response：
 ```
 
 ###chaincode invoke
-URL：
+在账户a，b间进行转账，URL：
 ```sh
 POST  HOST:5000/chaincode
 ```
@@ -110,7 +111,7 @@ Response：
 }
 ```
 ###chaincode query
-URL：
+查询a账户的余额URL：
 ```sh
 POST  HOST:5000/chaincode
 ```
