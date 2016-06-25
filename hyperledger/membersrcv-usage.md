@@ -1,24 +1,27 @@
-##用户管理应用案例
+## 权限管理
 
-###下载相关镜像
+权限管理机制是 hyperledger fabric 项目的一大特色。下面给出使用权限管理的一个应用案例。
+
+### 下载相关镜像
+首先启动相关的环境。
+
 ```sh
 $ docker pull yeasy/hyperledger:latest
 $ docker tag yeasy/hyperledger:latest hyperledger/fabric-baseimage:latest
 $ docker pull yeasy/hyperledger-peer:latest
-$ docker pull yeasy/hyperledger-peer:noops
-$ docker pull yeasy/hyperledger-peer:pbft
 $ docker pull yeasy/hyperledger-membersrvc:latest
 ```
 
-进入hyperledger项目，启动带成员管理的pbft集群
+进入 hyperledger 项目，启动带成员管理的 PBFT 集群。
+
 ```sh
 $ git clone https://github.com/yeasy/docker-compose-files
 $ cd docker-compose-files/hyperledger
 $ docker-compose -f docker-compose-with-membersrvc.yml up
 ```
 
-###用户登陆
-以jim账户登录，URL：
+### 用户登陆
+以 jim 账户登录，URL：
 ```sh
 POST  HOST:5000/registrar
 ```
@@ -36,14 +39,18 @@ Response：
     "OK": "User jim is already logged in."
 }
 ```
-###chaincode deploy
-将https://github.com//hyperledger/fabric/examples/chaincode/go/chaincode_example02 的chaincode部署到pbft集群上，并初始化a、b两个账户。
+### chaincode 部署
+将 https://github.com//hyperledger/fabric/examples/chaincode/go/chaincode_example02 的chaincode部署到 PBFT 集群上，并初始化 a、b 两个账户。
+
 URL：
+
 ```sh
 POST  HOST:5000/chaincode
 ```
+
 Request：
-```
+
+```json
 {
   "jsonrpc": "2.0",
   "method": "deploy",
@@ -63,7 +70,8 @@ Request：
 ```
 
 Response：
-```
+
+```json
 {
     "jsonrpc": "2.0",
     "result": {
@@ -74,13 +82,16 @@ Response：
 }
 ```
 
-###chaincode invoke
-在账户a，b间进行转账，URL：
+### chaincode 调用
+在账户 a，b 间进行转账，URL：
+
 ```sh
 POST  HOST:5000/chaincode
 ```
+
 Request：
-```
+
+```json
 {
   "jsonrpc": "2.0",
   "method": "invoke",
@@ -100,7 +111,8 @@ Request：
 ```
 
 Response：
-```
+
+```json
 {
     "jsonrpc": "2.0",
     "result": {
@@ -110,13 +122,17 @@ Response：
     "id": 3
 }
 ```
-###chaincode query
-查询a账户的余额URL：
+### chaincode 查询
+
+查询 a 账户的余额 URL：
+
 ```sh
 POST  HOST:5000/chaincode
 ```
+
 Request：
-```
+
+```json
 {
   "jsonrpc": "2.0",
   "method": "query",
@@ -136,7 +152,8 @@ Request：
 ```
 
 Response：
-```
+
+```json
 {
     "jsonrpc": "2.0",
     "result": {
@@ -148,14 +165,16 @@ Response：
 ```
 
 
-###区块信息查询
+### 区块信息查询
 URL：
+
 ```sh
 GET  HOST:5000/chain/blocks/2
 ```
 
 Response：
-```
+
+```json
 {
     "transactions": [
         {

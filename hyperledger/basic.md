@@ -11,11 +11,11 @@ IBM 贡献了数万行已有的 [Open Block Chain](https://github.com/openblockc
 
 首届技术委员会主席由来自 IBM 开源技术部 CTO 的 [Chris Ferris](https://www.linkedin.com/in/chrisfer) 担任，委员会主席则由来自 Digital Asset Holdings 的 CEO Blythe Masters 担任。另外，自 2016 年 5 月起，Apache 基金会创始人 Brian Behlendorf 担任超级账本项目的首位执行董事。
 
-该项目的出现，实际上宣布区块链技术已经不单纯是一个开源技术了，已经正式被主流机构和市场认可；同时，对于区块链相关产业的发展意义深远。
+该项目的出现，实际上宣布区块链技术已经不单纯是一个开源技术了，已经正式被主流机构和市场认可；同时，Hyperledger 首次提出和实现的完备权限管理、创新的一致性算法和可拔插的框架，对于区块链相关技术和产业的发展都将产生深远的影响。
 
 项目官方地址托管在 [Linux 基金会网站](https://blockchain.linuxfoundation.org/)，代码托管在 [Github](https://github.com/hyperledger/hyperledger) 上，目前已经获得了不少关注。
 
-![](_image/hyperledger.png)
+![](_images/hyperledger.png)
 
 目前主要包括两大子项目：
 

@@ -4,9 +4,22 @@
 
 ![](_images/refarch.png)
 
-包括三大组件：成员管理（Membership）、区块链服务（Blockchain）、链上代码服务（Chaincode）。
+包括三大组件：成员权限管理（Membership）、区块链服务（Blockchain）、链上代码服务（Chaincode）。
 
-### 成员管理
+### 基本术语
+* 交易处理（Transaction）：执行账本上的某个函数调用。函数在 chaincode 中实现；
+* 交易员（Transactor）：作为客户端发起交易调用；
+* 账本（Ledger）：即区块链，带有所有的交易信息和当前的世界观（world state）；
+* 世界观（world state）：当前账本的一个（稳定）状态，包括各种 chaincode 的状态，执行交易的结果等；
+* 链上代码（Chaincode）：区块链上的应用代码，延伸自“智能合约”，支持 golang、nodejs 等；
+* 验证节点（Validating Peer）：维护账本的核心节点，参与一致性维护、对交易的验证和执行；
+* 非验证节点（Non-validating Peer）：不参与账本维护，仅作为交易代理响应客户端的 REST 请求，并对交易进行检验，之后转发给验证节点；
+* 带许可的账本（Permissioned Ledger）：网络中所有节点必须是经过许可的，非许可过的节点则无法加入网络；
+* 隐私保护（Privacy）：交易员可以隐藏交易的身份，其它成员在无特殊权限的情况下，只能对交易进行验证，而无法获知身份信息；
+* 秘密保护（Confidentiality）：只有交易双方可以看到交易内容，其它人未经授权则无法看到；
+* 审计性（Auditability）：在一定权限和许可下，可以对链上的交易进行审计和检查。
+
+### 成员权限管理
 
 ### 区块链服务
 
