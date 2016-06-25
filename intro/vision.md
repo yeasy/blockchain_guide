@@ -8,7 +8,7 @@
 
 上图是笔者在某次交流会中提出的。
 
-现代以云计算为代表的计算技术，发展历史上有若干重要的时间点和事件：
+以云计算为代表的现在计算技术，发展历史上有若干重要的时间点和事件：
 
 * 1969 - ARPANet（Advanced Research Projects Agency Network）：现代互联网的前身，被美国高级研究计划署（Advanced Research Project Agency）提出，其使用 NCP 协议，核心缺陷之一是无法做到和个别计算机网络交流；
 * 1973 - TCP/IP：Vinton.Cerf（文特•瑟夫）与Bob Karn（鲍勃•卡恩）共同开发出 TCP 模型，解决了 NCP 的缺陷；
