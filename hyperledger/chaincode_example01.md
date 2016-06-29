@@ -1,22 +1,26 @@
-##智能合约案例一代码分析
-###`chaincode_finished.go`主要实现如下的功能：
-- 初始化key `hello_world` 的value
-- 读取和修改key `args[0]`的value
+## 智能合约示例一
+### 实现功能
 
-该部署在fabric网络上的初始化`hello_world`的值，并根据请求中的参数创建修改查询链上`key`中的值，本质上实现了一个简单的可修改的字典。
+[chaincode_example02.go](chaincode_example02.go) 主要实现如下的功能：
 
-###function及实现的功能
-- `read`  读取key `args[0]` 的value
-- `write`  创建或修改key `args[0]` 的value
-- `init`  初始化key `hello_world`的value
-- `invoke`  根据传递参数类型调用执行相应的 `init`和`write`函数
-- `query`  调用`read`函数查询 `args[0]`的value
+* 初始化 key `hello_world` 的 value；
+* 读取和修改 key `args[0]` 的 value。
 
-###智能合约代码运行分析
+首先初始化 `hello_world` 的值，并根据请求中的参数创建修改查询链上 `key` 中的值，本质上实现了一个简单的可修改的键值数据库。
 
-`main`函数作为程序的入口，调用shim的start函数，启动chaincode引导程序的入口节点。
-如果报错，返回。
-```
+### 主要函数
+
+* `read`：读取key `args[0]` 的 value；
+* `write`：创建或修改 key `args[0]` 的 value；
+* `init`：初始化 key `hello_world` 的 value；
+* `invoke`：根据传递参数类型调用执行相应的 `init` 和 `write` 函数；
+* `query`：调用 `read` 函数查询 `args[0]` 的 value。
+
+### 代码运行分析
+
+`main` 函数作为程序的入口，调用 shim 包的 start 函数，启动 chaincode 引导程序的入口节点。如果报错，则返回。
+
+```golang
 func main() {
 	err := shim.Start(new(SimpleChaincode))
 	if err != nil {
@@ -25,12 +29,14 @@ func main() {
 }
 ```
 
-当智能合约部署在区块链上，可以通过rest api进行交互。
-三个主要的函数是`init`,`invoke`,`query`。在三个函数中，通过`stub.PutState`与`stub.GetState`存储访问ledger上的键值对。
-###智能合约request json
+当智能合约部署在区块链上，可以通过 rest api 进行交互。
 
-假设以jim身份登录pbft集群，请求部署该chaincode json格式为：
-```
+三个主要的函数是 `init`，`invoke`，`query`。在三个函数中，通过 `stub.PutState`与 `stub.GetState` 存储访问 ledger 上的键值对。
+
+### 通过 REST API 操作智能合约
+
+假设以 jim 身份登录 pbft 集群，请求部署该 chaincode 的 json 请求格式为：
+```json
 {
     "jsonrpc": "2.0",
     "method": "deploy",
@@ -50,10 +56,12 @@ func main() {
     "id": 1
 }
 ```
-目前path仅支持github上的目录，ctorMsg中为函数`init`的传参。
 
-调用invoke函数的json格式为：
-```
+目前 path 仅支持 github 上的目录，ctorMsg 中为函数 `init` 的传参。
+
+调用 invoke 函数的 json 格式为：
+
+```json
 {
     "jsonrpc": "2.0",
     "method": "invoke",
@@ -73,4 +81,7 @@ func main() {
     "id": 2
 }
 ```
-其中name字段为`deploy`后返回的message字段中的字符串。`query`与上诉两个类似。
+
+其中 name 字段为 `deploy` 后返回的 message 字段中的字符串。
+
+`query` 的接口也是类似的。
