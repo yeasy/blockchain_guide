@@ -19,7 +19,7 @@ IBM 贡献了数万行已有的 [Open Block Chain](https://github.com/openblockc
 
 目前主要包括两大子项目：
 
-* [fabric](https://github.com/hyperledger/fabric)：包括 [fabric]((https://github.com/hyperledger/fabric)) 和 [fabric-api](https://github.com/hyperledger/fabric-api)，目标是区块链的基础核心平台，支持 pbft 等新的 consensus 机制，支持权限管理，最早由 IBM 和 DAH 发起；
+* [fabric](https://github.com/hyperledger/fabric)：包括 [fabric](https://github.com/hyperledger/fabric) 和 [fabric-api](https://github.com/hyperledger/fabric-api)，目标是区块链的基础核心平台，支持 pbft 等新的 consensus 机制，支持权限管理，最早由 IBM 和 DAH 发起；
 * [sawtooth Lake](https://github.com/hyperledger/sawtooth-core)：包括 arcade、[core]((https://github.com/hyperledger/sawtooth-core)、dev-tools、[validator](https://github.com/hyperledger/sawtooth-validator)、mktplace 等。是 Intel 主要贡献和主导的区块链平台，支持全新的共识机制 Proof of Elapsed Time（PoET）。
 
 目前，所有项目均处于孵化（Incubation）状态。
