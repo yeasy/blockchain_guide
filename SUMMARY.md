@@ -36,6 +36,7 @@
    * [挖矿](bitcoin/mining.md)
    * [原理和设计](bitcoin/design.md)
    * [一致性协议](bitcoin/consensus.md)
+   * [闪电网络](bitcoin/lightning_network.md)
 * [Hyperledger 项目](hyperledger/README.md)
    * [简介](hyperledger/basic.md)
    * [安装部署](hyperledger/install.md)
