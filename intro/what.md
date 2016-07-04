@@ -5,7 +5,7 @@
 
 [wikipedia](https://en.wikipedia.org/wiki/Block_chain_(database) 给出的定义为：
 
-> A blockchain[1][2][3]—originally, block chain[4][5][6]—is a distributed database that maintains a continuously-growing list of data records hardened against tampering and revision. It consists of data structure blocks—which hold exclusively data in initial blockchain implementations,[7] and both data and programs in some of the more recent implementations—with each block holding batches of individual transactions and the results of any blockchain executables.[8][better source needed] Each block contains a timestamp and information linking it to a previous block.[9]
+> A blockchain —originally, block chain —is a distributed database that maintains a continuously-growing list of data records hardened against tampering and revision. It consists of data structure blocks—which hold exclusively data in initial blockchain implementations, and both data and programs in some of the more recent implementations—with each block holding batches of individual transactions and the results of any blockchain executables. Each block contains a timestamp and information linking it to a previous block.
 
 最早区块链技术出现在比特币项目。作为比特币背后的分布式记账平台，区块链在无集中式监管的情况下，稳定运行了近八年时间，支持了海量的交易记录，并未出现严重的漏洞。
 
