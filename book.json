@@ -1,5 +1,20 @@
 {
     "plugins": [
-        "image-captions"
-    ]
+        "image-captions",
+        "github-buttons",
+        "prism", 
+        "-highlight"
+    ]，
+    "pluginsConfig": {
+      "image-captions": {
+          "caption": "图 _PAGE_LEVEL_._PAGE_IMAGE_NUMBER_ - _CAPTION_"
+      },
+      "github-buttons": {
+      "repo": "azu/JavaScript-Plugin-Architecture",
+      "types": [
+        "star",
+        "watch"
+      ]
+    }
+  }
 }

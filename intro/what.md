@@ -13,7 +13,7 @@
 
 公认的最早关于区块链的描述性文献是中本聪所撰写的 [比特币：一种点对点的电子现金系统](https://bitcoin.org/bitcoin.pdf)，但该文献重点在于讨论比特币系统，实际上并没有明确提出区块链的定义和概念。在其中，区块链被描述用于进行记录比特币交易的账目。
 
-![](Ledger.jpg)
+![古老的账本  title="test"](Ledger.jpg)
 
 记账技术历史悠久，[现代复式记账系统](https://zh.wikipedia.org/wiki/%E5%A4%8D%E5%BC%8F%E7%B0%BF%E8%AE%B0)（Double Entry Bookkeeping）是由意大利数学家卢卡·帕西奥利，1494 年在《Summa de arithmetica, geometrica, proportioni et proportionalità》一书中最早制定。从记账技术的角度，区块链是首个大规模的数字记账技术实现。
 
