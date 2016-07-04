@@ -2,6 +2,7 @@
     "plugins": [
         "image-captions",
         "github-buttons",
+        "latex-codecogs",
         "prism", 
         "-highlight"
     ],
