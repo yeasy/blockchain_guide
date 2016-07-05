@@ -47,6 +47,7 @@
    * [智能合约](hyperledger/chaincode.md)
    * [智能合约示例一](hyperledger/chaincode_example01.md)
    * [智能合约示例二](hyperledger/chaincode_example02.md)
+   * [智能合约示例三](hyperledger/chaincode_example03.md)
    * [小结](hyperledger/summary.md)
 * [区块链即服务](baas/README.md)
    * [Bluemix BaaS](baas/bluemix.md)
