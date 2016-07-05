@@ -1,7 +1,7 @@
 # Summary
 
 * [前言](README.md)
-* [背景知识](intro/README.md)
+* [起源与概况](intro/README.md)
    * [从数字货币说起](intro/currency.md)
    * [什么是比特币](intro/bitcoin.md)
    * [什么是区块链](intro/what.md)
@@ -29,6 +29,7 @@
    * [加密算法](crypto/algorithm.md)
    * [数字签名](crypto/signature.md)
    * [Merkle 树](crypto/merkle_trie.md)
+   * [其它问题](crypto/others.md)
    * [小结](crypto/summary.md)
 * [比特币项目](bitcoin/README.md)
    * [简介](bitcoin/introductin.md)
