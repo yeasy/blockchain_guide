@@ -1,12 +1,12 @@
-## 智能合约示例一
-### 实现功能
+## 链码示例一：信息公证
+### 简介
 
-[chaincode_example02.go](chaincode_example02.go) 主要实现如下的功能：
+[chaincode_example01.go](chaincode_example01.go) 主要实现如下的功能：
 
-* 初始化 key `hello_world` 的 value；
-* 读取和修改 key `args[0]` 的 value。
+* 初始化，以键值形式存放信息；
+* 允许读取和修改键值。
 
-首先初始化 `hello_world` 的值，并根据请求中的参数创建修改查询链上 `key` 中的值，本质上实现了一个简单的可修改的键值数据库。
+代码中，首先初始化了 `hello_world` 的值，并根据请求中的参数创建修改查询链上 `key` 中的值，本质上实现了一个简单的可修改的键值数据库。
 
 ### 主要函数
 

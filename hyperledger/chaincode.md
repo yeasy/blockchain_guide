@@ -1,7 +1,7 @@
 ## 智能合约
 
 ### 什么是 chaincode
-chaincode（链上代码）是部署在 Hyperledger fabric 网络节点上，可被调用与分布式账本进行交互的一段程序代码，也即狭义范畴上的“智能合约”。
+chaincode（链上代码）是部署在 Hyperledger fabric 网络节点上，可被调用与分布式账本进行交互的一段程序代码，也即狭义范畴上的“智能合约”。链码在 VP 节点上的隔离沙盒（目前为 Docker 容器）中执行。
 
 Hyperledger 支持多种计算机语言实现的 chaincode，包括 Golang、JavaScript、Java 等。
 
