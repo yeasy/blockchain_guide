@@ -3,14 +3,14 @@
 ### 定义
 hash （哈希或散列）算法是信息技术领域非常基础也非常重要的技术。它能任意长度的二进制值（明文）映射为较短的固定长度的二进制值（hash 值），并且不同的明文很难映射为相同的 hash 值。
 
-例如计算一段话“hello blockchain world, this is yeasy@github”的 md5 hash 值为 89242549883a2ef85dc81b90fb606046。
+例如计算一段话“hello blockchain world, this is yeasy@github”的 md5 hash 值为 `89242549883a2ef85dc81b90fb606046`。
 
 ```sh
 $ echo "hello blockchain world, this is yeasy@github"|md5
 89242549883a2ef85dc81b90fb606046
 ```
 
-这意味着我们只要对某文件进行 md5 hash 计算，得到结果为 89242549883a2ef85dc81b90fb606046，这就说明文件内容极大概率上就是 “hello blockchain world, this is yeasy@github”。
+这意味着我们只要对某文件进行 md5 hash 计算，得到结果为 `89242549883a2ef85dc81b90fb606046`，这就说明文件内容极大概率上就是 “hello blockchain world, this is yeasy@github”。可见，hash 的核心思想十分类似于基于内容的编址或命名。
 
 *注：md5 是一个著名的 hash 算法，已被证明安全性不足应用于商业场景。*
 
