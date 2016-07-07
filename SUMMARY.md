@@ -1,7 +1,7 @@
 # Summary
 
 * [前言](README.md)
-* [起源与概况](intro/README.md)
+* [概况](intro/README.md)
    * [从数字货币说起](intro/currency.md)
    * [什么是比特币](intro/bitcoin.md)
    * [什么是区块链](intro/what.md)
@@ -28,6 +28,7 @@
    * [数字摘要](crypto/digest.md)
    * [加密算法](crypto/algorithm.md)
    * [数字签名](crypto/signature.md)
+   * [PKI 体系](crypto/pki.md)
    * [Merkle 树](crypto/merkle_trie.md)
    * [同态加密](crypto/homoencryption.md)
    * [其它问题](crypto/others.md)
@@ -46,7 +47,7 @@
    * [权限管理](hyperledger/membersrcv-usage.md)
    * [Python 客户端](hyperledger/hyperledger-py.md)
    * [架构设计](hyperledger/arch.md)
-   * [智能合约](hyperledger/chaincode.md)
+   * [链上代码](hyperledger/chaincode.md)
    * [链码示例一：信息公证](hyperledger/chaincode_example01.md)
    * [链码示例二：交易资产](hyperledger/chaincode_example02.md)
    * [链码示例三：数字货币发行与管理](hyperledger/chaincode_example03.md)
@@ -66,4 +67,5 @@
 * [附录一：术语](appendix/terms.md)
 * [附录二：常见问题](appendix/faq.md)
 * [附录三：资源链接](appendix/resources.md)
+* [附录四：圈内的企业和组织](companies.md)
 
