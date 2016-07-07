@@ -64,8 +64,9 @@
    * [简介](evaluation/intro.md)
    * [Hyperledger](evaluation/hyperledger.md)
    * [小结](evaluation/summary.md)
-* [附录一：术语](appendix/terms.md)
-* [附录二：常见问题](appendix/faq.md)
-* [附录三：资源链接](appendix/resources.md)
-* [附录四：圈内的企业和组织](companies.md)
+* [附录](appendix/README.md)
+    * [一：术语](appendix/terms.md)
+    * [二：常见问题](appendix/faq.md)
+    * [三：资源链接](appendix/resources.md)
+    * [四：圈内的企业和组织](companies.md)
 
