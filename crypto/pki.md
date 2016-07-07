@@ -1,6 +1,6 @@
 ## PKI 体系
 
-PKI （Public Key Infrastructure）体系不代表某一种技术，而是综合多种密码学手段来实现安全可靠传递消息和身份确认的一个框架。
+PKI （Public Key Infrastructure）体系不代表某一种技术，而是综合多种密码学手段来实现安全可靠传递消息和身份确认的一个框架和规范。
 
 一般情况下，包括如下组件：
 
