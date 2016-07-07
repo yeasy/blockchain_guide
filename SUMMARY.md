@@ -68,5 +68,5 @@
    * [一：术语](appendix/terms.md)
    * [二：常见问题](appendix/faq.md)
    * [三：资源链接](appendix/resources.md)
-   * [四：圈内的企业和组织](companies.md)
+   * [四：圈内的企业和组织](appendix/companies.md)
 
