@@ -20,7 +20,7 @@
    * [问题定义](consensus/problem.md)
    * [FLP 不可能性原理](consensus/flp.md)
    * [CAP 原理](consensus/cap.md)
-   * [拜占庭系列算法](consensus/bft.md)
+   * [拜占庭相关问题与算法](consensus/bft.md)
    * [可靠性指标](consensus/availability.md)
    * [小结](consensus/summary.md)
 * [密码学相关知识](crypto/README.md)
