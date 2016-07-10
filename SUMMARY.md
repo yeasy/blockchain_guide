@@ -27,7 +27,7 @@
    * [hash 算法](crypto/hash.md)
    * [数字摘要](crypto/digest.md)
    * [加密算法](crypto/algorithm.md)
-   * [数字签名](crypto/signature.md)
+   * [数字签名和数字证书](crypto/signature.md)
    * [PKI 体系](crypto/pki.md)
    * [Merkle 树](crypto/merkle_trie.md)
    * [同态加密](crypto/homoencryption.md)

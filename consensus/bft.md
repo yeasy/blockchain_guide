@@ -2,7 +2,7 @@
 
 ### 拜占庭问题
 
-又叫拜占庭将军（Byzantine Generals Problem）问题，是 Leslie Lamport 用来解释一致性问题的一个虚构模型。拜占庭是古代东罗马帝国的首都，由于地域宽广，守卫边境的多个将军需要通过信使来传递消息，达成某些一致的决定。但由于将军中可能存在叛徒（系统中节点出错），可能会干扰一致性的达成。
+又叫拜占庭将军（Byzantine Generals Problem）问题，是 Leslie Lamport 1982 年提出用来解释一致性问题的一个虚构模型。拜占庭是古代东罗马帝国的首都，由于地域宽广，守卫边境的多个将军需要通过信使来传递消息，达成某些一致的决定。但由于将军中可能存在叛徒（系统中节点出错），可能会干扰一致性的达成。
 
 对于拜占庭问题来说，假如节点总数为 N，叛变将军数为 F，则当 $$ N \ge 3F+1 $$ 时，问题才有解，即 Byzantine Fault Tolerant (BFT) 算法。
 
@@ -17,10 +17,21 @@
 
 ### Paxos
 
-90 年提出的 Paxos 一致性算法，在工程角度实现了一种最大化保障一致性（极小的概率无法实现一致性）的机制。
+1990 年由 Leslie Lamport 提出的 [Paxos](http://research.microsoft.com/users/lamport/pubs/lamport-paxos.pdf) 一致性算法，在工程角度实现了一种最大化保障一致性（极小的概率无法实现一致性）的机制。
+
+Paxos 是第一个被证明的一致性算法，其原理是现在一致性算法设计的鼻祖，然而以复杂难懂出名。
 
 Paxos 被应用在 Chubby、ZooKeeper 这样的系统中。
 
+### Raft
+[Raft](https://ramcloud.atlassian.net/wiki/download/attachments/6586375/raft.pdf) 算法是Paxos 算法的一种简化实现。
+
+包括三种角色：leader、candiate 和 follower，其基本过程为：
+
+* Leader 选举：每个 candidate 随机经过一定时间都会提出选举方案，最近阶段中得票最多者被选为 leader；
+* 同步 log：leader 会找到系统中 log 最新的记录，并强制所有的 follower 来刷新到这个记录；
+
+*注：此处 log 并非是指日志消息，而是各种事件的发生记录。*
 
 ### 新的解决思路
 拜占庭问题之所以难解，在于任何时候系统中都可能存在多个提案（提案成本为 0），并且要完成最终的一致性确认过程十分困难，容易受干扰。但是一旦确认，即为最终确认。
