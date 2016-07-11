@@ -46,11 +46,12 @@ $ sudo pip install docker-compose
 $ docker pull yeasy/hyperledger:latest
 $ docker tag yeasy/hyperledger:latest hyperledger/fabric-baseimage:latest
 $ docker pull yeasy/hyperledger-peer:latest
-$ docker pull yeasy/hyperledger-peer:noops
-$ docker pull yeasy/hyperledger-peer:pbft
+$ docker pull yeasy/hyperledger-membersrvc:latest
 ```
 
-### 采用 noops 测试
+之后，用户可以选择不同的一致性机制，包括 noops、pbft 两类。
+
+### 使用 noops 模式
 noops 默认没有采用 consensus 机制，1 个节点即可，可以用来进行快速测试。
 
 ```sh
@@ -62,11 +63,11 @@ $ docker run --name=vp0 \
                     -v /var/run/docker.sock:/var/run/docker.sock \
                     -e CORE_PEER_ID=vp0 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
-                    -e CORE_NOOPS_BLOCK_TIMEOUT=10 \
-                    yeasy/hyperledger-peer:noops peer node start
+                    -e CORE_NOOPS_BLOCK_WAIT=10 \
+                    yeasy/hyperledger-peer:latest peer node start
 ```
 
-### 启动 PBFT 集群
+### 使用 PBFT 模式
 
 PBFT 是经典的分布式一致性算法，也是 hyperledger 目前最推荐的算法，该算法至少需要 4 个节点。
 

@@ -1,2 +1,18 @@
 ## 物联网
+曾经有人认为，物联网为大数据时代的基础。
 
+笔者认为，区块链技术是物联网时代的基础。
+
+### IBM
+IBM 在物联网领域已经持续投入了几十年的研发，目前正在探索使用区块链技术来降低物联网应用的成本。
+
+### 物流供应链
+通过区块链可以降低物流成本，并且提高供应链管理的效率。该领域被认为是区块链一个很有前景的应用方向。
+
+例如运送方通过扫描二维码来证明货物到达指定区域，并自动收取提前约定的费用，可以参考 [区块链如何变革供应链金融](https://www.gtnews.com/articles/how-blockchain-can-transform-supply-chain-finance/) 和 [区块链给供应链带来透明](https://www.businessoffashion.com/community/voices/discussions/does-made-in-matter/op-ed-blockchain-can-bring-transparency-to-supply-chains)。
+
+
+### 公共网络服务
+现有的互联网能正常运行，离不开很多近乎免费的网络服务，例如域名服务（DNS）。任何人都可以免费查询到域名，没有 DNS，现在的各种网站基本就无法访问了。因此，对于网络系统来说，类似的基础服务必须要能做到安全可靠，并且低成本。
+
+区块链技术恰好具备这些特点，基于区块链打造的 DNS 系统，将不再会出现各种错误的查询结果，并且可以稳定可靠的提供服务。

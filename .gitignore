@@ -14,3 +14,4 @@ README.txt
 *.swp
 *.temp
 ~*
+node_modules/
