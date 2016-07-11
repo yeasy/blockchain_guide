@@ -60,6 +60,7 @@
    * [安装](ethereum/install.md)
    * [工具](ethereum/tools.md)
    * [协议设计](ethereum/design.md)
+   * [summary](ethereum/summary.md)
 * [区块链即服务](baas/README.md)
    * [Bluemix BaaS](baas/bluemix.md)
    * [超能 BaaS](baas/sv.md)
