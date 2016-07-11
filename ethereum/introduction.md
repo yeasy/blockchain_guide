@@ -14,7 +14,7 @@
 
 2016 年 3Q，发布 Metropolis；
 
-2016 年 1Q，发布 Serenity，发布区块链的 PoS 股权证明(Casper)版本。
+2017 年 1Q，发布 Serenity，发布区块链的 PoS 股权证明(Casper)版本。
 
 
 ### 特点
