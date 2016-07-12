@@ -1,22 +1,28 @@
+
 {
+"title": "区块链技术指南", 
+"author": "yeasy@github",
     "plugins": [
         "image-captions",
         "github-buttons",
         "latex-codecogs",
-        "prism", 
-        "-highlight"
+        "prism",
+        "-highlight",
+        "autocover"
     ],
     "pluginsConfig": {
-      "image-captions": {
-          "attributes": { "width": "600" },
-          "caption": "图 _PAGE_LEVEL_._PAGE_IMAGE_NUMBER_ - _CAPTION_"
-      },
-      "github-buttons": {
-      "repo": "yeasy/blockchain_guide",
-      "types": [
-        "star",
-        "watch"
-      ]
+        "image-captions": {
+            "attributes": {
+                "width": "600"
+            },
+            "caption": "图 _PAGE_LEVEL_._PAGE_IMAGE_NUMBER_ - _CAPTION_"
+        },
+        "github-buttons": {
+            "repo": "yeasy/blockchain_guide",
+            "types": [
+                "star",
+                "watch"
+            ]
+        }
     }
-  }
 }
