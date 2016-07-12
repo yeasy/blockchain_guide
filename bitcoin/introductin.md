@@ -1,4 +1,5 @@
 ## 简介
+比特币是基于密码学和经济博弈的一种数字货币，也是历史上首个经过大规模长时间运作检验的数字货币系统。
 
 从 [blockchain.info 网站](https://blockchain.info/charts/market-price?timespan=all) 可以从查询到比特币的汇率（以美元为单位）变化历史。
 
