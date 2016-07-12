@@ -6,7 +6,7 @@
 
 ### PoW
 
-工作量证明，Proof of Work，通过计算来猜测一个数值（nonce）
+工作量证明，Proof of Work，通过计算来猜测一个数值（nonce），得以解决规定的 hash 问题。
 
 ### PoS
 
