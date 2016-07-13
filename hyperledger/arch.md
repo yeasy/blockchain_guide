@@ -42,10 +42,37 @@
 * metadata 信息；
 * 时间戳 timestamp。
 
-交易的数据结构定义为
+交易的数据结构（Protobuf 格式）定义为
 
-```golang
-message Transaction { enum Type { UNDEFINED = 0; // deploy a chaincode to the network and call `Init` function CHAINCODE_DEPLOY = 1; // call a chaincode `Invoke` function as a transaction CHAINCODE_INVOKE = 2; // call a chaincode `query` function CHAINCODE_QUERY = 3; // terminate a chaincode; not implemented yet CHAINCODE_TERMINATE = 4; } Type type = 1; //store ChaincodeID as bytes so its encrypted value can be stored bytes chaincodeID = 2; bytes payload = 3; bytes metadata = 4; string uuid = 5; google.protobuf.Timestamp timestamp = 6; ConfidentialityLevel confidentialityLevel = 7; string confidentialityProtocolVersion = 8; bytes nonce = 9; bytes toValidators = 10; bytes cert = 11; bytes signature = 12;}
+```protobuf
+message Transaction {
+    enum Type {
+        UNDEFINED = 0;
+        // deploy a chaincode to the network and call `Init` function
+        CHAINCODE_DEPLOY = 1;
+        // call a chaincode `Invoke` function as a transaction
+        CHAINCODE_INVOKE = 2;
+        // call a chaincode `query` function
+        CHAINCODE_QUERY = 3;
+        // terminate a chaincode; not implemented yet
+        CHAINCODE_TERMINATE = 4;
+    }
+    Type type = 1;
+    //store ChaincodeID as bytes so its encrypted value can be stored
+    bytes chaincodeID = 2;
+    bytes payload = 3;
+    bytes metadata = 4;
+    string uuid = 5;
+    google.protobuf.Timestamp timestamp = 6;
+
+    ConfidentialityLevel confidentialityLevel = 7;
+    string confidentialityProtocolVersion = 8;
+    bytes nonce = 9;
+
+    bytes toValidators = 10;
+    bytes cert = 11;
+    bytes signature = 12;
+}
 ```
 
 #### 区块
@@ -63,6 +90,21 @@ message Transaction { enum Type { UNDEFINED = 0; // deploy a chaincode to the ne
 
 *注意具体的交易信息并不存放在区块中。*
 
+
+交易的数据结构（Protobuf 格式）定义为
+
+```protobuf
+message Block {
+    uint32 version = 1;
+    google.protobuf.Timestamp timestamp = 2;
+    repeated Transaction transactions = 3;
+    bytes stateHash = 4;
+    bytes previousBlockHash = 5;
+    bytes consensusMetadata = 6;
+    NonHashData nonHashData = 7;
+}
+```
+
 一个真实的区块内容示例：
 
 ```json
@@ -70,17 +112,17 @@ message Transaction { enum Type { UNDEFINED = 0; // deploy a chaincode to the ne
     "nonHashData": {
         "localLedgerCommitTimestamp": {
             "nanos": 975295157,
-            "seconds": 1466057539
+                "seconds": 1466057539
         },
-        "transactionResults": [
+            "transactionResults": [
             {
                 "uuid": "7be1529ee16969baf9f3156247a0ee8e7eee99a6a0a816776acff65e6e1def71249f4cb1cad5e0f0b60b25dd2a6975efb282741c0e1ecc53fa8c10a9aaa31137"
             }
-        ]
+            ]
     },
-    "previousBlockHash": "RrndKwuojRMjOz/rdD7rJD/NUupiuBuCtQwnZG7Vdi/XXcTd2MDyAMsFAZ1ntZL2/IIcSUeatIZAKS6ss7fEvg==",
-    "stateHash": "TiIwROg48Z4xXFFIPEunNpavMxnvmZKg+yFxKK3VBY0zqiK3L0QQ5ILIV85iy7U+EiVhwEbkBb1Kb7w1ddqU5g==",
-    "transactions": [
+        "previousBlockHash": "RrndKwuojRMjOz/rdD7rJD/NUupiuBuCtQwnZG7Vdi/XXcTd2MDyAMsFAZ1ntZL2/IIcSUeatIZAKS6ss7fEvg==",
+        "stateHash": "TiIwROg48Z4xXFFIPEunNpavMxnvmZKg+yFxKK3VBY0zqiK3L0QQ5ILIV85iy7U+EiVhwEbkBb1Kb7w1ddqU5g==",
+        "transactions": [
         {
             "chaincodeID": "CkdnaXRodWIuY29tL2h5cGVybGVkZ2VyL2ZhYnJpYy9leGFtcGxlcy9jaGFpbmNvZGUvZ28vY2hhaW5jb2RlX2V4YW1wbGUwMhKAATdiZTE1MjllZTE2OTY5YmFmOWYzMTU2MjQ3YTBlZThlN2VlZTk5YTZhMGE4MTY3NzZhY2ZmNjVlNmUxZGVmNzEyNDlmNGNiMWNhZDVlMGYwYjYwYjI1ZGQyYTY5NzVlZmIyODI3NDFjMGUxZWNjNTNmYThjMTBhOWFhYTMxMTM3",
             "payload": "Cu0BCAESzAEKR2dpdGh1Yi5jb20vaHlwZXJsZWRnZXIvZmFicmljL2V4YW1wbGVzL2NoYWluY29kZS9nby9jaGFpbmNvZGVfZXhhbXBsZTAyEoABN2JlMTUyOWVlMTY5NjliYWY5ZjMxNTYyNDdhMGVlOGU3ZWVlOTlhNmEwYTgxNjc3NmFjZmY2NWU2ZTFkZWY3MTI0OWY0Y2IxY2FkNWUwZjBiNjBiMjVkZDJhNjk3NWVmYjI4Mjc0MWMwZTFlY2M1M2ZhOGMxMGE5YWFhMzExMzcaGgoEaW5pdBIBYRIFMTAwMDASAWISBTIwMDAw",
