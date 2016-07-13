@@ -42,6 +42,12 @@
 * metadata 信息；
 * 时间戳 timestamp。
 
+交易的数据结构定义为
+
+```golang
+message Transaction { enum Type { UNDEFINED = 0; // deploy a chaincode to the network and call `Init` function CHAINCODE_DEPLOY = 1; // call a chaincode `Invoke` function as a transaction CHAINCODE_INVOKE = 2; // call a chaincode `query` function CHAINCODE_QUERY = 3; // terminate a chaincode; not implemented yet CHAINCODE_TERMINATE = 4; } Type type = 1; //store ChaincodeID as bytes so its encrypted value can be stored bytes chaincodeID = 2; bytes payload = 3; bytes metadata = 4; string uuid = 5; google.protobuf.Timestamp timestamp = 6; ConfidentialityLevel confidentialityLevel = 7; string confidentialityProtocolVersion = 8; bytes nonce = 9; bytes toValidators = 10; bytes cert = 11; bytes signature = 12;}
+```
+
 #### 区块
 区块打包交易，确认交易后的世界状态。
 
