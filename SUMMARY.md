@@ -60,6 +60,7 @@
    * [安装](ethereum/install.md)
    * [工具](ethereum/tools.md)
    * [协议设计](ethereum/design.md)
+   * [智能合约示例一](ethereum/smartContract_example01.md)
    * [小结](ethereum/summary.md)
 * [区块链即服务](baas/README.md)
    * [Bluemix BaaS](baas/bluemix.md)
