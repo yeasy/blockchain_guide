@@ -67,7 +67,7 @@
     * [小结](ethereum/summary.md)
 * [区块链即服务](baas/README.md)
     * [Bluemix BaaS](baas/bluemix.md)
-    * [超能 BaaS](baas/sv.md)
+    * [高性能 BaaS](baas/sv.md)
     * [小结](baas/summary.md)
 * [性能与评测](evaluation/README.md)
     * [简介](evaluation/intro.md)
