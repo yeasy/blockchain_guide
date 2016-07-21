@@ -7,11 +7,12 @@
 包括三大组件：区块链服务（Blockchain）、链上代码服务（Chaincode）、成员权限管理（Membership）。
 
 ### 基本术语
+
 * 交易处理（Transaction）：执行账本上的某个函数调用。函数在 chaincode 中实现；
 * 交易员（Transactor）：作为客户端发起交易调用；
 * 账本（Ledger）：即区块链，带有所有的交易信息和当前的世界观（world state）；
-* 世界观/世界状态（World State）：当前账本的一个（稳定）状态，包括所有 chaincode 中所有键值对的集合。是一个键值集合，一般用 `{chaincodeID, ckey}` 代表键；
-* 链码/链上代码（Chaincode）：区块链上的应用代码，延伸自“智能合约”，支持 golang、nodejs 等；
+* 世界观\/世界状态（World State）：当前账本的一个（稳定）状态，包括所有 chaincode 中所有键值对的集合。是一个键值集合，一般用 `{chaincodeID, ckey}` 代表键；
+* 链码\/链上代码（Chaincode）：区块链上的应用代码，延伸自“智能合约”，支持 golang、nodejs 等；
 * 验证节点（Validating Peer）：维护账本的核心节点，参与一致性维护、对交易的验证和执行；
 * 非验证节点（Non-validating Peer）：不参与账本维护，仅作为交易代理响应客户端的 REST 请求，并对交易进行一些基本的有效性检查，之后转发给验证节点；
 * 带许可的账本（Permissioned Ledger）：网络中所有节点必须是经过许可的，非许可过的节点则无法加入网络；
@@ -20,6 +21,7 @@
 * 审计性（Auditability）：在一定权限和许可下，可以对链上的交易进行审计和检查。
 
 ### 区块链服务
+
 区块链服务提供一个分布式账本平台。一般地，多个交易被打包进区块中，多个区块构成一条区块链。
 
 #### 交易
@@ -76,6 +78,7 @@ message Transaction {
 ```
 
 #### 区块
+
 区块打包交易，确认交易后的世界状态。
 
 一个区块中包括的内容主要有：
@@ -88,8 +91,7 @@ message Transaction {
 * 共识相关的元数据：可选值；
 * 非 hash 数据：不参与 hash 过程，各个 peer 上的值可能不同，例如本地提交时间、交易处理的返回值等；
 
-*注意具体的交易信息并不存放在区块中。*
-
+_注意具体的交易信息并不存放在区块中。_
 
 交易的数据结构（Protobuf 格式）定义为
 
@@ -138,6 +140,7 @@ message Block {
 ```
 
 ### 链上代码服务
+
 链上代码包含所有的处理逻辑，并对外提供接口，外部通过调用链码接口来改变世界观。
 
 链上代码目前支持的交易类型包括：部署（Deploy）、调用（Invoke）和查询（Query）。
@@ -149,8 +152,8 @@ message Block {
 不同链码之间可能互相调用和查询。
 
 ### 成员权限管理
-通过基于 PKI 的成员权限管理，平台可以对接入的节点和客户端的能力进行限制。
 
+通过基于 PKI 的成员权限管理，平台可以对接入的节点和客户端的能力进行限制。
 
 证书有三种，Enrollment，Transaction，以及确保安全通信的 TLS 证书。
 
@@ -158,5 +161,62 @@ message Block {
 * 交易证书 TCert：颁发给用户，控制每个交易的权限，一般针对某个交易，短期有效。
 * 通信证书 TLSCert：控制对网络的访问，并且防止窃听。
 
-![](memserv-components.png)
+![](_images/memserv-components.png)
 
+### 消息类型
+
+节点之间通过消息来进行交互，所有消息都由下面的数据结构来实现。
+
+```protobuf
+message Message {
+   enum Type {
+        UNDEFINED = 0;
+
+        DISC_HELLO = 1;
+        DISC_DISCONNECT = 2;
+        DISC_GET_PEERS = 3;
+        DISC_PEERS = 4;
+        DISC_NEWMSG = 5;
+
+        CHAIN_STATUS = 6;
+        CHAIN_TRANSACTION = 7;
+        CHAIN_GET_TRANSACTIONS = 8;
+        CHAIN_QUERY = 9;
+
+        SYNC_GET_BLOCKS = 11;
+        SYNC_BLOCKS = 12;
+        SYNC_BLOCK_ADDED = 13;
+
+        SYNC_STATE_GET_SNAPSHOT = 14;
+        SYNC_STATE_SNAPSHOT = 15;
+        SYNC_STATE_GET_DELTAS = 16;
+        SYNC_STATE_DELTAS = 17;
+
+        RESPONSE = 20;
+        CONSENSUS = 21;
+    }
+    Type type = 1;
+    bytes payload = 2;
+    google.protobuf.Timestamp timestamp = 3;
+}
+```
+
+消息分为四大类：Discovery（探测）、Transaction（交易）、Synchronization（同步）、Consensus（一致性）。
+
+不同消息类型，payload 中数据不同。
+
+#### Discovery
+包括 DISC_HELLO、DISC_GET_PEERS、DISC_PEERS。
+
+#### Transaction
+包括 Deploy、Invoke、Query。
+
+#### Synchronization
+SYNC_GET_BLOCKS 和对应的 SYNC_BLOCKS。
+
+SYNC_STATE_GET_SNAPSHOT 和对应的 SYNC_STATE_SNAPSHOT。
+
+SYNC_STATE_GET_DELTAS 和对应的 SYNC_STATE_DELTAS。
+
+#### Consensus
+CONSENSUS 消息。
