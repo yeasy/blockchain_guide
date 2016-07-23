@@ -16,7 +16,9 @@
 该报告还指出，可能采用区块链技术的企业 Airbnb、HomeAway 以及 OneFineStay 等，市场规模为 30-90 亿美元。
 
 ### 社区能源共享
-案例主要包括家庭太阳能发电后通过社区的电力网络进行买卖，例如纽约的 [微型电网](https://www.newscientist.com/article/2079845-blockchain-based-microgrid-gives-power-to-consumers-in-new-york/)。
+案例主要包括家庭太阳能发电后通过社区的电力网络进行买卖，例如纽约的 [微型电网](https://www.newscientist.com/article/2079845-blockchain-based-microgrid-gives-power-to-consumers-in-new-york/)。 
+
+ConsenSys 和微电网开发商 LO3 共建光伏发电交易网络，实现点对点的能源交易。 
 
 主要难题包括：
 
@@ -27,3 +29,6 @@
 
 现在已经有大量创业团队在解决这些问题，硬件部分已经有了很多很好的案例。而通过区块链技术打造的平台主要解决最后一个问题，可以很容易实现社区内低成本的可靠交易系统。
 
+### 电商平台
+
+[OpenBazaar]() 试图在无中介的情形下，实现安全电商交易。
