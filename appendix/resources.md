@@ -3,7 +3,7 @@
 ### 论文
 
 * 中本聪 / 比特币：[一种点对点的电子现金系统](https://bitcoin.org/bitcoin.pdf)；
-* The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments；
+* 闪电网络：[The Bitcoin Lightning Network: Scalable Off-Chain Instant Payments](https://lightning.network/lightning-network-paper.pdf)；
 
 ### 项目工具
 
