@@ -1,4 +1,4 @@
-# Hyperledger 项目
+# Hyperledger - 超级账本项目
 
 Hyperledger 项目是开源界面向开放、标准区块链技术的首个重要探索，在 Linux 基金会的支持下，吸引了众多科技和金融巨头的参与。
 
