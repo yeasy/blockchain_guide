@@ -4,15 +4,15 @@
 
 ![](_images/refarch.png)
 
-包括三大组件：区块链服务（Blockchain）、链上代码服务（Chaincode）、成员权限管理（Membership）。
+包括三大组件：区块链服务（Blockchain）、链码服务（Chaincode）、成员权限管理（Membership）。
 
 ### 基本术语
 
 * 交易处理（Transaction）：执行账本上的某个函数调用。函数在 chaincode 中实现；
 * 交易员（Transactor）：作为客户端发起交易调用；
-* 账本（Ledger）：即区块链，带有所有的交易信息和当前的世界观（world state）；
-* 世界观\/世界状态（World State）：当前账本的一个（稳定）状态，包括所有 chaincode 中所有键值对的集合。是一个键值集合，一般用 `{chaincodeID, ckey}` 代表键；
-* 链码\/链上代码（Chaincode）：区块链上的应用代码，延伸自“智能合约”，支持 golang、nodejs 等；
+* 账本（Ledger）：即区块链，带有所有的交易信息和当前的世界状态（world state）；
+* 世界状态（World State）：当前账本的一个（稳定）状态，包括所有 chaincode 中所有键值对的集合。是一个键值集合，一般用 `{chaincodeID, ckey}` 代表键；
+* 链码（Chaincode）：区块链上的应用代码，延伸自“智能合约”，支持 golang、nodejs 等；
 * 验证节点（Validating Peer）：维护账本的核心节点，参与一致性维护、对交易的验证和执行；
 * 非验证节点（Non-validating Peer）：不参与账本维护，仅作为交易代理响应客户端的 REST 请求，并对交易进行一些基本的有效性检查，之后转发给验证节点；
 * 带许可的账本（Permissioned Ledger）：网络中所有节点必须是经过许可的，非许可过的节点则无法加入网络；
@@ -28,7 +28,7 @@
 
 交易意味着围绕着某个链码进行操作。
 
-交易可以改变世界观。
+交易可以改变世界状态。
 
 交易中包括的内容主要有：
 
@@ -139,11 +139,11 @@ message Block {
 }
 ```
 
-### 链上代码服务
+### 链码服务
 
-链上代码包含所有的处理逻辑，并对外提供接口，外部通过调用链码接口来改变世界观。
+链码包含所有的处理逻辑，并对外提供接口，外部通过调用链码接口来改变世界观。
 
-链上代码目前支持的交易类型包括：部署（Deploy）、调用（Invoke）和查询（Query）。
+链码目前支持的交易类型包括：部署（Deploy）、调用（Invoke）和查询（Query）。
 
 * 部署：VP 节点利用链码创建沙盒，沙盒启动后，处理 protobuf 协议的 shim 层一次性发送包含 ChaincodeID 信息的 REGISTER 消息给 VP 节点，进行注册，注册完成后，VP 节点通过 gRPC 传递参数并调用链码 Invoke 函数完成初始化；
 * 调用：VP 节点发送 TRANSACTION 消息给链码沙盒的 shim 层，shim 层用传过来的参数调用链码的 Invoke 函数完成调用；
