@@ -58,8 +58,8 @@ noops 默认没有采用 consensus 机制，1 个节点即可，可以用来进�
 $ docker run --name=vp0 \
                     --restart=unless-stopped \
                     -it \
-                    -p 5000:5000 \
-                    -p 30303:30303 \
+                    -p 7050:7050 \
+                    -p 7051:7051 \
                     -v /var/run/docker.sock:/var/run/docker.sock \
                     -e CORE_PEER_ID=vp0 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
@@ -87,7 +87,13 @@ $ docker-compose up
 ### 服务端口
 Hyperledger 默认监听的服务端口包括：
 
-* 5000: REST 服务端口，推荐 NVP 节点开放；
-* 30303: Peer 服务监听端口；
-* 30304: CLI 从 chaincode 的回调端口；
-* 31315: VP 上的事件服务端口。
+* 7050: REST 服务端口，推荐 NVP 节点开放，旧版本中为 5000；
+* 7051：peer gRPC 服务监听端口，旧版本中为 30303；
+* 7052：peer CLI 端口，旧版本中为 30304；
+* 7053：peer 事件服务端口，旧版本中为 31315；
+* 7054：eCAP
+* 7055：eCAA
+* 7056：tCAP
+* 7057：tCAA
+* 7058：tlsCAP
+* 7059：tlsCAA
