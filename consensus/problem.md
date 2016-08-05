@@ -28,8 +28,8 @@
 
 很多时候，人们发现对一致性可以适当放宽一些要求，在一定约束下实现一致性，从弱到强分别有如下几种：
 
-* 顺序一致性（[Sequential Consistency](https://en.wikipedia.org/wiki/Sequential_consistency)）：Leslie Lamport 1978 年提出，是一种较弱的约束，保证所有进程自身执行的实际结果跟指定的指令顺序一致。例如，某进程先执行 A，后执行 B，则实际得到的结果就应该为 `A, B`。顺序一致性实际上只限制了各进程内指令的偏序关系，不在进程间进行排序。
-* 线性一致性（[Linearizability Consistency](https://en.wikipedia.org/wiki/Linearizability)）：Maurice P. Herlihy 与 Jeannette M. Wing 在 1990 年共同提出，在顺序一致性前提下加强了进程间的操作排序，形成唯一的全局顺序（系统等价于是顺序执行，所有进程看到的顺序都一致），是很强的原子性保证。
+* 顺序一致性（[Sequential Consistency](https://en.wikipedia.org/wiki/Sequential_consistency)）：Leslie Lamport 1978 年提出，是一种较弱的约束，保证所有进程自身执行的实际结果跟指定的指令顺序一致。例如，某进程先执行 A，后执行 B，则实际得到的结果就应该为 `A, B`，而不能是 `B, A`，所有其它进程也应该看到这个顺序，但不保证什么时候能看到。顺序一致性实际上只限制了各进程内指令的偏序关系，不在进程间进行排序。
+* 线性一致性（[Linearizability Consistency](https://en.wikipedia.org/wiki/Linearizability)）：Maurice P. Herlihy 与 Jeannette M. Wing 在 1990 年共同提出，在顺序一致性前提下加强了进程间的操作排序，形成唯一的全局顺序（系统等价于是顺序执行，所有进程看到的所有操作的序列顺序都一致），是很强的原子性保证。但是很难实现，基本上要么依赖于全局的时钟或锁（原子钟是个简单粗暴但有效的主意），要么性能比较差。
 
 
 ### 一致性的理论界限
