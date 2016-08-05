@@ -1,10 +1,10 @@
 
 # 区块链技术指南
-0.5.3
+0.6.0
 
-区块链技术是比特币网络系统的主要支撑技术。
+区块链技术是金融科技（Fintech）领域的一项重要技术创新。
 
-作为金融科技（Fintech）、分布式系统和去中心化记账（DLT）领域的重要突破，区块链被认为在资产管理、金融、征信、物联网、经济贸易结算等众多领域都拥有广泛的应用前景。
+作为去中心化记账（DLT）平台的核心技术，区块链被认为在资产管理、金融、征信、物联网、经济贸易结算等众多领域都拥有广泛的应用前景。
 
 区块链技术自身尚处于快速发展的初级阶段，其设计和实现中包括了分布式系统、密码学、博弈论、网络协议等诸多学科的知识，为学习原理和实践应用都带来了不小的挑战。
 
@@ -16,13 +16,20 @@
 
 在线阅读：[GitBook](https://www.gitbook.com/book/yeasy/blockchain_guide) 或 [GitHub](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md)。
 
+* pdf 版本 [下载](https://www.gitbook.com/download/pdf/book/yeasy/blockchain_guide)
+* epub 版本 [下载](https://www.gitbook.com/download/epub/book/yeasy/blockchain_guide)
+
 欢迎大家加入区块链技术讨论群：
 
 * QQ 群：335626996
 
+* Wechat 群
+
+![Wechat Group](wechat_group.jpg)
+
 ## 版本历史
 
-* 0.6.0: 2016-XX-YY
+* 0.6.0: 2016-08-05
   * 修改文字；
   * 增加更多智能合约；
   * 增加更多业务场景；

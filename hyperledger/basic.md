@@ -29,3 +29,5 @@ IBM 贡献了数万行已有的 [Open Block Chain](https://github.com/openblockc
 * 重视模块化设计，包括交易、合同、一致性、身份、存储等技术场景；
 * 代码可读性，保障新功能和模块都可以很容易添加和扩展；
 * 演化路线，随着需求的深入和更多的应用场景，不断增加和演化新的项目。
+
+如果你对 Hyperledger 的源码实现感兴趣，可以参考 [Hyperledger 源码分析之 Fabric](https://github.com/yeasy/hyperledger_code_fabric)。
