@@ -15,7 +15,7 @@
     * [资源共享](scenario/sharing.md)
     * [投资管理](scenario/capital.md)
     * [物联网与供应链](scenario/iot.md)
-    * [其它](scenario/others.md)
+    * [其它场景](scenario/others.md)
     * [小结](scenario/summary.md)
 * [分布式一致性](consensus/README.md)
     * [问题定义](consensus/problem.md)
