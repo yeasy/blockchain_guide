@@ -1,18 +1,16 @@
 ## Paxos 与 Raft
 
-Paxos 最初设计为解决存在故障，但不存在恶意节点（无伪造消息，但可能丢失或重复）场景下的一致性问题。
-
-Raft 是对 Paxos 的重新设计和实现。
+Paxos 问题是指系统中存在故障，但不存在恶意节点（无伪造消息，但可能丢失或重复）场景下的一致性问题。因为最早是 Leslie Lamport 用 Paxon 岛的故事模型来进行描述而命名。
 
 ### Paxos
 
-1990 年由 Leslie Lamport 提出的 [Paxos](http://research.microsoft.com/users/lamport/pubs/lamport-paxos.pdf) 一致性算法，在工程角度实现了一种最大化保障一致性（存在极小的概率无法实现一致性）的机制。
+1990 年由 Leslie Lamport 提出的 [Paxos](http://research.microsoft.com/users/lamport/pubs/lamport-paxos.pdf) 一致性算法，在工程角度实现了一种最大化保障一致性（存在极小的概率无法实现一致性）的机制。Paxos 被应用在 Chubby、ZooKeeper 这样的系统中。
 
 故事背景是古希腊 Paxon 岛上的多个法官在一个大厅内对一个议案进行表决，如何达成统一的结果。他们之间通过服务人员来传递纸条，但法官可能离开或进入大厅，服务人员可能偷懒去睡觉。
 
 Paxos 是第一个被证明的一致性算法，其原理基于两阶段提交并进行扩展。
 
-作为现在一致性算法设计的鼻祖，算法以复杂难懂出名。算法中将节点分为三种类型：
+作为现在一致性算法设计的鼻祖，以最初论文的难懂（算法本身并不复杂）出名。算法中将节点分为三种类型：
 
 * proposer：提出一个提案，等待大家批准为结案；
 * acceptor：负责对提案进行投票；
@@ -22,9 +20,10 @@ Paxos 是第一个被证明的一致性算法，其原理基于两阶段提交�
 
 Paxos 能保证在超过一半的正常节点存在时，系统能达成一致。
 
-Paxos 被应用在 Chubby、ZooKeeper 这样的系统中。
+读者可以试着自己设计一套能达成一致性的方案，会发现在满足各种特定约束情况下，算法自然就会那样设计。
 
 ### Raft
+Raft 是对 Paxos 的重新设计和实现。
 
 [Raft](https://ramcloud.atlassian.net/wiki/download/attachments/6586375/raft.pdf) 算法是Paxos 算法的一种简化实现。
 
