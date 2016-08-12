@@ -1,6 +1,6 @@
 ## 安装部署
 
-社区在很长一段时间内并没有推出比较容易上手的安装部署方案，于是笔者设计了基于 Docker 容器的一键式部署方案，该方案推出后在社区受到了不少人的关注和应用。官方在安装部署方面已有了一些改善，但仍然存在一些问题。
+社区在很长一段时间内并没有推出比较容易上手的安装部署方案，于是笔者设计了基于 Docker 容器的一键式部署方案，该方案推出后在社区受到了不少人的关注和应用。官方在安装部署方面已有了一些改善，具体可以参考代码 doc 目录下内容，但仍然存在一些问题。
 
 如果你是初次接触 hyperledger fabric 项目，推荐采用如下的步骤。
 
@@ -23,6 +23,8 @@ $ sudo service docker stop
 ```sh
 $ sudo docker daemon --api-cors-header="*" -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
 ```
+
+*建议适当了解一些 [Docker 相关知识](https://github.com/yeasy/docker_practice)。*
 
 ### 安装 docker-compose
 
