@@ -7,11 +7,10 @@ sites/site*/public/admin/
 sites/site*/public/setup/
 sites/site*/public/theme/
 textpattern/
-HISTORY.txt
-README.txt
-
 
 *.swp
 *.temp
+*.tmp
 ~*
 node_modules/
+*.graffle
