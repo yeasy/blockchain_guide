@@ -233,5 +233,4 @@ CONSENSUS 消息。
 * consenter：负责一致性达成，给交易们一个全局的排序，不需要跟账本打交道，其实就是个逻辑集中的队列。
 * committing peer：负责维护账本，写入达成一致的交易结果等，某些时候不需要单独存在；
 
-
 ![示例交易过程](../_images/transaction_flow)
