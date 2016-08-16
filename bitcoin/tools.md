@@ -1,6 +1,3 @@
-
-
-
 ## 工具
 
 ### 客户端
@@ -13,8 +10,47 @@
 
 ### 钱包
 
+* 链上（OnChain）钱包
+  * 冷钱包（离线钱包）
+    * 比太冷钱包
+    * Electrum离线端
+    * 某些硬件钱包
+  * 本地钱包
+    * “重”钱包（需要同步完整区块数据）
+      * Bitcoin Core
+    * 轻钱包（无需同步完整区块数据）
+      * 比太钱包
+      * Multibit
+      * Electrum
+  * 在线钱包（需要备份相关私钥/钱包文件）
+      * blockchain.info在线钱包
+  * 多重签名钱包
+    * Bitgo
+    * GreenAddress
+  * HD钱包（分层确定性钱包）
+    * 比太钱包
+    * Multibit HD
+* 链下（OffChain）钱包
+  * 在线钱包（只需要记住服务器的账户密码）
+    * haobtc钱包
+    * 币看钱包
+    * 币付宝
+    * 币行（OKCoin的在线钱包产品）
+    * 快钱包（火币的钱包产品）
+    * 极付（BTCC的在线钱包产品）
+
+参考：
+- [比特币钱包分类与比较分析](http://www.8btc.com/wallet-analysis)
+- [更多钱包](https://bitcoin.org/zh_CN/choose-your-wallet)
+
 ### 矿机
-专门为“挖矿”设计的硬件，包括基于 GPU 和 ASIC 的芯片。
+专门为比特币“挖矿”设计的硬件，包括基于 GPU 和 ASIC 的芯片。
+* 蚂蚁矿机
+* 阿瓦隆矿机
+* Bitfury
+* Spondoolies-Tech
+* 龙矿
+* 银鱼
 
 ### 脚本
 比特币交易支持一种比较简单的脚本语言（类 Forth 的栈脚本语言），可以写入 UTXO。交易发生时，输入的解锁脚本和输出的锁定脚本进行执行，检验交易合法性。

@@ -40,7 +40,6 @@
 * Monegraph：通过区块链保障图片版权的透明交易。
 * Mediachain：通过 metadata 协议，将内容创造者与作品唯一对应。
 
-在教育领域，MIT 研究员朱莉安娜·纳扎雷（Juliana Nazaré）和学术创新部主管菲利普·施密特（Philipp Schmidt）发表了 [文章]()，介绍基于区块链的学历认证系统。
+在教育领域，MIT 研究员朱莉安娜·纳扎雷（Juliana Nazaré）和学术创新部主管菲利普·施密特（Philipp Schmidt）发表了 [文章](http://www.8btc.com/mit-media-lab-blockchain)，介绍基于区块链的学历认证系统。
 
 基于该系统，用人单位可以确认求职者的学历信息是真实可靠的。
-

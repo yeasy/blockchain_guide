@@ -17,7 +17,7 @@ IBM 在物联网领域已经持续投入了几十年的研发，目前正在探�
 
 例如运送方通过扫描二维码来证明货物到达指定区域，并自动收取提前约定的费用，可以参考 [区块链如何变革供应链金融](https://www.gtnews.com/articles/how-blockchain-can-transform-supply-chain-finance/) 和 [区块链给供应链带来透明](https://www.businessoffashion.com/community/voices/discussions/does-made-in-matter/op-ed-blockchain-can-bring-transparency-to-supply-chains)。
 
-[Skuchain]() 创建基于区块链的新型供应链解决方案，实现商品流与资金流的同步，同时缓解解决假货问题。
+[Skuchain](http://www.8btc.com/skuchain) 创建基于区块链的新型供应链解决方案，实现商品流与资金流的同步，同时缓解解决假货问题。
 
 
 ### 公共网络服务
