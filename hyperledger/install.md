@@ -2,7 +2,9 @@
 
 社区在很长一段时间内并没有推出比较容易上手的安装部署方案，于是笔者设计了基于 Docker 容器的一键式部署方案，该方案推出后在社区受到了不少人的关注和应用。官方在安装部署方面已有了一些改善，具体可以参考代码 doc 目录下内容，但仍然存在一些问题。
 
-如果你是初次接触 hyperledger fabric 项目，推荐采用如下的步骤。
+如果你是初次接触 hyperledger fabric 项目，推荐采用如下的步骤，基于 Docker-compose 的一键部署。
+
+*动手前，建议适当了解一些 [Docker 相关知识](https://github.com/yeasy/docker_practice)。*
 
 ### 安装 Docker
 
@@ -23,8 +25,6 @@ $ sudo service docker stop
 ```sh
 $ sudo docker daemon --api-cors-header="*" -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
 ```
-
-*建议适当了解一些 [Docker 相关知识](https://github.com/yeasy/docker_practice)。*
 
 ### 安装 docker-compose
 
@@ -99,3 +99,17 @@ Hyperledger 默认监听的服务端口包括：
 * 7057：tCAA
 * 7058：tlsCAP
 * 7059：tlsCAA
+
+### 多物理节点部署
+
+上述方案的典型场景是单物理节点上部署多个 Peer 节点。如果要扩展到多物理节点，需要容器云平台的支持，如 Swarm 等。
+
+当然，用户也可以分别在各个物理节点上通过手动启动容器的方案来实现跨主机组网。
+
+首先，以 4 节点下的 PBFT 模式为例，配置 4 台物理机，分别按照上述步骤配置 Docker，下载镜像。
+
+4 台物理机分别命名为 vp0 ~ vp3。
+
+#### vp0
+
+#### vp1 ~ vp3
