@@ -112,4 +112,42 @@ Hyperledger 默认监听的服务端口包括：
 
 #### vp0
 
+```sh
+docker run --name=node_vp0 \
+                    -e CORE_PEER_ID=vp0 \
+                    -e CORE_PBFT_GENERAL_N=4 \
+                    --net="host" \
+                    --restart=unless-stopped \
+                    -it --rm \
+                    -p 5500:5000 \
+                    -p 30303:30303 \
+                    -v /var/run/docker.sock:/var/run/docker.sock
+                    -e CORE_LOGGING_LEVEL=debug \
+                    -e CORE_PEER_ADDRESSAUTODETECT=true \
+                    -e CORE_PEER_NETWORKID=dev \
+                    -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
+                    -e CORE_PBFT_GENERAL_MODE=classic \
+                    -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
+                    yeasy/hyperledger-peer:pbft peer node start
+```
+
 #### vp1 ~ vp3
+
+```sh
+docker run --name=node_vpX \
+                    -e CORE_PEER_ID=vpX \
+                    -e CORE_PBFT_GENERAL_N=4 \
+                    --net="host" \
+                    --restart=unless-stopped \
+                    --rm -it \
+                    -p 30303:30303 \
+                    --net="hyperledger_cluster_net_pbft" \
+                    -e CORE_LOGGING_LEVEL=debug \
+                    -e CORE_PEER_ADDRESSAUTODETECT=true \
+                    -e CORE_PEER_NETWORKID=dev \
+                    -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
+                    -e CORE_PBFT_GENERAL_MODE=classic \
+                    -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
+                    -e CORE_PEER_DISCOVERY_ROOTNODE=vp0:30303 \
+                    yeasy/hyperledger-peer:latest peer node start
+```
