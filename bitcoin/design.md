@@ -83,7 +83,7 @@ scriptPubKey: OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 scriptSig: <sig> <pubKey>
 ```
 
-其中，<sig> 是拿 pubKey 对应的私钥对交易进行签名，pubKey 的 hash 值需要等于 pubKeyHash。
+其中，<sig> 是拿 pubKey 对应的私钥对交易（全部交易的输出、输入和脚本）hash 值进行签名，pubKey 的 hash 值需要等于 pubKeyHash。
 
 进行交易验证时，会按照先 scriptSig 后 scriptPubKey 的顺序进行依次入栈处理，即完整指令为：
 
