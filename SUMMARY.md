@@ -41,7 +41,7 @@
     * [原理和设计](bitcoin/design.md)
     * [挖矿](bitcoin/mining.md)
     * [工具](bitcoin/tools.md)
-    * [一致性协议](bitcoin/consensus.md)
+    * [共识机制](bitcoin/consensus.md)
     * [闪电网络](bitcoin/lightning_network.md)
     * [侧链](bitcoin/sidechain.md)
     * [小结](bitcoin/summary.md)
