@@ -34,3 +34,9 @@
 ```sh
     geth account new
 ```
+
+### Solidity 语言支持
+
+[browser-solidity](https://ethereum.github.io/browser-solidity/#version=0.1.1) 提供了在线的 Solidity 语言测试。
+
+用户也可以从 [这里](https://github.com/ethereum/webthree-umbrella/releases) 下载到包括 Solidity 运行环境的安装包。
