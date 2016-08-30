@@ -2,6 +2,8 @@
 
 面向区块链爱好者、开发者的 Devops 平台，托管在某高性能云平台。
 
+区块链管理引擎已开源在 [github.com/yeasy/cello](https://github.com/yeasy/cello)。
+
 ### 设计
 当初在设计这个平台的时候，目标主要有如下几个：
 
