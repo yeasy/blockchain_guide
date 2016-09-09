@@ -16,11 +16,13 @@ Paxos 是第一个被证明的一致性算法，其原理基于 [两阶段提交
 * acceptor：负责对提案进行投票。往往是服务端担任该角色；
 * learner：被告知结案结果，并与之统一，不参与投票过程。可能为客户端或服务端。
 
-并满足三点约束要求：
+并满足safetey 和 liveness 两方面的约束要求：
 
-* safety I：决议（value）只有在被 proposers 提出的 proposal 才能被最终批准；
-* safety II：在一次执行实例中，只批准（chosen）一个最终决议，意味着多数接受（accept）的结果能成为决议；
-* liveness：决议总会产生，并且 learners 能获得被批准（chosen）的决议。
+* safety：保证决议结果是对的，无歧义的。
+    * 决议（value）只有在被 proposers 提出的 proposal 才能被最终批准；
+    * 在一次执行实例中，只批准（chosen）一个最终决议，意味着多数接受（accept）的结果能成为决议；
+* liveness：保证能在有限时间内正常运行。
+    * 决议总会产生，并且 learners 能获得被批准（chosen）的决议。
 
 基本过程包括 proposer 提出提案，先争取大多数 acceptor 的支持，超过一半支持时，则发送结案结果给所有人进行确认。一个潜在的问题是 proposer 在此过程中出现故障，可以通过超时机制来解决。极为凑巧的情况下，每次新的一轮提案的 proposer 都恰好故障，系统则永远无法达成一致（概率很小）。
 
