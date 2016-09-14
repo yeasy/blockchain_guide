@@ -2,8 +2,8 @@
 
 权限管理机制是 hyperledger fabric 项目的一大特色。下面给出使用权限管理的一个应用案例。
 
-### 下载相关镜像
-首先启动相关的环境。
+### 启动集群
+首先现在相关镜像。
 
 ```sh
 $ docker pull yeasy/hyperledger:latest
@@ -21,12 +21,23 @@ $ docker-compose -f docker-compose-with-membersrvc.yml up
 ```
 
 ### 用户登陆
-以 jim 账户登录，URL：
+当启用了权限管理后，首先需要登录，例如以内置账户 jim 账户登录。
+
+登录 vp0，并执行登录命令。
+
+```sh
+$ docker exec -it pbft_vp0_1 bash# peer network login jim08:23:13.604 [networkCmd] networkLogin -> INFO 001 CLI client login...08:23:13.604 [networkCmd] networkLogin -> INFO 002 Local data store for client loginToken: /var/hyperledger/production/client/Enter password for user 'jim': 6avZQLwcUe9b
+```
+
+也可以用 REST 方式：
+
 ```sh
 POST  HOST:5000/registrar
 ```
+
 Request：
-```
+
+```json
 {
   "enrollId": "jim",
   "enrollSecret": "6avZQLwcUe9b"
@@ -34,18 +45,26 @@ Request：
 ```
 
 Response：
-```
+
+```json
 {
     "OK": "User jim is already logged in."
 }
 ```
-### chaincode 部署
-将 https://github.com//hyperledger/fabric/examples/chaincode/go/chaincode_example02 的chaincode部署到 PBFT 集群上，并初始化 a、b 两个账户。
 
-URL：
+### chaincode 部署
+登录之后，chaincode 的部署、调用等操作与之前类似，只是需要通过 -u 选项来指定用户名。
+
+在 vp0 上执行命令：
 
 ```sh
-POST  HOST:5000/chaincode
+#  peer chaincode deploy -u jim -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02 -c '{"Function":"init", "Args": ["a","100", "b", "200"]}'
+```
+
+也可以通过 REST 方式进行：
+
+```sh
+POST  HOST:7050/chaincode
 ```
 
 Request：
@@ -76,17 +95,23 @@ Response：
     "jsonrpc": "2.0",
     "result": {
         "status": "OK",
-        "message": "28bb2b2316171a706bb2810ec35d095f430877bf443f1061ef0f60bbe753ed440700a5312c16390d3b30199fe9465c3b75d5944358caae01ca81ef28128a1bfb"
+        "message": "980d4bb7f69578592e5775a6da86d81a221887817d7164d3e9d4d4df1c981440abf9a61417eaf8ad6f7fc79893da36de2cf4709131e9af39bca6ebc2e5a1cd9d"
     },
     "id": 1
 }
 ```
 
 ### chaincode 调用
-在账户 a，b 间进行转账，URL：
+
+在账户 a、b 之间进行转账 10 元的操作。
+```sh
+$ peer chaincode invoke -u jim -n 980d4bb7f69578592e5775a6da86d81a221887817d7164d3e9d4d4df1c981440abf9a61417eaf8ad6f7fc79893da36de2cf4709131e9af39bca6ebc2e5a1cd9d -c '{"Function": "invoke", "Args": ["a", "b", "10"]}'
+```
+
+也可以通过 REST 方式进行：
 
 ```sh
-POST  HOST:5000/chaincode
+POST  HOST:7050/chaincode
 ```
 
 Request：
@@ -98,7 +123,7 @@ Request：
   "params": {
       "type": 1,
       "chaincodeID":{
-          "name":"28bb2b2316171a706bb2810ec35d095f430877bf443f1061ef0f60bbe753ed440700a5312c16390d3b30199fe9465c3b75d5944358caae01ca81ef28128a1bfb"
+          "name":"980d4bb7f69578592e5775a6da86d81a221887817d7164d3e9d4d4df1c981440abf9a61417eaf8ad6f7fc79893da36de2cf4709131e9af39bca6ebc2e5a1cd9d"
       },
       "ctorMsg": {
          "function":"invoke",
@@ -117,17 +142,21 @@ Response：
     "jsonrpc": "2.0",
     "result": {
         "status": "OK",
-        "message": "2b3b6cf3-9887-4dd5-8f2e-3634ec9c719a"
+        "message": "66308740-a2c5-4a60-81f1-778dbed49cc3"
     },
     "id": 3
 }
 ```
 ### chaincode 查询
 
-查询 a 账户的余额 URL：
+查询 a 账户的余额。
+
+
+
+也可以通过 REST 方式进行：
 
 ```sh
-POST  HOST:5000/chaincode
+POST  HOST:7050/chaincode
 ```
 
 Request：
@@ -139,7 +168,7 @@ Request：
   "params": {
       "type": 1,
       "chaincodeID":{
-          "name":"28bb2b2316171a706bb2810ec35d095f430877bf443f1061ef0f60bbe753ed440700a5312c16390d3b30199fe9465c3b75d5944358caae01ca81ef28128a1bfb"
+          "name":"980d4bb7f69578592e5775a6da86d81a221887817d7164d3e9d4d4df1c981440abf9a61417eaf8ad6f7fc79893da36de2cf4709131e9af39bca6ebc2e5a1cd9d"
       },
       "ctorMsg": {
          "function":"query",
@@ -169,7 +198,7 @@ Response：
 URL：
 
 ```sh
-GET  HOST:5000/chain/blocks/2
+GET  HOST:7050/chain/blocks/2
 ```
 
 Response：
