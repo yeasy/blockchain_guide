@@ -22,7 +22,7 @@ $ python setup.py install
 
 ```py
 >>> from hyperledger.client import Client
->>> c = Client(base_url="http://127.0.0.1:5000")
+>>> c = Client(base_url="http://127.0.0.1:7050")
 >>> c.peer_list()
 {u'peers': [{u'type': 1, u'ID': {u'name': u'vp1'}, u'address': u'172.17.0.2:30303'}, {u'type': 1, u'ID': {u'name': u'vp2'}, u'address': u'172.17.0.3:30303'}]}
 ```

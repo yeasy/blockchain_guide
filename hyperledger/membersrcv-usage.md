@@ -32,7 +32,7 @@ $ docker exec -it pbft_vp0_1 bash# peer network login jim08:23:13.604 [networkCm
 也可以用 REST 方式：
 
 ```sh
-POST  HOST:5000/registrar
+POST  HOST:7050/registrar
 ```
 
 Request：

@@ -106,11 +106,13 @@ Hyperledger 默认监听的服务端口包括：
 
 当然，用户也可以分别在各个物理节点上通过手动启动容器的方案来实现跨主机组网。
 
-首先，以 4 节点下的 PBFT 模式为例，配置 4 台物理机，分别按照上述步骤配置 Docker，下载镜像。
+首先，以 4 节点下的 PBFT 模式为例，配置 4 台互相连通的物理机，分别按照上述步骤配置 Docker，下载镜像。
 
 4 台物理机分别命名为 vp0 ~ vp3。
 
 #### vp0
+
+vp0 作为初始的探测节点。
 
 ```sh
 docker run --name=node_vp0 \
@@ -119,35 +121,38 @@ docker run --name=node_vp0 \
                     --net="host" \
                     --restart=unless-stopped \
                     -it --rm \
-                    -p 5500:5000 \
+                    -p 7050:7050 \
                     -p 30303:30303 \
                     -v /var/run/docker.sock:/var/run/docker.sock
                     -e CORE_LOGGING_LEVEL=debug \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
                     -e CORE_PEER_NETWORKID=dev \
                     -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
-                    -e CORE_PBFT_GENERAL_MODE=classic \
+                    -e CORE_PBFT_GENERAL_MODE=batch \
                     -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
                     yeasy/hyperledger-peer:pbft peer node start
 ```
 
 #### vp1 ~ vp3
 
+以 vp1 为例，假如 vp0 的地址为 10.0.0.1。
+
 ```sh
-docker run --name=node_vpX \
-                    -e CORE_PEER_ID=vpX \
-                    -e CORE_PBFT_GENERAL_N=4 \
-                    --net="host" \
-                    --restart=unless-stopped \
-                    --rm -it \
-                    -p 30303:30303 \
-                    --net="hyperledger_cluster_net_pbft" \
-                    -e CORE_LOGGING_LEVEL=debug \
-                    -e CORE_PEER_ADDRESSAUTODETECT=true \
-                    -e CORE_PEER_NETWORKID=dev \
-                    -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
-                    -e CORE_PBFT_GENERAL_MODE=classic \
-                    -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
-                    -e CORE_PEER_DISCOVERY_ROOTNODE=vp0:30303 \
-                    yeasy/hyperledger-peer:latest peer node start
+NAME=vp1 \
+ROOT_NODE=10.0.0.1 \
+    docker run --name=node_${NAME} \
+        -e CORE_PEER_ID=${NAME} \
+        -e CORE_PBFT_GENERAL_N=4 \
+        --net="host" \
+        --restart=unless-stopped \
+        --rm -it \
+        -p 30303:30303 \
+        -e CORE_LOGGING_LEVEL=debug \
+        -e CORE_PEER_ADDRESSAUTODETECT=true \
+        -e CORE_PEER_NETWORKID=dev \
+        -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
+        -e CORE_PBFT_GENERAL_MODE=batch \
+        -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
+        -e CORE_PEER_DISCOVERY_ROOTNODE=${ROOT_NODE}:30303 \
+        yeasy/hyperledger-peer:latest peer node start
 ```
