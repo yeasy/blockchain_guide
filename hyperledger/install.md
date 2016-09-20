@@ -123,7 +123,7 @@ docker run --name=node_vp0 \
     -it --rm \
     -p 7050:7050 \
     -p 7051:7051 \
-    -v /var/run/docker.sock:/var/run/docker.sock
+    -v /var/run/docker.sock:/var/run/docker.sock \
     -e CORE_PEER_ID=vp0 \
     -e CORE_PBFT_GENERAL_N=4 \
     -e CORE_LOGGING_LEVEL=debug \
@@ -148,7 +148,7 @@ docker run --name=node_${NAME} \
     -it --rm \
     -p 7050:7050 \
     -p 7051:7051 \
-    -v /var/run/docker.sock:/var/run/docker.sock
+    -v /var/run/docker.sock:/var/run/docker.sock \
     -e CORE_PEER_ID=${NAME} \
     -e CORE_PBFT_GENERAL_N=4 \
     -e CORE_LOGGING_LEVEL=debug \
