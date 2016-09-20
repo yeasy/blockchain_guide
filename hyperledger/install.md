@@ -116,21 +116,21 @@ vp0 作为初始的探测节点。
 
 ```sh
 docker run --name=node_vp0 \
-                    -e CORE_PEER_ID=vp0 \
-                    -e CORE_PBFT_GENERAL_N=4 \
-                    --net="host" \
-                    --restart=unless-stopped \
-                    -it --rm \
-                    -p 7050:7050 \
-                    -p 30303:30303 \
-                    -v /var/run/docker.sock:/var/run/docker.sock
-                    -e CORE_LOGGING_LEVEL=debug \
-                    -e CORE_PEER_ADDRESSAUTODETECT=true \
-                    -e CORE_PEER_NETWORKID=dev \
-                    -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
-                    -e CORE_PBFT_GENERAL_MODE=batch \
-                    -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
-                    yeasy/hyperledger-peer:pbft peer node start
+    --net="host" \
+    --restart=unless-stopped \
+    -it --rm \
+    -p 7050:7050 \
+    -p 30303:30303 \
+    -v /var/run/docker.sock:/var/run/docker.sock
+    -e CORE_PEER_ID=vp0 \
+    -e CORE_PBFT_GENERAL_N=4 \
+    -e CORE_LOGGING_LEVEL=debug \
+    -e CORE_PEER_ADDRESSAUTODETECT=true \
+    -e CORE_PEER_NETWORKID=dev \
+    -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
+    -e CORE_PBFT_GENERAL_MODE=batch \
+    -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
+    yeasy/hyperledger-peer:latest peer node start
 ```
 
 #### vp1 ~ vp3
@@ -140,19 +140,21 @@ docker run --name=node_vp0 \
 ```sh
 NAME=vp1 \
 ROOT_NODE=10.0.0.1 \
-    docker run --name=node_${NAME} \
-        -e CORE_PEER_ID=${NAME} \
-        -e CORE_PBFT_GENERAL_N=4 \
-        --net="host" \
-        --restart=unless-stopped \
-        --rm -it \
-        -p 30303:30303 \
-        -e CORE_LOGGING_LEVEL=debug \
-        -e CORE_PEER_ADDRESSAUTODETECT=true \
-        -e CORE_PEER_NETWORKID=dev \
-        -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
-        -e CORE_PBFT_GENERAL_MODE=batch \
-        -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
-        -e CORE_PEER_DISCOVERY_ROOTNODE=${ROOT_NODE}:30303 \
-        yeasy/hyperledger-peer:latest peer node start
+docker run --name=node_${NAME} \
+    --net="host" \
+    --restart=unless-stopped \
+    -it --rm \
+    -p 7050:7050 \
+    -p 30303:30303 \
+    -v /var/run/docker.sock:/var/run/docker.sock
+    -e CORE_PEER_ID=${NAME} \
+    -e CORE_PBFT_GENERAL_N=4 \
+    -e CORE_LOGGING_LEVEL=debug \
+    -e CORE_PEER_ADDRESSAUTODETECT=true \
+    -e CORE_PEER_NETWORKID=dev \
+    -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
+    -e CORE_PBFT_GENERAL_MODE=batch \
+    -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
+    -e CORE_PEER_DISCOVERY_ROOTNODE=${ROOT_NODE}:30303 \
+    yeasy/hyperledger-peer:latest peer node start
 ```
