@@ -120,7 +120,7 @@ docker run --name=node_vp0 \
     --restart=unless-stopped \
     -it --rm \
     -p 7050:7050 \
-    -p 30303:30303 \
+    -p 7051:7051 \
     -v /var/run/docker.sock:/var/run/docker.sock
     -e CORE_PEER_ID=vp0 \
     -e CORE_PBFT_GENERAL_N=4 \
@@ -145,7 +145,7 @@ docker run --name=node_${NAME} \
     --restart=unless-stopped \
     -it --rm \
     -p 7050:7050 \
-    -p 30303:30303 \
+    -p 7051:7051 \
     -v /var/run/docker.sock:/var/run/docker.sock
     -e CORE_PEER_ID=${NAME} \
     -e CORE_PBFT_GENERAL_N=4 \
@@ -155,6 +155,6 @@ docker run --name=node_${NAME} \
     -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
     -e CORE_PBFT_GENERAL_MODE=batch \
     -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
-    -e CORE_PEER_DISCOVERY_ROOTNODE=${ROOT_NODE}:30303 \
+    -e CORE_PEER_DISCOVERY_ROOTNODE=${ROOT_NODE}:7051 \
     yeasy/hyperledger-peer:latest peer node start
 ```
