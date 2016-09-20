@@ -51,7 +51,9 @@ $ docker pull yeasy/hyperledger-peer:latest
 $ docker pull yeasy/hyperledger-membersrvc:latest
 ```
 
-之后，用户可以选择不同的一致性机制，包括 noops、pbft 两类。
+*注：如果采用某个稳定分支的代码，需要下载对应镜像。例如 0.6-dp 分支，则需要修改下载镜像的 latest 标签为 0.6-dp。*
+
+之后，用户可以选择采用不同的一致性机制，包括 noops、pbft 两类。
 
 ### 使用 noops 模式
 noops 默认没有采用 consensus 机制，1 个节点即可，可以用来进行快速测试。
