@@ -88,25 +88,11 @@ $ cd docker-compose-files/hyperledger
 $ docker-compose up
 ```
 
-### 服务端口
-Hyperledger 默认监听的服务端口包括：
-
-* 7050: REST 服务端口，推荐 NVP 节点开放，旧版本中为 5000；
-* 7051：peer gRPC 服务监听端口，旧版本中为 30303；
-* 7052：peer CLI 端口，旧版本中为 30304；
-* 7053：peer 事件服务端口，旧版本中为 31315；
-* 7054：eCAP
-* 7055：eCAA
-* 7056：tCAP
-* 7057：tCAA
-* 7058：tlsCAP
-* 7059：tlsCAA
-
 ### 多物理节点部署
 
 上述方案的典型场景是单物理节点上部署多个 Peer 节点。如果要扩展到多物理节点，需要容器云平台的支持，如 Swarm 等。
 
-当然，用户也可以分别在各个物理节点上通过手动启动容器的方案来实现跨主机组网。
+当然，用户也可以分别在各个物理节点上通过手动启动容器的方案来实现跨主机组网，每个物理节点作为一个 peer 节点。
 
 首先，以 4 节点下的 PBFT 模式为例，配置 4 台互相连通的物理机，分别按照上述步骤配置 Docker，下载镜像。
 
@@ -117,12 +103,10 @@ Hyperledger 默认监听的服务端口包括：
 vp0 作为初始的探测节点。
 
 ```sh
-docker run --name=node_vp0 \
+docker run --name=vp0 \
     --net="host" \
     --restart=unless-stopped \
     -it --rm \
-    -p 7050:7050 \
-    -p 7051:7051 \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -e CORE_PEER_ID=vp0 \
     -e CORE_PBFT_GENERAL_N=4 \
@@ -142,12 +126,10 @@ docker run --name=node_vp0 \
 ```sh
 NAME=vp1 \
 ROOT_NODE=10.0.0.1 \
-docker run --name=node_${NAME} \
+docker run --name=${NAME} \
     --net="host" \
     --restart=unless-stopped \
     -it --rm \
-    -p 7050:7050 \
-    -p 7051:7051 \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -e CORE_PEER_ID=${NAME} \
     -e CORE_PBFT_GENERAL_N=4 \
@@ -160,3 +142,19 @@ docker run --name=node_${NAME} \
     -e CORE_PEER_DISCOVERY_ROOTNODE=${ROOT_NODE}:7051 \
     yeasy/hyperledger-peer:latest peer node start
 ```
+
+### 服务端口
+Hyperledger 默认监听的服务端口包括：
+
+* 7050: REST 服务端口，推荐 NVP 节点开放，旧版本中为 5000；
+* 7051：peer gRPC 服务监听端口，旧版本中为 30303；
+* 7052：peer CLI 端口，旧版本中为 30304；
+* 7053：peer 事件服务端口，旧版本中为 31315；
+* 7054：eCAP
+* 7055：eCAA
+* 7056：tCAP
+* 7057：tCAA
+* 7058：tlsCAP
+* 7059：tlsCAA
+
+
