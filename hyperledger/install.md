@@ -42,6 +42,8 @@ $ sudo pip install docker-compose
 
 ### 下载镜像
 
+*注：官方现在已经定期发布镜像，使用官方镜像则可以跳过这一步*
+
 下载相关镜像，并进行配置。
 
 ```sh
@@ -68,7 +70,7 @@ $ docker run --name=vp0 \
                     -e CORE_PEER_ID=vp0 \
                     -e CORE_PEER_ADDRESSAUTODETECT=true \
                     -e CORE_NOOPS_BLOCK_WAIT=10 \
-                    yeasy/hyperledger-peer:latest peer node start
+                    hyperledger/fabric-peer:latest peer node start
 ```
 
 ### 使用 PBFT 模式
@@ -116,7 +118,7 @@ docker run --name=vp0 \
     -e CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN=pbft \
     -e CORE_PBFT_GENERAL_MODE=batch \
     -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
-    yeasy/hyperledger-peer:latest peer node start
+    hyperledger/fabric-peer:latest peer node start
 ```
 
 #### vp1 ~ vp3
@@ -140,7 +142,7 @@ docker run --name=${NAME} \
     -e CORE_PBFT_GENERAL_MODE=batch \
     -e CORE_PBFT_GENERAL_TIMEOUT_REQUEST=10s \
     -e CORE_PEER_DISCOVERY_ROOTNODE=${ROOT_NODE}:7051 \
-    yeasy/hyperledger-peer:latest peer node start
+    hyperledger/fabric-peer:latest peer node start
 ```
 
 ### 服务端口
