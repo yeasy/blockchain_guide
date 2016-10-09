@@ -16,7 +16,7 @@
 
 ![古老的账本](_images/ledger.jpg)
 
-记账技术历史悠久，[现代复式记账系统](https://zh.wikipedia.org/wiki/%E5%A4%8D%E5%BC%8F%E7%B0%BF%E8%AE%B0)（Double Entry Bookkeeping）是由意大利数学家卢卡·帕西奥利，1494 年在《Summa de arithmetica, geometrica, proportioni et proportionalità》一书中最早制定。复式记账法将对账验证功能引入记账过程，提升了记账的可靠性。从这个角度来看，**区块链是首个自带对账功能的数字记账技术实现**。
+记账技术历史悠久，[现代复式记账系统](https://zh.wikipedia.org/wiki/%E5%A4%8D%E5%BC%8F%E7%B0%BF%E8%AE%B0)（Double Entry Bookkeeping）是由意大利数学家卢卡·帕西奥利，1494 年在《Summa de arithmetica, geometrica, proportioni et proportionalità》一书中最早制定。复式记账法对每一笔账目同时记录来源和去向，首次将对账验证功能引入记账过程，提升了记账的可靠性。从这个角度来看，**区块链是首个自带对账功能的数字记账技术实现**。
 
 更广泛意义地看，区块链属于一种去中心化的记录技术。参与到系统上的节点，可能不属于同一组织，彼此互不信任；区块链数据由所有节点共同维护，每个参与维护节点都能复制获得一份完整记录的拷贝。
 
