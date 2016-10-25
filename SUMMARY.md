@@ -26,7 +26,7 @@
     * [拜占庭相关问题与算法](consensus/bft.md)
     * [可靠性指标](consensus/availability.md)
     * [小结](consensus/summary.md)
-* [密码学相关知识](crypto/README.md)
+* [密码学技术](crypto/README.md)
     * [hash 算法](crypto/hash.md)
     * [数字摘要](crypto/digest.md)
     * [加密算法](crypto/algorithm.md)
