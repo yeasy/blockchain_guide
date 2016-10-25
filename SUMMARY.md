@@ -7,7 +7,7 @@
     * [什么是区块链](intro/what.md)
     * [商业价值](intro/business.md)
     * [关键技术和挑战](intro/tech.md)
-    * [何去何从](intro/vision.md)
+    * [趋势与展望](intro/vision.md)
     * [小结](intro/summary.md)
 * [应用场景](scenario/README.md)
     * [金融服务](scenario/trading.md)
