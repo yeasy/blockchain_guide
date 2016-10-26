@@ -228,9 +228,9 @@ CONSENSUS 消息。
 
 一种可能的设计是根据功能将节点角色解耦开。
 
-* submitting peer：负责检查客户端请求的签名，运行交易，根据状态改变构造 chaincode 交易并提交给 endorser；收集到足够多 endorser 支持后可以发请求给 consenter；
-* endorser peer：负责来自 submitting peer 的 chaincode 交易的合法性和权限检查（模拟交易），通过并返回支持（如签名）给 submitting peer；
-* consenter：负责一致性达成，给交易们一个全局的排序，不需要跟账本打交道，其实就是个逻辑集中的队列。
-* committing peer：负责维护账本，写入达成一致的交易结果等，某些时候不需要单独存在；
+* submitting peer：客户端 SDK 角色，负责检查客户端请求的签名，运行交易，根据状态改变构造 chaincode 交易并提交给 endorser；收集到足够多 endorser 支持后可以发请求给 consenter；
+* endorser peer：负责来自 submitting peer 的 chaincode 交易的合法性和权限检查（模拟交易），通过则签名并返回支持给 submitting peer；
+* consenter：负责一致性达成，给交易们一个全局的排序，一般不需要跟账本打交道，其实就是个逻辑集中的队列；
+* committing peer：负责维护账本，将达成一致的批量交易结果生成区块并写入账本，某些时候不需要单独存在。
 
 ![示例交易过程](../_images/transaction_flow)
