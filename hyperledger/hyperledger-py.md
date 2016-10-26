@@ -29,5 +29,11 @@ $ python setup.py install
 
 更多使用方法，可以参考 [API 文档](https://github.com/yeasy/hyperledger-py/blob/master/docs/api.md)。
 
+### 其它客户端
 
+目前，HyperLedger Fabric 已经成立了 [SDK 工作组](https://wiki.hyperledger.org/groups/fabric-sdk/fabric-sdk-wg)。
 
+目前在实现的客户端 SDK 包括：
+
+* [Python SDK](https://github.com/hyperledger/fabric-sdk-py)
+* [Nodejs SDK](https://github.com/hyperledger/fabric-sdk-node)
