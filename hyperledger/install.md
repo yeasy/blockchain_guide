@@ -126,9 +126,9 @@ docker run --name=vp0 \
 以 vp1 为例，假如 vp0 的地址为 10.0.0.1。
 
 ```sh
-NAME=vp1 \
-ROOT_NODE=10.0.0.1 \
-docker run --name=${NAME} \
+$ NAME=vp1
+$ ROOT_NODE=10.0.0.1
+$ docker run --name=${NAME} \
     --net="host" \
     --restart=unless-stopped \
     -it --rm \
@@ -158,5 +158,3 @@ Hyperledger 默认监听的服务端口包括：
 * 7057：tCAA
 * 7058：tlsCAP
 * 7059：tlsCAA
-
-
