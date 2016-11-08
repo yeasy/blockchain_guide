@@ -11,8 +11,8 @@
 * [bitcoin.it](https://en.bitcoin.it)：比特币 wiki，相关知识介绍；
 * 以太坊项目：https://www.ethereum.org；
 * 以太坊网络的统计：https://etherchain.org/
-* hyperledger 项目：[hyperledger.org](https://hyperledger.org);
-* hyperledger Docker 镜像：[github.com/yeasy/docker-hyperledger-peer](https://github.com/yeasy/docker-hyperledger-peer)；
+* Hyperledger 项目：[https://hyperledger.org](https://hyperledger.org);
+* Hyperledger Docker 镜像：[https://hub.docker.com/r/hyperledger/](https://hub.docker.com/r/hyperledger/)；
 
 ### 培训课程
 

@@ -75,8 +75,9 @@
     * [Hyperledger](evaluation/hyperledger.md)
     * [小结](evaluation/summary.md)
 * [附录](appendix/README.md)
-    * [一：术语](appendix/terms.md)
-    * [二：常见问题](appendix/faq.md)
-    * [三：资源链接](appendix/resources.md)
-    * [四：相关企业和组织](appendix/companies.md)
+    * [术语](appendix/terms.md)
+    * [常见问题](appendix/faq.md)
+    * [相关组织](appendix/companies.md)
+    * [ProtoBuf 与 gRPC](appendix/grpc.md)
+    * [资源链接](appendix/resources.md)
 
