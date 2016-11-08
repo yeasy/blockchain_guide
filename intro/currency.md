@@ -60,9 +60,13 @@
 
 在不存在一个第三方记账机构的情况下，如何实现一个数字货币系统呢？
 
-近三十年来，数字货币技术朝着这个方向努力，经历了几代演进，包括 [e-Cash]()、[B-money](http://www.weidai.com/bmoney.txt)、[HashCash]() 等。
+近三十年来，数字货币技术朝着这个方向努力，经历了几代演进，包括 [e-Cash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)、、[HashCash](Hashcash](http://en.wikipedia.org/wiki/Hashcash)、[B-money](http://www.weidai.com/bmoney.txt) 等。
 
 1983 年，[David Chaum](https://en.wikipedia.org/wiki/David_Chaum) 最早提出[ecash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)，并于 1989 年创建了 [Digicash](https://en.wikipedia.org/wiki/Digicash) 公司。ecash 系统是首个匿名化的数字加密货币（anonymous cryptographic electronic money, or electronic cash system），基于 David Chaum 发明的盲签名技术，曾被应用于银行小额支付中。ecash 依赖于一个中心化的中介机构，导致它最终失败。
+
+1997 年，[Adam Back](https://en.wikipedia.org/wiki/Adam_Back) 发明了 [Hashcash](http://en.wikipedia.org/wiki/Hashcash)，来解决邮件系统中 DoS 攻击问题。Hashcash 首次提出用工作量证明（Proof of Work，PoW）机制来获取额度，该机制后来被后续数字货币技术所采用。
+
+1998 年，[Wei Dai](http://www.weidai.com) 提出了 [B-money](http://www.weidai.com/bmoney.txt)，将 PoW 引入数字货币生成过程中。B-money 同时是首个面向去中心化设计的数字货币。从概念上看已经比较完善，但是很遗憾的是，其未能提出具体的设计实现。
 
 上面这些数字货币都或多或少的依赖于一个第三方系统的信用担保。直到比特币的出现，**首次从实践意义上实现了一套去中心化的数字货币系统**。
 
