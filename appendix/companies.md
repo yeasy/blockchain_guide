@@ -11,8 +11,8 @@
 * [Consensus]()：区块链创业团队，试图打造区块链平台技术和应用支撑，获得多家投资。
 
 ### 组织
-* [R3 CEV]()：创立于 2015 年 9 月，位于纽约的金融技术组织，专注于研究基于区块链的金融技术解决方案，由 40 多家国际银行机构组成，包括 Citi、BOA、高盛、摩根、瑞银、IBM、微软等。R3 已经宣布加入 HyperLedger 项目。
-* [HyperLedger 社区]（https://hyperledger.org）：创立于 2015 年 12 月，由 Linux 基金会牵头，包括 IBM、Accenture、Intel、J.P.Morgan、R3、DAH、DTCC、FUJITSU、HITACHI、SWIFT、Cisco 等多家企业参与成立，试图打造面向企业应用场景的分布式账本平台。
+* [R3 CEV](https://r3cev.com)：创立于 2015 年 9 月，总部位于纽约的金融联盟组织，专注于研究和评估基于区块链的金融技术解决方案，由 40 多家国际金融机构组成，包括 Citi、BOA、高盛、摩根、瑞银、IBM、微软等。R3 已经宣布加入 HyperLedger 项目。
+* [HyperLedger 社区]（https://hyperledger.org）：创立于 2015 年 12 月的技术社区，由 Linux 基金会管理，包括 IBM、Accenture、Intel、J.P.Morgan、R3、DAH、DTCC、FUJITSU、HITACHI、SWIFT、Cisco 等多家企业参与成立，试图打造面向企业应用场景的分布式账本平台。
 * [Ethereum 社区](https://ethereum.org): 围绕以太坊区块链平台的开放社区。
 * [DAO]()： Distributed Autonomous Organization，基于以太坊平台的公募基金(众筹)组织，或去中心化的风投。众筹资金超过 1.6 亿美金。
 
