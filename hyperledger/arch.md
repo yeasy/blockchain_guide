@@ -163,64 +163,6 @@ message Block {
 
 ![](_images/memserv-components.png)
 
-### 消息类型
-
-节点之间通过消息来进行交互，所有消息都由下面的数据结构来实现。
-
-```protobuf
-message Message {
-   enum Type {
-        UNDEFINED = 0;
-
-        DISC_HELLO = 1;
-        DISC_DISCONNECT = 2;
-        DISC_GET_PEERS = 3;
-        DISC_PEERS = 4;
-        DISC_NEWMSG = 5;
-
-        CHAIN_STATUS = 6;
-        CHAIN_TRANSACTION = 7;
-        CHAIN_GET_TRANSACTIONS = 8;
-        CHAIN_QUERY = 9;
-
-        SYNC_GET_BLOCKS = 11;
-        SYNC_BLOCKS = 12;
-        SYNC_BLOCK_ADDED = 13;
-
-        SYNC_STATE_GET_SNAPSHOT = 14;
-        SYNC_STATE_SNAPSHOT = 15;
-        SYNC_STATE_GET_DELTAS = 16;
-        SYNC_STATE_DELTAS = 17;
-
-        RESPONSE = 20;
-        CONSENSUS = 21;
-    }
-    Type type = 1;
-    bytes payload = 2;
-    google.protobuf.Timestamp timestamp = 3;
-}
-```
-
-消息分为四大类：Discovery（探测）、Transaction（交易）、Synchronization（同步）、Consensus（一致性）。
-
-不同消息类型，payload 中数据不同。
-
-#### Discovery
-包括 DISC_HELLO、DISC_GET_PEERS、DISC_PEERS。
-
-#### Transaction
-包括 Deploy、Invoke、Query。
-
-#### Synchronization
-SYNC_GET_BLOCKS 和对应的 SYNC_BLOCKS。
-
-SYNC_STATE_GET_SNAPSHOT 和对应的 SYNC_STATE_SNAPSHOT。
-
-SYNC_STATE_GET_DELTAS 和对应的 SYNC_STATE_DELTAS。
-
-#### Consensus
-CONSENSUS 消息。
-
 ### 新的架构设计
 目前，VP 节点执行了所有的操作，包括接收交易，进行交易验证，进行一致性达成，进行账本维护等。这些功能的耦合导致节点性能很难进行扩展。
 
