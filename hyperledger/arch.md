@@ -14,7 +14,7 @@
 * 区块（Block）：代表一批得到确认的交易信息的整体，准备被共识加入到区块链中；
 * 区块链（Blockchain）：由多个区块链接而成的链表结构，除了首个区块，每个区块都包括钱继区块内容的 hash 值；
 * 账本（Ledger）：包括区块链结构（带有所有的交易信息）和当前的世界观（world state）；
-* 世界观（World State）：是一个键值数据库，chaincode 用它来存储交易相关的状态。一般用 `{chaincodeID, ckey}` 代表键；
+* 世界观（World State）：是一个键值数据库，chaincode 用它来存储交易相关的状态。
 * 验证节点（Validating Peer）：维护账本的核心节点，参与一致性维护、对交易的验证和执行；
 * 非验证节点（Non-validating Peer）：不参与账本维护，仅作为交易代理响应客户端的 REST 请求，并对交易进行一些基本的有效性检查，之后转发给验证节点；
 * 带许可的账本（Permissioned Ledger）：网络中所有节点必须是经过许可的，非许可过的节点则无法加入网络；
@@ -141,9 +141,36 @@ message Block {
 }
 ```
 
+#### 世界观
+世界观用于存放链码执行过程中涉及到的状态变量，是一个键值数据库。典型的元素为 `[chaincodeID, ckey]: value` 结构。
+
+为了方便计算变更后的 hash 值，一般采用默克尔树数据结构进行存储。树的结构由两个参数（`numBuckets` 和 `maxGroupingAtEachLevel`）来进行初始配置，并由 `hashFunction` 配置决定存放键值到叶子节点的方式。显然，各个节点必须保持相同的配置，并且启动后一般不建议变动。
+
+* `numBuckets`：叶子节点的个数，每个叶子节点是一个桶（bucket），所有的键值被 `hashFunction` 散列分散到各个桶，决定树的宽度；
+* `maxGroupingAtEachLevel`：决定每个节点由多少个子节点的 hash 值构成，决定树的深度。
+
+其中，桶的内容由它所保存到键值先按照 chaincodeID 聚合，再按照升序方式组成。
+
+一般地，假设某桶中包括 $$ M $$ 个 chaincodeID，对于 $$ chaincodeID_i $$，假设其包括 $$ N $$ 个键值对，则聚合 $$G_i$$ 内容可以计算为：
+
+$$ G_i = Len(chaincodeID_i) + chaincodeID_i + N + \sum_{1}^{N} {len(key_j) + key_j + len(value_j) + value_j} $$
+
+该桶的内容则为
+
+$$ bucket = \sum_{1}^{M} G_i $$
+
+*注：这里的 `+` 代表字符串拼接，并非数学运算。*
+
 ### 链码服务
 
 链码包含所有的处理逻辑，并对外提供接口，外部通过调用链码接口来改变世界观。
+
+#### 接口和操作
+链码需要实现 Chaincode 接口，以被 VP 节点调用。
+
+```golang
+type Chaincode interface { Init(stub *ChaincodeStub, function string, args []string) ([]byte, error) Invoke(stub *ChaincodeStub, function string, args []string) ([]byte, error) Query(stub *ChaincodeStub, function string, args []string) ([]byte, error)}
+```
 
 链码目前支持的交易类型包括：部署（Deploy）、调用（Invoke）和查询（Query）。
 
@@ -152,6 +179,39 @@ message Block {
 * 查询：VP 节点发送 QUERY 消息给链码沙盒的 shim 层，shim 层用传过来的参数调用链码的 Query 函数完成查询。
 
 不同链码之间可能互相调用和查询。
+
+#### 容器
+
+在实现上，链码需要运行在隔离的容器中，超级账本采用了 Docker 作为默认容器。
+
+对容器的操作支持三种方法：build、start、stop，对应的接口为 VM。
+
+```golang
+type VM interface { 
+  build(ctxt context.Context, id string, args []string, env []string, attachstdin bool, attachstdout bool, reader io.Reader) error 
+  start(ctxt context.Context, id string, args []string, env []string, attachstdin bool, attachstdout bool) error 
+  stop(ctxt context.Context, id string, timeout uint, dontkill bool, dontremove bool) error 
+}
+```
+链码部署成功后，会创建连接到部署它的 VP 节点的 gRPC 通道，以接受后续 Invoke 或 Query 指令。
+
+
+#### gRPC 消息
+VP 节点和容器之间通过 gRPC 消息来交互。消息基本结构为
+
+```protobuf
+message ChaincodeMessage {
+
+ enum Type { UNDEFINED = 0; REGISTER = 1; REGISTERED = 2; INIT = 3; READY = 4; TRANSACTION = 5; COMPLETED = 6; ERROR = 7; GET_STATE = 8; PUT_STATE = 9; DEL_STATE = 10; INVOKE_CHAINCODE = 11; INVOKE_QUERY = 12; RESPONSE = 13; QUERY = 14; QUERY_COMPLETED = 15; QUERY_ERROR = 16; RANGE_QUERY_STATE = 17; }
+
+ Type type = 1; google.protobuf.Timestamp timestamp = 2; bytes payload = 3; string uuid = 4;}
+```
+
+当发生链码部署时，容器启动后发送 `REGISTER` 消息到 VP 节点。如果成功，VP 节点返回 `REGISTERED` 消息，并发送 `INIT` 消息到容器，调用链码中的 Init 方法。
+
+当发生链码调用时，VP 节点发送 `TRANSACTION` 消息到容器，调用其 Invoke 方法。如果成功，容器会返回 `RESPONSE` 消息。
+
+类似的，当发生链码查询时，VP 节点发送 `QUERY` 消息到容器，调用其 Query 方法。如果成功，容器会返回 `RESPONSE` 消息。
 
 ### 成员权限管理
 
