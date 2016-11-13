@@ -1,4 +1,4 @@
-## 链码
+## 链上代码
 
 ### 什么是 chaincode
 chaincode（链码）是部署在 Hyperledger fabric 网络节点上，可被调用与分布式账本进行交互的一段程序代码，也即狭义范畴上的“智能合约”。链码在 VP 节点上的隔离沙盒（目前为 Docker 容器）中执行，并通过 gRPC 协议来被相应的 VP 节点调用和查询。
@@ -14,7 +14,16 @@ chaincode 需要引入如下的软件包。
 
 * `fmt`：包含了 `Println` 等标准函数.
 * `errors`：标准 errors 类型包；
-* `github.com/hyperledger/fabric/core/chaincode/shim`：与 chaincode 节点交互的接口代码。shim 包 提供了 `stub.PutState` 与 `stub.GetState` 来写入和查询链上键值对的状态。
+* `github.com/hyperledger/fabric/core/chaincode/shim`：与 chaincode 节点交互的接口代码。shim 包 提供了 `stub.PutState` 与 `stub.GetState` 等方法来写入和查询链上键值对的状态。
+
+比较重要的 shim 包，通过封装 gRPC 消息到 VP 节点来完成操作，如：
+
+* PUT_STATE：修改某个状态（键值）的值；
+* GET_STATE：获取某个状态的值；
+* DEL_STATE：删除某个键值；
+* RANGE_QUERY_STATE：获取某个范围内的键值，需要键的命名可构成规则的范围；
+* INVOKE_CHAINCODE：调用其它链码方法；
+* QUERY_CHAINCODE：查询同一上下文下的其它链码。
 
 #### Init()函数
 当首次部署 chaincode 代码时，init 函数被调用。如同名字所描述的，该函数用来做一些初始化的工作。
