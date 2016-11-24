@@ -12,6 +12,8 @@ $ echo "hello blockchain world, this is yeasy@github"|md5
 
 这意味着我们只要对某文件进行 md5 hash 计算，得到结果为 `89242549883a2ef85dc81b90fb606046`，这就说明文件内容极大概率上就是 “hello blockchain world, this is yeasy@github”。可见，hash 的核心思想十分类似于基于内容的编址或命名。
 
+*注：hash 值在应用中又被称为指纹（fingerprint）、摘要（digest）。*
+
 *注：md5 是一个经典的 hash 算法，其和 SHA-1 算法都已被 [证明]() 安全性不足应用于商业场景。*
 
 一个优秀的 hash 算法，将能实现：
