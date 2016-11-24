@@ -1,20 +1,20 @@
 ## Hash 算法
 
 ### 定义
-hash （哈希或散列）算法是信息技术领域非常基础也非常重要的技术。它能任意长度的二进制值（明文）映射为较短的固定长度的二进制值（hash 值），并且不同的明文很难映射为相同的 hash 值。
+Hash （哈希或散列）算法是信息技术领域非常基础也非常重要的技术。它能任意长度的二进制值（明文）映射为较短的固定长度的二进制值（Hash 值），并且不同的明文很难映射为相同的 Hash 值。
 
-例如计算一段话“hello blockchain world, this is yeasy@github”的 md5 hash 值为 `89242549883a2ef85dc81b90fb606046`。
+例如计算一段话“hello blockchain world, this is yeasy@github”的 MD5 hash 值为 `89242549883a2ef85dc81b90fb606046`。
 
 ```sh
 $ echo "hello blockchain world, this is yeasy@github"|md5
 89242549883a2ef85dc81b90fb606046
 ```
 
-这意味着我们只要对某文件进行 md5 hash 计算，得到结果为 `89242549883a2ef85dc81b90fb606046`，这就说明文件内容极大概率上就是 “hello blockchain world, this is yeasy@github”。可见，hash 的核心思想十分类似于基于内容的编址或命名。
+这意味着我们只要对某文件进行 MD5 Hash 计算，得到结果为 `89242549883a2ef85dc81b90fb606046`，这就说明文件内容极大概率上就是 “hello blockchain world, this is yeasy@github”。可见，Hash 的核心思想十分类似于基于内容的编址或命名。
 
 *注：hash 值在应用中又被称为指纹（fingerprint）、摘要（digest）。*
 
-*注：md5 是一个经典的 hash 算法，其和 SHA-1 算法都已被 [证明]() 安全性不足应用于商业场景。*
+*注：MD5 是一个经典的 hash 算法，其和 SHA-1 算法都已被 [证明]() 安全性不足应用于商业场景。*
 
 一个优秀的 hash 算法，将能实现：
 
@@ -23,27 +23,27 @@ $ echo "hello blockchain world, this is yeasy@github"|md5
 * 输入敏感：原始输入信息修改一点信息，产生的 hash 值看起来应该都有很大不同。 
 * 冲突避免：很难找到两段内容不同的明文，使得它们的 hash 值一致（发生冲突）。
 
-冲突避免有时候又被称为“抗碰撞性”。如果给定一个明文前提下，无法找到碰撞的另一个明文，称为“抗弱碰撞性”；如果无法找到任意两个明文，发生碰撞，则称算法具有“抗强碰撞性”。
+冲突避免有时候又被称为“抗碰撞性”。如果给定一个明文前提下，无法找到碰撞的另一个明文，称为“弱抗碰撞性”；如果无法找到任意两个明文，发生碰撞，则称算法具有“强抗碰撞性”。
 
-*某些场景下，也要求对于任意长的输入内容，输出定长的 hash 结果。*
+*很多场景下，也要求对于任意长的输入内容，输出定长的 hash 结果。*
 
 ### 流行的算法
 
-目前流行的 hash 算法包括 MD5（已被证明不够安全）和 SHA-1，两者均以 MD4 为基础设计的。
+目前流行的 hash 算法包括 MD5、SHA-1 和 SHA-2。
 
-MD4（RFC 1320）是 MIT 的 Ronald L. Rivest 在 1990 年设计的，MD 是 Message Digest 的缩写。其输出为 128 位。MD4 并不足够安全。
+MD4（RFC 1320）是 MIT 的 Ronald L. Rivest 在 1990 年设计的，MD 是 Message Digest 的缩写。其输出为 128 位。MD4 已证明不够安全。
 
-MD5（RFC 1321）是 Rivest 于1991年对 MD4 的改进版本。它对输入仍以 512 位分组，其输出是 128 位。MD5 比 MD4 复杂，并且计算速度要慢一点，但更安全一些。MD5 并不足够安全。
+MD5（RFC 1321）是 Rivest 于1991年对 MD4 的改进版本。它对输入仍以 512 位分组，其输出是 128 位。MD5 比 MD4 复杂，并且计算速度要慢一点，更安全一些。MD5 已被证明不具备“强抗碰撞性”。
 
-SHA1 （Secure Hash Algorithm）是由 NIST NSA 设计，它的输出为长度 160 位的 hash 值，因此抗穷举性更好。SHA-1 设计时基于和 MD4 相同原理，并且模仿了该算法。
+SHA1 （Secure Hash Algorithm）是由 NIST（National Institute of Standards and Technology）于 1995 年设计发布，它的输出为长度 160 位的 hash 值，因此抗穷举性更好。SHA-1 设计时基于和 MD4 相同原理，并且模仿了该算法。SHA-1 已被证明不具备“强抗碰撞性”。
 
-为了提高安全性，NIST NSA 还设计出了 SHA-224、SHA-256、SHA-384，和 SHA-512 算法（统称为 SHA-2），跟 SHA-1 算法原理类似。
+为了提高安全性，NIST 还设计出了 SHA-224、SHA-256、SHA-384，和 SHA-512 算法（统称为 SHA-2），跟 SHA-1 算法原理类似。SHA-3 相关算法也已被提出。
 
-目前，一般认为 SHA1 和 SHA2 已经不够安全，推荐至少使用 SHA3-256 算法。
+目前，一般认为 MD5 和 SHA1 已经不够安全，推荐至少使用 SHA2-256 算法。
 
 ### 性能
 
-一般的，hash 算法都是算力敏感型，意味着计算资源是瓶颈，主频越高的 CPU 进行  Hash 的速度也越快。
+一般的，Hash 算法都是算力敏感型，意味着计算资源是瓶颈，主频越高的 CPU 进行  Hash 的速度也越快。
 
 也有一些 Hash 算法不是算力敏感的，例如 scrypt，需要大量的内存资源，节点不能通过简单的增加更多 CPU 来获得 hash 性能的提升。
 
