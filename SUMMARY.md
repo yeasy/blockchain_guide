@@ -28,7 +28,7 @@
     * [小结](consensus/summary.md)
 * [密码学技术](crypto/README.md)
     * [Hash 算法与摘要](crypto/hash.md)
-    * [加密算法](crypto/algorithm.md)
+    * [加解密算法](crypto/algorithm.md)
     * [数字签名和数字证书](crypto/signature.md)
     * [PKI 体系](crypto/pki.md)
     * [Merkle 树](crypto/merkle_trie.md)
