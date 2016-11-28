@@ -35,7 +35,7 @@
 - `init`  初始化操作
 - `invoke`   调用合约内部的函数
 - `query`   查询相关的信息
-- `createUser` 创建新用户，并加入到能源微网中   init
+- `createUser` 创建新用户，并加入到能源微网中   invoke
 - `buyByAddress` 向某一位用户购买一定量的电力   invoke
 - `getTransactionById` 通过id获取交易内容  query
 - `getTransactions` 获取交易（如果交易数大于10，获取前10个） query
