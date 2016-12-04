@@ -3,9 +3,10 @@
     "author": "yeasy",
     "plugins": [
         "-autocover",
-        "image-captions",
         "github-buttons",
+        "image-captions",
         "latex-codecogs",
+        "mathjax",
         "prism", 
         "-highlight"
     ],
