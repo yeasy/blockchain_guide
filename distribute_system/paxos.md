@@ -2,8 +2,6 @@
 
 Paxos 问题是指分布式的系统中存在故障（fault），但不存在恶意（corrupt）节点场景（即可能消息丢失或重复，但无错误消息）下的共识达成（Consensus）问题。因为最早是 Leslie Lamport 用 Paxon 岛的故事模型来进行描述而命名。
 
-*注：共识解决的是对某个提案（如事件发生的顺序、某个键对应的值、谁是领导……），大家达成一致意见的过程。*
-
 ### Paxos
 
 1990 年由 Leslie Lamport 提出的 [Paxos](http://research.microsoft.com/users/lamport/pubs/lamport-paxos.pdf) 共识算法，在工程角度实现了一种最大化保障分布式系统一致性（存在极小的概率无法实现一致）的机制。Paxos 被广泛应用在 Chubby、ZooKeeper 这样的系统中，Leslie Lamport 因此获得了 2013 年度图灵奖。
