@@ -17,7 +17,7 @@
     * [物联网与供应链](scenario/iot.md)
     * [其它场景](scenario/others.md)
     * [小结](scenario/summary.md)
-* [分布式系统核心问题](distribute_system/README.md)
+* [分布式系统](distribute_system/README.md)
     * [一致性问题](distribute_system/problem.md)
     * [共识算法](distribute_system/consensus.md)
     * [FLP 不可能性原理](distribute_system/flp.md)
