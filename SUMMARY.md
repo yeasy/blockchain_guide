@@ -19,6 +19,7 @@
     * [小结](scenario/summary.md)
 * [分布式系统核心问题](distribute_system/README.md)
     * [一致性问题](distribute_system/problem.md)
+    * [共识算法](distribute_system/conensus.md)
     * [FLP 不可能性原理](distribute_system/flp.md)
     * [CAP 原理](distribute_system/cap.md)
     * [ACID 原则](distribute_system/acid.md)
