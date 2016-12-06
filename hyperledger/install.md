@@ -1,8 +1,8 @@
 ## 安装部署
 
-社区在很长一段时间内并没有推出比较容易上手的安装部署方案，于是笔者设计了基于 Docker 容器的一键式部署方案，该方案推出后在社区受到了不少人的关注和应用。官方在安装部署方面已有了一些改善，具体可以参考代码 doc 目录下内容，但仍然存在一些问题。
+社区在很长一段时间内并没有推出比较容易上手的安装部署方案，于是笔者设计了基于 Docker 容器的一键式部署方案，该方案推出后在社区受到了不少人的关注和应用。官方文档现在也完善了安装部署的步骤，具体可以参考代码 `doc` 目录下内容。
 
-如果你是初次接触 hyperledger fabric 项目，推荐采用如下的步骤，基于 Docker-compose 的一键部署。
+如果你是初次接触 Hyperledger Fabric 项目，推荐采用如下的步骤，基于 Docker-Compose 的一键部署。
 
 *动手前，建议适当了解一些 [Docker 相关知识](https://github.com/yeasy/docker_practice)。*
 
@@ -14,16 +14,24 @@ Docker 支持 Linux 常见的发行版，如 Redhat/Centos/Ubuntu 等。
 $ curl -fsSL https://get.docker.com/ | sh
 ```
 
-安装成功后，停止默认启动的 Docker 服务。
+以 Ubuntu 14.04 为例，安装成功后，修改 Docker 服务配置（`/etc/default/docker` 文件）。
 
 ```sh
-$ sudo service docker stop
+DOCKER_OPTS="$DOCKER_OPTS -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --api-cors-header='*'
 ```
 
-用如下命令手动启动 Docker 服务。
+重启 Docker 服务。
 
 ```sh
-$ sudo docker daemon --api-cors-header="*" -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
+$ sudo service docker restart
+```
+Ubuntu 16.04 中默认采用了 systemd 管理启动服务，Docker 配置文件在 `/etc/systemd/system/docker.service.d/override.conf`。
+
+修改后，需要通过如下命令重启 Docker 服务。
+
+```sh
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker.service
 ```
 
 ### 安装 docker-compose
@@ -34,7 +42,7 @@ $ sudo docker daemon --api-cors-header="*" -H tcp://0.0.0.0:2375 -H unix:///var/
 $ sudo aptitude install python-pip
 ```
 
-安装 docker-compose。
+安装 docker-compose（推荐为 1.7.0 及以上版本）。
 
 ```sh
 $ sudo pip install docker-compose
@@ -42,18 +50,27 @@ $ sudo pip install docker-compose
 
 ### 下载镜像
 
-*注：官方现在已经定期发布镜像，使用官方镜像则可以跳过这一步*
+目前 1.0 代码还没有发布，推荐使用 v0.6 分支代码进行测试。
 
 下载相关镜像，并进行配置。
 
 ```sh
-$ docker pull yeasy/hyperledger-fabric:latest
-$ docker tag yeasy/hyperledger-fabric:latest hyperledger/fabric-peer:latest
-$ docker tag yeasy/hyperledger-fabric:latest hyperledger/fabric-baseimage:latest
-$ docker tag yeasy/hyperledger-fabric:latest hyperledger/fabric-membersrvc:latest
+$ docker pull yeasy/hyperledger-fabric:0.6-dp
+$ docker tag yeasy/hyperledger-fabric:0.6-dp hyperledger/fabric-peer:latest
+$ docker tag yeasy/hyperledger-fabric:0.6-dp hyperledger/fabric-baseimage:latest
+$ docker tag yeasy/hyperledger-fabric:0.6-dp hyperledger/fabric-membersrvc:latest
 ```
 
-*注：如果采用某个稳定分支的代码，需要下载对应镜像。例如 0.6-dp 分支，则需要修改下载镜像的 latest 标签为 0.6-dp。*
+也可以使用 [官方仓库](https://hub.docker.com/u/hyperledger/) 中的镜像。
+
+```sh
+$ docker pull hyperledger/fabric-peer:x86_64-0.6.1-preview
+$ docker pull hyperledger/fabric-baseimage:x86_64-0.2.1
+$ docker pull hyperledger/fabric-membersrvc:x86_64-0.6.1-preview
+$ docker tag hyperledger/fabric-peer:x86_64-0.6.1-preview hyperledger/fabric-peer:latest
+$ docker tag hyperledger/fabric-baseimage:x86_64-0.2.1 hyperledger/fabric-baseimage:latest
+$ docker tag hyperledger/fabric-membersrvc:x86_64-0.6.1-preview hyperledger/fabric-membersrvc:latest
+
 
 之后，用户可以选择采用不同的一致性机制，包括 noops、pbft 两类。
 
@@ -86,7 +103,7 @@ $ git clone https://github.com/yeasy/docker-compose-files
 进入 hyperledger 项目，并启动集群。
 
 ```sh
-$ cd docker-compose-files/hyperledger
+$ cd docker-compose-files/hyperledger/pbft
 $ docker-compose up
 ```
 
@@ -148,10 +165,10 @@ $ docker run --name=${NAME} \
 ### 服务端口
 Hyperledger 默认监听的服务端口包括：
 
-* 7050: REST 服务端口，推荐 NVP 节点开放，旧版本中为 5000；
-* 7051：peer gRPC 服务监听端口，旧版本中为 30303；
-* 7052：peer CLI 端口，旧版本中为 30304；
-* 7053：peer 事件服务端口，旧版本中为 31315；
+* 7050: REST 服务端口，推荐 NVP 节点开放，0.6 之前版本中为 5000；
+* 7051：peer gRPC 服务监听端口，0.6 之前版本中为 30303；
+* 7052：peer CLI 端口，0.6 之前版本中为 30304；
+* 7053：peer 事件服务端口，0.6 之前版本中为 31315；
 * 7054：eCAP
 * 7055：eCAA
 * 7056：tCAP
