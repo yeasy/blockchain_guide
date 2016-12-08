@@ -45,31 +45,34 @@ $ sudo aptitude install python-pip
 安装 docker-compose（推荐为 1.7.0 及以上版本）。
 
 ```sh
-$ sudo pip install docker-compose
+$ sudo pip install docker-compose>=1.7.0
 ```
 
 ### 下载镜像
 
-目前 1.0 代码还没有发布，推荐使用 v0.6 分支代码进行测试。
+目前 1.0 代码还没有正式发布，推荐使用 v0.6 分支代码进行测试。
 
 下载相关镜像，并进行配置。
 
 ```sh
-$ docker pull yeasy/hyperledger-fabric:0.6-dp
-$ docker tag yeasy/hyperledger-fabric:0.6-dp hyperledger/fabric-peer:latest
-$ docker tag yeasy/hyperledger-fabric:0.6-dp hyperledger/fabric-baseimage:latest
-$ docker tag yeasy/hyperledger-fabric:0.6-dp hyperledger/fabric-membersrvc:latest
+$ docker pull yeasy/hyperledger-fabric:0.6-dp \
+  && docker pull yeasy/hyperledger-fabric-peer:0.6-dp \
+  && docker pull yeasy/hyperledger-fabric-base:0.6-dp \
+  && docker pull yeasy/blockchain-explorer:latest \
+  && docker tag yeasy/hyperledger-fabric-peer:0.6-dp hyperledger/fabric-peer \
+  && docker tag yeasy/hyperledger-fabric-base:0.6-dp hyperledger/fabric-baseimage \
+  && docker tag yeasy/hyperledger-fabric:0.6-dp hyperledger/fabric-membersrvc
 ```
 
 也可以使用 [官方仓库](https://hub.docker.com/u/hyperledger/) 中的镜像。
 
 ```sh
-$ docker pull hyperledger/fabric-peer:x86_64-0.6.1-preview
-$ docker pull hyperledger/fabric-baseimage:x86_64-0.2.1
-$ docker pull hyperledger/fabric-membersrvc:x86_64-0.6.1-preview
-$ docker tag hyperledger/fabric-peer:x86_64-0.6.1-preview hyperledger/fabric-peer:latest
-$ docker tag hyperledger/fabric-baseimage:x86_64-0.2.1 hyperledger/fabric-baseimage:latest
-$ docker tag hyperledger/fabric-membersrvc:x86_64-0.6.1-preview hyperledger/fabric-membersrvc:latest
+$ docker pull hyperledger/fabric-peer:x86_64-0.6.1-preview \
+  && docker pull hyperledger/fabric-membersrvc:x86_64-0.6.1-preview \
+  && docker pull yeasy/blockchain-explorer:latest \
+  && docker tag hyperledger/fabric-peer:x86_64-0.6.1-preview hyperledger/fabric-peer \
+  && docker tag hyperledger/fabric-peer:x86_64-0.6.1-preview hyperledger/fabric-baseimage \
+  && docker tag hyperledger/fabric-membersrvc:x86_64-0.6.1-preview hyperledger/fabric-membersrvc
 
 
 之后，用户可以选择采用不同的一致性机制，包括 noops、pbft 两类。
@@ -94,17 +97,23 @@ $ docker run --name=vp0 \
 
 PBFT 是经典的分布式一致性算法，也是 hyperledger 目前最推荐的算法，该算法至少需要 4 个节点。
 
-首先，下载 compose 文件。
+首先，下载 Compose 模板文件。
 
 ```sh
 $ git clone https://github.com/yeasy/docker-compose-files
 ```
 
-进入 hyperledger 项目，并启动集群。
+进入 `hyperledger/0.6/pbft` 目录，查看包括若干模板文件，功能如下。
+
+* `4-peers.yml`: 启动 4 个 PBFT peer 节点。
+* `4-peers-with-membersrvc.yml`: 启动 4 个 PBFT peer 节点 + 1 个 CA 节点，并启用 CA 功能。
+* `4-peers-with-explorer.yml`: 启动 4 个 PBFT peer 节点 + 1 个 Blockchain-explorer，可以通过 Web 界面监控集群状态。
+* `4-peers-with-membersrvc-explorer.yml`: 启动 4 个 PBFT peer 节点 + 1 个 CA 节点 + 1 个 Blockchain-explorer，并启用 CA 功能。
+
+例如，快速启动一个 4 个 PBFT 节点的集群。
 
 ```sh
-$ cd docker-compose-files/hyperledger/pbft
-$ docker-compose up
+$ docker-compose -f 4-peers.yml up
 ```
 
 ### 多物理节点部署
