@@ -49,7 +49,7 @@
 * [Hyperledger - 超级账本](hyperledger/README.md)
     * [简介](hyperledger/basic.md)
     * [安装部署](hyperledger/install.md)
-    * [应用案例](hyperledger/usage.md)
+    * [使用 chaincode](hyperledger/usage.md)
     * [权限管理](hyperledger/membersrcv-usage.md)
     * [Python 客户端](hyperledger/hyperledger-py.md)
     * [架构设计](hyperledger/arch.md)
