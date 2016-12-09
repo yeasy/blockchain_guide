@@ -3,7 +3,7 @@
 权限管理机制是 hyperledger fabric 项目的一大特色。下面给出使用权限管理的一个应用案例。
 
 ### 启动集群
-首先现在相关镜像。
+首先下载相关镜像。
 
 ```sh
 $ docker pull yeasy/hyperledger:latest
@@ -16,8 +16,8 @@ $ docker pull yeasy/hyperledger-membersrvc:latest
 
 ```sh
 $ git clone https://github.com/yeasy/docker-compose-files
-$ cd docker-compose-files/hyperledger
-$ docker-compose -f docker-compose-with-membersrvc.yml up
+$ cd docker-compose-files/hyperledger/0.6/pbft
+$ docker-compose -f 4-peers-with-membersrvc.yml up
 ```
 
 ### 用户登陆
@@ -26,7 +26,15 @@ $ docker-compose -f docker-compose-with-membersrvc.yml up
 登录 vp0，并执行登录命令。
 
 ```sh
-$ docker exec -it pbft_vp0_1 bash# peer network login jim08:23:13.604 [networkCmd] networkLogin -> INFO 001 CLI client login...08:23:13.604 [networkCmd] networkLogin -> INFO 002 Local data store for client loginToken: /var/hyperledger/production/client/Enter password for user 'jim': 6avZQLwcUe9b
+$ docker exec -it pbft_vp0_1 bash
+# peer network login jim
+06:57:13.603 [networkCmd] networkLogin -> INFO 001 CLI client login...
+06:57:13.603 [networkCmd] networkLogin -> INFO 002 Local data store for client loginToken: /var/hyperledger/production/client/
+Enter password for user 'jim': 6avZQLwcUe9b
+06:57:25.022 [networkCmd] networkLogin -> INFO 003 Logging in user 'jim' on CLI interface...
+06:57:25.576 [networkCmd] networkLogin -> INFO 004 Storing login token for user 'jim'.
+06:57:25.576 [networkCmd] networkLogin -> INFO 005 Login successful for user 'jim'.
+06:57:25.576 [main] main -> INFO 006 Exiting.....
 ```
 
 也可以用 REST 方式：
@@ -58,7 +66,27 @@ Response：
 在 vp0 上执行命令：
 
 ```sh
-#  peer chaincode deploy -u jim -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02 -c '{"Function":"init", "Args": ["a","100", "b", "200"]}'
+# peer chaincode deploy -u jim -p github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02 -c '{"Function":"init", "Args": ["a","100", "b", "200"]}'
+06:58:20.099 [chaincodeCmd] getChaincodeSpecification -> INFO 001 Local user 'jim' is already logged in. Retrieving login token.
+06:58:22.178 [chaincodeCmd] chaincodeDeploy -> INFO 002 Deploy result: type:GOLANG chaincodeID:<path:"github.com/hyperledger/fabric/examples/chaincode/go/chaincode_example02" name:"ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539" > ctorMsg:<args:"init" args:"a" args:"100" args:"b" args:"200" >
+Deploy chaincode: ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539
+06:58:22.178 [main] main -> INFO 003 Exiting.....
+```
+
+记录下返回的 chaincode ID。
+
+```sh
+# CC_ID=ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539
+```
+
+此时，查询账户值应当为初始值。
+
+```sh
+# peer chaincode query -u jim -n ${CC_ID} -c '{"Function": "query", "Args": ["a"]}'
+07:28:39.925 [chaincodeCmd] getChaincodeSpecification -> INFO 001 Local user 'jim' is already logged in. Retrieving login token.
+07:28:40.281 [chaincodeCmd] chaincodeInvokeOrQuery -> INFO 002 Successfully queried transaction: chaincodeSpec:<type:GOLANG chaincodeID:<name:"ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539" > ctorMsg:<args:"query" args:"a" > secureContext:"jim" >
+Query Result: 100
+07:28:40.281 [main] main -> INFO 003 Exiting.....
 ```
 
 也可以通过 REST 方式进行：
@@ -95,7 +123,7 @@ Response：
     "jsonrpc": "2.0",
     "result": {
         "status": "OK",
-        "message": "980d4bb7f69578592e5775a6da86d81a221887817d7164d3e9d4d4df1c981440abf9a61417eaf8ad6f7fc79893da36de2cf4709131e9af39bca6ebc2e5a1cd9d"
+        "message": "ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539"
     },
     "id": 1
 }
@@ -104,8 +132,12 @@ Response：
 ### chaincode 调用
 
 在账户 a、b 之间进行转账 10 元的操作。
+
 ```sh
-$ peer chaincode invoke -u jim -n 980d4bb7f69578592e5775a6da86d81a221887817d7164d3e9d4d4df1c981440abf9a61417eaf8ad6f7fc79893da36de2cf4709131e9af39bca6ebc2e5a1cd9d -c '{"Function": "invoke", "Args": ["a", "b", "10"]}'
+# peer chaincode invoke -u jim -n ${CC_ID} -c '{"Function": "invoke", "Args": ["a", "b", "10"]}'
+07:29:25.245 [chaincodeCmd] getChaincodeSpecification -> INFO 001 Local user 'jim' is already logged in. Retrieving login token.
+07:29:25.585 [chaincodeCmd] chaincodeInvokeOrQuery -> INFO 002 Successfully invoked transaction: chaincodeSpec:<type:GOLANG chaincodeID:<name:"ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539" > ctorMsg:<args:"invoke" args:"a" args:"b" args:"10" > secureContext:"jim" > (f8347e3b-7230-4561-9017-3946756a0bf4)
+07:29:25.585 [main] main -> INFO 003 Exiting.....
 ```
 
 也可以通过 REST 方式进行：
@@ -151,7 +183,13 @@ Response：
 
 查询 a 账户的余额。
 
-
+```sh
+# peer chaincode query -u jim -n ${CC_ID} -c '{"Function": "query", "Args": ["a"]}'
+07:29:55.844 [chaincodeCmd] getChaincodeSpecification -> INFO 001 Local user 'jim' is already logged in. Retrieving login token.
+07:29:56.198 [chaincodeCmd] chaincodeInvokeOrQuery -> INFO 002 Successfully queried transaction: chaincodeSpec:<type:GOLANG chaincodeID:<name:"ee5b24a1f17c356dd5f6e37307922e39ddba12e5d2e203ed93401d7d05eb0dd194fb9070549c5dc31eb63f4e654dbd5a1d86cbb30c48e3ab1812590cd0f78539" > ctorMsg:<args:"query" args:"a" > secureContext:"jim" >
+Query Result: 90
+07:29:56.198 [main] main -> INFO 003 Exiting.....
+```
 
 也可以通过 REST 方式进行：
 
