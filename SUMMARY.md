@@ -61,7 +61,6 @@
     * [链码示例三：数字货币发行与管理](hyperledger/chaincode_example03.md)
     * [链码示例四：学历认证](hyperledger/chaincode_example04.md)
     * [链码示例五：社区能源共享](hyperledger/chaincode_example05.md)
-    * [contribute](hyperledger/contribute.md)
     * [小结](hyperledger/summary.md)
 * [Ethereum - 以太坊](ethereum/README.md)
     * [简介](ethereum/intro.md)
