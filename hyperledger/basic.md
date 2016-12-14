@@ -9,13 +9,13 @@
 
 如果说以比特币为代表的货币区块链技术为 1.0，以以太坊为代表的合同区块链技术为 2.0，那么实现了完备的权限控制和安全保障的 Hyperledger 项目毫无疑问代表着 3.0 时代的到来。
 
-IBM 贡献了数万行已有的 [Open Block Chain](https://github.com/openblockchain) 代码，Digital Asset 则贡献了企业和开发者相关资源，R3 贡献了新的金融交易架构，Intel 也刚贡献了跟分布式账本相关的代码。
+IBM 贡献了数万行已有的 [Open Blockchain](https://github.com/openblockchain) 代码，Digital Asset 则贡献了企业和开发者相关资源，R3 贡献了新的金融交易架构，Intel 也刚贡献了跟分布式账本相关的代码。
 
-首届技术委员会主席由来自 IBM 开源技术部 CTO 的 [Chris Ferris](https://www.linkedin.com/in/chrisfer) 担任，委员会主席则由来自 Digital Asset Holdings 的 CEO Blythe Masters 担任。另外，自 2016 年 5 月起，Apache 基金会创始人 Brian Behlendorf 担任超级账本项目的首位执行董事。2016 年 12 月起，[中国技术工作组](https://wiki.hyperledger.org/groups/tsc/technical-working-group-china) 正式成立，负责本土社区组织和技术引导工作。
+首届技术委员会主席由来自 IBM 开源技术部 CTO 的 [Chris Ferris](https://www.linkedin.com/in/chrisfer) 担任，委员会主席则由来自 Digital Asset Holdings 的 CEO Blythe Masters 担任。另外，自 2016 年 5 月起，Apache 基金会创始人 Brian Behlendorf 担任超级账本项目的首位执行董事。2016 年 12 月，[中国技术工作组](https://wiki.hyperledger.org/groups/tsc/technical-working-group-china) 正式成立，负责本土社区组织和技术引导工作。
 
 该项目的出现，实际上宣布区块链技术已经不单纯是一个开源技术了，已经正式被主流机构和市场认可；同时，Hyperledger 首次提出和实现的完备权限管理、创新的一致性算法和可拔插的框架，对于区块链相关技术和产业的发展都将产生深远的影响。
 
-项目官方地址托管在 [Linux 基金会网站](https://blockchain.linuxfoundation.org/)，代码托管在 [Github](https://github.com/hyperledger/hyperledger) 上，目前已经获得了不少关注。
+项目官方地址托管在 [Linux 基金会网站](https://blockchain.linuxfoundation.org)，代码托管在 [Github](https://github.com/hyperledger/hyperledger) 上，目前已经获得了不少关注。
 
 ![Hyperledger](_images/hyperledger.png)
 
@@ -23,7 +23,7 @@ IBM 贡献了数万行已有的 [Open Block Chain](https://github.com/openblockc
 
 * [fabric](https://github.com/hyperledger/fabric)：包括 [fabric](https://github.com/hyperledger/fabric) 和 [fabric-api](https://github.com/hyperledger/fabric-api)、[fabric-sdk-node](https://github.com/hyperledger/fabric-sdk-node)、[fabric-sdk-py](https://github.com/hyperledger/fabric=sdk-py) 等，目标是区块链的基础核心平台，支持 pbft 等新的 consensus 机制，支持权限管理，最早由 IBM 和 DAH 发起；
 * [sawtooth Lake](https://github.com/hyperledger/sawtooth-core)：包括 arcade、[core](https://github.com/hyperledger/sawtooth-core)、dev-tools、[validator](https://github.com/hyperledger/sawtooth-validator)、mktplace 等。是 Intel 主要贡献和主导的区块链平台，支持全新的共识机制 Proof of Elapsed Time（PoET）。
-* [Irhoha](https://github.com/hyperledger/Iroha)：账本平台项目。
+* [Iroha](https://github.com/hyperledger/Iroha)：账本平台项目。
 
 目前，所有项目均处于孵化（Incubation）状态。
 
