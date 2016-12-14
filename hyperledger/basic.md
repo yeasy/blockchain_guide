@@ -22,8 +22,8 @@ IBM 贡献了数万行已有的 [Open Blockchain](https://github.com/openblockch
 目前主要包括三大账本平台项目和若干其它项目：
 
 * [fabric](https://github.com/hyperledger/fabric)：包括 [fabric](https://github.com/hyperledger/fabric) 和 [fabric-api](https://github.com/hyperledger/fabric-api)、[fabric-sdk-node](https://github.com/hyperledger/fabric-sdk-node)、[fabric-sdk-py](https://github.com/hyperledger/fabric=sdk-py) 等，目标是区块链的基础核心平台，支持 pbft 等新的 consensus 机制，支持权限管理，最早由 IBM 和 DAH 发起；
-* [sawtooth Lake](https://github.com/hyperledger/sawtooth-core)：包括 arcade、[core](https://github.com/hyperledger/sawtooth-core)、dev-tools、[validator](https://github.com/hyperledger/sawtooth-validator)、mktplace 等。是 Intel 主要贡献和主导的区块链平台，支持全新的共识机制 Proof of Elapsed Time（PoET）。
-* [Iroha](https://github.com/hyperledger/Iroha)：账本平台项目。
+* [sawtooth Lake](https://github.com/hyperledger/sawtooth-core)：包括 arcade、[core](https://github.com/hyperledger/sawtooth-core)、dev-tools、[validator](https://github.com/hyperledger/sawtooth-validator)、mktplace 等。是 Intel 主要发起和贡献的区块链平台，支持全新的基于硬件芯片的共识机制 Proof of Elapsed Time（PoET）。
+* [Iroha](https://github.com/hyperledger/Iroha)：账本平台项目，主要由 Soramitsu 发起和贡献。
 
 目前，所有项目均处于孵化（Incubation）状态。
 
