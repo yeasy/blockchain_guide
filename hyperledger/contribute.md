@@ -58,6 +58,8 @@ $ make linter
 $ make peer
 ```
 
+*注意：有时候会因为获取安装包不稳定而报错，需要执行 `make clean`，然后再次执行。*
+
 #### 生成 Docker 镜像
 执行 
 
