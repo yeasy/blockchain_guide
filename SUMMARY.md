@@ -55,7 +55,7 @@
     * [架构设计](hyperledger/arch.md)
     * [消息协议](hyperledger/message.md)
     * [链上代码](hyperledger/chaincode.md)
-    * [贡献代码](hyperledger/contribute.md)
+    * [开发和提交代码](hyperledger/contribute.md)
     * [链码示例一：信息公证](hyperledger/chaincode_example01.md)
     * [链码示例二：交易资产](hyperledger/chaincode_example02.md)
     * [链码示例三：数字货币发行与管理](hyperledger/chaincode_example03.md)
