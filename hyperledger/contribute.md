@@ -6,7 +6,7 @@
 
 * git：用来获取代码。
 * golang 1.6+：安装成功后需要配置 $GOPATH 等环境变量。
-* Docker 1.12+：用来支持容器环境。
+* Docker 1.12+：用来支持容器环境，注意 MacOS 下要用 [Docker for Mac](https://docs.docker.com/docker-for-mac)。
 
 ### 获取代码
 
