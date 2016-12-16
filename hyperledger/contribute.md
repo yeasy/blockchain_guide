@@ -2,20 +2,23 @@
 
 ### 安装环境
 
-推荐在 Ubuntu 14.04+ 环境中开发代码，并安装如下工具。
+推荐在 Linux（如 Ubuntu 14.04+）或 MacOS 环境中开发代码，并安装如下工具。
 
-* git：用来获取代码；
-* golang 1.6+：安装成功后配置 $GOPATH 等环境变量。
+* git：用来获取代码。
+* golang 1.6+：安装成功后需要配置 $GOPATH 等环境变量。
+* Docker 1.12+：用来支持容器环境。
 
 ### 获取代码
 
 首先注册 Linux foundation ID，并登陆 [https://gerrit.hyperledger.org/](https://gerrit.hyperledger.org/)，添加个人 ssh pub key。
 
-查看项目列表，找到对应项目，以 fabric 为例，获取 `Clone with commit-msg hook` 的方式。
+查看项目列表，找到对应项目，以 fabric 为例，采用 `Clone with commit-msg hook` 的方式来获取。
 
-典型的，执行如下命令获取代码，其中 `LF_ID` 替换为你的 Linux foundation id。
+典型的，执行如下命令获取代码，放到 `$GOPATH/src/github.com/hyperledger/` 路径下，其中 `LF_ID` 替换为你的 Linux foundation id。
 
 ```sh
+$ mkdir $GOPATH/src/github.com/hyperledger/
+$ cd $GOPATH/src/github.com/hyperledger/
 $ git clone ssh://LF_ID@gerrit.hyperledger.org:29418/fabric && scp -p -P 29418 LF_ID@gerrit.hyperledger.org:hooks/commit-msg fabric/.git/hooks/
 ```
 
@@ -25,15 +28,9 @@ $ git clone ssh://LF_ID@gerrit.hyperledger.org:29418/fabric && scp -p -P 29418 L
 git clone http://LF_ID@gerrit.hyperledger.org/r/fabric && (cd fabric && curl -kLo `git rev-parse --git-dir`/hooks/commit-msg http://LF_ID@gerrit.hyperledger.org/r/tools/hooks/commit-msg; chmod +x `git rev-parse --git-dir`/hooks/commit-msg)
 ```
 
-clone 下代码后，为了方便后面的编译测试，需要放到 `$GOPATH/src/github.com/hyperledger/` 路径下。
-
-```sh
-$ mkdir 
-```
-
 ### 编译和测试
 
-大部分编译和安装过程都可以通过 Makefile 来执行。
+大部分编译和安装过程都可以利用 Makefile 来执行，包括如下常见操作。
 
 #### 安装 go tools
 执行 
@@ -57,6 +54,8 @@ $ make linter
 ```sh
 $ make peer
 ```
+
+会自动编译生成 Docker 镜像，并生成本地 peer 可执行文件。
 
 *注意：有时候会因为获取安装包不稳定而报错，需要执行 `make clean`，然后再次执行。*
 
