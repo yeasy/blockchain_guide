@@ -66,6 +66,13 @@ $ make peer
 $ make images
 ```
 
+#### 执行所有的检查和测试
+执行 
+
+```sh
+$ make checks
+```
+
 #### 执行单元测试
 
 执行 
