@@ -17,7 +17,7 @@ $ curl -fsSL https://get.docker.com/ | sh
 以 Ubuntu 14.04 为例，安装成功后，修改 Docker 服务配置（`/etc/default/docker` 文件）。
 
 ```sh
-DOCKER_OPTS="$DOCKER_OPTS -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --api-cors-header='*'
+DOCKER_OPTS="$DOCKER_OPTS -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --api-cors-header='*'"
 ```
 
 重启 Docker 服务。
