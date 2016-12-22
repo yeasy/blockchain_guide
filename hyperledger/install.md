@@ -73,7 +73,7 @@ $ docker pull hyperledger/fabric-peer:x86_64-0.6.1-preview \
   && docker tag hyperledger/fabric-peer:x86_64-0.6.1-preview hyperledger/fabric-peer \
   && docker tag hyperledger/fabric-peer:x86_64-0.6.1-preview hyperledger/fabric-baseimage \
   && docker tag hyperledger/fabric-membersrvc:x86_64-0.6.1-preview hyperledger/fabric-membersrvc
-
+```
 
 之后，用户可以选择采用不同的一致性机制，包括 noops、pbft 两类。
 
