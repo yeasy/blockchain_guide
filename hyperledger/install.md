@@ -82,15 +82,15 @@ noops 默认没有采用 consensus 机制，1 个节点即可，可以用来进�
 
 ```sh
 $ docker run --name=vp0 \
-                    --restart=unless-stopped \
-                    -it \
-                    -p 7050:7050 \
-                    -p 7051:7051 \
-                    -v /var/run/docker.sock:/var/run/docker.sock \
-                    -e CORE_PEER_ID=vp0 \
-                    -e CORE_PEER_ADDRESSAUTODETECT=true \
-                    -e CORE_NOOPS_BLOCK_WAIT=10 \
-                    hyperledger/fabric-peer:latest peer node start
+    --restart=unless-stopped \
+    -it \
+    -p 7050:7050 \
+    -p 7051:7051 \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -e CORE_PEER_ID=vp0 \
+    -e CORE_PEER_ADDRESSAUTODETECT=true \
+    -e CORE_NOOPS_BLOCK_WAIT=10 \
+    hyperledger/fabric-peer:latest peer node start
 ```
 
 ### 使用 PBFT 模式
@@ -131,7 +131,7 @@ $ docker-compose -f 4-peers.yml up
 vp0 作为初始的探测节点。
 
 ```sh
-docker run --name=vp0 \
+$ docker run --name=vp0 \
     --net="host" \
     --restart=unless-stopped \
     -it --rm \
