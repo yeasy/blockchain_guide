@@ -5,6 +5,8 @@
 * Blockchain：区块链，基于密码学的可实现信任化的信息存储和处理技术。
 * CA：Certificate Authority，负责证书的创建、颁发，在 PKI 体系中最为核心的角色。
 * Chaincode：链上代码，运行在区块链上提前约定的智能合约，支持多种语言实现。
+* Decentralization（去中心化）：无需一个第三方的中心机构存在。
+* Distributed（分布式）：非单体中央节点的实现，通常由多个个体通过某种组织形式联合在一起，对外呈现统一的服务形式。
 * Distributed Ledger：分布式记账本，大家都认可的去中心化的账本记录平台。
 * DLT：Distributed Ledger Technology。
 * DTCC：Depository Trust and Clearing Corporation，存托和结算公司，全球最大的金融交易后台服务机构。
