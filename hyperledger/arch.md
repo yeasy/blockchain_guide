@@ -102,7 +102,7 @@ message Transaction {
 
 _注意具体的交易信息并不存放在区块中。_
 
-交易的数据结构（Protobuf 格式）定义为
+区块的数据结构（Protobuf 格式）定义为
 
 ```protobuf
 message Block {
