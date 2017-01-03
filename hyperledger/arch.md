@@ -86,6 +86,14 @@ message Transaction {
 }
 ```
 
+在 1.0 架构中，一个 transaction 包括如下信息：
+
+[ledger] [channel], **proposal:**[chaincode, <function name, arguments>] **endorsement:**[proposal hash, simulation result, signature]
+
+* endorsements: proposal hash, simulation result, signature
+* function-spec: function name, arguments
+* proposal: [channel,] chaincode, <function-spec>
+
 #### 区块
 
 区块打包交易，确认交易后的世界状态。
