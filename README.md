@@ -89,3 +89,9 @@ $ git checkout master
 $ git rebase upstream/master
 $ git push -f origin master
 ```
+
+## 鼓励项目
+
+欢迎鼓励项目一杯 coffee~
+
+![coffee](_images/donate.jpeg)
