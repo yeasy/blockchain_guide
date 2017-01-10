@@ -44,6 +44,11 @@
 
 来源：[金融时报- Canada experiments with digital dollar on blockchain](http://www.ft.com/cms/s/1117c780-3397-11e6-bda0-04585c31b153,Authorised=false.html?siteedition=uk&_i_location=http%3A%2F%2Fwww.ft.com%2Fcms%2Fs%2F0%2F1117c780-3397-11e6-bda0-04585c31b153.html%3Fsiteedition%3Duk&_i_referer=&classification=conditional_standard&iab=barrier-app#axzz4Bk8JvZsk)，2016-06-16。
 
+#### 中国邮储银行将区块链技术应用到核心业务系统
+2016年10月，中国邮储银行宣布携手 IBM 推出基于区块链技术的资产托管系统，为中国银行业首次将区块链技术应成功用于核心业务系统。
+
+新的业务系统免去了重复的信用校验过程，将原有业务环节缩短了约60-80%，提高了信用交易的效率。
+
 #### 各种新型支付业务
 基于区块链技术，出现了大量的创新支付企业。
 
