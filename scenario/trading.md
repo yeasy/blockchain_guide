@@ -44,6 +44,12 @@
 
 来源：[金融时报- Canada experiments with digital dollar on blockchain](http://www.ft.com/cms/s/1117c780-3397-11e6-bda0-04585c31b153,Authorised=false.html?siteedition=uk&_i_location=http%3A%2F%2Fwww.ft.com%2Fcms%2Fs%2F0%2F1117c780-3397-11e6-bda0-04585c31b153.html%3Fsiteedition%3Duk&_i_referer=&classification=conditional_standard&iab=barrier-app#axzz4Bk8JvZsk)，2016-06-16。
 
+#### 英国银行实现 RSCoin
+
+英国银行在数字化货币方面进展十分突出，已经实现了基于分布式账本平台的数字化货币系统，RSCoin。
+
+RSCoin 目标是提供一个由中央银行控制的数字货币，采用了双层链架构、改进版的 2PC 提交，以及多链条之间的交叉验证机制。因为主要是央行和下属银行之间使用，通过提前建立一定的信任基础，可以提供较好的处理性能。
+
 #### 中国邮储银行将区块链技术应用到核心业务系统
 2016年10月，中国邮储银行宣布携手 IBM 推出基于区块链技术的资产托管系统，为中国银行业首次将区块链技术应成功用于核心业务系统。
 
