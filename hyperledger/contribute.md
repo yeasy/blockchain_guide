@@ -140,3 +140,9 @@ $ git commit -a --amend
 ```
 
 表示这个提交是对旧提交的一次修订。
+
+### 完整流程
+
+总结，完整的流程如下图所示。
+
+![代码提交流程](_images/patchset-lifecycle.png)
