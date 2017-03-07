@@ -26,11 +26,12 @@ Hyperledger 社区由技术委员会（Technical Steering Committee，TSC）指�
 
 * [fabric](https://github.com/hyperledger/fabric)：包括 [fabric](https://github.com/hyperledger/fabric) 和 [fabric-api](https://github.com/hyperledger/fabric-api)、[fabric-sdk-node](https://github.com/hyperledger/fabric-sdk-node)、[fabric-sdk-py](https://github.com/hyperledger/fabric=sdk-py) 等，目标是区块链的基础核心平台，支持 pbft 等新的 consensus 机制，支持权限管理，最早由 IBM 和 DAH 发起；
 * [sawtooth Lake](https://github.com/hyperledger/sawtooth-core)：包括 arcade、[core](https://github.com/hyperledger/sawtooth-core)、dev-tools、[validator](https://github.com/hyperledger/sawtooth-validator)、mktplace 等。是 Intel 主要发起和贡献的区块链平台，支持全新的基于硬件芯片的共识机制 Proof of Elapsed Time（PoET）。
-* [Iroha](https://github.com/hyperledger/Iroha)：账本平台项目，主要由 Soramitsu 发起和贡献。
+* [Iroha](https://github.com/hyperledger/Iroha)：账本平台项目，基于 C++ 实现，带有不少面向 Web 和 Mobile 的特性，主要由 Soramitsu 发起和贡献。
 
 其它项目：
 
 * [blockchain-explorer](https://github.com/hyperledger/blockchain-explorer)：提供 Web 操作界面，通过界面快速查看查询绑定区块链的状态（区块个数、交易历史）信息等。
+* [Cello](https://github.com/hyperledger/cello)：提供"Blockchain as a Service" 功能，使用 Cello，管理员可以轻松获取和管理多条区块链；应用开发者可以无需关心如何搭建和维护区块链。
 
 目前，所有项目均处于孵化（Incubation）状态。
 
