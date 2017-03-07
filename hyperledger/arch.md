@@ -245,11 +245,14 @@ message ChaincodeMessage {
 
 新的思路就是对这些功能进行解耦，让每个功能都相对单一，容易进行扩展。社区内已经有了一些讨论。
 
-一种可能的设计是根据功能将节点角色解耦开。
+Fabric 1.0 的设计是根据功能将节点角色解耦开。
 
-* submitting peer：客户端 SDK 角色，负责检查客户端请求的签名，运行交易，根据状态改变构造 chaincode 交易并提交给 endorser；收集到足够多 endorser 支持后可以发请求给 consenter；
-* endorser peer：负责来自 submitting peer 的 chaincode 交易的合法性和权限检查（模拟交易），通过则签名并返回支持给 submitting peer；
-* consenter：负责一致性达成，给交易们一个全局的排序，一般不需要跟账本打交道，其实就是个逻辑集中的队列；
-* committing peer：负责维护账本，将达成一致的批量交易结果生成区块并写入账本，某些时候不需要单独存在。
+![示例工作过程](../_images/data_flow.png)
 
-![示例交易过程](../_images/transaction_flow)
+* 客户端：客户端应用使用 SDK 来跟 Fabric 打交道，构造合法的交易提案提交给 endorser；收集到足够多 endorser 支持后可以构造合法的交易请求，发给 orderer 或代理节点。
+* endorser peer：负责对来自客户端的交易进行合法性和 ACL 权限检查（模拟交易），通过则签名并返回结果给客户端。
+* committer peer：负责维护账本，将达成一致顺序的批量交易结果进行状态检查，生成区块，执行合法的交易，并写入账本，同一个物理节点可以同时担任 endorser 和 committer 的 角色。
+* orderer：仅负责排序，给交易们一个全局的排序，一般不需要跟账本和交易内容打交道。
+* CA：负责所有证书的维护，遵循 PKI。
+
+![示例交易过程](../_images/transaction_flow.png)
