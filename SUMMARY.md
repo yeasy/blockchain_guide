@@ -77,7 +77,7 @@
   * [小结](baas/summary.md)
 * [性能与评测](evaluation/README.md)
   * [简介](evaluation/intro.md)
-  * [Hyperledger](evaluation/hyperledger.md)
+  * [Hyperledger Fabric v0.6](evaluation/hyperledger.md)
   * [小结](evaluation/summary.md)
 * [附录](appendix/README.md)
   * [术语](appendix/terms.md)

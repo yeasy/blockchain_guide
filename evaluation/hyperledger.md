@@ -1,4 +1,4 @@
-## Hyperledger fabric 性能评测
+## Hyperledger Fabric v0.6 性能评测
 
 ### 环境配置
 | 类型  |     操作系统     | 内核版本 | CPU(GHz) | 内存(GB) |
