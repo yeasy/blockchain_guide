@@ -18,7 +18,7 @@ Hyperledger 社区由技术委员会（Technical Steering Committee，TSC）指�
 该项目的出现，实际上宣布区块链技术已经不再是仅面向“社会实验”性质的应用场景，它已经正式被主流机构和企业市场认可；同时，Hyperledger 首次提出和实现的完备权限管理、创新的一致性算法和可拔插、可扩展的框架，对于区块链相关技术和产业的发展都将产生深远的影响。
 
 ### 主要项目
-代码托管在 [Gerrit](https://gerrit.hyperledger.org) 和 [Github](https://github.com/hyperledger/hyperledger)（自动从 gerrit 上同步）上。
+代码托管在 [Gerrit](https://gerrit.hyperledger.org) 和 [Github](https://github.com/hyperledger/)（自动从 gerrit 上同步）上。
 
 ![Hyperledger](_images/hyperledger.png)
 
@@ -26,13 +26,13 @@ Hyperledger 社区由技术委员会（Technical Steering Committee，TSC）指�
 
 账本平台项目：
 
-* [fabric](https://github.com/hyperledger/fabric)：包括 [fabric](https://github.com/hyperledger/fabric) 和 [fabric-api](https://github.com/hyperledger/fabric-api)、[fabric-sdk-node](https://github.com/hyperledger/fabric-sdk-node)、[fabric-sdk-py](https://github.com/hyperledger/fabric=sdk-py) 等，目标是区块链的基础核心平台，支持 pbft 等新的 consensus 机制，支持权限管理，最早由 IBM 和 DAH 发起；
-* [sawtooth Lake](https://github.com/hyperledger/sawtooth-core)：包括 arcade、[core](https://github.com/hyperledger/sawtooth-core)、dev-tools、[validator](https://github.com/hyperledger/sawtooth-validator)、mktplace 等。是 Intel 主要发起和贡献的区块链平台，支持全新的基于硬件芯片的共识机制 Proof of Elapsed Time（PoET）。
+* [Fabric](https://github.com/hyperledger/fabric)：包括 [Fabric](https://github.com/hyperledger/fabric)、[Fabric CA](https://github.com/hyperledger/fabric-ca)、Fabric SDK（包括 Node.Js、Python 和 Java 等语言）和 [fabric-api](https://github.com/hyperledger/fabric-api)、[fabric-sdk-node](https://github.com/hyperledger/fabric-sdk-node)、[fabric-sdk-py](https://github.com/hyperledger/fabric=sdk-py) 等，目标是区块链的基础核心平台，支持 pbft 等新的 consensus 机制，支持权限管理，最早由 IBM 和 DAH 发起；
+* [SawToothLake](https://github.com/hyperledger/sawtooth-core)：包括 arcade、[core](https://github.com/hyperledger/sawtooth-core)、dev-tools、[validator](https://github.com/hyperledger/sawtooth-validator)、mktplace 等。是 Intel 主要发起和贡献的区块链平台，支持全新的基于硬件芯片的共识机制 Proof of Elapsed Time（PoET）。
 * [Iroha](https://github.com/hyperledger/Iroha)：账本平台项目，基于 C++ 实现，带有不少面向 Web 和 Mobile 的特性，主要由 Soramitsu 发起和贡献。
 
 其它项目：
 
-* [blockchain-explorer](https://github.com/hyperledger/blockchain-explorer)：提供 Web 操作界面，通过界面快速查看查询绑定区块链的状态（区块个数、交易历史）信息等。
+* [Blockchain Explorer](https://github.com/hyperledger/blockchain-explorer)：提供 Web 操作界面，通过界面快速查看查询绑定区块链的状态（区块个数、交易历史）信息等。
 * [Cello](https://github.com/hyperledger/cello)：提供"Blockchain as a Service" 功能，使用 Cello，管理员可以轻松获取和管理多条区块链；应用开发者可以无需关心如何搭建和维护区块链。
 
 目前，所有项目均处于孵化（Incubation）状态。
