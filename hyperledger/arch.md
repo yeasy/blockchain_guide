@@ -247,7 +247,7 @@ message ChaincodeMessage {
 
 Fabric 1.0 的设计是根据功能将节点角色解耦开。
 
-![示例工作过程](../_images/data_flow.png)
+![示例工作过程](_images/dataflow.png)
 
 * 客户端：客户端应用使用 SDK 来跟 Fabric 打交道，构造合法的交易提案提交给 endorser；收集到足够多 endorser 支持后可以构造合法的交易请求，发给 orderer 或代理节点。
 * endorser peer：负责对来自客户端的交易进行合法性和 ACL 权限检查（模拟交易），通过则签名并返回结果给客户端。
@@ -255,4 +255,4 @@ Fabric 1.0 的设计是根据功能将节点角色解耦开。
 * orderer：仅负责排序，给交易们一个全局的排序，一般不需要跟账本和交易内容打交道。
 * CA：负责所有证书的维护，遵循 PKI。
 
-![示例交易过程](../_images/transaction_flow.png)
+![示例交易过程](_images/transaction_flow.png)
