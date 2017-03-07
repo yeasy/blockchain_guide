@@ -7,8 +7,8 @@
 * Chaincode：链上代码，运行在区块链上提前约定的智能合约，支持多种语言实现。
 * Decentralization（去中心化）：无需一个第三方的中心机构存在。
 * Distributed（分布式）：非单体中央节点的实现，通常由多个个体通过某种组织形式联合在一起，对外呈现统一的服务形式。
-* Distributed Ledger：分布式记账本，大家都认可的去中心化的账本记录平台。
-* DLT：Distributed Ledger Technology。
+* Distributed Ledger：分布式账本，由多家联合维护的去中心化（或多中心化）的账本记录平台。
+* DLT：Distributed Ledger Technology，分布式账本技术，包括区块链、权限管理等在内的实现分布式账本的技术。
 * DTCC：Depository Trust and Clearing Corporation，存托和结算公司，全球最大的金融交易后台服务机构。
 * Fintech：Financial Technology，跟金融相关的（信息）技术。
 * Hash：哈希算法，任意长度的二进制值映射为较短的固定长度的二进制值的算法。
@@ -24,6 +24,7 @@
 
 
 ### 比特币、以太坊相关术语
+
 * Bitcoin：比特币，中本聪发起的数字货币技术。
 * DAO：Decentralized Autonomous Organization，分布式自治组织，基于区块链的按照智能合约联系起来的松散众筹群体。
 * Mining（挖矿）：通过暴力尝试来找到一个字符串，使得它加上一组交易信息后的 hash 值符合特定规则（例如前缀包括若干个 0），找到的人可以宣称新区块被发现，并获得系统奖励的比特币。
@@ -41,7 +42,7 @@
 * Chaincode（链码）：区块链上的应用代码，扩展自“智能合约”概念，支持 golang、nodejs 等。
 * Committer（提交节点）：1.0 架构中一种 peer 节点角色，负责对 orderer 排序后的交易进行检查，选择合法的交易执行并写入存储。
 * Confidentiality（保密）：只有交易相关方可以看到交易内容，其它人未经授权则无法看到。
-* Endorser（推荐节点）：1.0 架构中一种 peer 节点角色，负责检验某个交易是否合法，是否愿意为之背书、签名。
+* Endorser（推荐节点或背书节点）：1.0 架构中一种 peer 节点角色，负责检验某个交易是否合法，是否愿意为之背书、签名。
 * Ledger（账本）：包括区块链结构（带有所有的交易信息）和当前的世界观（world state）。
 * MSP（Member Service Provider，成员服务提供者）：成员服务的抽象访问接口，实现对不同成员服务的可拔插支持。
 * Non-validating Peer（非验证节点）：不参与账本维护，仅作为交易代理响应客户端的 REST 请求，并对交易进行一些基本的有效性检查，之后转发给验证节点。

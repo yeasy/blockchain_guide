@@ -1,10 +1,8 @@
 ## Fabric v0.6 安装部署
 
-Fabric 目前的稳定版本为 v0.6，最新的版本 1.0 还在演进中，即将发布。
+如果是初次接触 Hyperledger Fabric 项目，推荐采用如下的步骤，基于 Docker-Compose 的一键部署。
 
-社区在很长一段时间内并没有推出比较容易上手的安装部署方案，于是笔者设计了基于 Docker 容器的一键式部署方案，该方案推出后在社区受到了不少人的关注和应用。官方文档现在也完善了安装部署的步骤，具体可以参考代码 `doc` 目录下内容。
-
-如果你是初次接触 Hyperledger Fabric 项目，推荐采用如下的步骤，基于 Docker-Compose 的一键部署。
+*官方文档现在也完善了安装部署的步骤，具体可以参考代码 `doc` 目录下内容。*
 
 *动手前，建议适当了解一些 [Docker 相关知识](https://github.com/yeasy/docker_practice)。*
 
