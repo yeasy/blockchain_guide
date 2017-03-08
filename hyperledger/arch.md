@@ -17,7 +17,7 @@
 * Confidentiality（保密）：只有交易相关方可以看到交易内容，其它人未经授权则无法看到。
 * Endorser（背书节点）：1.0 架构中一种 peer 节点角色，负责检验某个交易是否合法，是否愿意为之背书、签名。
 * Enrollment Certificate Authority（ECA，注册 CA）：负责成员身份相关证书管理的 CA。
-* Ledger（账本）：包括区块链结构（带有所有的交易信息）和当前的世界观（world state）。
+* Ledger（账本）：包括区块链结构（带有所有的可验证交易信息，但只有最终成功的交易会改变世界观）和当前的世界观（world state）。Ledger 仅存在于 Peer 节点。
 * MSP（Member Service Provider，成员服务提供者）：成员服务的抽象访问接口，实现对不同成员服务的可拔插支持。
 * Non-validating Peer（非验证节点）：不参与账本维护，仅作为交易代理响应客户端的 REST 请求，并对交易进行一些基本的有效性检查，之后转发给验证节点。
 * Orderer（排序节点）：1.0 架构中的共识服务角色，负责排序看到的交易，提供全局确认的顺序。
