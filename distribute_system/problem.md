@@ -47,11 +47,14 @@
 
 做过分布式系统的读者应该能意识到，绝对理想的强一致性（Strong Consistency）代价很大。除非不发生任何故障，所有节点之间的通信无需任何时间，这个时候其实就等价于一台机器了。实际上，越强的一致性要求往往意味着越弱的性能。
 
-很多时候，人们发现对一致性可以适当放宽一些要求，在一定约束下实现所谓最终一致性（Eventually Consistency），即总会存在一个时刻，系统达到一致的状态。
+一般的，强一致性（Strong Consistency）主要包括下面两类：
 
-从弱到强分别有如下几种：
+* 顺序一致性（[Sequential Consistency](https://en.wikipedia.org/wiki/Sequential_consistency)）：Leslie Lamport 1979 年经典论文《How to Make a Multiprocessor Computer That Correctly Executes Multiprocess Programs》中提出，是一种比较强的约束，保证所有进程看到的 全局执行顺序（total order）一致，并且每个进程看自身的执行（local order）跟实际发生顺序一致。例如，某进程先执行 A，后执行 B，则实际得到的全局结果中就应该为 A 在 B 前面，而不能反过来。同时所有其它进程在全局上也应该看到这个顺序。顺序一致性实际上限制了各进程内指令的偏序关系，但不在进程间按照物理时间进行全局排序。
+* 线性一致性（[Linearizability Consistency](https://en.wikipedia.org/wiki/Linearizability)）：Maurice P. Herlihy 与 Jeannette M. Wing 在 1990 年经典论文《Linearizability: A Correctness Condition for
+Concurrent Objects》中共同提出，在顺序一致性前提下加强了进程间的操作排序，形成唯一的全局顺序（系统等价于是顺序执行，所有进程看到的所有操作的序列顺序都一致，并且跟实际发生顺序一致），是很强的原子性保证。但是比较难实现，目前基本上要么依赖于全局的时钟或锁，要么通过一些复杂算法实现，性能往往不高。
 
-* 顺序一致性（[Sequential Consistency](https://en.wikipedia.org/wiki/Sequential_consistency)）：Leslie Lamport 1978 年提出，是一种较弱的约束，保证所有进程自身执行的实际结果跟指定的指令顺序一致。例如，某进程先执行 A，后执行 B，则实际得到的结果就应该为 `A, B`，而不能是 `B, A`，所有其它进程也应该看到这个顺序，但不保证什么时候能看到。顺序一致性实际上只限制了各进程内指令的偏序关系，不在进程间进行排序。
-* 线性一致性（[Linearizability Consistency](https://en.wikipedia.org/wiki/Linearizability)）：Maurice P. Herlihy 与 Jeannette M. Wing 在 1990 年共同提出，在顺序一致性前提下加强了进程间的操作排序，形成唯一的全局顺序（系统等价于是顺序执行，所有进程看到的所有操作的序列顺序都一致），是很强的原子性保证。但是很难实现，基本上要么依赖于全局的时钟或锁（原子钟是个简单粗暴但有效的主意），要么性能比较差。
+目前，高精度的石英钟的漂移率为 $$10^{-7}$$，人类目前最准确的原子震荡时钟的漂移率为 $$10^{-13}$$。Google 曾在其分布式数据库 Spanner 中采用基于原子时钟和 GPS 的“TrueTime”方案，能够将不同数据中心的时间偏差控制在 10ms 以内。方案简单粗暴而有效，但存在成本较高的问题。
+
+强一致的系统往往比较难实现。很多时候，人们发现实际需求并没有那么强，可以适当放宽一致性要求，降低系统实现的难度。例如在一定约束下实现所谓最终一致性（Eventual Consistency），即总会存在一个时刻（而不是立刻），系统达到一致的状态，这对于大部分的 Web 系统来说已经足够了。这一类弱化的一致性，被笼统称为弱一致性（Weak Consistency）。
 
 *莫非分布式领域也有一个测不准原理？这个世界为何会有这么多的约束呢？*
