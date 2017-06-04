@@ -183,7 +183,7 @@ $$ bucket = \sum_{1}^{M} G_i $$
 #### 接口和操作
 链码需要实现 Chaincode 接口，以被 VP 节点调用。
 
-```golang
+```go
 type Chaincode interface { Init(stub *ChaincodeStub, function string, args []string) ([]byte, error) Invoke(stub *ChaincodeStub, function string, args []string) ([]byte, error) Query(stub *ChaincodeStub, function string, args []string) ([]byte, error)}
 ```
 
@@ -201,7 +201,7 @@ type Chaincode interface { Init(stub *ChaincodeStub, function string, args []str
 
 对容器的操作支持三种方法：build、start、stop，对应的接口为 VM。
 
-```golang
+```go
 type VM interface { 
   build(ctxt context.Context, id string, args []string, env []string, attachstdin bool, attachstdout bool, reader io.Reader) error 
   start(ctxt context.Context, id string, args []string, env []string, attachstdin bool, attachstdout bool) error 

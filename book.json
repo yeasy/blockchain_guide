@@ -8,6 +8,7 @@
         "latex-codecogs",
         "mathjax",
         "prism", 
+        "prism-themes", 
         "-highlight"
     ],
     "pluginsConfig": {

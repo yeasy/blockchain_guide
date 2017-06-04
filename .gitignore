@@ -14,3 +14,4 @@ textpattern/
 ~*
 node_modules/
 *.graffle
+_book/

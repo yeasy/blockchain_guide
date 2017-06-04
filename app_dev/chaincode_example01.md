@@ -20,7 +20,7 @@
 
 `main` 函数作为程序的入口，调用 shim 包的 start 函数，启动 chaincode 引导程序的入口节点。如果报错，则返回。
 
-```golang
+```go
 func main() {
 	err := shim.Start(new(SimpleChaincode))
 	if err != nil {

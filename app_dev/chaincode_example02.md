@@ -17,7 +17,7 @@
 * `delete`：删除账户。
 
 ### 依赖的包
-```golang
+```go
 import (
 	"errors"
 	"fmt"
@@ -29,7 +29,7 @@ import (
 `strconv` 实现 int 与 string 类型之间的转换。
 
 在invoke 函数中，存在：
-```golang
+```go
 X, err = strconv.Atoi(args[2])
 	Aval = Aval - X
 	Bval = Bval + X
