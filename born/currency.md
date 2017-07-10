@@ -60,7 +60,7 @@
 
 在不存在一个第三方记账机构的情况下，如何实现一个数字货币系统呢？
 
-近三十年来，数字货币技术朝着这个方向努力，经历了几代演进，包括 [e-Cash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)、、[HashCash](Hashcash](http://en.wikipedia.org/wiki/Hashcash)、[B-money](http://www.weidai.com/bmoney.txt) 等。
+近三十年来，数字货币技术朝着这个方向努力，经历了几代演进，包括 [e-Cash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)、[HashCash](http://en.wikipedia.org/wiki/Hashcash)、[B-money](http://www.weidai.com/bmoney.txt) 等。
 
 1983 年，[David Chaum](https://en.wikipedia.org/wiki/David_Chaum) 最早提出[ecash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)，并于 1989 年创建了 [Digicash](https://en.wikipedia.org/wiki/Digicash) 公司。ecash 系统是首个匿名化的数字加密货币（anonymous cryptographic electronic money, or electronic cash system），基于 David Chaum 发明的盲签名技术，曾被应用于银行小额支付中。ecash 依赖于一个中心化的中介机构，导致它最终失败。
 
