@@ -19,7 +19,7 @@
 * [贡献者名单](https://github.com/yeasy/blockchain_guide/graphs/contributors)
 
 ## 进阶学习
-![区块链原理、设计与应用](_images/cover.jpg)
+![区块链原理、设计与应用](_images/book_pub.jpg)
 
 《[区块链原理、设计与应用](https://item.jd.com/12159265.html)》已经正式出版，详细介绍了区块链相关技术，特别超级账本的设计、架构和应用，欢迎大家阅读使用并反馈建议。
 
