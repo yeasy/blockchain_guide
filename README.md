@@ -19,6 +19,11 @@
 * pdf 版本 [下载](https://www.gitbook.com/download/pdf/book/yeasy/blockchain_guide)
 * epub 版本 [下载](https://www.gitbook.com/download/epub/book/yeasy/blockchain_guide)
 
+区块链技术自身仍在快速发展中，生态环境也在蓬勃成长。欢迎参与维护项目：[如何贡献](contribute.md)。
+
+* [修订记录](revision.md)
+* [贡献者名单](https://github.com/yeasy/blockchain_guide/graphs/contributors)
+
 欢迎大家加入区块链技术讨论群：
 
 * QQ 群   I：335626996（已满）
@@ -26,71 +31,12 @@
 * QQ 群 III：414919574（已满）
 * QQ 群  IV：364824846（可加）
 
-## 版本历史
+## 进阶学习
+![区块链原理、设计与应用](_images/cover.jpg)
 
-* 0.9.0: 2017-XX-YY
-  * 修正字词
-* 0.8.0: 2017-03-07
-  * 完善应用场景等；
-  * 完善分布式系统技术；
-  * 完善密码学技术；
-  * 根据最新代码更新 Hyperledger 使用。
-* 0.7.0: 2016-09-10
-  * 完善一致性技术等；
-  * 修正文字。
-* 0.6.0: 2016-08-05
-  * 修改文字；
-  * 增加更多智能合约；
-  * 增加更多业务场景。
-* 0.5.0: 2016-07-10
-  * 增加 Hyperledger 项目的内容；
-  * 增加以太坊项目内容；
-  * 增加闪电网络介绍、关键技术剖析；
-  * 补充区块链即服务；
-  * 增加比特币项目。
-* 0.4.0: 2016-06-02
-    * 添加应用场景分析。
-* 0.3.0: 2016-05-12
-    * 添加数字货币问题分析。
-* 0.2.0: 2016-04-07
-    * 添加 Hyperledger 项目简介。
-* 0.1.0: 2016-01-17
-    * 添加区块链简介。
+《[区块链原理、设计与应用](https://item.jd.com/12159265.html)》已经正式出版，详细介绍了区块链相关技术，特别超级账本的设计、架构和应用，欢迎大家阅读使用并反馈建议。
 
-## 参与贡献
-贡献者 [名单](https://github.com/yeasy/blockchain_guide/graphs/contributors)。
-
-区块链技术自身仍在快速发展中，生态环境也在蓬勃成长。
-
-本书源码开源托管在 Github 上，欢迎参与维护：[github.com/yeasy/blockchain_guide](https://github.com/yeasy/blockchain_guide)。
-
-首先，在 GitHub 上 `fork` 到自己的仓库，如 `docker_user/blockchain_guide`，然后 `clone` 到本地，并设置用户信息。
-
-```sh
-$ git clone git@github.com:docker_user/blockchain_guide.git
-$ cd blockchain_guide
-$ git config user.name "yourname"
-$ git config user.email "your email"
-```
-
-更新内容后提交，并推送到自己的仓库。
-
-```sh
-$ #do some change on the content
-$ git commit -am "Fix issue #1: change helo to hello"
-$ git push
-```
-
-最后，在 GitHub 网站上提交 pull request 即可。
-
-另外，建议定期使用项目仓库内容更新自己仓库内容。
-```sh
-$ git remote add upstream https://github.com/yeasy/blockchain_guide
-$ git fetch upstream
-$ git checkout master
-$ git rebase upstream/master
-$ git push -f origin master
-```
+* [京东图书](https://item.jd.com/12159265.html)
 
 ## 鼓励项目
 

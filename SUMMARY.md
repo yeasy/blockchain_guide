@@ -1,6 +1,8 @@
 # Summary
 
 * [前言](README.md)
+* [修订记录](revision.md)
+* [如何贡献](contribute.md)
 * [区块链思想的诞生与概念](born/README.md)
   * [从数字货币说起](born/currency.md)
   * [比特币：前所未有的社会学实验](born/bitcoin.md)
