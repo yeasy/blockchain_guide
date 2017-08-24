@@ -9,11 +9,11 @@
 
 本书适用于对区块链技术感兴趣，且具备一定信息和金融基础知识的读者；无技术背景的读者也可以从中了解到区块链的应用现状。
 
-* 在线阅读：[GitBook](https://www.gitbook.com/book/yeasy/blockchain_guide) 或 [GitHub](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md)。
+* 在线阅读：[GitBook](https://www.gitbook.com/book/yeasy/blockchain_guide) 或 [GitHub](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md)
 * pdf 版本 [下载](https://www.gitbook.com/download/pdf/book/yeasy/blockchain_guide)
 * epub 版本 [下载](https://www.gitbook.com/download/epub/book/yeasy/blockchain_guide)
 
-区块链技术自身仍在快速发展中，生态环境也在蓬勃成长。欢迎参与维护项目：[如何贡献](contribute.md)。
+区块链技术自身仍在快速发展中，生态环境也在蓬勃成长。欢迎 [参与维护项目](contribute.md)。
 
 * [修订记录](revision.md)
 * [贡献者名单](https://github.com/yeasy/blockchain_guide/graphs/contributors)
@@ -21,7 +21,7 @@
 ## 进阶学习
 ![区块链原理、设计与应用](_images/blockchain_book.png)
 
-《[区块链原理、设计与应用](https://item.jd.com/12159265.html)》已经正式出版，详细介绍了区块链相关技术，特别超级账本的设计、架构和应用，欢迎大家阅读使用并反馈建议。
+《[区块链原理、设计与应用](https://item.jd.com/12159265.html)》已经正式出版，详细介绍了区块链相关技术，特别超级账本项目的设计、架构和应用，欢迎大家阅读使用并反馈建议。
 
 * [京东图书](https://item.jd.com/12159265.html)
 
