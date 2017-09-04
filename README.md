@@ -24,6 +24,7 @@
 《[区块链原理、设计与应用](https://item.jd.com/12159265.html)》已经正式出版，详细介绍了区块链相关技术，特别超级账本项目的设计、架构和应用，欢迎大家阅读使用并反馈建议。
 
 * [京东图书](https://item.jd.com/12159265.html)
+* [China-Pub](http://product.china-pub.com/6479750)
 
 ## 鼓励项目
 
