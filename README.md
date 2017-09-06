@@ -25,6 +25,7 @@
 
 * [京东图书](https://item.jd.com/12159265.html)
 * [China-Pub](http://product.china-pub.com/6479750)
+* [当当图书](http://product.dangdang.com/25159352.html)
 
 ## 鼓励项目
 
