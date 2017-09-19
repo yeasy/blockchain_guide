@@ -12,9 +12,9 @@
 
 2016 年 3 月，第二阶段 Homestead 开始运行（区块数 1150000），主要改善了安全性。
 
-2016 年 3Q，发布 Metropolis；
+2017 年 3Q，发布 Metropolis；
 
-2017 年 1Q，发布 Serenity，发布区块链的 PoS 股权证明(Casper)版本。
+2018 年 1Q，发布 Serenity，发布区块链的 PoS 股权证明(Casper)版本。
 
 
 ### 特点
