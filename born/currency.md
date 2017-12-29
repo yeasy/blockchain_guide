@@ -1,77 +1,77 @@
-## 从数字货币说起
+## Speaking of digital currency
 
-货币是人类文明发展过程中的一大发明，最重要的职能包括价值尺度、流通手段、贮藏手段。很难想象离开了货币，现代社会庞大而复杂的经济和金融体系还能否持续运转。
+Currency is a great invention in the development of human civilization. The most important functions include the measure of value, the means of circulation and the means of storage. It is hard to imagine leaving the money, whether the huge and complex economic and financial system of modern society can sustain its operation.
 
-历史上，货币的形态经历了多个阶段的演化，包括实物货币、金属货币、代用货币、信用货币、电子货币、数字货币等。货币自身的价值依托也从实物价值、发行方信用价值，到今天出现的对信息系统（包括算法、数学、密码学、软件等）的信任价值。
+Historically, the currency has undergone many stages of evolution, including physical currency, metal currency, alternative currency, credit currency, electronic currency, digital currency and so on. The value of money itself relies on the value of the real value, the credit value of the issuer, and the value of trust in the information system (including algorithms, math, cryptography, software, etc.) that emerge today.
 
-*注：中国最早的关于货币的确切记载“夏后以玄币”出现在恒宽《盐铁论·错币》。*
+*Note: The earliest accounts of money in China, "Xia Yu Xuan Yuan" appeared in the constant width "salt iron on the wrong coin."*
 
-### 需求
+### Demand
 
-一般等价物都可以作为货币使用。然而平时最常见的还是纸币本位制，既方便携带、不易仿制、又相对容易辩伪。
+Common equivalents can be used as currency. However, usually the most common or standard paper currency, not only easy to carry, not easy to imitate, but also relatively easy to fake.
 
-*注意，严格来讲，货币（money）不等于现金或通货（cash，currency），货币的范围更广。*
+*Note that strictly speaking, money is not equal to cash or currency, and the currency is broader.*
 
-或许有人认为信用卡相对纸币形式更方便。相对于信用卡这样的集中式支付体系来说，货币提供了更好的匿名性。另外，一旦碰到系统故障、断网、没有刷卡机器等情况，信用卡就不可用了。
+Some people think that the credit card relative to the form of banknotes more convenient. Monetary provides better anonymity than a centralized payment system such as a credit card. In addition, once encountered system failure, off network, there is no credit card machine, credit card is not available.
 
-无论是货币，还是信用卡模式，都需要额外的系统（例如银行）来完成生产、分发、管理等操作，带来很大的额外成本和使用风险。诸如伪造、信用卡诈骗、盗刷、转账等安全事件屡见不鲜。
+Both monetary and credit card models require additional systems (such as banks) to perform operations such as production, distribution, and management, posing a significant additional cost and risk. Security incidents such as counterfeiting, credit card fraud, piracy and money transfer are commonplace.
 
-很自然的，如果能实现一种数字货币，保持既有货币的这些特性，消除纸质货币的缺陷，无疑将带来巨大的社会变革，极大提高经济活动的运作效率。
+Naturally, if a digital currency can be realized, maintaining these characteristics of the existing currency and eliminating the defects of the paper currency will undoubtedly bring about enormous social changes and greatly increase the operational efficiency of economic activities.
 
-### 比较
+### Compare
 
-让我们来对比现在的数字货币和现实生活中的纸币：
+Let's compare the current digital currency with real-life banknotes:
 
-| 属性 | 分析 | 胜出方 |
+| Attributes | Analysis | Winner |
 | :--- | :--- | :--- |
-| 便携 | 这点上应该没有争议，显然数字形式的货币胜出。 | 数字货币 |
-| 防伪 | 这点上应该说两者各有千秋，但数字货币可能略胜一筹。纸币依靠的是各种设计（纸张、油墨、暗纹、夹层等）上的精巧，数字货币依靠的则是密码学上的保障。事实上，纸币的伪造时有发生，但数字货币的伪造明面上还没能实现。 | 数字货币 |
-| 辩伪 | 纸币即使依托验钞机仍会有误判情况，数字货币依靠密码学基本不可能出错。数字货币胜出。 | 数字货币 |
-| 匿名 | 通常情况下，两者都能提供很好的匿名性。但都无法防御有意的追踪。 | 平局 |
-| 交易 | 对纸币来说，谁持有纸币就是合法拥有者，交易通过纸币自身的转移即可完成。对数字货币来说则复杂的多，因为任何数字物品都是可以被复制的，因此需要额外的机制。为此，比特币发明了区块链技术来确保可靠不可篡改的交易。 | 纸币 |
-| 资源 | 100 美元钞票的生产成本是 0.1 美元左右。100 面额人民币的生产成本说法众多，但估计应该在几毛到几块范围内。数字货币消耗的资源则复杂的多，以最坏情况估计，算出来多少就要消耗多少电（往往要更多）。 | 纸币 |
-| 发行 | 纸币的发行需要第三方机构的参与，数字货币则通过分布式算法来完成发行。在人类历史上，通胀和通缩往往是不合理地发行货币造成的；数字货币尚无机会被验证，在这方面的表现还有待观察。 | 平局 |
+| Portable | There should be no dispute at this point, and it is clear that the digital form of the currency wins. | Digital currency |
+| Security | This point should be said that both have their own advantages, but the digital currency may be slightly better. Banknotes rely on the sophistication of various designs (paper, ink, dark lines, mezzanine, etc.), and digital currency relies on cryptography. In fact, counterfeiting of banknotes occurs from time to time, but counterfeiting of digital currencies has yet to be realized. | Digital currency |
+| Discrimination | Even if banknotes rely on bill validators, there will still be miscarriage of justice, and digital currency can not possibly make mistakes based on cryptography. Digital currency wins. | Digital currency |
+| anonymous | Often, both provide good anonymity. But none of them defensively intended to track. | draw |
+| transaction | For paper currency, who holds the paper currency is the legal owner, the transaction can be completed by transferring the paper money itself. This is more complicated for digital currencies because any digital item can be copied and therefore requires additional mechanisms. To this end, Bitcoin invented the blockchain technology to ensure reliable and tamper-proof transactions. | Banknotes |
+| Resources | The cost of producing a 100-dollar banknote is around $ 0.1. The production cost of 100 denominations of Renminbi is numerous, but it is estimated that it should range from a few cents to several cents. The resources that digital money consume are more complex, worst-case estimates, and how much (and often more) to consume. | Banknotes |
+| issued | The issue of banknotes requires the participation of third-party agencies, and digital currencies are distributed through distributed algorithms. In human history, inflation and deflation are often caused by unjust issuance of currency; there is no opportunity for digital currency to be validated yet, and its performance in this respect remains to be seen. | draw |
 
-可见，数字货币并非在所有领域都优于已有的货币形式。不带前提的在所有领域都鼓吹数字货币并不是一种严谨的态度，应该针对具体情况具体分析。实际上，仔细观察目前支持数字货币的交易机构就会发现端倪，当前还没有一种数字货币能完整起到货币的职能。
+Visible, digital currency is not in all areas better than the existing monetary form. It is not a rigorous attitude to advocate digital currency in all fields without any preconditions and should be analyzed in a concrete situation-specific manner. In fact, a closer look at the current trading agencies that support digital currencies will find its way, and no digital currency currently has the currency function.
 
-最后，虽然当前的数字货币“实验”已经取得了巨大成功，但可见的局限也很明显：其依赖的分布式账本技术还缺乏大规模场景下考验；性能和安全性还有待提升；资源的消耗还过高等等。这些问题还有待于相关技术的进一步发展。
+Finally, while the current digital currency "experiment" has been a great success, the obvious limitations are obvious: the distributed ledger technology it relies on lacks the test of large-scale scenarios; performance and security still to be improved; resource consumption Too high and so on. These issues still need to be further development of related technologies.
 
-### 实现挑战
+### Achieve the challenge
 
-设计和实现一个数字货币并非易事。
+Designing and implementing a digital currency is not easy.
 
-在现实生活中，因为纸币具备可转移性，相对容易地完成价值的交割。但是因为电子内容天然具备零复制成本，无法通过发送电子内容来完成价值的转移。持有人可以试图将同一份电子货币发给多个人，这种被称为“双重支付攻击（Double-Spent）”。
+In real life, delivery of value is relatively easy because of the transferability of paper money. But because electronic content has a natural cost of zero duplication, the transfer of value can not be done by sending electronic content. Holders can try to send the same electronic money to multiple people. This is called "Double-Spent."
 
-也许有人会讲，当前银行中的货币都是电子化的，因为通过账号里面的数字记录了资产。说的没错，这种电子货币模式有人称为“数字货币 1.0”，它实际上是假定存在一个安全可靠的第三方记账机构来实现，这个机构利用信用作为抵押，来完成交易。
+Some may argue that the currency in the current bank is electronic, because the assets are recorded by numbers in the account. To put it right, the electronic money model, sometimes referred to as "digital currency 1.0", actually assumes the existence of a secure third-party bookkeeping facility that uses credit as a collateral to complete the transaction.
 
-这种中心化控制下的数字货币实现相对简单，但需要一个中心管控系统。但是，很多时候并不存在一个安全可靠的第三方记账机构来充当这个中心管控的角色。
+This centralized control of digital currency is relatively straightforward but requires a centralized control system. However, in many cases, there is no secure third-party book-keeping agency that serves as a center-controlled role.
 
-例如，贸易两国可能缺乏足够的外汇储备；网络上的匿名双方进行直接买卖；交易的两个机构彼此互不信任，找不到双方都认可的第三方担保；汇率的变化；可能无法连接到第三方的系统；第三方的系统可能会出现故障……
+For example, the two countries may lack sufficient foreign exchange reserves; the anonymous parties on the Internet make direct purchases and sales; the two institutions in the transaction do not trust each other and can not find a third party guarantee that is mutually agreed upon; the exchange rate changes; may not be able to connect to Third-party systems; third-party systems may fail ...
 
-总结一下，在去中心化的场景下，存在几个难题：
+To sum up, in the decentralized scenario, there are several challenges:
 
-* 货币的防伪：谁来负责验证货币；
-* 货币交易：如何确定货币从一方转移到另外一方；
-* 避免双重支付：如何避免出现双重支付。
+* Currency security: who is responsible for verifying currency;
+* Currency transactions: how to determine the transfer of money from one party to another party;
+* Avoiding double payments: How to avoid double payments.
 
-好吧，这事其实不太容易。
+Well, this is actually not easy.
 
-### 比特币出现
+### Bitcoin appears
 
-在不存在一个第三方记账机构的情况下，如何实现一个数字货币系统呢？
+How to implement a digital currency system in the absence of a third-party bookkeeping institution?
 
-近三十年来，数字货币技术朝着这个方向努力，经历了几代演进，包括 [e-Cash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)、[HashCash](http://en.wikipedia.org/wiki/Hashcash)、[B-money](http://www.weidai.com/bmoney.txt) 等。
+For nearly three decades, digital currency technology has been working in this direction and has undergone several generations of evolution, including [e-Cash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF), [HashCash](http://en.wikipedia.org/wiki/Hashcash), [B-money](http://www.weidai.com/bmoney.txt) and others.
 
-1983 年，[David Chaum](https://en.wikipedia.org/wiki/David_Chaum) 最早提出[ecash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)，并于 1989 年创建了 [Digicash](https://en.wikipedia.org/wiki/Digicash) 公司。ecash 系统是首个匿名化的数字加密货币（anonymous cryptographic electronic money, or electronic cash system），基于 David Chaum 发明的盲签名技术，曾被应用于银行小额支付中。ecash 依赖于一个中心化的中介机构，导致它最终失败。
+In 1983, [David Chaum](https://en.wikipedia.org/wiki/David_Chaum) first proposed [ecash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF) and in 1989 created [Digicash](https://en.wikipedia.org/wiki/Digicash). The ecash system is the first anonymous cryptographic electronic money (or electronic cash system), based on the blind signature technology invented by David Chaum, which was used in bank micro-payments. ecash relied on a centralized intermediary, causing it to eventually fail.
 
-1997 年，[Adam Back](https://en.wikipedia.org/wiki/Adam_Back) 发明了 [Hashcash](http://en.wikipedia.org/wiki/Hashcash)，来解决邮件系统中 DoS 攻击问题。Hashcash 首次提出用工作量证明（Proof of Work，PoW）机制来获取额度，该机制后来被后续数字货币技术所采用。
+In 1997, [Adam Back](https://en.wikipedia.org/wiki/Adam_Back) invented [Hashcash](http://en.wikipedia.org/wiki/Hashcash) to solve DoS attacks in mail systems. For the first time, Hashcash proposed using a Proof of Work (PoW) mechanism to obtain credits, which was later adopted by subsequent digital currency technology.
 
-1998 年，[Wei Dai](http://www.weidai.com) 提出了 [B-money](http://www.weidai.com/bmoney.txt)，将 PoW 引入数字货币生成过程中。B-money 同时是首个面向去中心化设计的数字货币。从概念上看已经比较完善，但是很遗憾的是，其未能提出具体的设计实现。
+In 1998, [Wei Dai](http://www.weidai.com) proposed [B-money](http://www.weidai.com/bmoney.txt), introducing PoW into the digital money generation process. B-money is also the first digital currency to be de-centralized. It is conceptually better, but unfortunately it failed to come up with a specific design implementation.
 
-上面这些数字货币都或多或少的依赖于一个第三方系统的信用担保。直到比特币的出现，将 PoW 与共识机制结合在一起，**首次从实践意义上实现了一套去中心化的数字货币系统**。
+All of these digital currencies depend more or less on the credit guarantees of a third-party system. Until the advent of bitcoin, PoW and consensus mechanism were combined together, for the first time in a practical sense to achieve a set of decentralized digital currency system .
 
-比特币网络无需任何管理机构，自身通过数学和密码学原理来确保了所有交易的成功进行，比特币自身的价值是通过背后的计算力为背书。这也促使人们开始思考在未来的数字世界中，该如何衡量价值，如何发行货币。
+The Bitcoin network, without any regulatory agency itself, ensures the success of all transactions through mathematical and cryptographic principles. The value of Bitcoin itself is endorsed by the computational power behind it. It also motivates people to start thinking about how to measure value and how to issue currency in the digital world of the future.
 
-目前看来，数字货币比较有影响力的模式有两种，一种是类似 paypal 这样的选择跟已有的系统合作，成为代理；一种是以比特币这样的完全丢弃已有体系的分布式技术。
+Currently, there are two more influential models of digital currency, one is the choice of paypal with the existing system to become a proxy; one is based on bitcoin completely discarded the existing system of distributed technology.
 
-现在还很难讲哪种模式将成为未来的主流，甚至未来还可能出现更先进的技术。但对比特币这一类数字货币的设计进行探索，将是一件十分有趣的事情。
+It is still hard to tell which model will be the mainstream of the future, and even more advanced technologies may emerge in the future. But exploring the design of digital currencies like Bitcoin is going to be a very interesting thing.
