@@ -1,6 +1,8 @@
 # Blockchain Technical Guide
 0.9.0
 
+**This is WIP on translation from [yeasy](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md) book.**
+
 Blockchain technology is an important technological innovation in the field of Fintech.
 
 As the core technology of the Decentralized Ledger Technology (DLT) platform, the blockchain is considered as having broad application prospect in many fields such as finance, credit information, internet of things, economy and trade settlement, asset management and so on. Blockchain technology itself is still in the initial stage of rapid development. The existing blockchain system uses the knowledge of many disciplines such as distributed system, cryptography, game theory and network protocol in the design and implementation, Have brought no small challenge.
@@ -12,14 +14,14 @@ At present, there is a lack of a more systematic technical information in this f
 This book is suitable for readers who are interested in the blockchain technology and have some basic information and financial knowledge; readers without technical background can also understand the application status of the blockchain.
 
 * Read online: [GitBook](https://www.gitbook.com/book/jethar/blockchain-guide/) or [GitHub](https://github.com/jethar/blockchain_guide/blob/master/SUMMARY.md)
-* pdf version [Download](https://www.gitbook.com/download/pdf/book/yeasy/blockchain_guide)
-* epub version [Download](https://www.gitbook.com/download/pdf/book/yeasy/blockchain_guide)
+* pdf version (TBD)
+* epub version (TBD)
 
 ** This book is not an original composition, but simply a translation from: **
 
 * Read online: [GitBook](https://www.gitbook.com/book/yeasy/blockchain-guide/) or [GitHub](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md)
-* pdf version [Download](https://www.gitbook.com/download/pdf/book/yeasy/blockchain_guide)
-* epub version [Download](https://www.gitbook.com/download/pdf/book/yeasy/blockchain_guide)
+* pdf version [Download]()
+* epub version [Download]()
 
 ## Advanced learning
 ![Figure 1.1.1 - Blockchain Principle, Design and Application](_images/blockchain_book.png)
