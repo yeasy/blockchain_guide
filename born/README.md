@@ -1,17 +1,17 @@
-# 概况
+# General Situation
 
-** 任何事物的发展，从来不是一蹴而就的。 **
+** The development of anything has never been accomplished in one go. **
 
-商贸合作中签订的合同，怎么确保对方能遵守和执行？
+How to ensure that the other party can observe and enforce the contract signed in the business cooperation?
 
-餐厅宣称刚从海里打捞上来的三文鱼，怎么证明捕捞时间和运输中的卫生？
+The restaurant claims salmon salvaged from the sea, how to prove fishing time and health during transport?
 
-数字世界里，怎么证明你对资产的所有？
+In the digital world, how to prove that you have all the assets?
 
-囚徒困境中的两个人，怎样能达成利益的最大化？
+How can the two individuals in the prisoner's dilemma achieve the maximization of their interests?
 
-宇宙不同文明之间的猜疑链，有没有可能打破？
+Is there any possibility of breaking the suspicion chain between different civilizations in the universe?
 
-这些看似很难解决的问题，在区块链的世界里已经有了初步的答案。
+These seemingly difficult to solve the problem, in the blockchain world already have a preliminary answer.
 
-本章将简要介绍区块链相关的背景知识，包括其起源、定位、涉及到的关键技术点以及潜在的商业价值。并对区块链的发展进行展望。
+This chapter provides an overview of the background related to blockchain, including its origin, positioning, key technical points involved, and potential business value. And prospects of the development of the blockchain.
