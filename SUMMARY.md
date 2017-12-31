@@ -1,4 +1,4 @@
-# Summary
+# 区块链技术指南
 
 * [前言](README.md)
 * [修订记录](revision.md)
@@ -86,11 +86,12 @@
   * [架构设计](fabric_design/design.md)
   * [消息协议](fabric_design/protocol.md)
   * [小结](fabric_design/summary.md)
-* [区块链即服务](baas/README.md)
-  * [Bluemix BaaS](baas/bluemix.md)
-  * [超能 BaaS](baas/sv.md)
-  * [使用 Hyperledger Cello 搭建区块链服务](baas/cello.md)
-  * [小结](baas/summary.md)
+* [区块链服务平台设计](baas/README.md)
+  * [简介](baas/intro.md)
+  * [IBM Bluemix 云区块链服务](baas/bluemix.md)
+  * [微软 Azure 云区块链服务](baas/azure.md)
+  * [使用超级账本 Cello 搭建区块链服务](baas/cello.md)
+  * [本章小结](baas/summary.md)
 * [性能与评测](evaluation/README.md)
   * [简介](evaluation/intro.md)
   * [Hyperledger Fabric v0.6](evaluation/hyperledger.md)
@@ -100,5 +101,4 @@
   * [常见问题](appendix/faq.md)
   * [相关组织](appendix/companies.md)
   * [ProtoBuf 与 gRPC](appendix/grpc.md)
-  * [资源链接](appendix/resources.md)
-
+  * [参考资源链接](appendix/resources.md)
