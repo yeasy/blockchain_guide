@@ -26,6 +26,9 @@
 
 如果发现疏漏，欢迎提交到 [勘误表](https://github.com/yeasy/blockchain_guide/wiki/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E5%8B%98%E8%AF%AF%E8%A1%A8)。
 
+## 区块链图解
+![image](https://github.com/MrQuJL/blockchain_guide/raw/master/blockchain_guide.jpg)
+
 ## 参与贡献
 区块链技术自身仍在快速发展中，生态环境也在蓬勃成长。欢迎 [参与维护项目](contribute.md)。
 
