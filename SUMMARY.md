@@ -7,6 +7,8 @@
   * [从数字货币说起](born/currency.md)
   * [比特币：前所未有的社会学实验](born/bitcoin.md)
   * [区块链核心概念](born/what.md)
+  * [账本科技的演化](born/ledger_history.md)
+  * [从区块链到分布式账本](born/blockchain_to_dlt.md)
   * [小结](born/summary.md)
 * [区块链技术的价值、挑战与展望](intro/README.md)
   * [商业价值](intro/business.md)
