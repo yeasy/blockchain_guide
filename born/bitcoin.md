@@ -6,7 +6,7 @@
 
 加密货币的发展前后经历了近 30 年的演化，比较典型的成果包括 [e-Cash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)、[HashCash](http://en.wikipedia.org/wiki/Hashcash)、[B-money](http://www.weidai.com/bmoney.txt) 等。
 
-1983 年，时任加州大学圣塔芭芭拉分校教授的 [David Chaum](https://en.wikipedia.org/wiki/David_Chaum) 最早在论文《Blind Signature for Untraceable Payments》 中提出了 [e-Cash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)，并于 1989 年创建了 [DigiCash](https://en.wikipedia.org/wiki/Digicash) 公司。ecash 系统是首个尝试解决不可追踪（untraceable）问题的匿名数字货币，基于 David Chaum 自己发明的盲签名技术，曾被应用于部分银行的小额支付系统中。ecash 虽然不可追踪，但扔依赖中心化机构（银行）的协助，同期也由于信用卡体系的快速崛起，DigiCash 公司最终于 1998 年宣告破产。鉴于 David Chaum 在数字货币研究领域发展早期的贡献，有人认为他是“数字货币之父”。
+1983 年，时任加州大学圣塔芭芭拉分校教授的 [David Chaum](https://en.wikipedia.org/wiki/David_Chaum) 最早在论文《Blind Signature for Untraceable Payments》 中提出了 [e-Cash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)，并于 1989 年创建了 [DigiCash](https://en.wikipedia.org/wiki/Digicash) 公司。ecash 系统是首个尝试解决不可追踪（untraceable）问题的匿名数字货币，基于 David Chaum 自己发明的盲签名技术，曾被应用于部分银行的小额支付系统中。ecash 虽然不可追踪，但仍依赖中心化机构（银行）的协助，同期也由于信用卡体系的快速崛起，DigiCash 公司最终于 1998 年宣告破产。鉴于 David Chaum 在数字货币研究领域发展早期的贡献，有人认为他是“数字货币之父”。
 
 1997 年，[Adam Back](https://en.wikipedia.org/wiki/Adam_Back) 发明了 [HashCash](http://en.wikipedia.org/wiki/Hashcash)，来解决邮件系统和博客网站中“拒绝服务攻击（Deny of Service，DoS）”攻击问题。Hashcash 首次提出用工作量证明（Proof of Work，PoW）机制来获取额度，该机制后来被后续数字货币技术所采用。
 
@@ -23,7 +23,7 @@
 ### 比特币的诞生
 2008 年 10 月 31 日（东部时间），星期五下午 2 点 10 分，化名 Satoshi Nakamoto （中本聪） 的人在 [metzdowd 密码学邮件列表](http://www.metzdowd.com/pipermail/cryptography/2008-October/014810.html) 中提出了比特币（Bitcoin）的设计白皮书《Bitcoin: A Peer-to-Peer Electronic Cash System》，并在 2009 年公开了最初的实现代码。首个比特币是 UTC 时间 2009 年 1 月 3 日 18:15:05 生成。但比特币真正流行开来，被人们所关注则是至少两年以后了。
 
-作为开源项目，比特币很快吸引了大量开发者的加入，目前的官方网站 [bitcoin.org](http://bitcoin.org)，提供了比特币相关的代码实现和各种工具软件
+作为开源项目，比特币很快吸引了大量开发者的加入，目前的官方网站 [bitcoin.org](http://bitcoin.org)，提供了比特币相关的代码实现和各种工具软件
 
 除了精妙的设计理念外，比特币最为人津津乐道地一点，是发明人“中本聪”到目前为止尚无法确认真实身份。也有人推测，“中本聪”背后可能不止一个人，而是一个团队。这些猜测都为比特币项目带来了不少传奇色彩。
 
