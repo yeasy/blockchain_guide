@@ -1,4 +1,4 @@
-﻿## 智能合约案例：投票
+## 智能合约案例：投票
 
 本节将介绍一个用 Solidity 语言编写的智能合约案例。代码来源于 [Solidity 官方文档](https://solidity.readthedocs.io/en/latest/index.html) 中的示例。
 
