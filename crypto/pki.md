@@ -8,7 +8,7 @@ PKI 并不代表某个特定的密码学技术和流程，PKI 是建立在公私
 
 一般情况下，PKI 至少包括如下组件：
 
-* CA（Certification Authority）：负责证书的颁发和作废，接收来自 RA 的请求，是最核心的部分；
+* CA（Certification Authority）：负责证书的颁发和吊销，接收来自 RA 的请求，是最核心的部分；
 * RA（Registration Authority）：对用户身份进行验证，校验数据合法性，负责登记，审核过了就发给 CA；
 * 证书数据库：存放证书，一般采用 LDAP 目录服务，标准格式采用 X.500 系列。
 

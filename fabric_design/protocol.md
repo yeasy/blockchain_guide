@@ -38,7 +38,7 @@ message Message {
 
 消息分为四大类：Discovery（探测）、Transaction（交易）、Synchronization（同步）、Consensus（一致性）。
 
-不同消息类型，对应到 payload 中数据不同，分为为对应的子类消息结构。
+不同消息类型，对应到 payload 中数据不同，分为对应的子类消息结构。
 
 ### Discovery
 
