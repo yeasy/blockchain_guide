@@ -75,6 +75,7 @@
 * [Fabric 部署与管理](fabric/README.md)
   * [简介](fabric/intro.md)
   * [使用 Fabric 1.0 版本](fabric/1.0.md)
+  * [使用 Fabric SDK Node](fabric/sdk-node.md)
   * [Fabric v0.6](fabric/v0.6/README.md)
     * [安装部署](fabric/v0.6/install.md)
     * [使用 chaincode](fabric/v0.6/usage.md)
