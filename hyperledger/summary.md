@@ -1,5 +1,6 @@
-## 小结
-Hyperledger 是 Linux 基金会支持的分布式账本平台，这是开源界试图构建一套标准化分布式账本平台的重要尝试。
+## 本章小结
+超级账本项目是 Linux 基金会近些年来重点支持的面向企业的分布式账本平台。它同时也是开源界和工业界技术力量颇有历史意义的携手合作，共同为分布式账本技术提供了在代码实现、协议和规范标准上的技术参考。
 
-类似的项目还包括 [以太坊平台](https://www.ethereum.org)、R3 CEV 牵头的 [Corda 项目](https://r3cev.com/blog/2016/4/4/introducing-r3-corda-a-distributed-ledger-designed-for-financial-services)、微软的 [bletchley 项目](https://github.com/Azure/azure-blockchain-projects/blob/master/bletchley/bletchley-whitepaper.md) 等。
+成立一年多时间以来，超级账本社区已经吸引了国内外来自各行业的大量关注，并从最初的一个项目、三十位成员，发展到今天的近十个顶级项目，过百个企业会员。这些项目和各行业的领军企业，共同构造了完善的企业级区块链生态系统。同时，超级账本项目中提出的许多创新技术和设计，已经被企业界和开源界所借鉴和认可。
 
+超级账本社区重视技术研发的同时也十分重视应用的落地。目前基于超级账本相关技术，已经出现了大量的企业应用案例。这些技术案例，为更多企业尝试利用区块链技术提高商业效率都都带来了很多的参考。
