@@ -42,6 +42,6 @@
 * 思科（Cisco）
 * 埃森哲（Accenture）
 
-Gartner 在 2017 年的报告《Forecast: Blockchain Business Value, Worldwide, 2017-2030》中预测：“区块链带来的商业价值在 2025 年将超过 17.6 亿美金，2030 年将超过 3.1 万亿美金（the business value-add of blockchain will grow to slightly more than $176 billion by 2025, and then it will exceed $3.1 trillion by 2030）”。
+Gartner 在 2017 年的报告《Forecast: Blockchain Business Value, Worldwide, 2017-2030》中预测：“区块链带来的商业价值在 2025 年将超过 1760 亿美金，2030 年将超过 3.1 万亿美金（the business value-add of blockchain will grow to slightly more than $176 billion by 2025, and then it will exceed $3.1 trillion by 2030）”。
 
 本书将在后续章节中通过具体的案例来讲解区块链的多个商业应用场景。
