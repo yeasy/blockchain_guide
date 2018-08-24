@@ -18,7 +18,7 @@
 
 首先注册 Linux Foundation ID（LF ID），如果没有可以到 https://identity.linuxfoundation.org/ 进行免费注册。
 
-使用 LF ID 登陆 [https://gerrit.hyperledger.org/](https://gerrit.hyperledger.org/)，在配置页面（https://gerrit.hyperledger.org/r/#/settings/ssh-keys），添加个人 ssh Pub key，否则每次访问仓库需要手动输入用户名和密码。
+使用 LF ID 登陆 [https://gerrit.hyperledger.org/](https://gerrit.hyperledger.org/)，在配置页面[https://gerrit.hyperledger.org/r/#/settings/ssh-keys](https://gerrit.hyperledger.org/r/#/settings/ssh-keys)， 添加个人 ssh Pub key，否则每次访问仓库需要手动输入用户名和密码。
 
 查看项目列表，找到对应项目，采用 `Clone with commit-msg hook` 的方式来获取源码。
 
