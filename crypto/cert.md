@@ -1,35 +1,37 @@
 ## 数字证书
 
-对于非对称加密算法和数字签名来说，很重要的一点就是公钥的分发。理论上任何人可以公开获取到对方的公钥。然而这个公钥有没有可能是伪造的呢？传输过程中有没有可能被篡改掉呢？一旦公钥自身出了问题，则整个建立在其上的安全体系的安全性将不复存在。
+对于非对称加密算法和数字签名来说，很重要的步骤就是公钥的分发。理论上任何人都可以获取到公开的公钥。然而这个公钥文件有没有可能是伪造的呢？传输过程中有没有可能被篡改呢？一旦公钥自身出了问题，则整个建立在其上的的安全性将不复成立。
 
-数字证书机制正是为了解决这个问题，它就像日常生活中的一个证书一样，可以证明所记录信息的合法性。比如证明某个公钥是某个实体（如组织或个人）的，并且确保一旦内容被篡改能被探测出来，从而实现对用户公钥的安全分发。
+数字证书机制正是为了解决这个问题，它就像日常生活中的证书一样，可以确保所记录信息的合法性。比如证明某个公钥是某个实体（个人或组织）拥有，并且确保任何篡改都能被检测出来，从而实现对用户公钥的安全分发。
 
-根据所保护公钥的用途，可以分为加密数字证书（Encryption Certificate）和签名验证数字证书（Signature Certificate）。前者往往用于保护用于加密信息的公钥；后者则保护用于解密签名完成身份验证的公钥。两种类型的公钥也可以同时放在同一证书中。
+根据所保护公钥的用途，数字证书可以分为加密数字证书（Encryption Certificate）和签名验证数字证书（Signature Certificate）。前者往往用于保护用于加密用途的公钥；后者则保护用于签名用途的公钥。两种类型的公钥也可以同时放在同一证书中。
 
-一般情况下，证书需要由证书认证机构（Certification Authority，CA）来进行签发和背书。权威的证书认证机构包括 DigiCert、GlobalSign、VeriSign 等。用户也可以自行搭建本地 CA 系统，在私有网络中进行使用。
+一般情况下，证书需要由证书认证机构（Certification Authority，CA）来进行签发和背书。权威的商业证书认证机构包括 DigiCert、GlobalSign、VeriSign 等。用户也可以自行搭建本地 CA 系统，在私有网络中进行使用。
 
 ### X.509 证书规范
-一般的，一个数字证书内容可能包括基本数据（版本、序列号）、所签名对象信息（签名算法类型、签发者信息、有效期、被签发人、**签发的公开密钥**）、CA 的数字签名等等。
+一般的，一个数字证书内容可能包括证书域（证书的版本、序列号、签名算法类型、签发者信息、有效期、被签发主体、**签发的公开密钥**）、CA 对证书的签名算法和签名值等。
 
 目前使用最广泛的标准为 ITU 和 ISO 联合制定的 X.509 的 v3 版本规范（RFC 5280），其中定义了如下证书信息域：
 
 * 版本号（Version Number）：规范的版本号，目前为版本 3，值为 0x2；
 * 序列号（Serial Number）：由 CA 维护的为它所颁发的每个证书分配的唯一的序列号，用来追踪和撤销证书。只要拥有签发者信息和序列号，就可以唯一标识一个证书。最大不能超过 20 个字节；
 * 签名算法（Signature Algorithm）：数字签名所采用的算法，如 sha256WithRSAEncryption 或 ecdsa-with-SHA256；
-* 颁发者（Issuer）：颁发证书单位的标识信息，如 “C=CN, ST=Beijing, L=Beijing, O=org.example.com, CN=ca.org.example.com”；
-* 有效期（Validity）：证书的有效期限，包括起止时间；
-* 主体（Subject）：证书拥有者的标识信息（Distinguished Name），如 “C=CN, ST=Beijing, L=Beijing, CN=person.org.example.com”；
+* 颁发者（Issuer）：颁发证书单位的信息，如 “C=CN, ST=Beijing, L=Beijing, O=org.example.com, CN=ca.org.example.com”；
+* 有效期（Validity）：证书的有效期限，包括起止时间（如 Not Before 2018-08-08-00-00UTC，Not After 2028-08-08-00-00UTC）；
+* 被签发主体（Subject）：证书拥有者的标识信息（Distinguished Name），如 “C=CN, ST=Beijing, L=Beijing, CN=personA.org.example.com”；
 * 主体的公钥信息（Subject Public Key Info）：所保护的公钥相关的信息；
     * 公钥算法（Public Key Algorithm）：公钥采用的算法；
     * 主体公钥（Subject Public Key）：公钥的内容；
-* 颁发者唯一号（Issuer Unique Identifier）：代表颁发者的唯一信息，仅 2、3 版本支持，可选；
-* 主体唯一号（Subject Unique Identifier）：代表拥有证书实体的唯一信息，仅 2、3 版本支持，可选；
-* 扩展（Extensions，可选）：可选的一些扩展。v3 中可能包括：
+* 颁发者唯一号（Issuer Unique Identifier，可选）：代表颁发者的唯一信息，仅 2、3 版本支持，可选；
+* 主体唯一号（Subject Unique Identifier，可选）：代表拥有证书实体的唯一信息，仅 2、3 版本支持，可选；
+* 扩展（Extensions，可选）：可选的一些扩展。可能包括：
     * Subject Key Identifier：实体的密钥标识符，区分实体的多对密钥；
-    * Basic Constraints：一般指明是否属于 CA；
+    * Basic Constraints：一般指明该证书是否属于某个 CA；
     * Authority Key Identifier：颁发这个证书的颁发者的公钥标识符；
-    * CRL Distribution Points：撤销文件的发布地址；
-    * Key Usage: 证书的用途或功能信息。
+    * Authority Information Access：颁发相关的服务地址，如颁发者证书获取地址和吊销证书列表信息查询地址；
+    * CRL Distribution Points：证书注销列表的发布地址；
+    * Key Usage: 表明证书的用途或功能信息，如 Digital Signature、Key CertSign；
+    * Subject Alternative Name：证书身份实体的别名，如该证书可以同样代表 *.org.example.com，org.example.com，*.example.com，example.com 身份等。
 
 此外，证书的颁发者还需要对证书内容利用自己的私钥进行签名，以防止他人篡改证书内容。
 
@@ -103,7 +105,7 @@ Certificate:
 
 ### 证书信任链
 
-证书中记录了大量信息，其中最重要的包括 `签发的公开密钥` 和 `CA 数字签名` 两个信息。因此，只要使用 CA 的公钥再次对这个证书进行签名比对，就能证明某个实体的公钥是否是合法的。
+证书中记录了大量信息，其中最重要的包括 `签发的公开密钥` 和 `CA 数字签名` 两个信息。因此，只要使用 CA 的公钥再次对这个证书进行签名比对，就能证明所记录的公钥是否合法。
 
 读者可能会想到，怎么证明用来验证对实体证书进行签名的 CA 公钥自身是否合法呢？毕竟在获取 CA 公钥的过程中，它也可能被篡改掉。
 
