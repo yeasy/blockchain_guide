@@ -8,7 +8,7 @@
 
 ### 拜占庭问题
 
-拜占庭问题最早由 Leslie Lamport 等科学家于 1982 年在论文《The Byzantine Generals Problem》中提出，是用来解释异步系统中共识问题的一个虚构模型。拜占庭是古代东罗马帝国的首都，由于地域宽广，守卫边境的多个将军（系统中的多个节点）需要通过信使来传递消息，达成某些一致决定。但由于将军中可能存在叛徒（系统中节点出错），这些叛徒将向不同的将军发送不同的消息，试图干扰共识的达成。
+拜占庭问题最早由 Leslie Lamport 等学者于 1982 年在论文《The Byzantine Generals Problem》中正式提出，是用来解释异步系统中共识问题的一个虚构模型。拜占庭是古代东罗马帝国的首都，由于地域宽广，守卫边境的多个将军（系统中的多个节点）需要通过信使来传递消息，达成某些一致决定。但由于将军中可能存在叛徒（系统中节点出错），这些叛徒将向不同的将军发送不同的消息，试图干扰共识的达成。
 
 拜占庭问题即讨论在此情况下，如何让忠诚的将军们能达成行动的一致。
 
@@ -40,8 +40,7 @@ Leslie Lamport 等人在论文《Reaching agreement in the presence of faults》
 
 拜占庭容错算法（Byzantine Fault Tolerant）是面向拜占庭问题的容错算法，解决的是在网络通信可靠，但节点可能故障情况下如何达成共识。
 
-拜占庭容错算法最早的讨论在 1980 年 Leslie Lamport 等人发表的论文《Polynomial Algorithms
-for Byzantine Agreement》，之后出现了大量的改进工作。长期以来，拜占庭问题的解决方案都存在运行过慢，或复杂度过高的问题，直到“实用拜占庭容错算法”（Practical Byzantine Fault Tolerance，PBFT） 算法的提出。
+拜占庭容错算法最早的讨论可以追溯到 Leslie Lamport 等人 1982 年 发表的论文《The Byzantine Generals Problem》，之后出现了大量的改进工作，代表性成果包括《Optimal Asynchronous Byzantine Agreement》（ 1992 年）、《Fully Polynomial Byzantine Agreement for n>3t Processors in t+1 Rounds》（1998 年）等。长期以来，拜占庭问题的解决方案都存在运行过慢，或复杂度过高的问题，直到“实用拜占庭容错算法”（Practical Byzantine Fault Tolerance，PBFT） 算法的提出。
 
 1999 年，这一算法由 Castro 和 Liskov 于论文《Practical Byzantine Fault Tolerance and Proactive Recovery》中提出。该算法基于前人工作进行了优化，首次将拜占庭容错算法复杂度从指数级降低到了多项式级，目前已得到广泛应用。其可以在失效节点不超过总数 1/3 的情况下同时保证 Safety 和 Liveness。
 
