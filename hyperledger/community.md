@@ -16,16 +16,16 @@
 社区目前主要是三驾马车领导的结构：
 
 * Technical Steering Committee
-（技术委员会）：负责技术相关的工作，下设多个工作组，具体带动各个项目和方向的发展；
+（技术委员会）：负责领导技术相关的工作，下设多个技术工作组，具体指导各个项目的发展方向。每年由社区开发者选举成员；
 * Governing Board
-（管理董事会）：负责社区组织的整体决策，由超级账本会员中推选出代表；
-* Linux Foundation（Linux 基金会）：负责基金管理，协助 Hyperledger 社区在 Linux 基金会的支持下发展。
+（管理董事会）：负责整体社区的组织决策，从超级账本会员中推选出代表座位成员；
+* Linux Foundation（Linux 基金会）：负责基金管理和大型活动组织，协助社区在 Linux 基金会的支持下健康发展。
 
 ### 大中华区技术工作组
 
 随着开源精神和开源文化在中国的普及，越来越多的企业和组织开始意识到共同构建一个健康的生态系统的重要性，也愿意为开源事业做出一定贡献。
 
-Linux 基金会和 Hyperledger 社区十分重视项目在大中华区的应用和落地情况，并希望能为开发者们贡献开源社区提供便利。在此背景下，超级账本首任执行董事 Brian Behlendorf 于 2016 年 12 月 1 日 [提议](https://lists.hyperledger.org/pipermail/hyperledger-tsc/2016-December/000504.html) 成立 [大中华区技术工作组（TWG-China）](https://wiki.hyperledger.org/groups/tsc/technical-working-group-china)，并得到了 TSC 成员们的一致支持和通过。工作组的 Wiki 首页地址为 https://wiki.hyperledger.org/groups/tsc/technical-working-group-china。
+Linux 基金会和超级账本社区十分重视项目在大中华区的应用和落地情况，并希望能为开发者们贡献开源社区提供便利。在此背景下，超级账本首任执行董事 Brian Behlendorf 于 2016 年 12 月 1 日 [提议](https://lists.hyperledger.org/pipermail/hyperledger-tsc/2016-December/000504.html) 成立 [大中华区技术工作组（TWG-China）](https://wiki.hyperledger.org/groups/tsc/technical-working-group-china)，并得到了 TSC 成员们的一致支持和通过。工作组的 Wiki 首页地址为 https://wiki.hyperledger.org/groups/twgc。
 
 技术工作组的 [主要职责](https://docs.google.com/document/d/1sXVltDZxnlB5Srd1A-EW0jtTz7P2cDLG8JmgaAYvMzU) 包括：
 
@@ -34,4 +34,4 @@ Linux 基金会和 Hyperledger 社区十分重视项目在大中华区的应用�
 * 通过邮件列表、RocketChat、论坛等方式促进社区开发者们的技术交流；
 * 协助举办社区活动，包括 Meetup、黑客松、Hackfest、技术分享、培训等。
 
-目前，工作组由来自 IBM、甲骨文、万达、华为、百度等 Hyperledger 成员企业的数十名技术专家组成，并得到了来自社区的众多志愿者的支持。工作组的各项会议和活动内容都是开放的，可以在 Wiki 首页上找到相关参与方式。
+目前，工作组由来自各个成员企业的数十名技术专家组成，并得到了来自社区的众多志愿者的支持。工作组每两周举行在线例会，每个月定期在各大城市举办技术交流沙龙，各项会议和活动内容都是开放的，可以在 Wiki 首页上找到相关参与方式。

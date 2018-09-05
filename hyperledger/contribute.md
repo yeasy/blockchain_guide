@@ -1,28 +1,28 @@
 ## 贡献代码
 
-超级账本的各个子项目，都提供了十分丰富的开发和提交代码的指南和文档，一般可以在代码的 `docs` 目录下找到。部分项目（如 Fabric 和 Cello）使用了社区自建的代码管理和评审方案，也有项目直接使用 Github 来管理流程。
+超级账本的各个子项目，都提供了十分丰富的开发和提交代码的指南和文档，一般可以在代码的 `docs` 目录下找到。部分项目（如 Fabric 和 Cello）使用了社区自建的代码管理和评审方案，其他项目多数直接使用 Github 来管理流程。
 
 这里以 Fabric 项目为例进行讲解。
 
 ### 安装环境
 
-推荐在 Linux（如 Ubuntu 16.04+）或 MacOS 环境中开发 Hyperledger 项目代码。
+推荐在 Linux（如 Ubuntu 18.04+）或 MacOS 环境中开发 Hyperledger 项目代码。
 
 不同项目会依赖不同的环境，可以从项目文档中找到。以 Fabric 项目为例，开发需要安装如下依赖。
 
 * Git：用来从 Gerrit 仓库获取代码并进行版本管理。
-* Golang 1.6+：访问 golang.org 进行安装，之后需要配置 `$GOPATH` 环境变量。注意不同项目可能需要不同语言环境。
-* Docker 1.12+：用来支持容器环境，注意 MacOS 下推荐使用 [Docker for Mac](https://docs.docker.com/docker-for-mac)。
+* Golang 1.10+：访问 golang.org 进行安装，之后需要配置 `$GOPATH` 环境变量。注意不同项目可能需要不同语言环境。
+* Docker 1.18+：用来支持容器环境，MacOS 下推荐使用 [Docker for Mac](https://docs.docker.com/docker-for-mac)。
 
 ### 获取代码
 
 首先注册 Linux Foundation ID（LF ID），如果没有可以到 https://identity.linuxfoundation.org/ 进行免费注册。
 
-使用 LF ID 登陆 [https://gerrit.hyperledger.org/](https://gerrit.hyperledger.org/)，在配置页面[https://gerrit.hyperledger.org/r/#/settings/ssh-keys](https://gerrit.hyperledger.org/r/#/settings/ssh-keys)， 添加个人 ssh Pub key，否则每次访问仓库需要手动输入用户名和密码。
+使用 LF ID 登陆 [https://gerrit.hyperledger.org/](https://gerrit.hyperledger.org/)，在配置页面（https://gerrit.hyperledger.org/r/#/settings/ssh-keys），添加个人 ssh Pub key，否则每次访问仓库需要手动输入用户名和密码。
 
 查看项目列表，找到对应项目，采用 `Clone with commit-msg hook` 的方式来获取源码。
 
-按照 Go 语言推荐代码结构，执行如下命令拉取代码，放到 `$GOPATH/src/github.com/hyperledger/` 路径下，其中 `LF_ID` 替换为用户个人的 Linux Foundation ID。
+以 Fabric 项目为例，按照 Go 语言推荐代码结构，执行如下命令拉取代码，放到 `$GOPATH/src/github.com/hyperledger/` 路径下，其中 `LF_ID` 替换为用户个人的 Linux Foundation ID。
 
 ```sh
 $ mkdir $GOPATH/src/github.com/hyperledger/
@@ -194,15 +194,3 @@ $ git commit -a --amend
 
 如果需要修复某个提交补丁的问题，则通过 `git commit -a --amend` 进行修复，并作为补丁的新版本再次提交审阅。每次通过 `git review` 提交时，应当通过 `git log` 查看确保本地只有一条提交记录。
 
-### 提问的智慧
-
-为什么在邮件列表提出的问题会无人响应？
-
-由于开源社区是松散组织形式，大部分开发者都是利用业余时间进行开发和参与社区工作。因此，在社区提出问题时就必须要注意问题的质量和提问的方式。如果碰到无人回答的情况，一定要先从自身找原因。
-
-如果能做到下面几点，会让你所提出的问题得到更多的关注。
-
-* 正确的渠道：这点十分重要，但很容易被忽视。不同项目和领域有各自的渠道，一定要在相关的渠道进行提问，例如每个项目对应的邮件列表。
-* 问题的新颖性：在提问之前，应该利用包括搜索引擎、技术文档、邮件列表等方式查询过问题的关键词，确保提出的问题是新颖的，有价值的，而不是已经被回答过多遍的常识性问题。
-* 适当的上下文：不少提问者的问题中只包括一条很简单的错误信息。这样的问题会让社区的开发者有心帮忙也无力回答。良好的上下文应该带有完整的环境信息、所使用的软件版本、所进行操作的详细步骤、问题相关的日志、以及自己对问题的思考等。这些都可以帮助他人快速重现问题。
-* 注意礼仪：虽然技术社区里大家沟通方式会更为直接一些，但懂得礼仪毫无疑问是会受到欢迎的。要牢记，他人的帮助并非是义务的，要对他人的任何帮助心存感恩。
