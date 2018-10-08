@@ -1,6 +1,6 @@
 ## CAP 原理
 
-CAP 原理最早出现在 2000 年，由加州大学伯克利分校的 Eric Brewer 教授在 ACM 组织的 Principles of Distributed Computing（PODC）研讨会上提出猜想，后来麻省理工学院的 Nancy Lynch 等学者进行了理论证明。
+CAP 原理最早出现在 2000 年，由加州大学伯克利分校的 Eric Brewer 教授在 ACM 组织的 Principles of Distributed Computing（PODC）研讨会上提出猜想。两年后，麻省理工学院的 Nancy Lynch 等学者进行了理论证明。
 
 该原理被认为是分布式系统领域的重要原理之一，深刻影响了分布式计算与系统设计的发展。
 
