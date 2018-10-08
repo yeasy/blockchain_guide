@@ -4,13 +4,13 @@ Paxos 问题是指分布式的系统中存在故障（crash fault），但不存
 
 ### Paxos 算法
 
-1990 年由 Leslie Lamport 在论文《The Part-time Parliament》中提出的 [Paxos](http://research.microsoft.com/users/lamport/pubs/lamport-paxos.pdf) 共识算法，在工程角度实现了一种最大化保障分布式系统一致性（存在极小的概率无法实现一致）的机制。Paxos 算法被广泛应用在 Chubby、ZooKeeper 这样的分布式系统中。Leslie Lamport 作为分布式系统领域的早期研究者，因为相关成果获得了 2013 年度图灵奖。
+1990 年由 Leslie Lamport 在论文《The Part-time Parliament》中提出的 [Paxos](http://research.microsoft.com/users/lamport/pubs/lamport-paxos.pdf) 共识算法，在工程角度实现了一种最大化保障分布式系统一致性（存在极小的概率无法实现一致）的机制。Paxos 算法被广泛应用在 Chubby、ZooKeeper 这样的分布式系统中。Leslie Lamport 作为分布式系统领域的早期研究者，因为相关杰出贡献获得了 2013 年度图灵奖。
 
 论文中为了描述问题编造了一个虚构故事：在古希腊的 Paxon 岛，议会如何通过表决来达成共识。议员们通过信使传递消息来对议案进行表决。但议员可能离开，信使可能走丢，甚至重复传递消息。
 
 Paxos 是首个得到证明并被广泛应用的共识算法，其原理类似 [两阶段提交](https://en.wikipedia.org/wiki/Two-phase_commit_protocol) 算法，进行了泛化和扩展，通过消息传递来逐步消除系统中的不确定状态。
 
-作为后来很多共识算法（如 Raft、ZAB 等）的基础，Paxos 算法基本思想并不复杂，但最初论文中描述比较难懂，甚至连发表也几经波折。2001 年，Leslie Lamport 专门发表论文《Paxos Made Simple》进行重新解释。
+作为后来很多共识算法（如 Raft、ZAB 等）的基础，Paxos 算法基本思想并不复杂，但最初论文中描述比较难懂，甚至连发表也几经波折。2001 年，Leslie Lamport 还专门发表论文《Paxos Made Simple》进行重新解释。
 
 #### 基本原理
 
@@ -20,7 +20,7 @@ Paxos 是首个得到证明并被广泛应用的共识算法，其原理类似 [
 * 接受者（Acceptor）：负责对提案进行投票，接受（Accept）提案。往往由服务端担任该角色。
 * 学习者（Learner）：获取批准结果，并帮忙传播，不参与投票过程。可为客户端或服务端。
 
-算法需要满足 Safety 和 Liveness 两方面的约束要求。实际上这两个基础属性也是大部分分布式算法都该考虑的。
+算法需要满足安全性（Safety） 和存活性（Liveness）两方面的约束要求。实际上这两个基础属性也是大部分分布式算法都该考虑的。
 
 * Safety：保证决议（Value）结果是对的，无歧义的，不会出现错误情况。
     * 只有是被提案者提出的提案才可能被最终批准；
@@ -85,7 +85,7 @@ Paxos 算法的设计并没有考虑到一些优化机制，同时论文中也�
 
 [Raft](https://ramcloud.atlassian.net/wiki/download/attachments/6586375/raft.pdf) 算法由斯坦福大学的 Diego Ongaro 和 John Ousterhout 于 2014 年在论文《In Search of an Understandable Consensus Algorithm》中提出。Raft 算法面向对多个决策达成一致的问题，分解了领导者选举、日志复制和安全方面的考虑，并通过约束减少了不确定性的状态空间。
 
-算法包括三种角色：领导者（Leader）、候选者（Candidate） 和 跟随者（Follower），决策前通过选举一个全局的领导者来简化后续的决策过程。领导者角色十分关键，决定日志（log）的提交。日志只能由领导者向跟随者单向复制。
+算法包括三种角色：领导者（Leader）、候选者（Candidate） 和跟随者（Follower），决策前通过选举一个全局的领导者来简化后续的决策过程。领导者角色十分关键，决定日志（log）的提交。日志只能由领导者向跟随者单向复制。
 
 典型的过程包括两个主要阶段：
 
