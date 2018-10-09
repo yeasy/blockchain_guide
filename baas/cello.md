@@ -198,6 +198,48 @@ Active Chains 页面会显示所有正在运行的链，包括链的名称、类
 
 ![添加链](_images/cello_dashboard_addcluster.png)
 
+### 用户控制台，申请使用Chain
+
+用户可以登录User Dashboard来申请和使用Chain
+
+![登录页面](_images/cello_user_dashboard_login.png)
+
+#### Chain列表页面
+
+Chain列表页面显示所有用户已经申请的链。
+
+![Chain列表页面](_images/cello_user_dashboard_chain_list.png)
+
+#### Chain详情页面
+
+Chain详情页面可以查看链的基本信息（链高度，channel数，链码安装/实例化个数，最近的block/transaction），操作历史记录。
+
+![Chain详情页面](_images/cello_user_dashboard_chain_info.png)
+
+#### 智能合约模板列表页面
+
+这个页面列取用户自己上传的智能合约代码模板，支持多个版本管理。
+
+![智能合约模板列取页面](_images/cello_user_dashboard_chain_code_template.png)
+
+#### 智能合约模板详情页面
+
+在合约模板详情页面可以查看智能合约模板的详情，包括合约多版本列表，部署列表，部署合约。
+
+![智能合约详情页面](_images/cello_user_dashboard_chain_code_template_info.png)
+
+#### 智能合约操作页面
+
+在这个页面可以invoke/query已经部署好的智能合约。
+
+![智能合约操作页面](_images/cello_user_dashboard_chain_code_operate.png)
+
+#### 智能合约运行列表页面
+
+这个页面可以查看所有已经部署，包括成功和失败的智能合约的列表。
+
+![智能合约运行列表页面](_images/cello_user_dashboard_chain_code_running.png)
+
 ### 基于 Cello 进行功能扩展
 Cello 已经提供了完整的区块链管理功能，并提供了图形界面和 API。
 
