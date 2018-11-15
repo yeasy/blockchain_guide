@@ -18,7 +18,7 @@ $$E(X\triangle{}Y) = E(X)\triangle{} E(Y)$$
 
 ### 问题与挑战
 
-同态加密的问题最早是由 Ron Rivest、Leonard Adleman 和 Michael L. Dertouzos 在 1978 年提出，同年提出了 RSA 加密算法。但第一个“全同态”的算法直到 2009 年才被克雷格·金特里（Craig Gentry）在论文《Fully Homomorphic Encryption Using Ideal Lattices》中提出并进行数学证明。
+同态加密的问题最早在 1978 年由 Ron Rivest、Leonard Adleman 和 Michael L. Dertouzos 提出（同年 Ron Rivest、Adi Shamir 和 Leonard Adleman 还共同发明了 RSA 算法）。但第一个“全同态”的算法直到 2009 年才被克雷格·金特里（Craig Gentry）在论文《Fully Homomorphic Encryption Using Ideal Lattices》中提出并进行数学证明。
 
 仅满足加法同态的算法包括 Paillier 和 Benaloh 算法；仅满足乘法同态的算法包括 RSA 和 ElGamal 算法。
 
