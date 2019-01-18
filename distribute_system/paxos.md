@@ -1,6 +1,6 @@
 ## Paxos 算法与 Raft 算法
 
-Paxos 问题是指分布式的系统中存在故障（crash fault），但不存在恶意（corrupt）节点的场景（即可能消息丢失或重复，但无错误消息）下的共识达成问题。这也是分布式共识领域最为常见的问题。因为最早是 Leslie Lamport 用 Paxon 岛的故事模型来进行描述，而得以命名。解决 Paxos 问题的算法主要有 Paxos 系列算法和 Raft 算法。
+Paxos 问题是指分布式的系统中存在故障（crash fault），但不存在恶意（corrupt）节点的场景（即可能消息丢失或重复，但无错误消息）下的共识达成问题。这也是分布式共识领域最为常见的问题。因为最早是 Leslie Lamport 用 Paxos 岛的故事模型来进行描述，而得以命名。解决 Paxos 问题的算法主要有 Paxos 系列算法和 Raft 算法。
 
 ### Paxos 算法
 
