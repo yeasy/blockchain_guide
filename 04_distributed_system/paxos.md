@@ -6,7 +6,7 @@ Paxos 问题是指分布式的系统中存在故障（crash fault），但不存
 
 1990 年由 Leslie Lamport 在论文《The Part-time Parliament》中提出的 [Paxos](http://research.microsoft.com/users/lamport/pubs/lamport-paxos.pdf) 共识算法，在工程角度实现了一种最大化保障分布式系统一致性（存在极小的概率无法实现一致）的机制。Paxos 算法被广泛应用在 Chubby、ZooKeeper 这样的分布式系统中。Leslie Lamport 作为分布式系统领域的早期研究者，因为相关杰出贡献获得了 2013 年度图灵奖。
 
-论文中为了描述问题编造了一个虚构故事：在古希腊的 Paxos 岛，议会如何通过表决来达成共识。议员们通过信使传递消息来对议案进行表决。但议员可能离开，信使可能走丢，甚至重复传递消息。
+论文中为了描述问题编造了一个虚构故事：在古代爱琴海的 Paxos 岛，议会如何通过表决来达成共识。议员们通过信使传递消息来对议案进行表决。但议员可能离开，信使可能走丢，甚至重复传递消息。
 
 Paxos 是首个得到证明并被广泛应用的共识算法，其原理类似 [两阶段提交](https://en.wikipedia.org/wiki/Two-phase_commit_protocol) 算法，进行了泛化和扩展，通过消息传递来逐步消除系统中的不确定状态。
 
@@ -81,16 +81,15 @@ Paxos 里面对这两个阶段分别命名为准备（Prepare）和提交（Comm
 一旦多数接受者接受了共同的提案值，则形成决议，成为最终确认。
 
 ### Raft 算法
-Paxos 算法的设计并没有考虑到一些优化机制，同时论文中也没有给出太多实现细节，因此后来出现了不少性能更优化的算法和实现，包括 Fast Paxos、Multi-Paxos 等。最近的有 [Raft](https://ramcloud.atlassian.net/wiki/download/attachments/6586375/raft.pdf) 算法，算是对 Multi-Paxos 的重新简化设计和实现，相对也更容易理解。
+Paxos 算法虽然给出了共识设计，但并没有讨论太多实现细节，也并不重视工程上的优化，因此后来在学术界和工程界出现了一些改进工作，包括 Fast Paxos、Multi-Paxos，Zookeeper Atomic Broadcast（ZAB）和 Raft 等。这些算法重点在于改进执行效率和可实现性。
 
-[Raft](https://ramcloud.atlassian.net/wiki/download/attachments/6586375/raft.pdf) 算法由斯坦福大学的 Diego Ongaro 和 John Ousterhout 于 2014 年在论文《In Search of an Understandable Consensus Algorithm》中提出。Raft 算法面向对多个决策达成一致的问题，分解了领导者选举、日志复制和安全方面的考虑，并通过约束减少了不确定性的状态空间。
+其中，[Raft](https://ramcloud.atlassian.net/wiki/download/attachments/6586375/raft.pdf) 算法由斯坦福大学的 Diego Ongaro 和 John Ousterhout 于 2014 年在论文《In Search of an Understandable Consensus Algorithm》中提出，基于 Multi-Paxos 算法进行重新简化设计和实现，提高了工程实践性。Raft 算法的主要设计思想与 ZAB 类型，通过先选出领导节点来简化流程和提高效率。实现上分解了领导者选举、日志复制和安全方面的考虑，并通过约束减少了不确定性的状态空间。
 
-算法包括三种角色：领导者（Leader）、候选者（Candidate） 和跟随者（Follower），决策前通过选举一个全局的领导者来简化后续的决策过程。领导者角色十分关键，决定日志（log）的提交。日志只能由领导者向跟随者单向复制。
+算法包括三种角色：领导者（Leader）、候选者（Candidate） 和跟随者（Follower），每个任期内选举一个全局的领导者。领导者角色十分关键，决定日志（log）的提交。每个日志都会路由到领导者，并且只能由领导者向跟随者单向复制。
 
 典型的过程包括两个主要阶段：
 
-* 领导者选举：开始所有节点都是跟随者，在随机超时发生后未收到来自领导者或候选者消息，则转变角色为候选者，提出选举请求。最近选举阶段（Term）中得票超过一半者被选为领导者；如果未选出，随机超时后进入新的阶段重试。领导者负责从客户端接收 log，并分发到其他节点；
-* 同步日志：领导者会找到系统中日志最新的记录，并强制所有的跟随者来刷新到这个记录，数据的同步是单向的。
+* 领导者选举：开始所有节点都是跟随者，在随机超时发生后未收到来自领导者或候选者消息，则转变角色为候选者（中间状态），提出选举请求。最近选举阶段（Term）中得票超过一半者被选为领导者；如果未选出，随机超时后进入新的阶段重试。领导者负责从客户端接收请求，并分发到其他节点；
+* 同步日志：领导者会决定系统中最新的日志记录，并强制所有的跟随者来刷新到这个记录，数据的同步是单向的，确保所有节点看到的视图一致。
 
-
-*注：此处日志并非是指输出消息，而是各种事件的发生记录。*
+此外，领导者会定期向所有跟随者发送心跳消息，跟随者如果发现心跳消息超时未收到，则可以认为领导者已经下线，尝试发起新的选举过程。
