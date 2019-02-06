@@ -1,4 +1,4 @@
-## 潜在的商业价值
+## 区块链的商业价值
 
 商业行为的典型过程为：交易多方通过协商确定商业合约，通过执行合约完成交易。区块链擅长的正是如何在多方之间达成合约，并确保合约的顺利执行。
 
@@ -18,7 +18,7 @@
 
 区块链并非凭空诞生的新技术，更是多种技术演化到一定程度后的产物，因此，其商业应用场景也跟促生其出现的环境息息相关。对于基于数字方式的交易行为，区块链技术能潜在地降低交易成本、加快交易速度，同时能提高安全性。笔者认为，**能否最终提高生产力，将是一项技术能否被实践接受的关键**。
 
-Gartner 在 2017 年的报告《Forecast: Blockchain Business Value, Worldwide, 2017-2030》中预测：“区块链带来的商业价值在 2025 年将超过 17.6 亿美金，2030 年将超过 3.1 万亿美金（the business value-add of blockchain will grow to slightly more than $176 billion by 2025, and then it will exceed $3.1 trillion by 2030）”。IDC 在 2018 年的报告《Worldwide Semiannual Blockchain Spending Guide》中预测，到 2021 年全球分布式账本科技相关投资将接近百亿美元，五年内的复合增长率高达 81.2%。
+Gartner 在 2017 年的报告《Forecast: Blockchain Business Value, Worldwide, 2017-2030》中预测：“区块链带来的商业价值在 2025 年将超过 1760 亿美金，2030 年将超过 3.1 万亿美金（the business value-add of blockchain will grow to slightly more than $176 billion by 2025, and then it will exceed $3.1 trillion by 2030）”。IDC 在 2018 年的报告《Worldwide Semiannual Blockchain Spending Guide》中预测，到 2021 年全球分布式账本科技相关投资将接近百亿美元，五年内的复合增长率高达 81.2%。
 
 目前，区块链技术已经得到了众多金融机构和商业公司的关注，包括大量金融界和信息技术界的领军性企业和团体。典型企业组织如下所列（排名不分先后）。
 
