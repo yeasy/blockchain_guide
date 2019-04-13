@@ -1,6 +1,7 @@
 ## 版本历史
 
 * 1.3.0: 2019-XX-YY
+  * Add more crypto techniques;
   * TBD
 
 * 1.2.0: 2018-12-31
