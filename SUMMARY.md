@@ -45,7 +45,7 @@
   * [Merkle 树结构](05_crypto/merkle_trie.md)
   * [Bloom Filter 结构](05_crypto/bloom_filter.md)
   * [同态加密](05_crypto/homoencryption.md)
-  * [其它问题](05_crypto/others.md)
+  * [其它技术](05_crypto/others.md)
   * [本章小结](05_crypto/summary.md)
 * [比特币 —— 区块链思想诞生的摇篮](06_bitcoin/README.md)
   * [比特币项目简介](06_bitcoin/intro.md)

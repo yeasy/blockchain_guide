@@ -1,6 +1,6 @@
-## 其它问题
+## 其它技术
 
-密码学领域涉及到的问题还有许多，这里列出一些还在发展和探讨中的相关技术。
+密码学领域涉及到的技术还有许多，这里总结一些还在发展和探讨中的话题。
 
 ### 零知识证明
 
@@ -8,27 +8,63 @@
 
 证明过程包括交互式（Interactive）和非交互式（Non-interactive）两种。
 
-零知识证明的研究始于 Shafi Goldwasser，Silvio Micali 和 Charles Rackoff 在 1985 年提交的论文《The Knowledge Complexity of Interactive Proof-Systems》，其中提出了零知识证明要满足三个条件：
+零知识证明的研究始于 Shafi Goldwasser，Silvio Micali 和 Charles Rackoff 在 1985 年提交的开创性论文《The Knowledge Complexity of Interactive Proof-Systems》，三位作者也因此在 1993 年获得首届哥德尔奖。
+
+论文中提出了零知识证明要满足三个条件：
 
 * 完整性（Completeness）：真实的证明可以让验证者成功验证；
 * 可靠性（Soundness）：虚假的证明无法保证通过验证。但理论上可以存在小概率例外；
-* 零知识（Zero-Knowledge）：如果得到证明，无法（或很难）从证明过程中获知除了所证明信息之外的任何信息。
+* 零知识（Zero-Knowledge）：如果得到证明，无法（或很难）从证明过程中获知除了所证明信息之外的任何信息，分为完美零知识、概率零知识。
 
 交互式零知识证明相对容易构造，需要通过证明人和验证人之间一系列交互完成。一般为验证人提出一系列问题，证明人如果能都回答正确，则有较大概率确实知道论断。
 
 例如，证明人 Alice 向验证人 Bob 证明两个看起来一样的图片有差异，并且自己能识别这个差异。Bob 将两个图片在 Alice 无法看到的情况下更换或保持顺序，再次让 Alice 识别是否顺序调整。如果 Alice 每次都能正确识别顺序是否变化，则 Bob 会以较大概率认可 Alice 的证明。此过程中，Bob 除了知道 Alice 确实能识别差异这个论断外，自己无法获知或推理出任何额外信息（包括该差异本身），也无法用 Alice 的证明（例如证明过程的录像）去向别人证明。注意这个过程中 Alice 如果提前猜测出 Bob 的更换顺序，则存在作假的可能性。
 
-非交互式零知识证明则复杂的多，同时被认为具有更广泛的应用价值，在 Z-cash 等项目中得到应用。目前，进行非交互式零知识证明的主要思路为利用所证明论断创造一个难题（一般为 NP 完全问题如 SAT，某些情况下需要提前或第三方提供随机数作为参数），如果证明人确实知道论断，即可在一定时间内解决该难题，否则很难解答难题。验证人可以通过答案是否正确来验证证明人是否知晓论断。
+非交互式零知识证明（NIZK）则复杂的多。实际上，通用的非交互式完美或概率零知识证明（Proof）系统并不存在，但可以设计出计算安全的非交互式零知识论证（Argument）系统，具有广泛的应用价值。
+
+Manuel Blum、Alfredo De Santis、Silvio Micali 和 Giuseppe Persiano 在 1991 年发表的论文《Noninteractive Zero-Knowledge》中提出了首个面向“二次非连续问题”的非交互的完美零知识证明（NIPZK）系统。
+
+2012 年，Nir Bitansky、Ran Caneetti 等在论文《From extractable collision resistance to succinct non-interactive arguments of knowledge, and back again》中提出了实用的非交互零知识论证方案 zk-SNARKs，后来在 Z-cash 等项目中得到广泛应用。目前，进行非交互式零知识论证的主要思路为利用所证明论断创造一个难题（一般为 NP 完全问题如 SAT，某些情况下需要提前或第三方提供随机数作为参数）。如果证明人确实知道论断，即可在一定时间内解决该难题，否则很难解答难题。验证人可以通过验证答案来验证证明人是否知晓论断。
+
+零知识证明如果要能普及，还需要接受实践检验，另外需要考虑减少甚至无需预备阶段计算、提高可扩展性，同时考虑抵御量子计算攻击。
 
 ### 可验证随机函数
 
 可验证随机函数（Verifiable Random Function，VRF）最早由 Silvio Micali（麻省理工学院）、Michael Rabiny（哈佛大学）、Salil Vadha（麻省理工学院）于 1999 年在论文《Verifiable Random Functions》中提出。
 
-它讨论的是一类特殊的伪随机函数，其结果可以在某些场景下进行验证。
+它讨论的是一类特殊的伪随机函数，其结果可以在某些场景下进行验证。一般可以通过签名和哈希操作来构建。
 
 例如，Alice 拥有公钥 Pk 和对应私钥 Sk。Alice 宣称某可验证随机函数 F 和一个输入 x，并计算 y = F(Sk, x)。Bob 可以使用 Alice 公钥 Pk，对同样的 x 和 F 进行验证，证明其结果确实为 y。注意该过程中，因为 F 的随机性，任何人都无法预测 y 的值。
 
 可见，VRF 提供了一种让大家都认可并且可以验证的随机序列，可以用于分布式系统中进行投票的场景。
+
+### 安全多方计算
+
+安全多方计算（Secure Multi-Party Computation，SMPC 或 SMC）由 Andrew Chi-Chih Yao（姚期智）于 1986 年在论文《How to generate and exchange secrets》中提出。其假设的场景为多个参与方都拥有部分数据，在不泄露自己数据的前提下，实现利用多方的数据进行计算。这一问题在多方彼此互不信任而又需要进行某些合作时（如保护隐私的前提下进行数据协同），十分有用，有时候也被称为隐私保护计算（Privacy-preserving Computation）。
+
+根据参与方的个数，可以分为双方计算或多方计算；根据实现方法，可以分为基于噪音（如 differential privacy，差分隐私）、基于秘密共享（Secret Sharing）、基于混淆电路（Garbled Circuit）和基于同态加密（Homomorphic Encryption）。
+
+一般来说，基于噪音的方案容易实现，但使用场景局限，基于密码学技术的方案更通用，但往往需要较大计算成本。
+
+### 不经意传输
+
+不经意传输（Oblivious Transfer，OT）协议由 S. Even，O. Goldreich，A. Lempel 等人 1983 年在论文《A Randomized Protocol for Signing Contracts》中提出。后来应用在安全多方计算等场景下。
+
+该协议所解决的问题是发送方将信息发送给接收方，但要保护双方的隐私：发送方无法获知接收方最终接收了哪些信息；接收方除了能获知自己所需的信息外，无法获得额外的信息。
+
+例如，银行向征信公司查询某个客户的征信情况以决定是否进行贷款，银行不希望征信公司知道该客户来到该银行申请贷款（属于客户隐私），同时，征信公司不希望银行拿到其它客户的征信数据。
+
+一种简单的实现是接收方提供一组随机串（N个）作为公钥，并证明自己只知道其中部分串（K 个）对应的私钥。发送方采用这些随机串加密 N 个信息，然后发给接收方。这样，接收方只能解开其中的 K 条信息。
+
+### 差分隐私
+
+差分隐私（Differential Privacy）是一种相对实用的隐私保护机制。
+
+最初问题是研究如何分享一个数据集而保护数据集中个体的隐私，在 2006 年由 Cynthia Dwork、Frank McSherry、 Kobbi Nissim 和 Adam Smith 在论文《Calibrating Noise to Sensitivity in Private Data Analysis》中提出。由于在隐私保护问题上的应用前景，近些年成为研究热点。
+
+主要思想是在数据集中巧妙的添加一些噪音扰动，使得对修改后数据集进行计算不太影响统计结果，但无法将其中任意个体追溯回原始个体信息。例如，将数据集中删掉任意一条记录，查询结果不受影响。
+
+目前可行的方案主要包括添加拉普拉斯噪音（适合于数值型）和指数噪音（适合于非数值型）等。
 
 ### 量子密码学
 量子密码学（Quantum Cryptography）随着量子计算和量子通信的研究而被受到越来越多的关注，被认为会对已有的密码学安全机制产生较大的影响。
