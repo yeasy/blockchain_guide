@@ -6,7 +6,7 @@
 
 成立之初，项目就收到了众多开源技术贡献。IBM 贡献了 4 万多行已有的 [Open Blockchain](https://github.com/openblockchain) 代码，Digital Asset 贡献了企业和开发者相关资源，R3 贡献了新的金融交易架构，Intel 贡献了分布式账本相关的代码。  
 
-作为一个联合项目（Collaborative Project），超级账本由面向不同目的和场景的子项目构成。目前包括 Fabric、SawToothLake、Iroha、Blockchain Explorer、Cello、Indy、Composer、Burrow、Quilt、Caliper 等 10 大顶级项目，所有项目都遵守 Apache v2 许可，并约定共同遵守如下的 [基本原则](https://github.com/hyperledger/hyperledger)：
+作为一个联合项目（Collaborative Project），超级账本由面向不同目的和场景的子项目构成。目前包括 Fabric、SawToothLake、Iroha、Blockchain Explorer、Cello、Indy、Composer、Burrow、Quilt、Caliper、Ursa、Grid 等 12 大顶级项目，所有项目都遵守 Apache v2 许可，并约定共同遵守如下的 [基本原则](https://github.com/hyperledger/hyperledger)：
 
 * 重视模块化设计：包括交易、合同、一致性、身份、存储等技术场景；
 * 重视代码可读性：保障新功能和模块都可以很容易添加和扩展；

@@ -68,8 +68,8 @@
 
 一般地，强一致性主要包括下面两类：
 
-* 顺序一致性（[Sequential Consistency](https://en.wikipedia.org/wiki/Sequential_consistency)）：Leslie Lamport 1979 年经典论文《How to Make a Multiprocessor Computer That Correctly Executes Multiprocess Programs》中提出，是一种比较强的约束，保证所有进程看到的全局执行顺序（total order）一致，并且每个进程看自身的执行顺序（local order）跟实际发生顺序一致。例如，某进程先执行 A，后执行 B，则实际得到的全局结果中就应该为 A 在 B 前面，而不能反过来。同时所有其它进程在全局上也应该看到这个顺序。顺序一致性实际上限制了各进程内指令的偏序关系，但不在进程间按照物理时间进行全局排序。
-* 线性一致性（[Linearizability Consistency](https://en.wikipedia.org/wiki/Linearizability)）：Maurice P. Herlihy 与 Jeannette M. Wing 在 1990 年经典论文《Linearizability: A Correctness Condition for Concurrent Objects》中共同提出，在顺序一致性前提下加强了进程间的操作排序，形成唯一的全局顺序（系统等价于是顺序执行，所有进程看到的所有操作的序列顺序都一致，并且跟实际发生顺序一致），是很强的原子性保证。但是比较难实现，目前基本上要么依赖于全局的时钟或锁，要么通过一些复杂算法实现，性能往往不高。
+* 顺序一致性（[Sequential Consistency](https://en.wikipedia.org/wiki/Sequential_consistency)）：又叫因果一致性，最早由 Leslie Lamport 1979 年经典论文《How to Make a Multiprocessor Computer That Correctly Executes Multiprocess Programs》中提出，是一种比较强的约束。所有进程看到的全局执行顺序（total order）一致（否则数据副本就不一致了）；并且每个进程看自身操作的顺序（local order）跟实际发生顺序一致。例如，某进程先执行 A，后执行 B，则实际得到的全局结果（其它进程也看到这个结果）中就应该为 A 在 B 前面，而不能反过来。如果另外一个进程先后执行了C、D操作，则全局顺序可以共识为 A、B、C、D 或 A、C、B、D 或 C、A、B、D 或 C、D、A、B 的一种（即 A、B 和 C、D 的组合），决不能出现 B、A 或 D、C。顺序一致性实际上限制了各进程内指令的偏序关系，但不在进程间按照物理时间进行全局排序，属于实践中可行的最强保证。以算盘为例，每个进程的事件是某根横轴上的算珠，它们可以前后拨动（改变不同进程之间先后顺序），但同一个横轴上的算珠的相对先后顺序无法改变。
+* 线性一致性（[Linearizability Consistency](https://en.wikipedia.org/wiki/Linearizability)）：Maurice P. Herlihy 与 Jeannette M. Wing 在 1990 年经典论文《Linearizability: A Correctness Condition for Concurrent Objects》中共同提出，是一种更强的保证。在顺序一致性前提下加强了进程间的操作排序，形成理想化的全局顺序。线性一致性要求系统看起来似乎只有一个数据副本，客户端操作都是原子的，并且顺序执行；所有进程的操作似乎是实时同步的，并且跟实际发生顺序一致。例如某个客户端写入成功，则其它客户端将立刻看到最新的值。线性一致性下所有进程的所有事件似乎都处于同一个横轴，存在唯一的先后顺序。线性一致性很难实现，目前基本上要么依赖于全局的时钟或锁，要么通过一些复杂同步算法，性能往往不高。
 
 强一致的系统往往比较难实现，而且很多场景下对一致性的需求并没有那么强。因此，可以适当放宽对一致性的要求，降低系统实现的难度。例如在一定约束下实现所谓最终一致性（Eventual Consistency），即总会存在一个时刻（而不是立刻），让系统达到一致的状态。例如电商购物时将某物品放入购物车，但是可能在最终付款时才提示物品已经售罄了。实际上，大部分的 Web 系统为了保持服务的稳定，实现的都是最终一致性。
 
