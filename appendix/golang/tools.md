@@ -136,7 +136,6 @@ $ go get github.com/hyperledger/fabric
 
 等价于先执行 `go build` 命令，之后执行复制命令。
 
-
 #### go list
 
 列出本地包中的所有的导入依赖。
@@ -204,98 +203,147 @@ $ go get golang.org/x/tools/cmd/goimports
 `-w`：将修订直接写入文件，不显示出来。
 `-srcdir`：指定对软件包进行查找的相对路径。
 
+#### go vet
+
+go vet 对代码的准确性进行基本检查，如函数调用参数缺失、不可达代码，或调用格式不匹配等。使用也十分简单，指定要检查的软件包路径作为参数即可。
+
+
 #### go tool 
 
-`go tool` 命令中包括许多有用的工具子命令，包括 addr2line、api、asm、cgo、compile、cover、dist、doc、fix、link、nm、objdump、pack、pprof、trace、vet。
+`go tool` 命令中包括许多有用的工具子命令，包括 addr2line、api、asm、cgo、compile、cover、dist、doc、fix、link、nm、objdump、pack、pprof、trace。
 
-其中，比较常用的包括 vet 和 fix。
+其中，比较常用的包括 fix、trace 等。
 
-vet 对代码的准确性进行基本检查，如函数调用参数缺失、不可达代码，或调用格式不匹配等。
+fix 命令可以对自动对旧版本的代码进行升级修复，替换为使用新版本的特性。
 
-使用也十分简单，指定要检查的软件包路径即可。
+trace 命令可以通过分析 trace 文件来追踪程序运行过程中的事件（包括 goroutine 的创建、使用和结束，以及系统调用和网络 IO 等底层事件），并提供图形化界面展示。例如如下命令会打开网页提供图形界面，展示程序执行情况。
 
-fix 则可以对自动对旧版本的代码进行升级修复，替换为使用新版本的特性。
+```bash
+$ go test -bench=. -trace trace.out
+$ go tool trace trace.out
+```
 
 可以通过 `go tool cmd -h` 命令查看子目录具体支持的相关参数，在此不再赘述。
 
 
-#### govendor 工具
+#### pprof 工具包
 
-长期以来，Golang 对外部依赖都没有很好的管理方式，只能从 `$GOPATH` 下查找依赖。这就造成不同用户在安装同一个项目时可能从外部获取到不同的依赖库版本，同时当无法联网时，无法编译依赖缺失的项目。
+Golang 自带了方便的性能分析工具，可以查看程序的 CPU、内存等在运行时的使用情况。
 
-Golang 自 1.5 版本开始重视第三方依赖的管理，将项目依赖的外部包统一放到 vendor 目录下（类比 Nodejs 的 node_modules 目录），并通过 vendor.json 文件来记录依赖包的版本，方便用户使用相对稳定的依赖。
+目前支持两种性能分析工具包。如果希望在程序执行过程中通过 Web 网页试试查看运行信息（go routine、堆栈等），可以导入 `net/http/pprof` 工具包，并在代码中启动 Web 服务，如下所示。
 
-Daniel Theophanes 等人开发了 govendor 工具，方便对第三方依赖进行管理。
+```go
+import (
+	"http"
+	_ "net/http/pprof"
+)
 
-govendor 的安装十分简单，可以通过 go get 命令：
+func main() {
+	// 提供 profiling web 界面 localhost:6060/debug/pprof
+	go func() {
+		http.ListenAndServe("localhost:6060", nil)
+	}()
 
-```bash
-$ go get -u -v github.com/kardianos/govendor
+	// 应用程序代码
+}
 ```
 
-对于 govendor 来说，主要存在三种位置的包：项目自身的包组织为本地（local）包；传统的存放在 $GOPATH 下的依赖包为外部（external）依赖包；被 govendor 管理的放在 vendor 目录下的依赖包则为 vendor 包。
+程序运行后，可以通过访问 localhost:6060/debug/pprof 路径来查看 go routine、thread、堆栈使用等实时信息。
 
-具体来看，这些包可能的类型如下：
+如果是希望执行完毕后统一进行分析，可以使用 `runtime/pprof` 包，并在代码中启动性能分析功能。
 
-状态 | 缩写状态 | 含义
---- | ------- | ---
-+local | l | 本地包，即项目自身的包组织
-+external | e | 外部包，即被 $GOPATH 管理，但不在 vendor 目录下
-+vendor | v | 已被 govendor 管理，即在 vendor 目录下
-+std | s | 标准库中的包
-+unused | u | 未使用的包，即包在 vendor 目录下，但项目并没有用到
-+missing | m | 代码引用了依赖包，但该包并没有找到
-+program | p | 主程序包，意味着可以编译为执行文件
-+outside | | 外部包和缺失的包
-+all     | | 所有的包
+例如，编写 main.go 文件，通过 go routine 来启动若干计时器，但并没有进行释放。
 
-常见的命令如下，格式为 `govendor COMMAND`。
+```go
+package main
 
-通过指定包类型，可以过滤仅对指定包进行操作。
+import (
+    "flag"
+    "fmt"
+    "log"
+    "os"
+    "runtime"
+    "runtime/pprof"
+    "time"
+    "github.com/pkg/errors"
+)
 
-命令 | 功能
--- | ---
-`init` | 初始化 vendor 目录
-`list` | 列出所有的依赖包
-`add` | 添加包到 vendor 目录，如 govendor add +external 添加所有外部包
-`add PKG_PATH` | 添加指定的依赖包到 vendor 目录
-`update` | 从 $GOPATH 更新依赖包到 vendor 目录
-`remove` | 从 vendor 管理中删除依赖
-`status` | 列出所有缺失、过期和修改过的包
-`fetch` | 添加或更新包到本地 vendor 目录
-`sync` | 本地存在 vendor.json 时候拉去依赖包，匹配所记录的版本
-`get` | 类似 `go get` 目录，拉取依赖包到 vendor 目录
+func testTimeout() error{
+    incChan := make(chan int, 1)
+    errChan := make(chan error, 1)
+    timeout := 10 * time.Millisecond
 
+    go func() {
+        incChan <- 1
+    }()
 
-#### dep 工具
+    select {
+    case <-time.NewTicker(timeout).C:
+        fmt.Println("Ticker")
+        return errors.Errorf("Timed out waiting for connection message")
+    case m := <-incChan:
+        fmt.Printf("incChan: %d\n", m)
+        return nil
+    case err := <-errChan:
+        fmt.Println("errChan")
+        return errors.WithStack(err)
+    }
+}
 
-为了方便管理依赖，Golang 团队 2016 年 4 月开始开发了 dep 工具，试图进一步简化在 Golang 项目中对第三方依赖的管理。该工具目前已经被试验性支持，相信很快会成为官方支持的工具。
+var cpuprofile = flag.String("cpuprofile", "cpu.prof", "write cpu profile to `file`")
+var memprofile = flag.String("memprofile", "mem.prof", "write memory profile to `file`")
 
-dep 目前需要 Golang 1.7+ 版本，兼容其他依赖管理工具如 glide、godep、vndr、govend、gb、gvt、govendor、glock 等。
+func main() {
+    // 启用 CPU profiling
+    flag.Parse()
+    if *cpuprofile != "" {
+        f, err := os.Create(*cpuprofile)
+        if err != nil {
+            log.Fatal("could not create CPU profile: ", err)
+        }
+        if err := pprof.StartCPUProfile(f); err != nil {
+            log.Fatal("could not start CPU profile: ", err)
+        }
+        defer pprof.StopCPUProfile()
+    }
 
-类似于 govendor 工具，dep 将依赖都放在本地的 vendor 目录下，通过 Gopkg.toml 和 Gopkg.lock 文件来追踪依赖的状态。
+    // 应用代码
+    i := 1
+    for i = 1; i <= 100; i++ {
+        fmt.Println(i)
+        go testTimeout()
+        time.Sleep(time.Duration(1) * time.Second)
+    }
 
-* Gopkg.toml 文件：手动编写或通过 dep init 命令生成。描述了项目对第三库的依赖规则，例如允许的版本范围等。用户可以通过编辑该文件表达预期的依赖控制目标。
-* Gopkg.lock 文件：通过 dep init 或 dep ensure 命令自动生成。根据项目代码和 Gopkg.toml 文件，计算出一个符合要求的具体的依赖关系并锁定，其中包括每个第三方库的具体版本。vendor 目录下的依赖库需要匹配这些版本。
-
-安装可以通过 go get 命令：
-
-```bash
-$ go get -v -u github.com/golang/dep/cmd/dep
+    // 导出内存统计
+    if *memprofile != "" {
+        f, err := os.Create(*memprofile)
+        if err != nil {
+            log.Fatal("could not create memory profile: ", err)
+        }
+        runtime.GC() // get up-to-date statistics
+        if err := pprof.WriteHeapProfile(f); err != nil {
+            log.Fatal("could not write memory profile: ", err)
+        }
+        f.Close()
+    }
+}
 ```
 
-dep 使用保持简洁的原则，包括四个子命令。
+执行 `go run main.go` 编译和运行程序，观察到 CPU 使用率会逐步上升。
 
-* init：对一个新的 Go 项目，初始化依赖管理，生成配置文件和 vendor 目录等；
-* status：查看当前项目依赖的状态，包括依赖包名称、限制范围、指定版本等。可以通过 -old 参数来只显示过期的依赖；
-* ensure：更新依赖，确保满足指定的版本条件。如果本地缺乏某个依赖，会自动安装；
-* version：显示 dep 工具的版本信息。
+程序运行完成后，同一路径下会生成 cpu.prof 和 mem.prof 文件。其中记录了运行过程中的调用信息，之后可以通过 pprof 工具或较新版本的 `go tool pprof` 对其进行分析。这里以分析 CPU 使用为例。
 
-其中，ensure 命令最为常用，支持的子命令参数主要包括：
+*说明：如果没有安装 pprof 工具，可以通过 `go get -u github.com/google/pprof` 快速安装。*
 
-* -add：添加新的依赖，如 dep ensure -add github.com/pkg/foo@^1.0.0；
-* -dry-run：模拟执行，打印参考改动但不实施；
-* -no-vendor：根据计算结果更新 Gopkg.lock 文件，但不更新 vendor 中依赖包；
-* -update：更新 Gopkg.lock 中的依赖到 Gopkg.toml 中允许的最新版本，默认同时更新 vendor 包中内容；
-* -v：输出调试信息方面了解执行过程；
-* -vendor-only：按照 Gopkg.lock 中条件更新 vendor 包中内容。
+pprof 工具最常见的功能是提供一个 Web 交互界面，供用户查看调用图、火焰图、CPU 消耗，可以通过如下命令打开 Web 操作界面。
+
+```bash
+$ pprof -http=localhost:6060 main cpu.prof
+```
+
+用户可以根据需要从不同角度查看运行信息，并分析程序消耗资源较多的环节。如下图所示。
+
+![pprof Web 界面](_images/pprof.png)
+
+另外，runtime 包中也提供了如 `runtime/trace` 等工具包，可以生成 trace 文件供进行事件追踪分析，使用方法与 `runtime/pprof` 包类似，在此不再赘述。
