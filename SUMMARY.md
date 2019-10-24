@@ -116,5 +116,6 @@
     * [安装与配置 Golang 环境](appendix/golang/install.md)
     * [编辑器与 IDE](appendix/golang/ide.md)
     * [高效开发工具](appendix/golang/tools.md)
+    * [依赖管理](appendix/golang/package.md)
   * [ProtoBuf 与 gRPC](appendix/grpc.md)
   * [参考资源链接](appendix/resources.md)

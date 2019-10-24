@@ -2,6 +2,7 @@
 
 * 1.3.0: 2019-XX-YY
   * Add more crypto techniques;
+  * Update go and related tools;
   * TBD
 
 * 1.2.0: 2018-12-31

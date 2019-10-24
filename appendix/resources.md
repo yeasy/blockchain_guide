@@ -7,7 +7,7 @@
 * M. J. Fischer, N. A. Lynch, and M. S. Paterson, “Impossibility of Distributed Consensus with One Faulty Process,” J. ACM, vol. 32, no. 2, pp. 374–382, 1985.
 * L. Lamport, “The Part-Time Parliament,” ACM Trans. Comput. Sys-tems, vol. 16, no. 2, pp. 133–169, 1998.
 * M. Castro and B. Liskov, “Practical Byzantine Fault Tolerance,” Proc. Symp. Oper. Syst. Des. Implement., no. February, pp. 1–14, 1999.
-* 中本聪，"Bitcoin: A Peer-to-Peer Electronic Cash System（比特币：一种点对点的电子现金系统）"，https://bitcoin.org/bitcoin.pdf，2008.
+* Satoshi Nakamoto, "Bitcoin: A Peer-to-Peer Electronic Cash System", https://bitcoin.org/bitcoin.pdf，2008.
 A. Back, M. Corallo, L. Dashjr, M. Friedenbach, G. Maxwell, A. Miller, A. Poelstra, J. Timón, and P. Wuille, “Enabling Blockchain Innovations with Pegged Sidechains,” pp. 1–25, 2014.
 * T. D. Joseph Poon, “The Bitcoin Lightning Network: Scalable Off-Chain Payments, http://lightning.network/lightning-network-paper.pdf,” pp. 1–59, 2016.
 * Gentry C., Halevi S.，"Implementing Gentry’s Fully-Homomorphic Encryption Scheme". In: Paterson K.G. (eds) Advances in Cryptology – EUROCRYPT 2011. EUROCRYPT 2011. Lecture Notes in Computer Science, vol 6632. Springer, Berlin, Heidelberg.
@@ -31,6 +31,7 @@ A. Back, M. Corallo, L. Dashjr, M. Friedenbach, G. Maxwell, A. Miller, A. Poelst
 
 * [Bitcoin and Cryptocurrency Technologies](https://www.coursera.org/course/bitcointech), Princeton University。
 
-### 区块链即服务
+### 区块链服务平台
 * [IBM Bluemix BaaS](https://console.ng.bluemix.net/catalog/services/blockchain/)： https://console.ng.bluemix.net/catalog/services/blockchain/。
+* [Oracle Blockchain Platform](https://www.oracle.com/cloud/blockchain/)：https://www.oracle.com/cloud/blockchain/。
 * [微软 Azure BaaS](https://azure.microsoft.com/en-us/solutions/blockchain)：https://azure.microsoft.com/en-us/solutions/blockchain。

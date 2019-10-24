@@ -73,7 +73,6 @@ $ protoc --go_out=plugins=grpc:. hello.proto
 
 gRPC 更多原理可以参考[官方文档：http://www.grpc.io/docs](http://www.grpc.io/docs/)。
 
-
 #### 生成服务端代码
 
 服务端相关代码如下，主要定义了 HelloServiceServer 接口，用户可以自行编写实现代码。
@@ -97,7 +96,6 @@ func RegisterHelloServiceServer(s *grpc.Server, srv HelloServiceServer) {
 * 注册服务：`pb.RegisterHelloServiceServer()`；
 * 启动服务端：`s.Serve(lis)`。
 
-
 ```go
 type server struct{}
 
@@ -119,7 +117,6 @@ func main() {
 ```
 
 编译并启动服务端。
-
 
 #### 生成客户端代码
 
