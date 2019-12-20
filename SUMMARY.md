@@ -56,7 +56,7 @@
   * [共识机制](06_bitcoin/consensus.md)
   * [闪电网络](06_bitcoin/lightning_network.md)
   * [侧链](06_bitcoin/sidechain.md)
-  * [热点问题](06_bitcoin/other.md)
+  * [热点问题](06_bitcoin/hot_topics.md)
   * [相关工具](06_bitcoin/tools.md)
   * [本章小结](06_bitcoin/summary.md)
 * [以太坊 —— 挣脱加密货币的枷锁](07_ethereum/README.md)
