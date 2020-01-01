@@ -1,9 +1,9 @@
 ## 版本历史
 
-* 1.3.0: 2019-XX-YY
+* 1.3.0: 2019-12-31
   * Add more crypto techniques;
   * Update go and related tools;
-  * TBD
+  * Update bitcoin project.
 
 * 1.2.0: 2018-12-31
   * 添加常用 Golang 工具和技巧；
