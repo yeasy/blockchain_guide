@@ -1,5 +1,8 @@
 ## 版本历史
 
+* 1.4.0: 2020-XX-YY
+  * Refine deployment fabric with v2.0 version;
+
 * 1.3.0: 2019-12-31
   * Add more crypto techniques;
   * Update go and related tools;
