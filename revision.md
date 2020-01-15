@@ -2,6 +2,7 @@
 
 * 1.4.0: 2020-XX-YY
   * Refine deployment fabric with v2.0 version;
+  * Update hyperledger community and projects;
 
 * 1.3.0: 2019-12-31
   * Add more crypto techniques;
