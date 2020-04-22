@@ -3,7 +3,7 @@
 
 相关处理工具主要是 [protoc](https://github.com/google/protobuf)，基于 C++ 语言实现。
 
-用户写好 `.proto` 描述文件，之后便可以使用 protoc 自动编译生成众多计算机语言（C++、Java、Python、C#、Golang 等）的接口代码。这些代码可以支持 gRPC，也可以不支持。
+用户写好 `.proto` 描述文件，之后便可以使用 protoc 自动编译生成众多计算机语言（C++、Java、Python、C#、Go 等）的接口代码。这些代码可以支持 gRPC，也可以不支持。
 
 [gRPC](https://github.com/grpc/grpc) 是 Google 开源的 RPC 框架和库，已支持主流计算机语言。底层通信采用 HTTP2 协议，比较适合互联网场景。gRPC 在设计上考虑了跟 ProtoBuf 的配合使用。
 
@@ -18,27 +18,33 @@
 * 编译工具：[protoc](https://github.com/google/protobuf)，以及一些官方没有带的语言插件；
 * 运行环境：各种语言的 protobuf 库，不同语言有不同的安装来源；
 
-语法类似 C++ 语言，可以参考 ProtoBuf 语言规范：[https://developers.google.com/protocol-buffers/docs/proto](https://developers.google.com/protocol-buffers/docs/proto)。
+语法类似 C++ 语言，可以参考 ProtoBuf 语言规范：https://developers.google.com/protocol-buffers/docs/proto。
 
 比较核心的，`message` 是代表数据结构（里面可以包括不同类型的成员变量，包括字符串、数字、数组、字典……），`service` 代表 RPC 接口。变量后面的数字是代表进行二进制编码时候的提示信息，1~15 表示热变量，会用较少的字节来编码。另外，支持导入。
 
-默认所有变量都是可选的（optional），repeated 则表示数组。主要 service rpc 接口接受单个 message 参数，返回单个 message。如下所示。
+默认所有变量都是可选的（optional），repeated 则表示数组。主要 service rpc 接口接受单个 message 参数，返回单个 message。
+
+参考官方给出示例，如下所示：
 
 ```protobuf
 syntax = "proto3";
-package hello;
 
+package helloworld;
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+// The request message containing the user's name.
 message HelloRequest {
-  string greeting = 1;
+  string name = 1;
 }
 
-message HelloResponse {
-  string reply = 1;
-  repeated int32 number=4;
-}
-
-service HelloService {
-  rpc SayHello(HelloRequest) returns (HelloResponse){}
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
 }
 ```
 
@@ -50,7 +56,7 @@ service HelloService {
 $ go get -u github.com/golang/protobuf/{protoc-gen-go,proto} // 前者是 plugin；后者是 go 的依赖库
 ```
 
-之后，正常使用 `protoc --go_out=./ hello.proto` 来生成 hello.pb.go，会自动调用 `protoc-gen-go` 插件。
+之后，正常使用 `protoc --go_out=./ ./hello.proto` 命令调用 `protoc-gen-go` 插件来生成 hello.pb.go。
 
 ProtoBuf 提供了 `Marshal/Unmarshal` 方法来将数据结构进行序列化操作。所生成的二进制文件在存储效率上比 XML 高 3~10 倍，并且处理性能高 1~2 个数量级。
 
@@ -71,19 +77,21 @@ ProtoBuf 提供了 `Marshal/Unmarshal` 方法来将数据结构进行序列化�
 $ protoc --go_out=plugins=grpc:. hello.proto
 ```
 
+执行后会生成对应的 .pb.go 文件，其中包括了 proto 文件中指定的结构和 protobuf 协议相关转换代码。
+
 gRPC 更多原理可以参考[官方文档：http://www.grpc.io/docs](http://www.grpc.io/docs/)。
 
-#### 生成服务端代码
+#### 实现服务端代码
 
-服务端相关代码如下，主要定义了 HelloServiceServer 接口，用户可以自行编写实现代码。
+生成的 .pb.go 文件中，服务端相关的核心代码如下，主要定义了 GreeterServer 接口，用户可以自行修改或编写实现代码。
 
 ```go
-type HelloServiceServer interface {
-        SayHello(context.Context, *HelloRequest) (*HelloResponse, error)
+type GreeterServer interface {
+    SayHello(context.Context, *HelloRequest) (*HelloReply, error)
 }
 
-func RegisterHelloServiceServer(s *grpc.Server, srv HelloServiceServer) {
-        s.RegisterService(&_HelloService_serviceDesc, srv)
+func RegisterGreeterServer(s *grpc.Server, srv GreeterServer) {
+    s.RegisterService(&_Greeter_serviceDesc, srv)
 }
 ```
 
@@ -93,81 +101,131 @@ func RegisterHelloServiceServer(s *grpc.Server, srv HelloServiceServer) {
 
 * 创建监听套接字：`lis, err := net.Listen("tcp", port)`；
 * 创建服务端：`grpc.NewServer()`；
-* 注册服务：`pb.RegisterHelloServiceServer()`；
+* 注册服务：`pb.RegisterGreeterServer()`；
 * 启动服务端：`s.Serve(lis)`。
 
 ```go
-type server struct{}
+package main
+
+import (
+    "context"
+    "fmt"
+    "log"
+    "net"
+
+    "google.golang.org/grpc"
+    pb "hello/hello"
+    )
+
+const (
+    port = ":50051"
+)
+
+type server struct{ }
 
 // 这里实现服务端接口中的方法。
 func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
-	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
+    log.Printf("Received: %v\n", in.GetName())
+    return &pb.HelloReply{Message: "Hello " + in.GetName()}, nil
 }
 
 // 创建并启动一个 gRPC 服务的过程：创建监听套接字、创建服务端、注册服务、启动服务端。
 func main() {
-	lis, err := net.Listen("tcp", port)
-	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
-	}
-	s := grpc.NewServer()
-	pb.RegisterHelloServiceServer(s, &server{})
-	s.Serve(lis)
+    lis, err := net.Listen("tcp", port)
+    if err != nil {
+            log.Fatalf("failed to listen: %v", err)
+    }
+    s := grpc.NewServer()
+    pb.RegisterGreeterServer(s, &server{})
+    fmt.Printf("Starting listen on port: %s", port)
+    if err := s.Serve(lis); err != nil {
+            log.Fatalf("failed to serve: %v", err)
+    }
 }
 ```
 
 编译并启动服务端。
 
+```bash
+$ go run server/server.go
+Starting listen on port: :50051
+```
+
 #### 生成客户端代码
 
-生成的 go 文件中客户端相关代码如下，主要和实现了 HelloServiceClient 接口。用户可以通过 gRPC 来直接调用这个接口。
+生成的 Go 文件中客户端相关代码如下，主要和实现了 HelloServiceClient 接口。用户可以通过 gRPC 来直接调用这个接口。
 
 ```go
-type HelloServiceClient interface {
-        SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error)
+type GreeterClient interface {
+    // Sends a greeting
+    SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error)
 }
 
-type helloServiceClient struct {
-        cc *grpc.ClientConn
+type greeterClient struct {
+    cc *grpc.ClientConn
 }
 
-func NewHelloServiceClient(cc *grpc.ClientConn) HelloServiceClient {
-        return &helloServiceClient{cc}
+func NewGreeterClient(cc *grpc.ClientConn) GreeterClient {
+    return &greeterClient{cc}
 }
 
-func (c *helloServiceClient) SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error) {
-        out := new(HelloResponse)
-        err := grpc.Invoke(ctx, "/hello.HelloService/SayHello", in, out, c.cc, opts...)
-        if err != nil {
-                return nil, err
-        }
-        return out, nil
+func (c *greeterClient) SayHello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloReply, error) {
+    out := new(HelloReply)
+    err := c.cc.Invoke(ctx, "/helloworld.Greeter/SayHello", in, out, opts...)
+    if err != nil {
+        return nil, err
+    }
+    return out, nil
 }
 ```
 
 用户直接调用接口方法：创建连接、创建客户端、调用接口。
 
 ```go
-func main() {
-	// Set up a connection to the server.
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("did not connect: %v", err)
-	}
-	defer conn.Close()
-	c := pb.NewHelloServiceClient(conn)
+package main
 
-	// Contact the server and print out its response.
-	name := defaultName
-	if len(os.Args) > 1 {
-		name = os.Args[1]
-	}
-	r, err := c.SayHello(context.Background(), &pb.HelloRequest{Name: name})
-	if err != nil {
-		log.Fatalf("could not greet: %v", err)
-	}
-	log.Printf("Greeting: %s", r.Message)
+import (
+    "context"
+    "log"
+    "os"
+    "time"
+
+    "google.golang.org/grpc"
+    pb "hello/hello"
+)
+
+const (
+    address     = "localhost:50051"
+    defaultName = "world"
+)
+
+func main() {
+    // Set up a connection to the server.
+    conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
+    if err != nil {
+            log.Fatalf("did not connect: %v", err)
+    }
+    defer conn.Close()
+    c := pb.NewGreeterClient(conn)
+
+    // Contact the server and print out its response.
+    name := defaultName
+    if len(os.Args) > 1 {
+            name = os.Args[1]
+    }
+    ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+    defer cancel()
+    r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name})
+    if err != nil {
+            log.Fatalf("could not greet: %v", err)
+    }
+    log.Printf("Greeting: %s", r.GetMessage())
 }
 ```
 
-编译并启动客户端，查看到服务端返回的消息。
+编译并启动客户端，可以查看到服务端返回的消息。
+
+```bash
+$ go run client/client.go
+Greeting: Hello world
+```
