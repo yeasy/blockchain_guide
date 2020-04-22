@@ -1,8 +1,8 @@
-### 包管理工具
+### 依赖管理
 
 #### govendor 工具
 
-长期以来，Golang 对外部依赖都没有很好的管理方式，只能从 `$GOPATH` 下查找依赖。这就造成不同用户在安装同一个项目时可能从外部获取到不同的依赖库版本，同时当无法联网时，无法编译依赖缺失的项目。
+长期以来，Go 语言对外部依赖都没有很好的管理方式，只能从 `$GOPATH` 下查找依赖。这就造成不同用户在安装同一个项目时可能从外部获取到不同的依赖库版本，同时当无法联网时，无法编译依赖缺失的项目。
 
 Golang 自 1.5 版本开始重视第三方依赖的管理，将项目依赖的外部包统一放到 vendor 目录下（类比 Nodejs 的 node_modules 目录），并通过 vendor.json 文件来记录依赖包的版本，方便用户使用相对稳定的依赖。
 
@@ -47,12 +47,11 @@ $ go get -u -v github.com/kardianos/govendor
 `sync` | 本地存在 vendor.json 时候拉去依赖包，匹配所记录的版本
 `get` | 类似 `go get` 目录，拉取依赖包到 vendor 目录
 
-
 #### dep 工具
 
-为了方便管理依赖，Golang 团队 2016 年 4 月开始开发了 dep 工具，试图进一步简化在 Golang 项目中对第三方依赖的管理。该工具目前已经被试验性支持，相信很快会成为官方支持的工具。
+为了方便管理依赖，Go 团队 2016 年 4 月开始开发了 dep 工具，试图进一步简化在 Go 项目中对第三方依赖的管理。该工具目前已经被试验性支持，相信很快会成为官方支持的工具。
 
-dep 目前需要 Golang 1.7+ 版本，兼容其他依赖管理工具如 glide、godep、vndr、govend、gb、gvt、govendor、glock 等。
+dep 目前需要 Go 1.7+ 版本，兼容其他依赖管理工具如 glide、godep、vndr、govend、gb、gvt、govendor、glock 等。
 
 类似于 govendor 工具，dep 将依赖都放在本地的 vendor 目录下，通过 Gopkg.toml 和 Gopkg.lock 文件来追踪依赖的状态。
 
@@ -81,28 +80,40 @@ dep 使用保持简洁的原则，包括四个子命令。
 * -v：输出调试信息方面了解执行过程；
 * -vendor-only：按照 Gopkg.lock 中条件更新 vendor 包中内容。
 
-#### go module 命令
+#### go module
 
-自 1.11 版本开始，Golang 实验性支持了模块（module），作为未来取代 $GOPATH 的方案，将所有的包当做模块来统一管理，并且每个模块都支持版本号。所有依赖模块存在在 $GOROOT 目录下的 pkg/mod 子目录中。模块是若干个包（package）的集合。
+Go 自 1.11 版本开始引入模块（module），在 1.13 版本中开始正式支持，以取代传统基于 $GOPATH 的方案。模块作为若干个包（package）的集合，带有语义化版本号，统一管理所有依赖。所有依赖模块缓存在 $GOPATH/pkg 目录下的 `mod` 和 `sum` 子目录中，未来计划迁移到 `$GOCACHE` 目录下。另外，不同项目的相同依赖模块全局只会保存一份，极大节约了存储空间。
 
-模块信息通过 go.mod 文件来管理，该文件可以通过 go mod init <module name> 来在项目目录下生成。
+模块需要两个配置文件，go.mod 和 go.sum。
 
-go mod 命令支持多个子命令，含义如下：
+前者管理项目中模块的依赖信息，可以通过 go mod init <module name> 命令生成；后者记录当前项目直接或间接依赖的所有模块的路径、版本、校验值等。
 
-* download：下载模块到本地的缓存；
+项目模块可以通过 go mod 子命令来显式操作，也会在编译、测试等命令中被隐式更新。
+
+go mod 支持的子命令包括：
+
+* download：下载依赖模块到本地的缓存；
 * edit：编辑 go.mod 文件；
-* graph：输出模块的依赖图；
-* init：初始化一个新的模块，创建 go.mod 文件；
-* tidy：添加新模块，并删除未使用模块；
-* vendor：将依赖模块复制到本地的 vendor 目录，方便兼容原来的 vendor 方式；
-* verify：校验依赖是否正确；
+* graph：查看当前的依赖结构；
+* init：初始化，创建 go.mod 文件；
+* tidy：整理依赖模块：添加新模块，并删除未使用模块；
+* vendor：将依赖模块复制到本地的 vendor 目录，方便兼容原来的 vendor 方式（该命令未来会遗弃）；
+* verify：校验当前依赖是否正确，未被篡改；
 * why：解释为何需要某个依赖包。
 
 基本使用过程为：
 
 * 使用 `go mod init <module name>` 来初始化本地的 go.mod 文件；
-* 使用 `go get <package name>@<version>` 来获取某个依赖包（不添加版本号会默认获取当前最新），同时自动更新 go.mod 文件；
+* 使用 `go get -u <package name>@<version>` 来获取某个依赖包（不添加版本号会默认获取当前最新），同时自动更新 go.mod 文件。更新全部模块可以使用 `go get -u all`；
 * 编译时使用 `go build -mod=readonly` 可以避免在编译过程中修改 go.mod；
-* 如果要使用本地的 vendor 目录，可以使用 `go build -mod=vendor`；
+* 如果要使用本地的 vendor 目录进行编译，可以使用 `go build -mod=vendor`；
 * 如果要检查可更新的依赖，可以使用 `go list -m -u all`。如果要执行更新，可以使用 `go get -u`；
 * 此外，执行 `go` 相关命令（build、get、list、test 等）时，也会自动下载依赖并更新 go.mod 文件。
+
+module 的开启可以通过 GO111MODULE=[auto|on|off] 等环境变量来控制。例如始终使用 go module，可以使用如下命令
+
+```bash
+$ go env -w GO111MODULE=on # 记录到 os.UserConfigDir 指定路径（默认为 $HOME/.config/go/）下的 env 文件中
+```
+
+此外，1.13 版本起，Go 还支持 GOPROXY 环境变量来指定拉取包的代理服务，GOPRIVATE 指定私有仓库地址。

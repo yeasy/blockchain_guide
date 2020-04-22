@@ -32,7 +32,7 @@ $ godoc package [name ...]
 $ godoc -http=:6060 -index -play
 ```
 
-![godoc 启动本地网站](../_images/godoc.png)
+![godoc 启动本地网站](_images/godoc.png)
 
 #### go build
 编译软件包，例如编辑当前软件包内容。
@@ -164,7 +164,6 @@ $ go test ./...
 
 * `-v` 参数：可以参数来打开详细测试日志，辅助调试。
 
-
 #### golint
 
 对代码进行格式风格检查，打印出不符合 Go 语言推荐风格的代码。
@@ -207,7 +206,6 @@ $ go get golang.org/x/tools/cmd/goimports
 
 go vet 对代码的准确性进行基本检查，如函数调用参数缺失、不可达代码，或调用格式不匹配等。使用也十分简单，指定要检查的软件包路径作为参数即可。
 
-
 #### go tool 
 
 `go tool` 命令中包括许多有用的工具子命令，包括 addr2line、api、asm、cgo、compile、cover、dist、doc、fix、link、nm、objdump、pack、pprof、trace。
@@ -225,12 +223,11 @@ $ go tool trace trace.out
 
 可以通过 `go tool cmd -h` 命令查看子目录具体支持的相关参数，在此不再赘述。
 
-
 #### pprof 工具包
 
-Golang 自带了方便的性能分析工具，可以查看程序的 CPU、内存等在运行时的使用情况。
+Go 语言自带了方便的性能分析工具，可以查看程序的 CPU、内存等在运行时的使用情况。
 
-目前支持两种性能分析工具包。如果希望在程序执行过程中通过 Web 网页试试查看运行信息（go routine、堆栈等），可以导入 `net/http/pprof` 工具包，并在代码中启动 Web 服务，如下所示。
+目前支持两种性能分析工具包。如果希望在程序执行过程中通过 Web 网页试试查看运行信息（go routine、堆栈等），可以导入 `net/http/pprof` 工具包，并在代码中启动 Web 服务，如下所示：
 
 ```go
 import (

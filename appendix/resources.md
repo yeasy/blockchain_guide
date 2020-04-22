@@ -16,22 +16,28 @@ A. Back, M. Corallo, L. Dashjr, M. Friedenbach, G. Maxwell, A. Miller, A. Poelst
 * I. Miers, C. Garman, M. Green, and A. D. Rubin, “Zerocoin: Anonymous distributed e-cash from bitcoin,” Proc. - IEEE Symp. Secur. Priv., pp. 397–411, 2013.
 * F. Reid and M. Harrigan, “An analysis of anonymity in the bitcoin system,” Secur. Priv. Soc. Networks, pp. 197–223, 2013.
 * K. Bhargavan, A. Delignat-Lavaud, C. Fournet, A. Gollamudi, G. Gonthier, N. Kobeissi, A. Rastogi, T. Sibut-Pinote, N. Swamy, and S. Zanella-Béguelin, “Formal Verification of Smart Contracts,” 2016.
+* Y. Sompolinsky and A. Zohar, “Secure high-rate transaction processing in bitcoin,” Lect. Notes Comput. Sci. (including Subser. Lect. Notes Artif. Intell. Lect. Notes Bioinformatics), vol. 8975, pp. 507–527, 2015.
+* C. Li, P. Li, D. Zhou, W. Xu, F. Long, and A. Yao, “Scaling Nakamoto Consensus to Thousands of Transactions per Second,” 2018.
 
-### 项目网站
+### 开源项目
 
-* 比特币项目官方网站：https://bitcoin.org/。
+* 比特币项目：https://bitcoin.org/。
 * [blockchain.info](https://blockchain.info)：比特币信息统计网站。
 * [bitcoin.it](https://en.bitcoin.it)：比特币 wiki，相关知识介绍。
-* 以太坊项目官方网站：https://www.ethereum.org。
+* 以太坊项目：https://www.ethereum.org。
 * 以太坊网络的状态统计：https://etherchain.org/
-* 超级账本项目官方网站：[https://hyperledger.org](https://hyperledger.org);
+* 超级账本项目：[https://hyperledger.org](https://hyperledger.org);
 * 超级账本 Docker 镜像：[https://hub.docker.com/r/hyperledger/](https://hub.docker.com/r/hyperledger/)。
 
 ### 培训课程
 
-* [Bitcoin and Cryptocurrency Technologies](https://www.coursera.org/course/bitcointech), Princeton University。
+* [Bitcoin and Cryptocurrency Technologies](https://www.coursera.org/course/bitcointech)：https://www.coursera.org/course/bitcointech, Princeton University；
+* Blockchain: Understanding Its Uses and Implications：https://www.edx.org/course/understanding-blockchain-and-its-implications, Linux Foundation。
 
 ### 区块链服务平台
-* [IBM Bluemix BaaS](https://console.ng.bluemix.net/catalog/services/blockchain/)： https://console.ng.bluemix.net/catalog/services/blockchain/。
-* [Oracle Blockchain Platform](https://www.oracle.com/cloud/blockchain/)：https://www.oracle.com/cloud/blockchain/。
-* [微软 Azure BaaS](https://azure.microsoft.com/en-us/solutions/blockchain)：https://azure.microsoft.com/en-us/solutions/blockchain。
+* [IBM Blockchain](https://www.ibm.com/blockchain)：https://www.ibm.com/blockchain；
+* [Oracle Blockchain Platform](https://www.oracle.com/cloud/blockchain/)：https://www.oracle.com/cloud/blockchain；
+* [腾讯云区块链](https://cloud.tencent.com/product/tbaas)：https://cloud.tencent.com/product/tbaas；
+* [阿里云区块链](https://www.aliyun.com/product/baas)：https://www.aliyun.com/product/baas；
+* [百度云区块链](https://cloud.baidu.com/solution/blockchain.html)：https://cloud.baidu.com/solution/blockchain.html；
+* [纸贵科技区块链](https://baas.zhigui.com)：https://baas.zhigui.com。
