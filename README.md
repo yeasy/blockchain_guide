@@ -10,7 +10,7 @@
 ## 阅读使用
 本书适用于对区块链技术感兴趣，且具备一定金融科技基础的读者；无技术背景的读者也可以从中了解到区块链技术的现状。
 
-* 在线阅读：[GitBook](https://www.gitbook.com/book/yeasy/blockchain_guide) 或 [GitHub](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md)
+* 在线阅读：[GitBook](https://yeasy.gitbook.io/blockchain_guide/) 或 [GitHub](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md)
 * pdf 版本 [下载](https://www.gitbook.com/download/pdf/book/yeasy/blockchain_guide)
 * epub 版本 [下载](https://www.gitbook.com/download/epub/book/yeasy/blockchain_guide)
 
