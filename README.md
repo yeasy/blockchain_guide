@@ -1,18 +1,19 @@
 # 区块链技术指南
-1.3.1
+1.4.0
 
-区块链是金融科技（Fintech）领域的一项重要基础科技创新。
+区块链是金融科技（Fintech）领域的一项基础性的创新。
 
-作为分布式记账（Distributed Ledger Technology，DLT）系统的核心技术，区块链被认为在金融、物联网、商业贸易、征信、资产管理等众多领域都拥有广泛的应用前景。区块链技术尚处于快速发展的早期阶段，涉及分布式系统、密码学、博弈论、网络协议等诸多学科知识，为学习和实践都带来了不小的挑战。
+作为新一代分布式记账（Distributed Ledger Technology，DLT）系统的核心技术，区块链被认为在金融、物联网、商业贸易、征信、资产管理等众多领域都拥有广泛的应用前景。
 
-本书希望可以客观探索区块链概念的来龙去脉，系统剖析关键技术和原理，同时讲解实践应用。在开发开源分布式账本平台（超级账本），以及为企业设计方案过程中，笔者积累了一些实践经验，也通过本书分享出来，希望能有助于分布式账本科技的发展和应用。
+目前，区块链技术尚处于快速发展的阶段，涉及分布式系统、密码学、博弈论、网络协议等诸多学科知识，为学习和实践都带来了不小的挑战。
+
+本书希望能客观探索区块链概念的来龙去脉，剖析关键技术和原理，同时以全球最大的开源分布式账本项目——超级账本为例讲解具体应用。在开发超级账本项目，以及为企业设计方案过程中，笔者积累了一些实践经验，也通过本书分享出来，希望能有助于分布式账本科技的发展和应用。
 
 ## 阅读使用
 本书适用于对区块链技术感兴趣，且具备一定金融科技基础的读者；无技术背景的读者也可以从中了解到区块链技术的现状。
 
-* 在线阅读：[GitBook](https://yeasy.gitbook.io/blockchain_guide/) 或 [GitHub](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md)
-* pdf 版本 [下载](https://www.gitbook.com/download/pdf/book/yeasy/blockchain_guide)
-* epub 版本 [下载](https://www.gitbook.com/download/epub/book/yeasy/blockchain_guide)
+* [GitBook 在线阅读](https://yeasy.gitbook.io/blockchain_guide/)；
+* [GitHub 在线阅读](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md)
 
 ## 进阶学习
 ![区块链原理、设计与应用](_images/blockchain_book.png)
@@ -32,9 +33,9 @@
 * [修订记录](revision.md)
 * [贡献者名单](https://github.com/yeasy/blockchain_guide/graphs/contributors)
 
-## 鼓励项目
+## 支持鼓励
 
-欢迎鼓励项目一杯 coffee~
+欢迎鼓励一杯 coffee~
 
 ![coffee](_images/coffee.jpeg)
 

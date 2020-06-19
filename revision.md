@@ -1,8 +1,12 @@
 ## 版本历史
 
-* 1.4.0: 2020-XX-YY
+* 1.5.0: 2020-XX-YY
+  * TBD;
+
+* 1.4.0: 2020-06-18
   * Refine deployment fabric with v2.0 version;
   * Update hyperledger community and projects;
+  * Add operation guide and best practices.
 
 * 1.3.0: 2019-12-31
   * Add more crypto techniques;
