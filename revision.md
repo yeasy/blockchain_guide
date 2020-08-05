@@ -1,7 +1,33 @@
 ## 版本历史
 
-* 1.0.0: 2017-XX-YY
-  * TBD；
+* 1.5.0: 2020-XX-YY
+  * TBD;
+
+* 1.4.0: 2020-06-18
+  * Refine deployment fabric with v2.0 version;
+  * Update hyperledger community and projects;
+  * Add operation guide and best practices.
+
+* 1.3.0: 2019-12-31
+  * Add more crypto techniques;
+  * Update go and related tools;
+  * Update bitcoin project.
+
+* 1.2.0: 2018-12-31
+  * 添加常用 Golang 工具和技巧；
+  * 更新密码学相关知识，增加布隆过滤器等；
+  * 更新超级账本项目内容；
+  * 更新分布式系统章节。
+
+* 1.1.0: 2018-04-24
+  * 更新群签名；
+  * 更新区块链和分布式账本演化;
+  * 更新比特币、以太坊最新进展。
+
+* 1.0.0: 2017-12-31
+  * 更新 baas 设计；
+  * 更新附录部分；
+  * 修正部分表达。
 
 * 0.9.0: 2017-08-24
   * 修正字词；
