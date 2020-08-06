@@ -16,16 +16,15 @@
 * [GitHub 在线阅读](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md)
 
 ## 进阶学习
-![区块链原理、设计与应用](_images/blockchain_book.png)
+![区块链原理、设计与应用 第二版](_images/blockchain_book2.png)
 
-《[区块链原理、设计与应用](https://item.jd.com/12159265.html)》已经正式出版，详细介绍了区块链和分布式账本领域的最新技术，基于超级账本项目介绍了面向企业的分布式账本方案的设计、架构和应用，欢迎大家阅读并反馈建议。
+《[区块链原理、设计与应用 第 2 版](https://item.jd.com/12159265.html)》 已经正式上市。围绕超级账本 Fabric 2.x 最新版，详细介绍了区块链和分布式账本领域的核心技术，以及企业分布式账本方案的设计、架构和应用，欢迎大家阅读并反馈建议。
 
-* [京东图书](https://item.jd.com/12159265.html)
-* [亚马逊图书](https://www.amazon.cn/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86-%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8-%E6%9D%A8%E4%BF%9D%E5%8D%8E/dp/B0757CWZ6K/)
-* [China-Pub](http://product.china-pub.com/6479750)
-* [当当图书](http://product.dangdang.com/25159352.html)
+* [China-Pub](http://product.china-pub.com/8071482)
+* [京东图书](https://item.jd.com/12935394.html)
+* [当当图书](http://product.dangdang.com/28996031.html)
 
-如果发现疏漏，欢迎提交到 [勘误表](https://github.com/yeasy/blockchain_guide/wiki/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B%E5%8B%98%E8%AF%AF%E8%A1%A8)。
+如果发现疏漏，欢迎提交到 [勘误表](https://github.com/yeasy/blockchain_guide/wiki/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B2%E7%89%88%E5%8B%98%E8%AF%AF%E8%A1%A8)。
 
 ## 参与贡献
 欢迎 [参与维护项目](contribute.md)。
