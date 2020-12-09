@@ -8,7 +8,7 @@
 
 #### 操作系统
 
-常见的 Linux 操作题发行版（包括 Ubuntu、Redhat、CentOS 等）和 macOS 等都可以支持 Fabric。
+常见的 Linux 操作系统发行版（包括 Ubuntu、Redhat、CentOS 等）和 macOS 等都可以支持 Fabric。
 
 内核推荐 3.10+ 版本，支持 64 位环境。下面将默认以 Ubuntu 18.04 操作系统为例进行讲解。
 
