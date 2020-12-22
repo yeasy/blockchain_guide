@@ -52,7 +52,7 @@ go version go1.13.4 linux/amd64
 
 ```bash
 $ sudo apt-get update \
-    && apt-get install -y libsnappy-dev zlib1g-dev libbz2-dev libyaml-dev libltdl-dev libtool
+    && sudo apt-get install -y libsnappy-dev zlib1g-dev libbz2-dev libyaml-dev libltdl-dev libtool
 ```
 
 #### 安装 Docker 环境
