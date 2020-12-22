@@ -198,7 +198,7 @@ Fabric 代码由 Go 语言构建，开发者可以选择安装如下的 Go 语�
 
 ```bash
 $ go get github.com/golang/protobuf/protoc-gen-go \
-    && go get github.com/maxbrunsfeld/counterfeiter \
+    && go get github.com/maxbrunsfeld/counterfeiter/v6 \
     && go get github.com/axw/gocov/... \
     && go get github.com/AlekSi/gocov-xml \
     && go get golang.org/x/tools/cmd/goimports \
