@@ -205,7 +205,6 @@ $ go get github.com/golang/protobuf/protoc-gen-go \
     && go get golang.org/x/lint/golint \
     && go get github.com/estesp/manifest-tool \
     && go get github.com/client9/misspell/cmd/misspell \
-    && go get github.com/estesp/manifest-tool \
     && go get github.com/onsi/ginkgo/ginkgo
 ```
 
