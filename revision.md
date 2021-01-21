@@ -1,7 +1,8 @@
 ## 版本历史
 
-* 1.5.0: 2020-XX-YY
-  * TBD;
+* 1.5.0: 2021-01-21
+  * Add operation chapter;
+  * Fix typos and polish expression.
 
 * 1.4.0: 2020-06-18
   * Refine deployment fabric with v2.0 version;
