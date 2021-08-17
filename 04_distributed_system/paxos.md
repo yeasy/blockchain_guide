@@ -87,7 +87,7 @@ Paxos 里面对这两个阶段分别命名为准备（Prepare）和提交（Comm
 ### Raft 算法
 Paxos 算法虽然给出了共识设计，但并没有讨论太多实现细节，也并不重视工程上的优化，因此后来在学术界和工程界出现了一些改进工作，包括 Fast Paxos、Multi-Paxos，Zookeeper Atomic Broadcast（ZAB）和 Raft 等。这些算法重点在于改进执行效率和可实现性。
 
-其中，[Raft](https://ramcloud.atlassian.net/wiki/download/attachments/6586375/raft.pdf) 算法由斯坦福大学的 Diego Ongaro 和 John Ousterhout 于 2014 年在论文《In Search of an Understandable Consensus Algorithm》中提出，基于 Multi-Paxos 算法进行重新简化设计和实现，提高了工程实践性。Raft 算法的主要设计思想与 ZAB 类型，通过先选出领导节点来简化流程和提高效率。实现上分解了领导者选举、日志复制和安全方面的考虑，并通过约束减少了不确定性的状态空间。
+其中，[Raft](https://ramcloud.atlassian.net/wiki/download/attachments/6586375/raft.pdf) 算法由斯坦福大学的 Diego Ongaro 和 John Ousterhout 于 2014 年在论文《In Search of an Understandable Consensus Algorithm》中提出，基于 Multi-Paxos 算法进行重新简化设计和实现，提高了工程实践性。Raft 算法的主要设计思想与 ZAB 类似，通过先选出领导节点来简化流程和提高效率。实现上分解了领导者选举、日志复制和安全方面的考虑，并通过约束减少了不确定性的状态空间。
 
 算法包括三种角色：领导者（Leader）、候选者（Candidate） 和跟随者（Follower），每个任期内选举一个全局的领导者。领导者角色十分关键，决定日志（log）的提交。每个日志都会路由到领导者，并且只能由领导者向跟随者单向复制。
 
