@@ -22,24 +22,25 @@ Gartner 在 2017 年的报告《Forecast: Blockchain Business Value, Worldwide, 
 
 目前，区块链技术已经得到了众多金融机构和商业公司的关注，包括大量金融界和信息技术界的领军性企业和团体。典型企业组织如下所列（排名不分先后）。
 
-* Visa 国际组织
-* 美国纳斯达克证券交易所（Nasdaq）
+* 维萨国际公司（VISA International）
+* 美国纳斯达克证券交易所（Nasdaq Stock Exchange）
 * 高盛投资银行（Goldman Sachs）
 * 花旗银行（Citi Bank）
 * 美国富国银行（Wells Fargo）
-* 中国人民银行
-* 中国浦发银行
-* 日本三菱日联金融集团
-* 瑞士联合银行
-* 德意志银行
-* 美國的證券集中保管結算公司（DTCC）
-* 全球同业银行金融电讯协会（SWIFT）
-* 国际商业机器公司（IBM）
-* 甲骨文公司（Oracle）
-* 微软（Microsoft）
-* 英特尔（Intel）
-* 思科（Cisco）
-* 埃森哲（Accenture）
+* 中国人民银行（The People's Bank Of China，PBOC）
+* 瑞士联合银行（Union Bank of Switzerland）
+* 德意志银行（Deutsche Bank AG）
+* 美国证券集中保管结算公司（Depository Trust Clearing Corporation，DTCC）
+* 全球同业银行金融电讯协会（Society for Worldwide Interbank Financial Telecommunication，SWIFT）
+* 三菱日联金融集团（Mitsubishi UFJ Financial Group, Inc.，MUFG）
+* 国际商业机器公司（International Business Machines Corporation，IBM）
+* 甲骨文公司（Oracle Corporation）
+* 微软公司（Microsoft Corporation）
+* 英特尔公司（Intel Corporation）
+* 亚马逊公司（Amazon Corporation）
+* 思科公司（Cisco Corporation）
+* 埃森哲公司（Accenture Corporation）
+* 脸书公司（Facebook Incorporated）
 
 实际上，所有跟信息、价值（包括货币、证券、专利、版权、数字商品、实际物品等）、信用等相关的交换过程，都将可能从区块链技术中得到启发或直接受益。但这个过程绝不是一蹴而就的，可能需要较长时间的探索和论证。
 
