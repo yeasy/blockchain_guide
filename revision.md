@@ -1,5 +1,9 @@
 ## 版本历史
 
+* 1.6.0: 2021-12-01
+  * Fix expressions;
+  * Fix typos.
+
 * 1.5.0: 2021-01-21
   * Add operation chapter;
   * Fix typos and polish expression.
