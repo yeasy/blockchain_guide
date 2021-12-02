@@ -1,10 +1,10 @@
 ## 拜占庭问题与算法
 
-拜占庭问题（Byzantine Problem）又叫拜占庭将军（Byzantine Generals Problem）问题，讨论的是允许存在少数节点作恶（消息可能被伪造）场景下的如何达成共识问题。拜占庭容错（Byzantine Fault Tolerant，BFT）讨论的是容忍拜占庭错误的共识算法。
+拜占庭问题（Byzantine Problem）又叫拜占庭将军（Byzantine Generals Problem）问题，讨论的是在少数节点有可能作恶（消息可能被伪造）的场景下，如何达成共识问题。拜占庭容错（Byzantine Fault Tolerant，BFT）讨论的是容忍拜占庭错误的共识算法。
 
 ### 两将军问题
 
-拜占庭问题之前，学术界就已经存在两将军问题的讨论（《Some constraints and tradeofis in the design of network communications》，1975 年）：两个将军要通过信使来达成进攻还是撤退的约定，但信使可能迷路或被敌军阻拦（消息丢失或伪造），如何达成一致？根据 FLP 不可能原理，这个问题无通用解。
+拜占庭问题之前，早在 1975 年，学术界就已经开始两将军问题的讨论（《Some constraints and tradeofis in the design of network communications》）：两个将军要通过信使来达成进攻还是撤退的约定，但信使可能迷路或被敌军阻拦（消息丢失或伪造），如何达成一致？这是典型的异步双方共识模型，根据 FLP 不可能原理，这个问题不存在通用解。
 
 ### 拜占庭问题
 
@@ -12,8 +12,7 @@
 
 拜占庭问题即讨论在此情况下，如何让忠诚的将军们能达成行动的一致。
 
-在大多数的分布式系统中，拜占庭的场景并不多见。然而在特定场景下存在意义，例如允许匿名参与的系统（如比特币），或是出现欺诈可能造成巨大损失的情况。
-
+一般分布式场景下，拜占庭需求并不多见，但在特定场景下会有较大意义。例如容易匿名参与的系统（如比特币），或是出现欺诈可能造成巨大损失的情况（金融系统）。
 
 ### 问题的解决
 
@@ -31,7 +30,7 @@
 
 另外存在 F − 1 个不确定的信息。合作者要想达成一致，必须进一步的对所获得的消息进行判定，询问其他人某个被怀疑对象的消息值，并通过取多数来作为被怀疑者的信息值。这个过程可以进一步递归下去。
 
-Leslie Lamport 等人在论文《Reaching agreement in the presence of faults》中证明，当叛变者不超过 1/3 时，存在有效的拜占庭容错算法（最坏需要 F+1 轮交互）。反之，如果叛变者过多，超过 1/3，则无法保证一定能达到一致结果。
+1980 年，Leslie Lamport 等人在论文《Reaching agreement in the presence of faults》中证明，当叛变者不超过 1/3 时，存在有效的拜占庭容错算法（最坏需要 F+1 轮交互）。反之，如果叛变者过多，超过 1/3，则无法保证一定能达到一致结果。
 
 那么，当存在多于 1/3 的叛变者时，有没有可能存在解决方案呢？
 
@@ -45,23 +44,26 @@ Leslie Lamport 等人在论文《Reaching agreement in the presence of faults》
 
 拜占庭容错算法最早的讨论可以追溯到 Leslie Lamport 等人 1982 年 发表的论文《The Byzantine Generals Problem》，之后出现了大量的改进工作，代表性成果包括《Optimal Asynchronous Byzantine Agreement》（1992 年）、《Fully Polynomial Byzantine Agreement for n>3t Processors in t+1 Rounds》（1998 年）等。长期以来，拜占庭问题的解决方案都存在运行过慢，或复杂度过高的问题，直到“实用拜占庭容错算法”（Practical Byzantine Fault Tolerance，PBFT） 算法的提出。
 
-1999 年，这一算法由 Castro 和 Liskov 于论文《Practical Byzantine Fault Tolerance and Proactive Recovery》中提出。该算法基于前人工作（特别是 Paxos 相关算法，因此也被称为 Byzantine Paxos）进行了优化，首次将拜占庭容错算法复杂度从指数级降低到了多项式级，目前已得到广泛应用。其可以在恶意节点不超过总数 1/3 的情况下同时保证 Safety 和 Liveness。
+1999 年，PBFT 算法由 Miguel Castro 和 Barbara Liskov 
+ 于论文《Practical Byzantine Fault Tolerance》中提出。该算法基于前人工作（特别是 Paxos 相关算法，因此也被称为 Byzantine Paxos）进行了优化，首次将拜占庭容错算法复杂度从指数级降低到了多项式（平方）级，目前已得到广泛应用。其可以在恶意节点不超过总数 1/3 的情况下同时保证 Safety 和 Liveness。
 
 PBFT 算法采用密码学相关技术（RSA 签名算法、消息验证编码和摘要）确保消息传递过程无法被篡改和破坏。
 
-算法整体的基本过程如下：
+算法的基本过程如下：
 
 * 首先，通过轮换或随机算法选出某个节点为主节点，此后只要主节点不切换，则称为一个视图（View）。
-* 在某个视图中，客户端将请求 `<REQUEST,operation,timestamp,client>` 发送给主节点，主节点负责广播请求到所有其它副本节点。
+* 在某个视图中，客户端将请求 `<REQUEST,operation,timestamp,client>` 发送给主节点（如果客户端发给从节点，从节点可以转发给主节点），主节点负责广播请求到所有其它从节点并完成共识。
 * 所有节点处理完成请求，将处理结果 `<REPLY,view,timestamp,client,id_node,response>` 返回给客户端。客户端检查是否收到了至少 f+1 个来自不同节点的相同结果，作为最终结果。
 
 主节点广播过程包括三个阶段的处理：预准备（Pre-Prepare）、准备（Prepare）和提交（Commit）。预准备和准备阶段确保在同一个视图内请求发送的顺序正确；准备和提交阶段则确保在不同视图之间的确认请求是保序的。
 
-* 预准备阶段：主节点为从客户端收到的请求分配提案编号，然后发出预准备消息 `<<PRE-PREPARE,view,n,digest>,message>` 给各副本节点，其中 message 是客户端的请求消息，digest 是消息的摘要。
-* 准备阶段：副本节点收到预准备消息后，检查消息。如消息合法，则向其它节点发送准备消息 `<PREPARE,view,n,digest,id>`，带上自己的 id 信息，同时接收来自其它节点的准备消息。收到准备消息的节点对消息同样进行合法性检查。验证通过则把这个准备消息写入消息日志中。集齐至少 2f+1 个验证过的消息才进入准备状态。
-* 提交阶段：广播 commit 消息，告诉其它节点某个提案 n 在视图 v 里已经处于准备状态。如果集齐至少 2f+1 个验证过的 commit 消息，则说明提案通过。
+* 预准备阶段：主节点为从客户端收到的请求分配提案编号，然后发出预准备消息 `<<PRE-PREPARE,view,n,digest>,message>` 给各从节点，主节点需要对预准备消息进行签名。其中 n 是主节点为这个请求分配的序号，message 是客户端的请求消息，digest 是消息的摘要。这一步的目的是为请求分配序号并通知其他节点，因此可以不包括原始的请求消息，可以通过其他方式将请求同步到从节点。
+* 准备阶段：从节点收到预准备消息后，检查消息（包括核对签名、视图、编号）。如消息合法，则向其它节点发送准备消息 `<PREPARE,view,n,digest,id>`，带上自己的 id 信息，并添加签名。收到准备消息的节点同样对消息进行合法性检查。节点集齐至少 2f+1 个验证过的消息则认为验证通过，把这个准备消息写入本地提交消息日志中。这一步是为了确认大多数节点已经对序号达成共识，本节点已经准备好进行提交了。
+* 提交阶段：广播 commit 消息 `<COMMIT,v,n,d,id>` 并添加自己签名，告诉其它节点某个编号为 n 的提案在视图 v 里已经处于提交状态。如果集齐至少 2f+1 个验证过的 commit 消息，则说明提案被整个系统接受。
 
-具体实现上还包括视图切换、checkpoint 等机制，读者可自行参考论文内容，在此不再赘述。
+PBFT 算法和 Raft 算法的过程十分类似。区别在于 PBFT 算法中并不假设主节点一定是可靠的，因此增加了额外的从节点之间的交互，当发现主节点不可靠时通过重新选举选出新的主节点。
+
+具体实现上还包括 checkpoint（同步节点状态和清理本地日志数据）、视图切换（重新选举主节点）等机制，读者可自行参考论文内容，在此不再赘述。
 
 拜占庭容错类的算法因为要考虑最恶意的存在“捣乱”者的情况，在大规模场景下共识性能往往会受到影响。
 
@@ -69,17 +71,18 @@ PBFT 算法采用密码学相关技术（RSA 签名算法、消息验证编码�
 
 拜占庭问题之所以难解，在于任何时候系统中都可能存在多个提案（因为提案成本很低），并且在大规模场景下要完成最终确认的过程容易受干扰，难以达成共识。
 
-2014 年，斯坦福的 Christopher Copeland 和 Hongxia Zhong 在论文《Tangaroa: a byzantine fault tolerant raft》中提出在 Raft 算法基础上借鉴 PBFT 算法的一些特性（包括签名、恶意领导探测、选举校验等）来实现拜占庭容错性，兼顾可实现性和鲁棒性。该论文也启发了 Kadena 等项目的出现，实现更好性能的拜占庭算法。
+2014 年，斯坦福大学的 Christopher Copeland 和 Hongxia Zhong 在论文《Tangaroa: a byzantine fault tolerant raft》中提出在 Raft 算法基础上借鉴 PBFT 算法的一些特性（包括签名、恶意领导探测、选举校验等）来实现拜占庭容错性，兼顾可实现性和鲁棒性。该论文也启发了 Kadena 等项目的出现，实现更好性能的拜占庭算法。
 
 2017 年，MIT 计算机科学与人工智能实验室（CSAIL）的 Yossi Gilad 和 Silvio Micali 等人在论文《Algorand: Scaling Byzantine Agreements for Cryptocurrencies》中针对 PBFT 算法在很多节点情况下性能不佳的问题，提出先选出少量记账节点，然后再利用可验证随机函数（Verifiable Random Function，VRF）来随机选取领导节点，避免全网直接做共识，将拜占庭算法扩展到了支持较大规模的应用场景，同时保持较好的性能（1000+ tps）。
 
-此外，康奈尔大学的 Rafael Pass 和 Elaine Shi 在论文《The Sleepy Model of Consensus》中还探讨了在动态场景（大量节点离线情况）下如何保障共识的安全性，所提出的 Sleepy Consensus 算法可以在活跃诚实节点达到一半以上时确保完成拜占庭共识。
+此外，康奈尔大学的 Rafael Pass 和 Elaine Shi 在论文《The Sleepy Model of Consensus》中探讨了在动态场景（大量节点离线情况）下如何保障共识的安全性，提出的 Sleepy Consensus 算法可以在活跃诚实节点达到一半以上时确保完成拜占庭共识。
 
-2018 年，清华大学的 Chenxing Li 等在论文《Scaling Nakamoto Consensus to Thousands of Transactions per Second》中提出了 Conflux 共识协议。该协议在 GHOST 算法基础上改善了安全性，面向公有区块链场景下，理论上能达到 6000+ tps。
+2018 年，清华大学的 Chenxing Li 等在论文《Scaling Nakamoto Consensus to Thousands of Transactions per Second》中提出了 Conflux 共识协议。该协议在 GHOST 算法基础上改善了安全性，面向公有区块链场景，理论上能达到 6000+ tps。
+
+2019 年，康奈尔大学和 VMWare 研究院的 Maofan Yin 等在论文《HotStuff: BFT Consensus with Linearity and Responsiveness》中对 PBFT 算法进行了改进：利用主节点来简化通信量，同时将视图切换与共识操作进行统一。值得一提的是，Facebook Libra 白皮书中采用了该成果。
 
 比特币网络在设计时使用了 PoW（Proof of Work）的概率型算法思路，从如下两个角度解决大规模场景下的拜占庭容错问题。
 
-首先，限制一段时间内整个网络中出现提案的个数（通过工作量证明来增加提案成本）；其次是丢掉最终确认的约束，约定好始终沿着已知最长的链进行拓展。共识的最终确认是概率意义上的存在。这样，即便有人试图恶意破坏，也会付出相应的经济代价（超过整体系统一半的工作量）。
+首先，限制一段时间内整个网络中出现提案的个数（通过工作量证明来增加提案成本）；其次是丢掉最终确认的约束，约定好始终沿着已知最长的链进行拓展。共识的最终确认是概率意义上的存在。这样，即便有人试图恶意破坏，也会付出相应的经济代价（超过整体系统一半的工作量）。后来的各种 PoX 系列算法，也都是沿着这个思路进行改进，采用经济博弈来制约攻击者。
 
-后来的各种 PoX 系列算法，也都是沿着这个思路进行改进，采用经济博弈来制约攻击者。
-
+另外，由于要处理的场景比较苛刻，BFT 类算法的吞吐量往往不高。除了可以放宽约束外（例如通常情况下信任主节点，出现问题再回滚），还可以引入多个互不影响的主节点进行并行处理。
