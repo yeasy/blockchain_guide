@@ -24,6 +24,7 @@
   * [资源共享](03_scenario/sharing.md)
   * [物流与供应链](03_scenario/logistics.md)
   * [物联网](03_scenario/iot.md)
+  * [数字艺术品和 NFT](03_scenario/nft.md)
   * [其它场景](03_scenario/others.md)
   * [本章小结](03_scenario/summary.md)
 * [分布式系统核心技术](04_distributed_system/README.md)
