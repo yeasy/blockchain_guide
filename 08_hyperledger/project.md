@@ -47,7 +47,7 @@ Fabric 项目目前处于活跃状态，已发布 2.0.0 版本，同时包括 Fa
 
 Sawtooth 项目由 Intel 等企业于 2016 年 4 月提交到社区，包括 sawtooth-core、sawtooth-supply-chain、sawtooth-marketplace、sawtooth-seth、sawtooth-next-directory、sawtooth-explorer 等数十个子项目。核心代码在 Github 上地址为 https://github.com/hyperledger/sawtooth-core。
 
-该项目的定位也是分布式账本平台，基于 Python 语言实现。目前目前处于 Active 阶段，核心项目的贡献者超过 70 人，提交次数已经超过 8000 次。
+该项目的定位也是分布式账本平台，基于 Python 语言实现。项目目前处于 Active 阶段，核心项目的贡献者超过 70 人，提交次数已经超过 8000 次。
 
 Sawtooth 项目利用 Intel 芯片的专属功能，实现了低功耗的 Proof of Elapsed Time（PoET）共识机制，并支持交易族（Transaction Family），方便用户使用它来快速开发应用。
 
@@ -59,7 +59,7 @@ Sawtooth 项目利用 Intel 芯片的专属功能，实现了低功耗的 Proof 
 
 Iroha 项目由 Soramitsu 等企业于 2016 年 10 月提交到社区，包括 iroha、iroha-android、iroha-ios、iroha-python、iroha-javascript 等子项目。核心代码在 Github 上地址为 https://github.com/hyperledger/iroha。
 
-该项目的定位是分布式账本平台框架，基于 C++ 语言实现。目前目前处于 Active 阶段，贡献者超过 50 人，提交次数已经超过 7000 次。
+该项目的定位是分布式账本平台框架，基于 C++ 语言实现。项目目前处于 Active 阶段，贡献者超过 50 人，提交次数已经超过 7000 次。
 
 Iroha 项目在设计上类似 Fabric，同时提供了基于 C++ 的区块链开发环境，并考虑了移动端和 Web 端的一些需求。
 
