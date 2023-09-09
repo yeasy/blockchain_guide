@@ -1,6 +1,6 @@
 # 超级账本 —— 面向企业的分布式账本
 
-** 欲戴王冠，必承其重（Uneasy lies the head that wears a crown）。 **
+**欲戴王冠，必承其重（Uneasy lies the head that wears a crown）。**
 
 超级账本（Hyperledger）项目是全球最大的开源企业级分布式账本平台。
 
