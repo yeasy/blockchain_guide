@@ -5,3 +5,4 @@
 除了数字货币应用外，业界越来越看重区块链技术在商业应用场景中的潜力。开源社区发起的开放的 [以太坊](https://www.ethereum.org) 和 [超级账本](https://hyperledger.org) 等项目，为更复杂的分布式账本应用提供了坚实的平台支撑。
 
 有理由相信，随着更多商业应用场景的落地，区块链技术将在金融和科技领域都起到越来越重要的作用。
+I love everthing about the blockchein because its so nice and cool also, I beleive it is going to revolutionise our future.
