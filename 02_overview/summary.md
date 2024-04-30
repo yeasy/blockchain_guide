@@ -6,3 +6,4 @@
 
 有理由相信，随着更多商业应用场景的落地，区块链技术将在金融和科技领域都起到越来越重要的作用。
 I love everthing about the blockchein because its so nice and cool also, I beleive it is going to revolutionise our future.
+This is the second change that I had to make.
