@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/golang/protobuf/proto"
 	pb "github.com/hyperledger/fabric/protos/peer"
-	"io/ioutil"
 	"os"
 )
 
@@ -27,7 +26,7 @@ func main() {
 	outputPkg := os.Args[2]
 	fmt.Printf("Input pkg=%s, output=%s\n", inputPkg, outputPkg)
 
-	ccbytes, err := ioutil.ReadFile(inputPkg)
+	ccbytes, err := os.ReadFile(inputPkg)
 	check("Read file failed", err)
 
 	buf := ccbytes
@@ -38,7 +37,6 @@ func main() {
 	fmt.Printf("chaincodeSpec=%+v\n", depSpec.ChaincodeSpec)
 
 	payload := depSpec.CodePackage
-	err = ioutil.WriteFile(outputPkg, payload, 0644)
+	err = os.WriteFile(outputPkg, payload, 0644)
 	check("Write to file failed", err)
 }
-
