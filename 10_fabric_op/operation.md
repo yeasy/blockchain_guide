@@ -56,7 +56,7 @@ $ curl http://peer:9443/healthz
 
 ```bash
 $ curl http://orderer:8443/metrics
-# HELP blockcutter_block_fill_duration The time from first transaction enqueing to the block being cut in seconds.
+# HELP blockcutter_block_fill_duration The time from first transaction enqueuing to the block being cut in seconds.
 # TYPE blockcutter_block_fill_duration histogram
 blockcutter_block_fill_duration_bucket{channel="businesschannel",le="0.005"} 0
 blockcutter_block_fill_duration_bucket{channel="businesschannel",le="0.01"} 0

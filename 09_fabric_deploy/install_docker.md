@@ -337,7 +337,7 @@ Dockerfile 内容如下，可从 https://github.com/yeasy/docker-hyperledger-fab
 # Dockerfile for Hyperledger fabric-ca image.
 # If you need a peer node to run, please see the yeasy/hyperledger-peer image.
 # Workdir is set to $GOPATH/src/github.com/hyperledger/fabric-ca
-# More usage infomation, please see https://github.com/yeasy/docker-hyperledger-fabric-ca.
+# More usage information, please see https://github.com/yeasy/docker-hyperledger-fabric-ca.
 
 FROM golang:1.13
 LABEL maintainer "Baohua Yang <yeasy.github.com>"
