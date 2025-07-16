@@ -182,7 +182,7 @@ func (t *SimpleChaincode) createUser(stub *shim.ChaincodeStub, args []string) ([
 		return nil,errors.New("Want integer number")
 	}
 
-	user = User{Name:args[0],Loction:args[1],Address:address,PriKey:priKey,PubKey:pubKey,Phone:args[2],Money:number}
+    user = User{Name:args[0],Location:args[1],Address:address,PriKey:priKey,PubKey:pubKey,Phone:args[2],Money:number}
 	err = writeUser(stub,user)
 	if err!= nil{
 		return nil,errors.New("write error")
