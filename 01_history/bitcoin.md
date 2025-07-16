@@ -14,7 +14,7 @@
 
 ![Adam Back](_images/Adam_Back.png)
 
-1997 年，[Adam Back](https://en.wikipedia.org/wiki/Adam_Back) 提出了 [HashCash](http://en.wikipedia.org/wiki/Hashcash)，来解决邮件系统和博客网站中“拒绝服务攻击（Deny of Service，DoS）”攻击问题。Hashcash 首次应用工作量证明（Proof of Work，PoW）机制来获取额度，该机制后来被比特币所采用。类似思想最早曾在 1993 年的论文《Pricing via processing or combatting junk mail》中提出。
+1997 年，[Adam Back](https://en.wikipedia.org/wiki/Adam_Back) 提出了 [HashCash](http://en.wikipedia.org/wiki/Hashcash)，来解决邮件系统和博客网站中“拒绝服务攻击（Deny of Service，DoS）”攻击问题。Hashcash 首次应用工作量证明（Proof of Work，PoW）机制来获取额度，该机制后来被比特币所采用。类似思想最早曾在 1993 年的论文《Pricing via processing or combating junk mail》中提出。
 
 ![Wei Dai](_images/Wei_Dai.png)
 

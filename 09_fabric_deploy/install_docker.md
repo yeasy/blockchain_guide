@@ -144,7 +144,7 @@ $ docker tag yeasy/hyperledger-fabric-peer:$PROJECT_VERSION hyperledger/fabric-p
 
 ### 镜像 Dockerfile
 
-读者也可自行通过编写 Dockefile 的方式来生成相关镜像。
+读者也可自行通过编写 Dockerfile 的方式来生成相关镜像。
 
 Dockerfile 中指令跟本地编译过程十分类似，这里给出笔者编写的 fabric-base 镜像、fabric-orderer 镜像和 fabric-peer 镜像等关键镜像的 Dockerfile，供读者参考使用。
 
