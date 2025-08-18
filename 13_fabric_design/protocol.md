@@ -83,6 +83,6 @@ enum ConfidentialityLevel { PUBLIC = 0; CONFIDENTIAL = 1;}
 
 ### Consensus
 
-consensus 组件收到 `CHAIN_TRANSACTION` 类消息后，将其转换为 `CONENSUS` 消息，然后向所有的 VP 节点广播。
+consensus 组件收到 `CHAIN_TRANSACTION` 类消息后，将其转换为 `CONSENSUS` 消息，然后向所有的 VP 节点广播。
 
 收到 `CONSENSUS` 消息的节点会按照预定的 consensus 算法进行处理。

@@ -7,17 +7,17 @@
 package main
 
 import (
-	"errors"
-	"fmt"
-	"strconv"
 	"crypto/md5"
 	"crypto/rand"
-	"encoding/json"
 	"encoding/base64"
 	"encoding/hex"
-	"io"
-	"time"
+	"encoding/json"
+	"errors"
+	"fmt"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
+	"io"
+	"strconv"
+	"time"
 )
 
 type SimpleChaincode struct {
@@ -196,8 +196,8 @@ func buyByAddress(stub shim.ChaincodeStubInterface, args []string) ([]byte, erro
 		return nil, errors.New("Verify sign data failed!")
 	}
 
-	buyValue, erro := strconv.Atoi(args[3])
-	if erro != nil {
+	buyValue, err := strconv.Atoi(args[3])
+	if err != nil {
 		return nil, errors.New("want integer number")
 	}
 	if homeSeller.Energy < buyValue && homeBuyer.Money < buyValue {
@@ -370,7 +370,7 @@ func getTransactions(stub shim.ChaincodeStubInterface) ([]Transaction, error) {
 	return nil, nil
 }
 
-func writeHome(stub shim.ChaincodeStubInterface, home Home) (error) {
+func writeHome(stub shim.ChaincodeStubInterface, home Home) error {
 	homeBytes, err := json.Marshal(&home)
 	if err != nil {
 		return errors.New("Marshalling Error" + err.Error())
@@ -382,7 +382,7 @@ func writeHome(stub shim.ChaincodeStubInterface, home Home) (error) {
 	return nil
 }
 
-func writeTransaction(stub shim.ChaincodeStubInterface, transaction Transaction) (error) {
+func writeTransaction(stub shim.ChaincodeStubInterface, transaction Transaction) error {
 	txBytes, err := json.Marshal(&transaction)
 	if err != nil {
 		return errors.New("Marshalling Error" + err.Error())
