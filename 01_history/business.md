@@ -40,7 +40,7 @@ Gartner 在 2017 年的报告《Forecast: Blockchain Business Value, Worldwide, 
 * 亚马逊公司（Amazon Corporation）
 * 思科公司（Cisco Corporation）
 * 埃森哲公司（Accenture Corporation）
-* 脸书公司（Facebook Incorporated）
+* Meta 平台公司（Meta Platforms，former Facebook）
 
 实际上，区块链可以有效地实现大规模信息和个体的自主化连接。因此，所有与信息、价值（包括货币、证券、专利、版权、数字商品、实际物品等）、信用等相关的交换过程，都将可能从区块链技术中得到启发或直接受益。但这个过程绝不是一蹴而就的，需要长时间的探索和论证。
 

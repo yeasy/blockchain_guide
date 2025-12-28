@@ -6,7 +6,7 @@
 
 上世纪 50 年代计算机（ENIAC，1946 年）出现后，人们就尝试利用信息技术提高支付系统的效率。除了作为电子支付手段的各种银行卡，自 80 年代起，利用密码学手段构建的加密数字货币（Cryptocurrency）也开始成为研究的热门。
 
-加密货币前后经历了 30 多年的探索，比较典型的成果包括 [e-Cash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)、[HashCash](http://en.wikipedia.org/wiki/Hashcash)、[B-money](http://www.weidai.com/bmoney.txt)和 Bit Gold 等。
+加密货币前后经历了 30 多年的探索，比较典型的成果包括 [e-Cash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)、[HashCash](https://en.wikipedia.org/wiki/Hashcash)、[B-money](http://www.weidai.com/bmoney.txt)和 Bit Gold 等。
 
 ![David Chaum](_images/David_Chaum.png)
 
@@ -14,15 +14,15 @@
 
 ![Adam Back](_images/Adam_Back.png)
 
-1997 年，[Adam Back](https://en.wikipedia.org/wiki/Adam_Back) 提出了 [HashCash](http://en.wikipedia.org/wiki/Hashcash)，来解决邮件系统和博客网站中“拒绝服务攻击（Deny of Service，DoS）”攻击问题。Hashcash 首次应用工作量证明（Proof of Work，PoW）机制来获取额度，该机制后来被比特币所采用。类似思想最早曾在 1993 年的论文《Pricing via processing or combating junk mail》中提出。
+1997 年，[Adam Back](https://en.wikipedia.org/wiki/Adam_Back) 提出了 [HashCash](https://en.wikipedia.org/wiki/Hashcash)，来解决邮件系统和博客网站中“拒绝服务攻击（Deny of Service，DoS）”攻击问题。Hashcash 首次应用工作量证明（Proof of Work，PoW）机制来获取额度，该机制后来被比特币所采用。类似思想最早曾在 1993 年的论文《Pricing via processing or combating junk mail》中提出。
 
 ![Wei Dai](_images/Wei_Dai.png)
 
-1998 年，刚大学毕业的华人[Wei Dai](http://www.weidai.com) （戴维）提出了 [B-money](http://www.weidai.com/bmoney.txt) 的设计，这是首个不依赖中心化机构的匿名数字货币方案。B-money 引入工作量证明的思想来解决数字货币产生的问题，指出任何人都可以发行一定量的货币，只要他可以给出某个复杂计算问题（未说明是用 Hash 计算）的答案，货币的发行量将跟问题的计算代价成正比。并且，任何人（或部分参与者）都可以维护一套账本，构成一套初级的 P2P 网络，使用者在网络内通过对带签名的交易消息的广播来实现转账的确认。B-money 是去中心化数字货币领域里程碑式的成果，为后面比特币的出现奠定了基础。从设计上看，B-money 已经很好地解决了货币发行的问题，但是未能解决“双花”问题，也未能指出如何有效、安全地维护账本，最终未能实现。
+1998 年，刚大学毕业的华人[Wei Dai](https://www.weidai.com) （戴维）提出了 [B-money](http://www.weidai.com/bmoney.txt) 的设计，这是首个不依赖中心化机构的匿名数字货币方案。B-money 引入工作量证明的思想来解决数字货币产生的问题，指出任何人都可以发行一定量的货币，只要他可以给出某个复杂计算问题（未说明是用 Hash 计算）的答案，货币的发行量将跟问题的计算代价成正比。并且，任何人（或部分参与者）都可以维护一套账本，构成一套初级的 P2P 网络，使用者在网络内通过对带签名的交易消息的广播来实现转账的确认。B-money 是去中心化数字货币领域里程碑式的成果，为后面比特币的出现奠定了基础。从设计上看，B-money 已经很好地解决了货币发行的问题，但是未能解决“双花”问题，也未能指出如何有效、安全地维护账本，最终未能实现。
 
 ![Nick Szabo](_images/Nick_Szabo.png)
 
-同年，[Nick Szabo](http://szabo.best.vwh.net/) 也提出了名为 [Bit Gold](https://unenumerated.blogspot.com/2005/12/bit-gold.html) 的非中心化数字货币设计。系统中将解决密码学难题（challenge string）作为发行货币的前提，并且上一个难题的结果作为下一个难题生成的参数。对方案的确认需要系统中大多数参与者确认。该方案最终也并未实现。
+同年，[Nick Szabo](https://szabo.best.vwh.net/) 也提出了名为 [Bit Gold](https://unenumerated.blogspot.com/2005/12/bit-gold.html) 的非中心化数字货币设计。系统中将解决密码学难题（challenge string）作为发行货币的前提，并且上一个难题的结果作为下一个难题生成的参数。对方案的确认需要系统中大多数参与者确认。该方案最终也并未实现。
 
 这些方案要么依赖于一个中心化的管理机构，要么更多偏重理论层面的设计而未能实现。直到比特币的出现，采用创新的区块链结构来维护账本，使用 1999 年后出现的 P2P 网络技术实现账本同步，并引入经济博弈机制，充分利用现代密码学成果，**首次从实践意义上实现了一套非中心化（decentralized）的开源数字货币系统**。也正因为比特币的影响力巨大，很多时候谈到数字货币其实是指类似以加密技术为基础的数字货币（crypto currency）。
 
@@ -39,7 +39,7 @@
 ### 比特币的诞生
 2008 年 10 月 31 日（东部时间），星期五下午 2 点 10 分，化名 Satoshi Nakamoto（中本聪）的人在 [metzdowd 密码学邮件列表](http://www.metzdowd.com/pipermail/cryptography/2008-October/014810.html) 中提出了比特币（Bitcoin）的设计白皮书《Bitcoin: A Peer-to-Peer Electronic Cash System》，并在 2009 年公开了最初的实现代码。首个比特币是 UTC 时间 2009 年 1 月 3 日 18:15:05 生成。但比特币真正流行开来，被人们所关注则是至少两年以后了。
 
-作为开源项目，比特币很快吸引了大量开发者的加入，目前的官方网站 [bitcoin.org](http://bitcoin.org)，提供了比特币相关的代码实现和各种工具软件。
+作为开源项目，比特币很快吸引了大量开发者的加入，目前的官方网站 [bitcoin.org](https://bitcoin.org)，提供了比特币相关的代码实现和各种工具软件。
 
 除了精妙的设计理念外，比特币最为人津津乐道的一点，是发明人“中本聪”到目前为止尚无法确认真实身份。也有人推测，“中本聪”背后可能不止一个人，而是一个团队。这些猜测都为比特币项目带来了不少传奇色彩。
 

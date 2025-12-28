@@ -1,5 +1,5 @@
 # 区块链技术指南
-v1.6.6
+v1.7.0
 
 区块链是金融科技（Fintech）领域的一项基础性的创新。
 
@@ -20,7 +20,7 @@ v1.6.6
 
 《[区块链原理、设计与应用 第 2 版](https://item.jd.com/12159265.html)》 围绕超级账本 Fabric 2.x 最新版，详细介绍了区块链和分布式账本领域的核心技术，以及企业分布式账本方案的设计、架构和应用，欢迎大家阅读并反馈建议。本书已被译为多国语言发行，有意欢迎与作者联系。
 
-* [China-Pub](http://product.china-pub.com/8071482)
+* [China-Pub](https://product.china-pub.com/8071482)
 * [京东图书](https://item.jd.com/12935394.html)
 * [当当图书](http://product.dangdang.com/28996031.html)
 
