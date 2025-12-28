@@ -1,5 +1,9 @@
 ## 版本历史
 
+* 1.7.0: 2025-12-28
+  * Update outdated project status;
+  * Fix typos and links.
+
 * 1.6.0: 2021-12-01
   * Fix expressions;
   * Fix typos.

@@ -8,11 +8,11 @@ Hyperledger 所有项目代码托管在 [Github](https://github.com/hyperledger/
 * [Iroha](https://github.com/hyperledger/Iroha)：账本平台项目，基于 C++ 实现，带有不少面向 Web 和 Mobile 的特性，主要由 Soramitsu 于 2016 年 10 月发起和贡献；
 * [Cello](https://github.com/hyperledger/cello)：提供区块链平台的部署和运行时管理功能。使用 Cello，管理员可以轻松部署和管理多条区块链；应用开发者可以无需关心如何搭建和维护区块链，由 IBM 团队于 2017 年 1 月贡献到社区；
 * [Indy](https://github.com/hyperledger/indy)：提供基于分布式账本技术的数字身份管理机制，由 Sovrin 基金会发起，2017 年 3 月底正式贡献到社区；
-* [Composer](https://github.com/hyperledger/composer)：提供面向链码开发的高级语言支持，自动生成链码代码等，由 IBM 团队发起并维护，2017 年 3 月底贡献到社区。目前已经成熟，处于 Deprecate 阶段，仅考虑修正可能的严重缺陷；
+* [Composer](https://github.com/hyperledger/composer)：[End of Life] 提供面向链码开发的高级语言支持，自动生成链码代码等，由 IBM 团队发起并维护，2017 年 3 月底贡献到社区。目前已经停止维护；
 * [Burrow](https://github.com/hyperledger/burrow)：提供以太坊虚拟机的支持，实现支持高效交易的带权限的区块链平台，由 Monax 公司发起支持，2017 年 4 月贡献到社区；
 * [Quilt](https://github.com/hyperledger/quilt)：对 W3C 支持的跨账本协议 Interledger 的 Java 实现。2017 年 10 月正式贡献到社区；
 * [Caliper](https://github.com/hyperledger/burrow)：提供对区块链平台性能的测试工具，由华为公司发起支持，2018 年 3 月正式贡献到社区。
-* [Ursa](https://github.com/hyperledger/burrow)：提供一套密码学相关组件，初始贡献者包括来自 Fujitsu、Sovrin、Intel、DFINITY、State Street、IBM、Bitwise IO 等企业的开发者，2018 年 11 月正式被接收到社区；
+* [Ursa](https://github.com/hyperledger/ursa)：[End of Life] 提供一套密码学相关组件，初始贡献者包括来自 Fujitsu、Sovrin、Intel、DFINITY、State Street、IBM、Bitwise IO 等企业的开发者，2018 年 11 月正式被接收到社区，2023 年 4 月结束生命周期；
 * [Grid](https://github.com/hyperledger/burrow)：提供帮助快速构建供应链应用的框架，由 Cargill、Intel 和 Bitwise IO 公司发起支持，2018 年 12 月正式贡献到社区；
 * [Transact](https://github.com/hyperledger/transact)：提供运行交易的引擎和框架，由 Bitwise IO、Cargill、Intel、IBM、HACERA 等公司发起支持，2019 年 5 月正式贡献到社区；
 * [Aries](https://github.com/hyperledger/aries)：为客户端提供共享的密码学钱包，由 Sovrin、C3I 和 Evernym 等公司发起支持，2019 年 5 月正式贡献到社区；
@@ -103,7 +103,7 @@ Indy 项目由 Sovrin 基金会牵头进行开发，致力于打造一个基于�
 
 Composer 项目由 IBM 团队于 2017 年 3 月底贡献到社区，试图提供一个 Hyperledger Fabric 的开发辅助框架。使用 Composer，开发人员可以使用 Javascript 语言定义应用逻辑，再加上资源、参与者、交易等模型和访问规则，生成 Hyperledger Fabric 支持的链码。
 
-该项目主要由 Node.Js 语言开发，贡献者超过 80人，已有超过 5000 次提交。该项目已经成熟，处于 Deprecate 阶段，仅考虑修正可能的严重缺陷。
+该项目主要由 Node.Js 语言开发，贡献者超过 80人，已有超过 5000 次提交。该项目已经停止维护（End of Life）。
 
 项目的邮件列表地址为 composer@lists.hyperledger.org。
 
@@ -145,7 +145,7 @@ Caliper 项目希望能为评测区块链的性能（包括吞吐、延迟、资
 
 Ursa 项目前身为加密实现库项目，由 Fujitsu、Sovrin、Intel、DFINITY、State Street、IBM、Bitwise IO 等企业的开发者于 2018 年 11 月正式贡献到社区。核心代码在 Github 上地址为 https://github.com/hyperledger/ursa。
 
-Ursa 项目希望提供一套方便、安全的密码学软件库（包括加解密、零知识证明等），为实现区块链平台实现提供便利。主要基于 Rust 语言实现，目前包括两个子组件（基础密码实现库 Base Crypto 和零知识证明库 Z-Mix）。参与贡献者超过 10人，提交次数超过 400 次。
+Ursa 项目曾经提供一套方便、安全的密码学软件库（包括加解密、零知识证明等），为实现区块链平台实现提供便利。主要基于 Rust 语言实现，目前包括两个子组件（基础密码实现库 Base Crypto 和零知识证明库 Z-Mix）。参与贡献者超过 10人，提交次数超过 400 次。项目已于 2023 年 4 月结束生命周期。
 
 项目的邮件列表地址为 ursa@lists.hyperledger.org。
 
