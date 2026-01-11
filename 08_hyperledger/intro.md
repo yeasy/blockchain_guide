@@ -14,7 +14,7 @@
 
 *注：部分早期项目如 Composer、Quilt、Ursa、Avalon 等已结束生命周期（End of Life）。*
 
-超级账本项目的企业会员和技术项目发展都十分迅速，如下图所示。
+超级账本项目的企业会员和技术项目发展都十分迅速，如下图所示（图示数据仅供参考，最新信息请访问官网）。
 
 ![Hyperledger 项目快速成长](_images/community_growth.png)
 
