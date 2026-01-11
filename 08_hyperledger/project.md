@@ -37,7 +37,7 @@ Hyperledger 所有项目代码托管在 [Github](https://github.com/hyperledger/
 
 Fabric 项目基于 Go 语言实现，贡献者超过 200 人，总提交次数已经超过 15000 次，核心代码数超过 15 万行。
 
-Fabric 项目目前处于活跃状态，已发布 2.0.0 版本，同时包括 Fabric CA、Fabric SDK 等多个相关的子项目。
+Fabric 项目目前处于活跃状态，当前长期支持版本（LTS）为 2.5.x 系列，已发布至 v2.5.9（2024年6月）。Fabric 3.0 已发布 Beta 版本，引入了拜占庭容错（BFT）排序服务等新特性。项目同时包括 Fabric CA、Fabric Gateway、多语言 SDK 等子项目。
 
 项目的邮件列表地址为 fabric@lists.hyperledger.org。
 

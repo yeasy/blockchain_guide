@@ -1,5 +1,11 @@
 ## 版本历史
 
+* 1.8.0: 2026-01-10
+  * Update Bitcoin history (ETF, halving) and stats;
+  * Update Ethereum history (The Merge, Dencun upgrade) and features;
+  * Update Hyperledger Fabric version (v2.5 LTS, v3.0) and project status;
+  * Update BaaS platform info (IBM Blockchain Platform, Azure).
+
 * 1.7.0: 2025-12-28
   * Update outdated project status;
   * Fix typos and links.

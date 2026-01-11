@@ -6,7 +6,7 @@
 
 超级账本社区的项目开发工作由技术委员会（Technical Steering Committee，TSC）指导，首任主席Chris Ferris 来自 IBM ，是 IBM 开源技术部门的 CTO ；管理委员会主席则由来自 Digital Asset Holdings 的 CEO Blythe Masters 担任。另外，自 2016 年 5 月起，Apache 基金会创始人 Brian Behlendorf 担任超级账本项目的执行总监（Executive Director）。
 
-社区十分重视大中华地区的应用落地和开发情况，2016 年 12 月，[中国技术工作组](ttps://wiki.hyperledger.org/display/TWGC) 正式成立，负责推动社区组织建设和开源技术的发展和应用。
+社区十分重视大中华地区的应用落地和开发情况，2016 年 12 月，[中国技术工作组](https://wiki.hyperledger.org/display/TWGC) 正式成立，负责推动社区组织建设和开源技术的发展和应用。
 
 ### 基本结构
 
