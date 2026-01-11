@@ -1,5 +1,16 @@
 ## 版本历史
 
+* 1.8.2: 2026-01-11
+  * Add new chapters: Layer 2, CBDC (with global overview), Web3/DeFi/DAO, Zero-Knowledge Proofs;
+  * Rewrite NFT chapter with 2022-2025 market updates (Ordinals, NFTFi, SBT);
+  * Rewrite Fabric chaincode lifecycle for v2.x (Package-Install-Approve-Commit);
+  * Update Ethereum tools (Hardhat, Foundry, MetaMask);
+  * Update Go language guide (Go Modules, GOPROXY);
+  * Update Fabric install guide (install-fabric.sh, LevelDB vs CouchDB);
+  * Fix outdated data: Bitcoin block reward, SHA-3 status, DeFi TVL, pizza BTC value;
+  * Add version notice to Fabric architecture design chapter;
+  * Update appendix resource links.
+
 * 1.8.0: 2026-01-10
   * Update Bitcoin history (ETF, halving) and stats;
   * Update Ethereum history (The Merge, Dencun upgrade) and features;

@@ -48,6 +48,7 @@
   * [Merkle 树结构](05_crypto/merkle_trie.md)
   * [Bloom Filter 结构](05_crypto/bloom_filter.md)
   * [同态加密](05_crypto/homoencryption.md)
+  * [零知识证明](05_crypto/zkp.md)
   * [其它技术](05_crypto/others.md)
   * [本章小结](05_crypto/summary.md)
 * [比特币 —— 初露锋芒的区块链](06_bitcoin/README.md)

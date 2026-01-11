@@ -21,13 +21,14 @@ A. Back, M. Corallo, L. Dashjr, M. Friedenbach, G. Maxwell, A. Miller, A. Poelst
 
 ### 开源项目
 
-* 比特币项目：https://bitcoin.org/。
-* [blockchain.info](https://blockchain.info)：比特币信息统计网站。
+* 比特币项目：https://bitcoin.org/
+* [blockchain.com](https://www.blockchain.com)：比特币信息统计网站。
 * [bitcoin.it](https://en.bitcoin.it)：比特币 wiki，相关知识介绍。
-* 以太坊项目：https://www.ethereum.org。
-* 以太坊网络的状态统计：https://etherchain.org/
-* 超级账本项目：[https://hyperledger.org](https://hyperledger.org);
-* 超级账本 Docker 镜像：[https://hub.docker.com/r/hyperledger/](https://hub.docker.com/r/hyperledger/)。
+* 以太坊项目：https://ethereum.org/
+* [Etherscan](https://etherscan.io/)：以太坊区块浏览器，查询交易和合约。
+* [DefiLlama](https://defillama.com/)：DeFi TVL 和数据分析平台。
+* 超级账本项目：https://www.hyperledger.org/
+* 超级账本 Docker 镜像：https://hub.docker.com/u/hyperledger/
 
 ### 培训课程
 
