@@ -2,53 +2,44 @@
 
 ### 客户端和开发库
 
-以太坊客户端可用于接入以太坊网络，进行账户管理、交易、挖矿、智能合约等各方面操作。
+以太坊社区现在提供了多种语言实现的客户端，支持标准的 JSON-RPC 协议。随着以太坊 2.0（共识层）的升级，现在的节点通常由执行层客户端（Execution Client）和共识层客户端（Consensus Client）共同组成。
 
-以太坊社区现在提供了多种语言实现的客户端和开发库，支持标准的 JSON-RPC 协议。用户可根据自己熟悉的开发语言进行选择。
+**执行层客户端（Execution Client）：**
+*   [Geth (go-ethereum)](https://github.com/ethereum/go-ethereum)：Go 语言实现，最主流的客户端；
+*   [Nethermind](https://github.com/NethermindEth/nethermind)：C# 语言实现，性能优异；
+*   [Besu](https://github.com/hyperledger/besu)：Java 语言实现，Hyperledger 项目之一，适合企业级应用；
+*   [Erigon](https://github.com/ledgerwatch/erigon)：Go 语言实现，专注于存储效率和同步速度。
 
-* [go-ethereum](https://github.com/ethereum/go-ethereum)：Go 语言实现；
-* [Parity](https://github.com/ethcore/parity)：Rust 语言实现；
-* [cpp-ethereum](https://github.com/bobsummerwill/cpp-ethereum)：C++ 语言实现；
-* [ethereumjs-lib](https://github.com/ethereumjs/ethereumjs-lib)：javascript 语言实现；
-* [Ethereum(J)](https://github.com/ethereum/ethereumj)：Java 语言实现；
-* [ethereumH](https://github.com/blockapps/ethereumH)：Haskell 语言实现；
-* [pyethapp](https://github.com/ethereum/pyethapp)：Python 语言实现；
-* [ruby-ethereum](https://github.com/janx/ruby-ethereum)：Ruby 语言实现。
+**共识层客户端（Consensus Client）：**
+*   [Prysm](https://github.com/prysmaticlabs/prysm)：Go 语言实现；
+*   [Lighthouse](https://github.com/sigp/lighthouse)：Rust 语言实现；
+*   [Teku](https://github.com/ConsenSys/teku)：Java 语言实现。
 
-#### Geth
-
-上述实现中，go-ethereum 的独立客户端 Geth 是最常用的以太坊客户端之一。
-
-用户可通过安装 Geth 来接入以太坊网络并成为一个完整节点。Geth 也可作为一个 HTTP-RPC 服务器，对外暴露 JSON-RPC 接口，供用户与以太坊网络交互。
-
-Geth 的使用需要基本的命令行基础，其功能相对完整，源码托管于 github.com/ethereum/go-ethereum。
+**开发库：**
+*   [ethers.js](https://github.com/ethers-io/ethers.js/)：轻量级且功能强大的 JavaScript 库，目前最受欢迎；
+*   [web3.js](https://github.com/web3/web3.js)：历史最悠久的 JavaScript 库；
+*   [viem](https://github.com/wagmi-dev/viem)：基于 TypeScript 构建的新一代库，专注于性能。
 
 ### 以太坊钱包
 
-对于只需进行账户管理、以太坊转账、DApp 使用等基本操作的用户，则可选择直观易用的钱包客户端。
+钱包是用户进入 Web3 世界的入口。
 
-Mist 是官方提供的一套包含图形界面的钱包客户端，除了可用于进行交易，也支持直接编写和部署智能合约。
+*   [MetaMask](https://metamask.io/)：浏览器插件钱包的行业标准，支持几乎所有 EVM 兼容链。
+*   [Rabby Wallet](https://rabby.io/)：专为 DeFi 用户设计，提供交易模拟和风险扫描功能，体验更佳。
+*   [Frame](https://frame.sh/)：专注于隐私和 macOS 原生体验的桌面钱包。
 
-注意： Mist 钱包于 2019 年被废弃。用户建议切换到像 MetaMask 或 Trust Wallet 这样的持续维护的钱包。
+### 开发框架与 IDE
 
-![Mist 浏览器](_images/mist.png)
+现代以太坊开发工具栈已经发生了巨大变化。
 
-所编写的代码编译发布后，可以部署到区块链上。使用者可通过发送调用相应合约方法的交易，来执行智能合约。
-
-### IDE
-
-对于开发者，以太坊社区涌现出许多服务于编写智能合约和 DApp 的 IDE，例如：
-
-* [Truffle](http://truffleframework.com/)：一个功能丰富的以太坊应用开发环境。
-* [Embark](https://github.com/iurimatias/embark-framework)：一个 DApp 开发框架，支持集成以太坊、IPFS 等。
-* [Remix](http://remix.ethereum.org)：一个用于编写 Solidity 的 IDE，内置调试器和测试环境。
+*   [Hardhat](https://hardhat.org/)：目前最主流的以太坊开发环境，基于 JavaScript/TypeScript，拥有庞大的插件生态。
+*   [Foundry](https://github.com/foundry-rs/foundry)：基于 Rust 编写的极速开发框架，支持用 Solidity 编写测试脚本，正在快速取代 Hardhat。
+*   [Remix](http://remix.ethereum.org)：基于浏览器的 IDE，无需安装，适合快速原型开发和教学。
 
 ### 网站资源
 
-已有一些网站提供对以太坊网络的数据、运行在以太坊上的 DApp 等信息进行查看，例如：
+*   [Etherscan](https://etherscan.io/)：最权威的区块浏览器，查看所有链上交易、合约代码和账户状态。
+*   [DefiLlama](https://defillama.com/)：最全面的 DeFi TVL 和数据分析平台。
+*   [Dune Analytics](https://dune.com/)：强大的链上数据可视化分析平台，社区贡献了大量 Dashboard。
 
-* ethstats.net：实时查看网络的信息，如区块、价格、交易数等。
-* ethernodes.org：显示整个网络的历史统计信息，如客户端的分布情况等。
-* dapps.ethercasts.com：查看运行在以太坊上的 DApp 的信息，包括简介、所处阶段和状态等。
 
-![以太坊网络上的 Dapp 信息](_images/dapps.png)

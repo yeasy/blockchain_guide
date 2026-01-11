@@ -6,17 +6,19 @@
 
 成立之初，项目就收到了众多开源技术贡献。IBM 贡献了 4 万多行已有的 [Open Blockchain](https://github.com/openblockchain) 代码，Digital Asset 贡献了企业和开发者相关资源，R3 贡献了新的金融交易架构，Intel 贡献了分布式账本相关的代码。  
 
-作为一个联合项目（Collaborative Project），超级账本由面向不同目的和场景的子项目构成。目前包括 Fabric、SawToothLake、Iroha、Blockchain Explorer、Cello、Indy、Composer、Burrow、Quilt、Caliper、Ursa、Grid、Transact、Aries、Besu、Avalon 等顶级项目，所有项目都遵守 Apache v2 许可，并约定共同遵守如下的 [基本原则](https://github.com/hyperledger/hyperledger)：
+作为一个联合项目（Collaborative Project），超级账本由面向不同目的和场景的子项目构成。目前活跃的顶级项目包括 Fabric、Sawtooth、Iroha、Besu、Indy、Aries、Cello、Caliper、Firefly 等，所有项目都遵守 Apache v2 许可，并约定共同遵守如下的 [基本原则](https://github.com/hyperledger/hyperledger)：
 
 * 重视模块化设计：包括交易、合同、一致性、身份、存储等技术场景；
 * 重视代码可读性：保障新功能和模块都可以很容易添加和扩展；
 * 可持续的演化路线：随着需求的深入和更多的应用场景，不断增加和演化新的项目。
 
+*注：部分早期项目如 Composer、Quilt、Ursa、Avalon 等已结束生命周期（End of Life）。*
+
 超级账本项目的企业会员和技术项目发展都十分迅速，如下图所示。
 
 ![Hyperledger 项目快速成长](_images/community_growth.png)
 
-社区目前拥有近 300 家全球知名企业和机构（大部分均为各自行业的领导者）会员，其中包括 60 多家来自中国本土的企业，早期包括艾亿数融科技公司（[2016.05.19](https://www.hyperledger.org/news/announcement/2016/05/hyperledger-project-announces-addition-eight-new-members)）、Onchain（[2016.06.22](https://www.hyperledger.org/news/announcement/2016/06/hyperledger-projects-maintains-strong-momentum-new-members)）、比邻共赢（Belink）信息技术有限公司（2016.06.22）、BitSE（2016.06.22）等，另外还包括华为（[2016.10.24](https://www.hyperledger.org/announcements/2016/10/24/hyperledger-reaches-95-members-ahead-of-money2020)）、百度（2017.10.17）、腾讯（2018.01.25）等行业领军企业。此外，还有大量机构和高校成为超级账本联合会员，如英格兰银行、MIT 连接科学研究院、UCLA 区块链实验室、伊利诺伊区块链联盟、北京大学、浙江大学等。
+社区拥有数百家全球知名企业和机构会员，其中包括大量来自中国本土的企业，如华为、百度、腾讯等行业领军企业。此外，还有大量机构和高校成为超级账本联合会员，如英格兰银行、MIT 连接科学研究院、UCLA 区块链实验室、北京大学、浙江大学等。
 
 如果说比特币为代表的加密货币提供了区块链技术应用的原型，以太坊为代表的智能合约平台延伸了区块链技术的适用场景，那么面向企业场景的超级账本项目则开拓了区块链技术的全新阶段。超级账本首次将区块链技术引入到了联盟账本的应用场景，引入权限控制和安全保障，这就为基于区块链技术的未来全球商业网络打下了坚实的基础。
 

@@ -238,7 +238,7 @@ message ChaincodeMessage {
 * 交易证书 TCert：颁发给用户，控制每个交易的权限，一般针对某个交易，短期有效。
 * 通信证书 TLSCert：控制对网络的访问，并且防止窃听。
 
-![](_images/memserv-components.png)
+![](_images/memserv-components.webp)
 
 ### 新的架构设计
 目前，VP 节点执行了所有的操作，包括接收交易，进行交易验证，进行一致性达成，进行账本维护等。这些功能的耦合导致节点性能很难进行扩展。
