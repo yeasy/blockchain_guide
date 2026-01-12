@@ -12,8 +12,8 @@
 
 * Git：用来从代码仓库获取代码并进行版本管理；
 * Hub：Github 官方开发的基于 Git 命令的工具，可以替代 Git 命令，更方便操作 Github 仓库；
-* Golang 1.12+：访问 golang.org 进行安装，之后需要配置 `$GOPATH` 环境变量，注意不同项目可能需要不同语言环境；
-* Docker 1.18+：用来支持容器环境，macOS 下推荐使用 [Docker for Mac](https://docs.docker.com/docker-for-mac)。
+* Golang 1.21+：访问 [go.dev](https://go.dev) 进行安装，现代 Go 使用 Go Modules 管理依赖，无需配置 GOPATH；
+* Docker 24+：用来支持容器环境，macOS 下推荐使用 [Docker Desktop](https://www.docker.com/products/docker-desktop)。
 
 如果是首次使用 Git，可能还会提示配置默认的用户名和 Email 地址等信息。通过如下命令进行简单配置即可：
 

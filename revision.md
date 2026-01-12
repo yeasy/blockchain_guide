@@ -1,5 +1,14 @@
 ## 版本历史
 
+* 1.8.3: 2026-01-12
+  * Comprehensive editorial review for publication readiness;
+  * Fix structural issues: create missing `10_fabric_op/node.md`, `12_web3/summary.md`;
+  * Fix SUMMARY.md links for golang appendix and add Web3 summary;
+  * Update `07_ethereum/design.md`: PoW→PoS consensus, Rollup-centric scalability;
+  * Rewrite `07_ethereum/install.md` for modern Geth installation;
+  * Update Go/Docker versions in `08_hyperledger/contribute.md`;
+  * Remove TODO markers from `03_scenario/finance.md` and `03_scenario/others.md`.
+
 * 1.8.2: 2026-01-11
   * Add new chapters: Layer 2, CBDC (with global overview), Web3/DeFi/DAO, Zero-Knowledge Proofs;
   * Rewrite NFT chapter with 2022-2025 market updates (Ordinals, NFTFi, SBT);

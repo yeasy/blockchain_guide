@@ -1,115 +1,85 @@
-## 安装客户端
+# 安装客户端
 
-本节将介绍如何安装 Geth，即 Go 语言实现的以太坊客户端。这里以 Ubuntu 16.04 操作系统为例，介绍从 PPA 仓库和从源码编译这两种方式来进行安装。
+本节介绍如何安装 Geth（Go 语言实现的以太坊客户端）。Geth 是以太坊最主流的执行层客户端之一。
 
-### 从 PPA 直接安装
+*注：自 The Merge（2022 年）之后，运行完整的以太坊节点需要同时安装执行层客户端（如 Geth）和共识层客户端（如 Prysm、Lighthouse）。仅安装 Geth 无法独立同步网络。*
 
-首先安装必要的工具包。
+## 快速安装（推荐）
 
-```sh
-$ apt-get install software-properties-common
-```
+### macOS
 
-之后用以下命令添加以太坊的源。
-
-```sh
-$ add-apt-repository -y ppa:ethereum/ethereum
-$ apt-get update
-```
-
-最后安装 go-ethereum。
-
-```sh
-$ apt-get install ethereum
-```
-
-安装成功后，则可以开始使用命令行客户端 Geth。可用 `geth --help` 查看各命令和选项，例如，用以下命令可查看 Geth 版本为 1.6.1-stable。
-
-```sh
-$ geth version
-
-Geth
-Version: 1.6.1-stable
-Git Commit: 021c3c281629baf2eae967dc2f0a7532ddfdc1fb
-Architecture: amd64
-Protocol Versions: [63 62]
-Network Id: 1
-Go Version: go1.8.1
-Operating System: linux
-GOPATH=
-GOROOT=/usr/lib/go-1.8
-```
-
-### 从源码编译
-
-也可以选择从源码进行编译安装。
-
-#### 安装 Go 语言环境
-
-Go 语言环境可以自行访问 [golang.org](https://golang.org) 网站下载二进制压缩包安装。注意不推荐通过包管理器安装版本，往往比较旧。
-
-如下载 Go 1.8 版本，可以采用如下命令。
+使用 Homebrew 安装：
 
 ```bash
-$ curl -O https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
+brew tap ethereum/ethereum
+brew install ethereum
 ```
 
-下载完成后，解压目录，并移动到合适的位置（推荐为 /usr/local 下）。
+### Ubuntu/Debian
+
+添加 PPA 源并安装：
 
 ```bash
-$ tar -xvf go1.8.linux-amd64.tar.gz
-$ sudo mv go /usr/local
+sudo add-apt-repository -y ppa:ethereum/ethereum
+sudo apt-get update
+sudo apt-get install ethereum
 ```
 
-安装完成后记得配置 GOPATH 环境变量。
+### Windows
+
+从 [Geth 官方下载页面](https://geth.ethereum.org/downloads/) 下载 Windows 版本安装包。
+
+### 验证安装
 
 ```bash
-$ export GOPATH=YOUR_LOCAL_GO_PATH/Go
-$ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+geth version
+# 输出示例：
+# Geth
+# Version: 1.13.x-stable
+# ...
 ```
 
-此时，可以通过 `go version` 命令验证安装 是否成功。
+## 从源码编译
+
+如需使用最新开发版本或进行定制，可从源码编译。
+
+### 1. 安装 Go 语言环境
+
+访问 [go.dev/dl](https://go.dev/dl/) 下载并安装 Go 1.21 或更高版本。
 
 ```bash
-$ go version
-
-go version go1.8 linux/amd64
+# 验证安装
+go version
 ```
 
-#### 下载和编译 Geth
+*注：现代 Go 使用 Go Modules 管理依赖，无需配置 GOPATH。*
 
-用以下命令安装 C 的编译器。
-
-```sh
-$ apt-get install -y build-essential
-```
-
-下载选定的 go-ethereum 源码版本，如最新的社区版本：
+### 2. 克隆并编译
 
 ```bash
-$ git clone https://github.com/ethereum/go-ethereum
+git clone https://github.com/ethereum/go-ethereum.git
+cd go-ethereum
+make geth
 ```
 
-编译安装 Geth。
+编译完成后，可执行文件位于 `build/bin/geth`。
 
 ```bash
-$ cd go-ethereum
-$ make geth
+./build/bin/geth version
 ```
 
-安装成功后，可用 `build/bin/geth --help` 查看各命令和选项。例如，用以下命令可查看 Geth 版本为 1.6.3-unstable。
+## 运行节点
+
+由于 The Merge 后需要执行层+共识层配合，推荐使用官方的 [ethereum-docker](https://github.com/eth-educators/ethstaker-guides) 或 [eth-docker](https://eth-docker.net/) 等工具来简化部署。
+
+基本的 Geth 启动命令：
 
 ```bash
-$ build/bin/geth version
-Geth
-Version: 1.6.3-unstable
-Git Commit: 067dc2cbf5121541aea8c6089ac42ce07582ead1
-Architecture: amd64
-Protocol Versions: [63 62]
-Network Id: 1
-Go Version: go1.8
-Operating System: linux
-GOPATH=/usr/local/gopath/
-GOROOT=/usr/local/go
+# 连接主网（需配合共识层客户端）
+geth --http --http.api eth,net,engine,admin
+
+# 连接 Sepolia 测试网
+geth --sepolia --http
 ```
 
+更多配置和同步选项请参考 [Geth 官方文档](https://geth.ethereum.org/docs/)。
