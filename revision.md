@@ -7,7 +7,8 @@
   * Update `07_ethereum/design.md`: PoW→PoS consensus, Rollup-centric scalability;
   * Rewrite `07_ethereum/install.md` for modern Geth installation;
   * Update Go/Docker versions in `08_hyperledger/contribute.md`;
-  * Remove TODO markers from `03_scenario/finance.md` and `03_scenario/others.md`.
+  * Remove TODO markers from `03_scenario/finance.md` and `03_scenario/others.md`;
+  * Update outdated scenarios (2026 context): TradeLens (discontinued), JPM Coin (Onyx), IoT (DePIN).
 
 * 1.8.2: 2026-01-11
   * Add new chapters: Layer 2, CBDC (with global overview), Web3/DeFi/DAO, Zero-Knowledge Proofs;
