@@ -69,8 +69,6 @@ SWIFT 研发中心负责人 Damien Vanderveken 称：“验证进行得相当好
 
 #### IBM 构建全球支付网络
 
-TODO: https://www.coindesk.com/ibm-signs-6-banks-to-issue-stablecoins-and-use-stellars-xlm-cryptocurrency
-
 2018 年 8 月，IBM 推出了基于区块链的全球支付解决方案 —— WorldWire，该网络使用 Stellar 协议，可以实现在数秒钟之内完成跨境支付的清结算。
 
 IBM 认为该新型支付解决方案可以很好的接入已有的支付系统，并且有能力支持包括法币、数字资产、稳定币等资产的支付，所有交易存储在账本上，可以持久保留。

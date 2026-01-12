@@ -111,6 +111,7 @@
   * [Web3 概念与架构](12_web3/intro.md)
   * [DeFi 协议与应用](12_web3/defi.md)
   * [DAO 组织形式](12_web3/dao.md)
+  * [本章小结](12_web3/summary.md)
 * [Fabric 架构与设计](13_fabric_design/README.md)
   * [简介](13_fabric_design/intro.md)
   * [架构设计](13_fabric_design/design.md)
