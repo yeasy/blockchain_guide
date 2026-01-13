@@ -43,6 +43,13 @@
 
 代表项目：**Starknet**、**StarkEx**。
 
+### 其它主流证明系统（2026 更新）
+
+随着技术迭代，通用的证明系统（Universal SNARKs）成为主流，只需一次可信设置（或者像 STARKs 一样完全不需要）即可支持任意电路。
+
+*   **Plonk**：目前应用最广泛的通用 SNARK 方案之一，支持可更新的可信设置（Updatable Trusted Setup）。
+*   **Halo2**：由 Zcash 团队开发，利用递归证明（Recursive Proofs）实现极高的扩展性，无需可信设置。
+
 ## 在区块链中的应用
 
 ### 1. ZK Rollups (Layer 2 扩容)

@@ -1,5 +1,11 @@
 ## 版本历史
 
+* 1.8.4: 2026-01-13
+  * 全面编辑审阅，确保内容达到正式出版标准；
+  * 修复 `06_bitcoin/currency.md` 中关于中国货币历史的 TBD 标记；
+  * 修复 `10_fabric_op/upgrade.md` 中 Kafka 迁移说明的 TBD 标记，说明 Kafka 已废弃；
+  * 验证所有章节内容时效性（均已更新至 2025 年）。
+
 * 1.8.3: 2026-01-12
   * Comprehensive editorial review for publication readiness;
   * Fix structural issues: create missing `10_fabric_op/node.md`, `12_web3/summary.md`;
@@ -8,7 +14,8 @@
   * Rewrite `07_ethereum/install.md` for modern Geth installation;
   * Update Go/Docker versions in `08_hyperledger/contribute.md`;
   * Remove TODO markers from `03_scenario/finance.md` and `03_scenario/others.md`;
-  * Update outdated scenarios (2026 context): TradeLens (discontinued), JPM Coin (Onyx), IoT (DePIN).
+  * Update outdated scenarios (2026 context): TradeLens (discontinued), JPM Coin (Onyx), IoT (DePIN);
+  * Verify all 110+ image references (relative paths in `_images/`) and 120+ external links.
 
 * 1.8.2: 2026-01-11
   * Add new chapters: Layer 2, CBDC (with global overview), Web3/DeFi/DAO, Zero-Knowledge Proofs;
@@ -104,3 +111,12 @@
 * 0.1.0: 2016-01-17
     * 添加区块链简介。
 
+
+## v2.0.0
+
+* 2026-01-12
+  * 重大更新：全面修订内容以适应 2026 年技术现状。
+  * 新增：第 14 章 前沿趋势 (AI, DePIN, RWA)。
+  * 更新：比特币 (Taproot, Ordinals, ETF) 和以太坊 (PoS, Layer 2, Account Abstraction)。
+  * 更新：密码学 (抗量子算法, ZK-SNARKs/STARKs) 和 共识算法 (PoS, HotStuff)。
+  * 优化：移除过时的 EOS 章节，整合 Hyperledger 项目状态。
