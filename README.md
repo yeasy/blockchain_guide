@@ -12,8 +12,14 @@ v2.0.1
 ## 阅读使用
 本书适用于对区块链技术感兴趣，且具备一定金融科技基础的读者；无技术背景的读者也可以从中了解到区块链技术的现状。
 
-* [GitBook 在线阅读](https://yeasy.gitbook.io/blockchain_guide/)；
-* [GitHub 在线阅读](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md)
+**在线阅读**：https://yeasy.gitbook.io/blockchain_guide/
+
+**本地阅读**（使用 HonKit 构建）：
+
+```bash
+npm install        # 安装依赖
+npx honkit serve   # 启动本地服务器后，访问 http://localhost:4000
+```
 
 ## 进阶学习
 ![区块链原理、设计与应用 第二版](_images/blockchain_book2.png)
