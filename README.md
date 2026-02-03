@@ -52,3 +52,7 @@ npx honkit serve   # 启动本地服务器后，访问 http://localhost:4000
 * QQ 群 III：414919574（已满）
 * QQ 群  II：523889325（已满）
 * QQ 群   I：335626996（已满）
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=yeasy/blockchain_guide&type=Date)](https://star-history.com/#yeasy/blockchain_guide&Date)
