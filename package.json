@@ -6,7 +6,7 @@
     "serve": "honkit serve"
   },
   "devDependencies": {
-    "honkit": "^3.7.5",
+    "honkit": "^6.1.6",
     "gitbook-plugin-image-captions": "^3.1.0",
     "gitbook-plugin-prism": "^2.4.0",
     "gitbook-plugin-prism-themes": "^0.0.2",
