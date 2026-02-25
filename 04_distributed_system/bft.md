@@ -44,8 +44,7 @@
 
 拜占庭容错算法最早的讨论可以追溯到 Leslie Lamport 等人 1982 年 发表的论文《The Byzantine Generals Problem》，之后出现了大量的改进工作，代表性成果包括《Optimal Asynchronous Byzantine Agreement》（1992 年）、《Fully Polynomial Byzantine Agreement for n>3t Processors in t+1 Rounds》（1998 年）等。长期以来，拜占庭问题的解决方案都存在运行过慢，或复杂度过高的问题，直到“实用拜占庭容错算法”（Practical Byzantine Fault Tolerance，PBFT） 算法的提出。
 
-1999 年，PBFT 算法由 Miguel Castro 和 Barbara Liskov 
- 于论文《Practical Byzantine Fault Tolerance》中提出。该算法基于前人工作（特别是 Paxos 相关算法，因此也被称为 Byzantine Paxos）进行了优化，首次将拜占庭容错算法复杂度从指数级降低到了多项式（平方）级，目前已得到广泛应用。其可以在恶意节点不超过总数 1/3 的情况下同时保证 Safety 和 Liveness。
+1999 年，PBFT 算法由 Miguel Castro 和 Barbara Liskov 于论文《Practical Byzantine Fault Tolerance》中提出。该算法基于前人工作（特别是 Paxos 相关算法，因此也被称为 Byzantine Paxos）进行了优化，首次将拜占庭容错算法复杂度从指数级降低到了多项式（平方）级，目前已得到广泛应用。其可以在恶意节点不超过总数 1/3 的情况下同时保证 Safety 和 Liveness。
 
 PBFT 算法采用密码学相关技术（RSA 签名算法、消息验证编码和摘要）确保消息传递过程无法被篡改和破坏。
 
