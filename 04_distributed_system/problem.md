@@ -66,7 +66,7 @@
 ### 带约束的一致性
 从前面的分析可以看出，要实现理想的严格一致性（Strict Consistency）代价很大。除非系统所有节点都不发生任何故障，而且节点间通信没有延迟，此时整个系统等价于一台机器。实际上，实现较强的一致性要求同步操作，容错性差，同时会牺牲部分性能和可扩展性。实际系统往往会选择不同强度的一致性，主要包括强一致性（Strong Consistency）和弱一致性（Weak Consistency）两大类。
 
-强一致性主要包括顺序一致性（[Sequential Consistency](https://en.wikipedia.org/wiki/Sequential_consistency)）和线性一致性（[Linearizability Consistency](https://en.wikipedia.org/wiki/Linearizability)：
+强一致性主要包括顺序一致性（[Sequential Consistency](https://en.wikipedia.org/wiki/Sequential_consistency)）和线性一致性（[Linearizability Consistency](https://en.wikipedia.org/wiki/Linearizability)）：
 
 * 顺序一致性：又叫因果一致性，最早由 Leslie Lamport 1979 年经典论文《How to Make a Multiprocessor Computer That Correctly Executes Multiprocess Programs》中提出，是一种较强的约束。所有进程看到的全局执行顺序（total order）一致（否则数据副本就不一致了）；并且每个进程看自身操作的顺序（local order）跟实际发生顺序一致。例如，某进程先执行 A，后执行 B，则实际得到的全局结果（其它进程也看到这个结果）中就应该为 A 在 B 前面，而不能反过来。如果另一个进程先后执行了C、D操作，则全局顺序可以共识为 A、B、C、D 或 A、C、B、D 或 C、A、B、D 或 C、D、A、B 的一种（即 A、B 和 C、D 的组合），决不能出现 B、A 或 D、C。顺序一致性实际上限制了各进程自身指令的偏序关系，但不需要在进程间按照物理时间进行全局排序，属于实践中应用较多的强一致性。以算盘为例，每个进程的事件是某根横轴上的算珠，它们可以前后拨动（改变不同进程之间先后顺序），但同一个横轴上的算珠的相对先后顺序无法改变。
 * 线性一致性：由 Maurice P. Herlihy 与 Jeannette M. Wing 在 1990 年经典论文《Linearizability: A Correctness Condition for Concurrent Objects》中共同提出，是最强的一致性。它在顺序一致性前提下增加了进程间的操作顺序要求，形成理想化完全一致的全局顺序。线性一致性要求系统看起来似乎只有一个数据副本，客户端操作都是原子的，并且顺序执行；所有进程的操作似乎是实时同步的，并且跟实际发生顺序一致。例如某个客户端写入成功，则其它客户端将立刻看到最新的值。线性一致性下所有进程的所有事件似乎都处于同一个横轴，存在唯一的先后顺序。线性一致性较难实现，目前基本上要么依赖于全局的时钟或锁，要么通过一些共识算法，性能往往不高。
