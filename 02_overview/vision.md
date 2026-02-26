@@ -34,7 +34,7 @@
 * 国际电信联盟电信标准化组织（International Telecommunication Union Telecommunication Standardization Sector，ITU-T）自 2016 年起发起 3 个工作小组（SG16，17，20）来分别进行分布式账本整体需求、分布式账本安全需求和分布式账本在物联网领域应用等方面的研究；
 * 国际标准化组织（International Organization for Standardization，ISO）成立 5 个课题组，探讨制定关于分布式账本架构、应用、安全保护、身份管理和智能合约方面的相关规范；
 * 电气电子工程师协会（IEEE）成立 P2418.2 项目，探讨区块链系统数据格式标准；
-* 国际互联网工程任务组（Internet Engineering Task Force，IETF）成立了 Decentralized Internet Infrastructure Proposed RG (dinrg)。该研究组将集中在非中心化架构服务中的信任管理、身份管理、命名和资源发现等问题；
+* 国际互联网工程任务组（Internet Engineering Task Force，IETF）成立了 Decentralized Internet Infrastructure Proposed RG (dinrg)。该研究组将集中在去中心化架构服务中的信任管理、身份管理、命名和资源发现等问题；
 * 万维网联盟（World Wide Web Consortium，W3C）成立了三个相关的研究小组，分别探讨区块链技术和应用；数字资产管理规范以及跨账本互联协议等。
 
 当然，企业界的进展也不甘落后。不少科技企业已推出了分布式账本相关的产品或方案，并得到了初步的验证。由于分布式账本技术自身的复杂性且尚不成熟，正确使用还需要较高的门槛。目前，这些企业方案多数依托流行的云计算技术，将节约开发成本、方便用户使用账本服务作为主要目标。
