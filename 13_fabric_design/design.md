@@ -12,24 +12,24 @@
 
 * Auditability（审计性）：在一定权限和许可下，可以对链上的交易进行审计和检查。
 * Block（区块）：代表一批得到确认的交易信息的整体，准备被共识加入到区块链中。
-* Blockchain（区块链）：由多个区块链接而成的链表结构，除了首个区块，每个区块都包括前继区块内容的 hash 值。
+* Blockchain（区块链）：由多个区块链接而成的链表结构，除了首个区块，每个区块都包括前继区块内容的哈希（Hash）值。
 * Certificate Authority（CA）：负责身份权限管理，又叫 Member Service 或 Identity Service。
-* Chaincode（链上代码或链码）：区块链上的应用代码，扩展自“智能合约”概念，支持 golang、nodejs 等，运行在隔离的容器环境中。
-* Committer（提交节点）：1.0 架构中一种 peer 节点角色，负责对 orderer 排序后的交易进行检查，选择合法的交易执行并写入存储。
+* Chaincode（链上代码或链码）：区块链上的应用代码，引申自“智能合约”概念，支持 Go、Node.js 等，运行在隔离的容器环境中。
+* Committer（提交节点）：1.0 架构中一种 Peer 节点角色，负责对 Orderer 排序后的交易进行检查，选择合法的交易执行并写入存储。
 * Confidentiality（保密）：只有交易相关方可以看到交易内容，其它人未经授权则无法看到。
-* Endorser（背书节点）：1.0 架构中一种 peer 节点角色，负责检验某个交易是否合法，是否愿意为之背书、签名。
+* Endorser（背书节点）：1.0 架构中一种 Peer 节点角色，负责检验某个交易是否合法，是否愿意为之背书、签名。
 * Enrollment Certificate Authority（ECA，注册 CA）：负责成员身份相关证书管理的 CA。
-* Ledger（账本）：包括区块链结构（带有所有的可验证交易信息，但只有最终成功的交易会改变世界观）和当前的世界观（world state）。Ledger 仅存在于 Peer 节点。
-* MSP（Member Service Provider，成员服务提供者）：成员服务的抽象访问接口，实现对不同成员服务的可拔插支持。
+* Ledger（账本）：包括区块链结构（带有所有的可验证交易信息，但只有最终成功的交易会改变世界状态）和当前的世界状态（World State）。Ledger 仅存在于 Peer 节点。
+* MSP（Member Service Provider，成员服务提供者）：成员服务的抽象访问接口，实现对不同成员服务的可插拔支持。
 * Non-validating Peer（非验证节点）：不参与账本维护，仅作为交易代理响应客户端的 REST 请求，并对交易进行一些基本的有效性检查，之后转发给验证节点。
 * Orderer（排序节点）：1.0 架构中的共识服务角色，负责排序看到的交易，提供全局确认的顺序。
-* Permissioned Ledger（带权限的账本）：网络中所有节点必须是经过许可的，非许可过的节点则无法加入网络。
-* Privacy（隐私保护）：交易员可以隐藏交易的身份，其它成员在无特殊权限的情况下，只能对交易进行验证，而无法获知身份信息。
-* Transaction（交易）：执行账本上的某个函数调用。具体函数在 chaincode 中实现。
+* Permissioned Ledger（带权限的账本）：网络中所有节点必须是经过许可的，未经许可的节点则无法加入网络。
+* Privacy（隐私保护）：交易参与者可以隐藏交易的身份，其它成员在无特殊权限的情况下，只能对交易进行验证，而无法获知身份信息。
+* Transaction（交易）：执行账本上的某个函数调用。具体函数在链码（Chaincode）中实现。
 * Transactor（交易者）：发起交易调用的客户端。
 * Transaction Certificate Authority（TCA，交易 CA）：负责维护交易相关证书管理的 CA。
 * Validating Peer（验证节点）：维护账本的核心节点，参与一致性维护、对交易的验证和执行。
-* World State（世界观）：是一个键值数据库，chaincode 用它来存储交易相关的状态。
+* World State（世界状态）：是一个键值数据库，链码用它来存储交易相关的状态。
 
 ### 区块链服务
 
@@ -46,7 +46,7 @@
 * 交易类型：目前包括 Deploy、Invoke、Query、Terminate 四种；
 * uuid：代表交易的唯一编号；
 * 链码编号 chaincodeID：交易针对的链码；
-* 负载内容的 hash 值：Deploy 或 Invoke 时候可以指定负载内容；
+* 负载内容的哈希值：Deploy 或 Invoke 时候可以指定负载内容；
 * 交易的保密等级 ConfidentialityLevel；
 * 交易相关的 metadata 信息；
 * 临时生成值 nonce：跟安全机制相关；
@@ -104,11 +104,11 @@ message Transaction {
 
 * 版本号 version：协议的版本信息；
 * 时间戳 timestamp：由区块提议者设定；
-* 交易信息的默克尔树的根 hash 值：由区块所包括的交易构成；
-* 世界观的默克尔树的根 hash 值：由交易发生后整个世界的状态值构成；
-* 前一个区块的 hash 值：构成链所必须；
+* 交易信息的默克尔树的根哈希（Hash）值：由区块包含的交易构成；
+* 世界状态的默克尔树的根哈希值：由交易发生后整个世界状态的值构成；
+* 前一个区块的哈希值：构成链所必须；
 * 共识相关的元数据：可选值；
-* 非 hash 数据：不参与 hash 过程，各个 peer 上的值可能不同，例如本地提交时间、交易处理的返回值等；
+* 非哈希数据：不参与哈希过程，各个 Peer 上的值可能不同，例如本地提交时间、交易处理的返回值等；
 
 _注意具体的交易信息并不存放在区块中。_
 
@@ -158,15 +158,15 @@ message Block {
 }
 ```
 
-#### 世界观
-世界观用于存放链码执行过程中涉及到的状态变量，是一个键值数据库。典型的元素为 `[chaincodeID, ckey]: value` 结构。
+#### 世界状态
+世界状态用于存放链码执行过程中涉及到的状态变量，是一个键值数据库。典型的元素为 `[chaincodeID, ckey]: value` 结构。
 
-为了方便计算变更后的 hash 值，一般采用默克尔树数据结构进行存储。树的结构由两个参数（`numBuckets` 和 `maxGroupingAtEachLevel`）来进行初始配置，并由 `hashFunction` 配置决定存放键值到叶子节点的方式。显然，各个节点必须保持相同的配置，并且启动后一般不建议变动。
+为了方便计算变更后的哈希值，一般采用默克尔树数据结构进行存储。树的结构由两个参数（`numBuckets` 和 `maxGroupingAtEachLevel`）来进行初始配置，并由 `hashFunction` 配置决定存放键值到叶子节点的方式。显然，各个节点必须保持相同的配置，并且启动后一般不建议变动。
 
 * `numBuckets`：叶子节点的个数，每个叶子节点是一个桶（bucket），所有的键值被 `hashFunction` 散列分散到各个桶，决定树的宽度；
-* `maxGroupingAtEachLevel`：决定每个节点由多少个子节点的 hash 值构成，决定树的深度。
+* `maxGroupingAtEachLevel`：决定每个节点由多少个子节点的哈希值构成，决定树的深度。
 
-其中，桶的内容由它所保存到键值先按照 chaincodeID 聚合，再按照升序方式组成。
+其中，桶的内容由它所保存的键值先按照 chaincodeID 聚合，再按照升序方式组成。
 
 一般地，假设某桶中包括 $$ M $$ 个 chaincodeID，对于 $$ chaincodeID_i $$，假设其包括 $$ N $$ 个键值对，则聚合 $$G_i$$ 内容可以计算为：
 
@@ -180,13 +180,17 @@ $$ bucket = \sum_{1}^{M} G_i $$
 
 ### 链码服务
 
-链码包含所有的处理逻辑，并对外提供接口，外部通过调用链码接口来改变世界观。
+链码包含所有的处理逻辑，并对外提供接口，外部通过调用链码接口来改变世界状态。
 
 #### 接口和操作
 链码需要实现 Chaincode 接口，以被 VP 节点调用。
 
 ```go
-type Chaincode interface { Init(stub *ChaincodeStub, function string, args []string) ([]byte, error) Invoke(stub *ChaincodeStub, function string, args []string) ([]byte, error) Query(stub *ChaincodeStub, function string, args []string) ([]byte, error)}
+type Chaincode interface {
+    Init(stub *ChaincodeStub, function string, args []string) ([]byte, error)
+    Invoke(stub *ChaincodeStub, function string, args []string) ([]byte, error)
+    Query(stub *ChaincodeStub, function string, args []string) ([]byte, error)
+}
 ```
 
 链码目前支持的交易类型包括：部署（Deploy）、调用（Invoke）和查询（Query）。
@@ -204,12 +208,13 @@ type Chaincode interface { Init(stub *ChaincodeStub, function string, args []str
 对容器的操作支持三种方法：build、start、stop，对应的接口为 VM。
 
 ```go
-type VM interface { 
-  build(ctxt context.Context, id string, args []string, env []string, attachstdin bool, attachstdout bool, reader io.Reader) error 
-  start(ctxt context.Context, id string, args []string, env []string, attachstdin bool, attachstdout bool) error 
-  stop(ctxt context.Context, id string, timeout uint, dontkill bool, dontremove bool) error 
+type VM interface {
+    build(ctxt context.Context, id string, args []string, env []string, attachstdin bool, attachstdout bool, reader io.Reader) error
+    start(ctxt context.Context, id string, args []string, env []string, attachstdin bool, attachstdout bool) error
+    stop(ctxt context.Context, id string, timeout uint, dontkill bool, dontremove bool) error
 }
 ```
+
 链码部署成功后，会创建连接到部署它的 VP 节点的 gRPC 通道，以接受后续 Invoke 或 Query 指令。
 
 
@@ -218,10 +223,32 @@ VP 节点和容器之间通过 gRPC 消息来交互。消息基本结构为
 
 ```protobuf
 message ChaincodeMessage {
+    enum Type {
+        UNDEFINED = 0;
+        REGISTER = 1;
+        REGISTERED = 2;
+        INIT = 3;
+        READY = 4;
+        TRANSACTION = 5;
+        COMPLETED = 6;
+        ERROR = 7;
+        GET_STATE = 8;
+        PUT_STATE = 9;
+        DEL_STATE = 10;
+        INVOKE_CHAINCODE = 11;
+        INVOKE_QUERY = 12;
+        RESPONSE = 13;
+        QUERY = 14;
+        QUERY_COMPLETED = 15;
+        QUERY_ERROR = 16;
+        RANGE_QUERY_STATE = 17;
+    }
 
- enum Type { UNDEFINED = 0; REGISTER = 1; REGISTERED = 2; INIT = 3; READY = 4; TRANSACTION = 5; COMPLETED = 6; ERROR = 7; GET_STATE = 8; PUT_STATE = 9; DEL_STATE = 10; INVOKE_CHAINCODE = 11; INVOKE_QUERY = 12; RESPONSE = 13; QUERY = 14; QUERY_COMPLETED = 15; QUERY_ERROR = 16; RANGE_QUERY_STATE = 17; }
-
- Type type = 1; google.protobuf.Timestamp timestamp = 2; bytes payload = 3; string uuid = 4;}
+    Type type = 1;
+    google.protobuf.Timestamp timestamp = 2;
+    bytes payload = 3;
+    string uuid = 4;
+}
 ```
 
 当发生链码部署时，容器启动后发送 `REGISTER` 消息到 VP 节点。如果成功，VP 节点返回 `REGISTERED` 消息，并发送 `INIT` 消息到容器，调用链码中的 Init 方法。
@@ -251,10 +278,10 @@ Fabric 1.0 的设计采用了适当的解耦，根据功能将节点角色解耦
 
 ![示例工作过程](_images/dataflow.png)
 
-* 客户端：客户端应用使用 SDK 来跟 Fabric 打交道，构造合法的交易提案提交给 endorser；收集到足够多 endorser 支持后可以构造合法的交易请求，发给 orderer 或代理节点。
-* Endorser peer：负责对来自客户端的交易进行合法性和 ACL 权限检查（模拟交易），通过则签名并返回结果给客户端。
-* Committer peer：负责维护账本，将达成一致顺序的批量交易结果进行状态检查，生成区块，执行合法的交易，并写入账本，同一个物理节点可以同时担任 endorser 和 committer 的 角色。
-* Orderer：仅负责排序，给交易们一个全局的排序，一般不需要跟账本和交易内容打交道。
+* 客户端：客户端应用使用 SDK 来跟 Fabric 打交道，构造合法的交易提案提交给 Endorser；收集到足够多 Endorser 支持后可以构造合法的交易请求，发给 Orderer 或代理节点。
+* Endorser 节点（背书节点）：负责对来自客户端的交易进行合法性和 ACL 权限检查（模拟交易），通过则签名并返回结果给客户端。
+* Committer 节点（提交节点）：负责维护账本，将达成一致顺序的批量交易结果进行状态检查，生成区块，执行合法的交易，并写入账本。同一个物理节点可以同时担任 Endorser 和 Committer 的角色。
+* Orderer 节点（排序节点）：仅负责排序，给交易全局的排序，一般不需要跟账本和交易内容打交道。
 * CA：负责所有证书的维护，遵循 PKI。
 
 ![示例交易过程](_images/transaction_flow.png)
