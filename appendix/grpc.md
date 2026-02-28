@@ -1,4 +1,5 @@
 ## ProtoBuf 与 gRPC
+
 [ProtoBuf](https://github.com/google/protobuf) 是一套接口描述语言（[Interface Definition Language，IDL](https://en.wikipedia.org/wiki/Interface_description_language)），类似 Apache 的 [Thrift](https://thrift.apache.org/)。
 
 相关处理工具主要是 [protoc](https://github.com/google/protobuf)，基于 C++ 语言实现。

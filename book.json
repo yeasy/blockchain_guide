@@ -1,21 +1,20 @@
 {
-    "title": "区块链技术指南",
-    "author": "yeasy",
-    "plugins": [
-        "-autocover",
-        "-github-buttons",
-        "image-captions",
-        "-latex-codecogs",
-        "-mathjax",
-        "prism", 
-        "prism-themes", 
-        "-highlight",
-        "sharing"
-    ],
-    "pluginsConfig": {
-        "image-captions": {
-            "attributes": { "width": "600" },
-            "caption": "图 _PAGE_LEVEL_._PAGE_IMAGE_NUMBER_ - _CAPTION_"
-        }
+  "title": "区块链技术指南",
+  "author": "yeasy",
+  "language": "zh-hans",
+  "plugins": [
+    "image-captions",
+    "prism",
+    "prism-themes",
+    "-highlight",
+    "sharing"
+  ],
+  "pluginsConfig": {
+    "image-captions": {
+      "attributes": {
+        "width": "600"
+      },
+      "caption": "图 _PAGE_LEVEL_._PAGE_IMAGE_NUMBER_ - _CAPTION_"
     }
+  }
 }

@@ -92,6 +92,7 @@ signpackage |不支持| 支持 |不支持 | 支持 |必需|不支持|必需|不�
 * 不支持：该参数不应该使用。
 
 ### 安装链码
+
 install 命令将链码的源码和环境等内容封装为一个链码安装打包文件（Chaincode Install Package，CIP），并传输到指定的 Peer 节点。
 
 此过程只需要跟 Peer 节点打交道，无需修改账本状态，并不产生交易。只有安装过链码的节点才能进行链码实例化和进行背书处理。默认情况下，执行者需要为该 Peer 节点的管理员角色。
@@ -139,6 +140,7 @@ CIP 文件中主要包括如下数据。
 ![链码安装过程中所涉及的数据结构](_images/chaincode_install_structure.png)
 
 ### 实例化链码
+
 instantiate 命令通过构造生命周期管理系统链码（Lifecycle System Chaincode，LSCC）的交易，将安装过的链码在指定通道上进行实例化部署调用，在节点上创建容器启动，并执行初始化操作。实例化链码需要同时跟 Peer 和 Orderer 打交道。
 
 执行 instantiate 命令的用户身份必须满足实例化的策略（默认为通道内 MSP 管理员角色），并且在所指定的通道上拥有写（Write）权限。在 instantiate 命令中可以通过 `-P` 参数指定链码调用的背书策略（Endorsement Policy），在 Commit 阶段会进行策略检查。

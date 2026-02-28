@@ -1,6 +1,7 @@
 ## Hyperledger Fabric v0.6 性能评测
 
 ### 环境配置
+
 | 类型  |     操作系统     | 内核版本 | CPU(GHz) | 内存(GB) |
 | :--: | :-------------: | :-----: | :------: | :-----: |
 | 物理机 | Ubuntu 14.04.1 | 3.16.0-71-generic | 4x2.0 | 8 |
@@ -20,17 +21,20 @@
 #### query 交易
 
 ##### noops
+
 | clients | VP Nodes | iteration |   tps  |
 | -------- | ------- | --------- | ------ |
 |    1     |    1    |    2000   | 195.50 |
 |    1     |    4    |    2000   | 187.09 |
 
 ##### pbft:classic
+
 | clients | VP Nodes | iteration |   tps  |
 | -------- | ------- | --------- | ------ |
 |    1     |    4    |    2000   | 193.05 |
 
 ##### pbft:batch
+
 | clients | VP Nodes | batch size | iteration |   tps  |
 | -------- | ------- | --------  | ---------- | ------ |
 |    1     |    4    |    2      |    2000    | 193.99 |
@@ -38,6 +42,7 @@
 |    1     |    4    |    8      |    2000    | 192.68 |
 
 ##### pbft:sieve
+
 | clients | VP Nodes | iteration |   tps  |
 | -------- | ------- | --------- | ------ |
 |    1     |    4    |    2000   | 192.86 |
@@ -52,12 +57,14 @@
 |   1      |    4    |    2000   | 205.76 |
 
 ##### pbft:classic
+
 | clients | VP Nodes | iteration |  tps   |
 | -------- | ------- | --------- | ------ |
 |    1     |    4    |    2000   | 141.34 |
 
 
 ##### pbft:batch
+
 | clients | VP Nodes | batch size | iteration |   tps  |
 | -------- | ------- | ---------  | --------- | ------ |
 |    1     |    4    |     2      |    2000   | 214.36 |
@@ -66,6 +73,7 @@
 
 
 ##### pbft:sieve
+
 | clients | VP Nodes | iteration |   tps  |
 | -------- | ------- | --------- | ------ |
 |    1     |    4    |    2000   | 253.49* |
@@ -73,4 +81,5 @@
 *注：sieve 算法目前在所有交易完成后较长时间内并没有取得最终的结果，出现大量类似“vp0_1  | 07:49:26.388 [consensus/obcpbft] main -> WARN 23348 Sieve replica 0 custody expired, complaining: 3kwyMkdCSL4rbajn65v+iYWyJ5aqagXvRR9QU8qezpAZXY4y6uy2MB31SGaAiaSyPMM77TYADdBmAaZveM38zA==”警告信息。*
 
 ### 结论
+
 单客户端连接情况下，tps 基本在 190 ~ 300 范围内。

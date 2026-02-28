@@ -61,6 +61,7 @@ $ git branch master --set-upstream-to origin/master
 以 Fabric 项目为例，包括如下常见操作。
 
 #### 生成命令文档
+
 执行如下命令：
 
 ```sh
@@ -68,6 +69,7 @@ $ make help-docs
 ```
 
 #### 安装 go tools
+
 执行如下命令：
 
 ```sh
@@ -101,6 +103,7 @@ $ make peer
 *注意：有时会因网络不稳定而报错，可以进行 `make clean` 后再次执行。*
 
 #### 生成 Docker 镜像
+
 执行如下命令：
 
 ```sh
@@ -108,6 +111,7 @@ $ make docker
 ```
 
 #### 执行所有的检查和测试
+
 执行如下命令：
 
 ```sh
@@ -203,4 +207,3 @@ $ git branch -d issue-xxx
 总结一下，完整的流程如上图所示，开发者用 git 进行代码的版本管理，用 gerrit 进行代码的评审合作。
 
 如果需要修复某个提交补丁的问题，则通过 `git commit -a --amend` 进行修复，并作为补丁的新版本再次提交审阅。每次通过 `git review` 提交时，应当通过 `git log` 查看，确保本地只有一条提交记录。
-

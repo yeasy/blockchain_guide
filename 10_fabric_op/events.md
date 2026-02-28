@@ -121,4 +121,3 @@ UTC [eventsclient] readEventsStream -> INFO 005 Received filtered block:
 }
 ...
 ```
-

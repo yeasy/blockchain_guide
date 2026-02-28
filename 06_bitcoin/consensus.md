@@ -37,4 +37,3 @@ PoS 试图解决在 PoW 中大量资源被浪费的问题，因而受到了广�
 PoS 也有一些改进的算法，包括授权股权证明机制（DPoS），即股东们投票选出一个董事会，董事会中成员才有权进行代理记账。这些算法在实践中得到了不错的验证，但是并没有理论上的证明。
 
 2017 年 8 月，来自爱丁堡大学和康涅狄格大学的 Aggelos Kiayias 等学者在论文《Ouroboros: A Provably Secure Proof-of-Stake Blockchain Protocol》中提出了 Ouroboros 区块链共识协议，该协议可以达到诚实行为的近似纳什均衡，被认为是首个可证实安全的 PoS 协议。
-

@@ -36,6 +36,7 @@ A. Back, M. Corallo, L. Dashjr, M. Friedenbach, G. Maxwell, A. Miller, A. Poelst
 * Blockchain: Understanding Its Uses and Implications：https://www.edx.org/course/understanding-blockchain-and-its-implications, Linux Foundation。
 
 ### 区块链服务平台
+
 * [IBM Blockchain](https://www.ibm.com/blockchain)：https://www.ibm.com/blockchain；
 * [Oracle Blockchain Platform](https://www.oracle.com/cloud/blockchain/)：https://www.oracle.com/cloud/blockchain；
 * [腾讯云区块链](https://cloud.tencent.com/product/tbaas)：https://cloud.tencent.com/product/tbaas；

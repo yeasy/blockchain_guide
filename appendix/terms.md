@@ -26,6 +26,7 @@
 * Validating Peer（验证节点）：维护账本的核心节点，参与一致性维护、对交易的验证和执行。更进一步可以划分为 Endorser、Committer 等多种角色。
 
 ### 密码学与安全相关
+
 * ASN.1：Abstract Syntax Notation One，定义了描述数据的表示、编码、传输、解码的一套标准，被广泛应用在计算机、通信和安全领域；
 * CA：Certificate Authority，负责证书的创建、颁发，在 PKI 体系中最为核心的角色；
 * CBDC：Central Bank Digital Currency，央行数字货币，由中央银行发行的数字货币，多与已有法币体系挂钩；

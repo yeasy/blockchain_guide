@@ -45,7 +45,7 @@ $ go version
 go version go1.21.0 linux/amd64
 ```
 
-#### 4. 关于项目工作区 (Workspace)
+#### 4. 关于项目工作区 （Workspace）
 
 在早期的 Go 版本中，我们需要配置 `GOPATH` 环境变量，并将所有项目代码都放在 `$GOPATH/src` 目录下。
 

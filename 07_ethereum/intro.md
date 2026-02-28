@@ -8,7 +8,7 @@
 
 基于以太坊项目，以太坊团队目前运营了一条公开的区块链平台——以太坊网络。智能合约开发者使用官方提供的工具和以太坊专用应用开发语言 Solidity，可以很容易开发出运行在以太坊网络上的“去中心化”应用（Decentralized Application，DApp）。这些应用将运行在以太坊的虚拟机（Ethereum Virtual Machine，EVM）里。用户通过以太币（Ether）来购买燃料（Gas），维持所部署应用的运行。
 
-以太坊项目的官网网站为 [ethereum.org](https://ethereum.org)，代码托管在 [github.com/ethereum](github.com/ethereum)。
+以太坊项目的官网网站为 [ethereum.org](https://ethereum.org)，代码托管在 [github.com/ethereum](https://github.com/ethereum)。
 
 
 ### 以太坊项目简史
@@ -35,11 +35,11 @@
 
 2021 年 8 月，伦敦升级（London Upgrade）实施，引入 EIP-1559 提案，改变了以太坊的费用机制，部分交易费被销毁，使以太币具有通缩属性。
 
-2022 年 9 月 15 日，以太坊完成历史性的"合并"（The Merge）升级，正式从工作量证明（PoW）转向权益证明（PoS）共识机制。这一升级使以太坊的能源消耗降低了超过 99%，被认为是区块链历史上最重要的技术里程碑之一。
+2022 年 9 月 15 日，以太坊完成历史性的“合并”（The Merge）升级，正式从工作量证明（PoW）转向权益证明（PoS）共识机制。这一升级使以太坊的能源消耗降低了超过 99%，被认为是区块链历史上最重要的技术里程碑之一。
 
 2023 年 4 月 12 日，上海升级（Shanghai/Shapella）实施，允许质押者提取其质押的以太币。这解决了自信标链上线以来质押资产无法流动的问题，进一步完善了 PoS 机制。
 
-2024 年 3 月 13 日，坎昆升级（Dencun）实施，引入 Proto-Danksharding（EIP-4844），通过"数据块"（Blob）机制大幅降低 Layer 2 网络的交易成本，为以太坊的扩展性提供了重要支持。
+2024 年 3 月 13 日，坎昆升级（Dencun）实施，引入 Proto-Danksharding（EIP-4844），通过“数据块”（Blob）机制大幅降低 Layer 2 网络的交易成本，为以太坊的扩展性提供了重要支持。
 
 2024 年 5 月，美国 SEC 批准了以太坊现货 ETF，使以太坊成为继比特币之后第二个获得此类金融产品的加密货币。
 

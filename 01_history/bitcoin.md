@@ -8,19 +8,19 @@
 
 加密货币前后经历了 30 多年的探索，比较典型的成果包括 [e-Cash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)、[HashCash](https://en.wikipedia.org/wiki/Hashcash)、[B-money](http://www.weidai.com/bmoney.txt)和 Bit Gold 等。
 
-![David Chaum](_images/David_Chaum.png)
+![David Chaum](_images/David_Chaum.jpg)
 
 1983 年，时任加州大学圣塔芭芭拉分校教授的 [David Chaum](https://en.wikipedia.org/wiki/David_Chaum) 最早在论文《Blind Signature for Untraceable Payments》中提出了 [e-Cash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)，并于 1989 年创建了 [DigiCash](https://en.wikipedia.org/wiki/Digicash) 公司。ecash 系统是首个尝试实现不可追踪（untraceable）的匿名数字货币，基于 David Chaum 自己发明的盲签名技术，曾被应用于部分银行的小额支付系统中。ecash 虽然不可追踪，但仍依赖中心化机构（银行）的协助，同期也由于信用卡体系的快速崛起，DigiCash 公司最终于 1998 年宣告破产。鉴于 David Chaum 在数字货币研究领域发展早期的贡献，有人认为他是“数字货币之父”。值得一提的是，David Chaum 目前仍活跃在数字货币领域，期待他能做出更重要的贡献。
 
-![Adam Back](_images/Adam_Back.png)
+![Adam Back](_images/Adam_Back.jpg)
 
 1997 年，[Adam Back](https://en.wikipedia.org/wiki/Adam_Back) 提出了 [HashCash](https://en.wikipedia.org/wiki/Hashcash)，来解决邮件系统和博客网站中“拒绝服务攻击（Deny of Service，DoS）”攻击问题。Hashcash 首次应用工作量证明（Proof of Work，PoW）机制来获取额度，该机制后来被比特币所采用。类似思想最早曾在 1993 年的论文《Pricing via processing or combating junk mail》中提出。
 
-![Wei Dai](_images/Wei_Dai.png)
+![Wei Dai](_images/Wei_Dai.jpg)
 
 1998 年，刚大学毕业的华人[Wei Dai](https://www.weidai.com) （戴维）提出了 [B-money](http://www.weidai.com/bmoney.txt) 的设计，这是首个不依赖中心化机构的匿名数字货币方案。B-money 引入工作量证明的思想来解决数字货币产生的问题，指出任何人都可以发行一定量的货币，只要他可以给出某个复杂计算问题（未说明是用 Hash 计算）的答案，货币的发行量将跟问题的计算代价成正比。并且，任何人（或部分参与者）都可以维护一套账本，构成一套初级的 P2P 网络，使用者在网络内通过对带签名的交易消息的广播来实现转账的确认。B-money 是去中心化数字货币领域里程碑式的成果，为后面比特币的出现奠定了基础。从设计上看，B-money 已经很好地解决了货币发行的问题，但是未能解决“双花”问题，也未能指出如何有效、安全地维护账本，最终未能实现。
 
-![Nick Szabo](_images/Nick_Szabo.png)
+![Nick Szabo](_images/Nick_Szabo.jpg)
 
 同年，[Nick Szabo](https://szabo.best.vwh.net/) 也提出了名为 [Bit Gold](https://unenumerated.blogspot.com/2005/12/bit-gold.html) 的去中心化数字货币设计。系统中将解决密码学难题（challenge string）作为发行货币的前提，并且上一个难题的结果作为下一个难题生成的参数。对方案的确认需要系统中大多数参与者确认。该方案最终也并未实现。
 
@@ -37,6 +37,7 @@
 *注：严格来说，加密货币并非依赖加密机制，而是使用了密码学中的签名机制。*
 
 ### 比特币的诞生
+
 2008 年 10 月 31 日（东部时间），星期五下午 2 点 10 分，化名 Satoshi Nakamoto（中本聪）的人在 [metzdowd 密码学邮件列表](http://www.metzdowd.com/pipermail/cryptography/2008-October/014810.html) 中提出了比特币（Bitcoin）的设计白皮书《Bitcoin: A Peer-to-Peer Electronic Cash System》，并在 2009 年公开了最初的实现代码。首个比特币是 UTC 时间 2009 年 1 月 3 日 18:15:05 生成。但比特币真正流行开来，被人们所关注则是至少两年以后了。
 
 作为开源项目，比特币很快吸引了大量开发者的加入，目前的官方网站 [bitcoin.org](https://bitcoin.org)，提供了比特币相关的代码实现和各种工具软件。
