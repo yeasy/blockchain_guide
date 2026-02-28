@@ -26,15 +26,17 @@
 ## 主要类型
 
 ### zk-SNARKs
+
 **Zero-Knowledge Succinct Non-Interactive Argument of Knowledge**
 
 *   **Succinct (简洁)**：生成的证明非常小，验证速度非常快。
 *   **Non-Interactive (非交互)**：证明者只需发送一次证明，验证者即可验证，无需来回通信。
-*   **需要可信设置 (Trusted Setup)**：需要一个初始化阶段生成公共参数，如果该阶段的"有毒废料"泄露，系统安全性将受损。
+*   **需要可信设置 (Trusted Setup)**：需要一个初始化阶段生成公共参数，如果该阶段的“有毒废料”泄露，系统安全性将受损。
 
 代表项目：**Zcash**（首个将 zk-SNARKs 用于加密货币的项目）、**zkSync**。
 
 ### zk-STARKs
+
 **Zero-Knowledge Scalable Transparent Argument of Knowledge**
 
 *   **Scalable (可扩展)**：证明生成和验证时间随问题规模增长更优。
@@ -53,15 +55,18 @@
 ## 在区块链中的应用
 
 ### 1. ZK Rollups (Layer 2 扩容)
+
 ZK Rollups 利用零知识证明在链下批量处理交易，然后将一个简洁的有效性证明提交到 Layer 1。Layer 1 只需验证这个证明，无需重新执行所有交易，从而大幅提升吞吐量并降低成本。
 
 主流项目：**zkSync Era**、**Starknet**、**Polygon zkEVM**、**Scroll**。
 
 ### 2. 隐私保护
-*   **隐私交易**：如 Zcash，用户可以进行"屏蔽"交易，隐藏发送方、接收方和金额。
+
+*   **隐私交易**：如 Zcash，用户可以进行“屏蔽”交易，隐藏发送方、接收方和金额。
 *   **隐私身份**：用户证明自己满足某些条件（如年龄大于 18 岁）而不透露具体信息。
 
 ### 3. 跨链桥安全
+
 传统跨链桥依赖多签或委员会，存在单点故障风险。基于 ZKP 的跨链桥可以通过数学证明来验证源链上的事件确实发生，无需信任第三方。
 
 ## 挑战与展望

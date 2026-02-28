@@ -241,6 +241,7 @@ Chain详情页面可以查看链的基本信息（链高度，channel数，链�
 ![智能合约运行列表页面](_images/cello_user_dashboard_chain_code_running.png)
 
 ### 基于 Cello 进行功能扩展
+
 Cello 已经提供了完整的区块链管理功能，并提供了图形界面和 API。
 
 用户可以通过向 Cello 的 Master 节点（默认为 80 端口）发送 RESTful API 来申请、释放区块链，或查看区块链相关信息，如其对外开放的接口，可供用户进行远程交互。RESTful API 的说明可在 Cello 的文档中查阅。

@@ -1,4 +1,5 @@
 ## 参与贡献
+
 贡献者 [名单](https://github.com/yeasy/blockchain_guide/graphs/contributors)。
 
 区块链技术自身仍在快速发展中，生态环境也在蓬勃成长。
@@ -32,4 +33,3 @@ $ git checkout master
 $ git rebase upstream/master
 $ git push -f origin master
 ```
-

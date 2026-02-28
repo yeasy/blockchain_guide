@@ -1,21 +1,13 @@
-.htaccess
-css.php
-rpc/
-sites/site*/admin/
-sites/site*/private/
-sites/site*/public/admin/
-sites/site*/public/setup/
-sites/site*/public/theme/
-textpattern/
-
 *.swp
 *.temp
 *.tmp
 ~*
 node_modules/
-*.graffle
+
 _book/
 book.pdf
 
 .idea/*
 .obsidian/*
+.DS_Store
+*.sublime-*

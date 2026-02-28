@@ -5,6 +5,7 @@ Hyperledger Fabric 深度依赖容器技术。为了运行 Fabric 网络，你�
 ## 1. 安装 Docker
 
 ### Linux
+
 我们推荐使用 Docker 官方提供的安装脚本：
 
 ```bash
@@ -19,6 +20,7 @@ sudo usermod -aG docker $USER
 ```
 
 ### macOS / Windows
+
 直接下载并安装 **Docker Desktop**：https://www.docker.com/products/docker-desktop
 
 ## 2. 安装 Docker Compose
@@ -75,7 +77,7 @@ docker pull hyperledger/fabric-ccenv:$FABRIC_VERSION
 docker pull hyperledger/fabric-ca:$CA_VERSION
 ```
 
-## 5. 镜像标签 (Tag)
+## 5. 镜像标签 （Tag）
 
 Fabric 镜像通常提供多种标签：
 *   `2.5.9`: 具体版本号（推荐生产环境使用）。

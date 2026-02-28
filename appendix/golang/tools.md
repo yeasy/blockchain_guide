@@ -35,6 +35,7 @@ $ godoc -http=:6060 -index -play
 ![godoc 启动本地网站](_images/godoc.png)
 
 #### go build
+
 编译软件包，例如编辑当前软件包内容。
 
 ```sh
@@ -48,6 +49,7 @@ $ go build .
 * `-ldflags`：指定链接器参数，常见的可以通过 -X 来动态指定包变量值。
 
 #### go clean
+
 清理项目，删除编译生成的二进制文件和临时文件。使用格式如下
 
 ```sh
@@ -120,6 +122,7 @@ $ gofmt [flags] [path ...]
 * `-w` 参数：对不符合默认风格的代码进行修正。
 
 #### go get
+
 快速获取某个软件包并执行编译和安装，例如
 
 ```sh
@@ -132,6 +135,7 @@ $ go get github.com/hyperledger/fabric
 * `-d` 参数：仅获取软件包，不执行编译安装。
 
 #### go install
+
 对本地软件包执行编译，并将编译好的二进制文件安装到 $GOPATH/bin。
 
 等价于先执行 `go build` 命令，之后执行复制命令。
@@ -149,11 +153,13 @@ $ go list [-e] [-f format] [-json] [build flags] [packages]
 其中，-e 可以指定忽略出错的包。
 
 #### go run
+
 编译并直接运行某个主程序包。
 
 需要注意，该可以执行 `go run` 的程序包必须是主包，意味着包内必须有入口的主函数：main。
 
 #### go test
+
 执行软件包内带的测试用例（`*_test.go` 文件），例如递归执行当前包内所有的测试案例。
 
 ```sh

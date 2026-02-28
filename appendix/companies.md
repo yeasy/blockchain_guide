@@ -5,13 +5,15 @@
 ### 国际
 
 #### 企业
+
 * [IBM](https://www.ibm.com): 贡献区块链平台代码到 HyperLedger 项目，推动区块链产业发展，跟多家银行和企业进行区块链项目合作。
 * [DTCC]():贡献区块链代码到 HyperLedger 项目。
 * [Circle]()：基于区块链的支付应用公司，已获得 6000 万美元 D 轮投资，投资者包括 IDG、百度、中金甲子、广大投资等，目前年交易额超过 10 亿美金。
 * [Consensus]()：区块链创业团队，试图打造区块链平台技术和应用支撑，获得多家投资。
 
 #### 组织
-* [R3 CEV](https://r3cev.com)：创立于 2015 年 9 月，总部位于纽约的金融联盟组织，专注于研究和评估基于区块链的金融技术解决方案，由 40 多家国际金融机构组成，包括 Citi、BOA、高盛、摩根、瑞银、IBM、微软等。R3 开源技术已经 [宣布](www.newsbtc.com/2016/10/22/r3-corda-hyperledger-open-source/) 加入 HyperLedger 项目。
+
+* [R3 CEV](https://r3cev.com)：创立于 2015 年 9 月，总部位于纽约的金融联盟组织，专注于研究和评估基于区块链的金融技术解决方案，由 40 多家国际金融机构组成，包括 Citi、BOA、高盛、摩根、瑞银、IBM、微软等。R3 开源技术已经 [宣布](https://www.newsbtc.com/2016/10/22/r3-corda-hyperledger-open-source/) 加入 HyperLedger 项目。
 * [HyperLedger 社区]（https://hyperledger.org）：创立于 2015 年 12 月的技术社区，由 Linux 基金会管理，包括 IBM、Accenture、Intel、J.P.Morgan、R3、DAH、DTCC、FUJITSU、HITACHI、SWIFT、Cisco 等多家企业参与成立，试图打造面向企业应用场景的分布式账本平台。
 * [Ethereum 社区](https://ethereum.org): 围绕以太坊区块链平台的开放社区。
 * [DAO]()： Distributed Autonomous Organization，基于以太坊平台的公募基金(众筹)组织，或去中心化的风投。众筹资金超过 1.6 亿美金。

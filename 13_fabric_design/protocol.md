@@ -75,6 +75,7 @@ enum ConfidentialityLevel { PUBLIC = 0; CONFIDENTIAL = 1;}
 ```
 
 ### Synchronization
+
 当节点发现自己 block 落后网络中最新状态，则可以通过发送如下消息（由 consensus 策略决定）来获取对应的返回。
 
 * SYNC_GET_BLOCKS（对应 SYNC_BLOCKS）：获取给定范围内的 block 数据；

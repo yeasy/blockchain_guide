@@ -2,7 +2,7 @@
 
 智能合约一旦部署在区块链上，通常是不可变的（除非设计了升级机制）且代码是公开可见的。这种特性要求编写合约时必须极度谨慎。以下是一些常见的智能合约漏洞。
 
-### 1. 重入攻击 (Reentrancy Attack)
+### 1. 重入攻击 （Reentrancy Attack）
 
 这是最著名也是破坏性最大的漏洞之一（如 The DAO 事件）。
 
@@ -42,7 +42,7 @@ function withdraw() public {
 *   使用 Solidity 0.8.0 及以上版本（内置了溢出检查）。
 *   在旧版本中使用 OpenZeppelin 的 `SafeMath` 库。
 
-### 3. 短地址攻击 (Short Address Attack)
+### 3. 短地址攻击 （Short Address Attack）
 
 **原理**：
 早期以太坊节点在处理交易数据时，如果参数长度不足，会自动补零。如果攻击者构造一个恶意的短地址，可能导致合约解析参数时发生位移，从而错误计算转账金额。
@@ -51,7 +51,7 @@ function withdraw() public {
 *   在合约层面检查输入参数的长度。
 *   现代钱包和节点通常已修复此问题。
 
-### 4. 依赖时间戳 (Timestamp Dependence)
+### 4. 依赖时间戳 （Timestamp Dependence）
 
 **原理**：
 `block.timestamp` 可以被矿工小幅度操纵（通常在十几秒内）。如果合约逻辑（如随机数生成、彩票开奖）完全依赖时间戳，矿工可以尝试操控出块时间来获利。
@@ -60,7 +60,7 @@ function withdraw() public {
 *   避免在关键逻辑中仅依赖 `block.timestamp`。
 *   对于需要随机数的场景，使用像 Chainlink VRF 这样的预言机服务。
 
-### 5. 权限控制不当 (Access Control Issues)
+### 5. 权限控制不当 （Access Control Issues）
 
 **原理**：
 关键函数（如修改拥有者、铸造代币、提取资金）没有添加适当的权限修饰符（如 `onlyOwner`），导致任何人都可以调用。

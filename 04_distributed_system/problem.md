@@ -64,6 +64,7 @@
 最后的合法性看似绕口，但其实比较容易理解，即达成的结果必须是节点执行操作的结果。仍以卖票为例，如果两个售票处分别决策某张票出售给张三和李四，那么最终达成一致的结果要么是张三，要么是李四，而不能是其他人。
 
 ### 带约束的一致性
+
 从前面的分析可以看出，要实现理想的严格一致性（Strict Consistency）代价很大。除非系统所有节点都不发生任何故障，而且节点间通信没有延迟，此时整个系统等价于一台机器。实际上，实现较强的一致性要求同步操作，容错性差，同时会牺牲部分性能和可扩展性。实际系统往往会选择不同强度的一致性，主要包括强一致性（Strong Consistency）和弱一致性（Weak Consistency）两大类。
 
 强一致性主要包括顺序一致性（[Sequential Consistency](https://en.wikipedia.org/wiki/Sequential_consistency)）和线性一致性（[Linearizability Consistency](https://en.wikipedia.org/wiki/Linearizability)）：

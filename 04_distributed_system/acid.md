@@ -1,6 +1,7 @@
 ## ACID 原则与多阶段提交
 
 ### ACID 原则
+
 ACID，即 Atomicity（原子性）、Consistency（一致性）、Isolation（隔离性）、Durability（持久性）四种特性的缩写。
 
 ACID 也是一种比较出名的描述一致性的原则，通常出现在分布式数据库等基于事务过程的系统中。

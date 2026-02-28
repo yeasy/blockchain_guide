@@ -153,6 +153,7 @@ Solidity 中的合约（contract）类似面向对象编程语言中的类。每
 本例实现了 6 个 `public` 函数，可看作 6 个对外接口，功能分别如下。
 
 ##### 创建投票
+
 函数 `function Ballot(bytes32[] proposalNames)` 用于创建一个新的投票。
 
 所有提案的名称通过参数 `bytes32[] proposalNames` 传入，逐个记录到状态变量 `proposals` 中。同时用 `msg.sender` 获取当前调用消息的发送者的地址，记录为投票发起人 `chairperson`，该发起人投票权重设为 1。
