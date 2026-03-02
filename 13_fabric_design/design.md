@@ -1,291 +1,76 @@
 ## 架构设计
 
-*注：本章架构设计主要基于 Fabric 1.x 版本。Fabric 2.x/3.0 的交易模型和链码生命周期管理已有较大变化，请参考《管理链上代码》章节了解最新的 Lifecycle 机制。*
+*注：本章架构设计主要基于 Fabric 1.x 及后续版本。随着版本的演进，架构在模块化和性能上不断优化，但核心的交易模型和节点角色设计保持了一致性。关于 2.x/3.0 引入的智能合约（链码）生命周期管理等新特性，详见后续《管理链上代码》章节。*
 
-整个功能架构如下图所示。
+传统的区块链平台（如比特币、早期以太坊）通常采用 **排序-执行（Order-Execute）** 的架构。在这种架构中，网络中的所有节点必须按照一致的顺序，依序执行每一笔交易。这种设计虽然结构简单，但容易遇到明显的性能瓶颈，并且由于所有节点必须执行所有智能合约逻辑，对智能合约的确定性（如不能包含随机数、时间戳）提出了极高的要求。
 
-![](_images/refarch.png)
+为了突破这些限制，满足企业级高并发、高隐私保护的业务需求，Hyperledger Fabric 创新性地提出了 **执行-排序-验证（Execute-Order-Validate）** 的解耦架构。
 
-包括三大组件：区块链服务（Blockchain）、链码服务（Chaincode）、成员权限管理（Membership）。
+Fabric 的整体重构围绕着以下核心组件展开：**Peer节点（包含背书节点和提交节点）**、**排序服务节点（Orderer）**、**客户端（Client/SDK）** 以及 **成员身份管理服务（CA）**。
 
-### 概念术语
+### 核心组件与角色分工
 
-* Auditability（审计性）：在一定权限和许可下，可以对链上的交易进行审计和检查。
-* Block（区块）：代表一批得到确认的交易信息的整体，准备被共识加入到区块链中。
-* Blockchain（区块链）：由多个区块链接而成的链表结构，除了首个区块，每个区块都包括前继区块内容的哈希（Hash）值。
-* Certificate Authority（CA）：负责身份权限管理，又叫 Member Service 或 Identity Service。
-* Chaincode（链上代码或链码）：区块链上的应用代码，引申自“智能合约”概念，支持 Go、Node.js 等，运行在隔离的容器环境中。
-* Committer（提交节点）：1.0 架构中一种 Peer 节点角色，负责对 Orderer 排序后的交易进行检查，选择合法的交易执行并写入存储。
-* Confidentiality（保密）：只有交易相关方可以看到交易内容，其它人未经授权则无法看到。
-* Endorser（背书节点）：1.0 架构中一种 Peer 节点角色，负责检验某个交易是否合法，是否愿意为之背书、签名。
-* Enrollment Certificate Authority（ECA，注册 CA）：负责成员身份相关证书管理的 CA。
-* Ledger（账本）：包括区块链结构（带有所有的可验证交易信息，但只有最终成功的交易会改变世界状态）和当前的世界状态（World State）。Ledger 仅存在于 Peer 节点。
-* MSP（Member Service Provider，成员服务提供者）：成员服务的抽象访问接口，实现对不同成员服务的可插拔支持。
-* Non-validating Peer（非验证节点）：不参与账本维护，仅作为交易代理响应客户端的 REST 请求，并对交易进行一些基本的有效性检查，之后转发给验证节点。
-* Orderer（排序节点）：1.0 架构中的共识服务角色，负责排序看到的交易，提供全局确认的顺序。
-* Permissioned Ledger（带权限的账本）：网络中所有节点必须是经过许可的，未经许可的节点则无法加入网络。
-* Privacy（隐私保护）：交易参与者可以隐藏交易的身份，其它成员在无特殊权限的情况下，只能对交易进行验证，而无法获知身份信息。
-* Transaction（交易）：执行账本上的某个函数调用。具体函数在链码（Chaincode）中实现。
-* Transactor（交易者）：发起交易调用的客户端。
-* Transaction Certificate Authority（TCA，交易 CA）：负责维护交易相关证书管理的 CA。
-* Validating Peer（验证节点）：维护账本的核心节点，参与一致性维护、对交易的验证和执行。
-* World State（世界状态）：是一个键值数据库，链码用它来存储交易相关的状态。
+在现代 Fabric 架构中，节点的功能被清晰地解耦，不同的物理节点可以承担不同的网络角色：
 
-### 区块链服务
+#### 1. 客户端节点（Client）
+客户端代表最终用户（应用程序），是发起交易的源头。客户端使用 Fabric 提供的 SDK（支持 Go, Java, Node.js 等）或 CLI 工具与区块链网络交互。它的主要职责包括：
+* 构造交易提案（Proposal）并发送给预定义的背书节点。
+* 收集背书节点的签名结果，并判断是否满足了智能合约规定的背书策略。
+* 将收集完整的交易请求（包含了提案内容、读写集和多方签名）打包，发送给排序节点。
+* （可选）订阅 Peer 节点的事件服务，监听交易被最终提交的状态。
 
-区块链服务提供一个分布式账本平台。一般地，多个交易被打包进区块中，多个区块构成一条区块链。区块链代表的是账本状态机发生变更的历史过程。
+#### 2. Peer 节点（Peer）
+Peer 节点是 Fabric 网络的主体，负责维护账本数据（区块链和世界状态）以及执行智能合约（链码）。根据参与交易流程的不同阶段，Peer 节点在逻辑上可以细分为两类角色（同一个物理 Peer 节点可以同时扮演这两种角色）：
 
-#### 交易
+* **背书节点（Endorser）：** 
+  背书节点负责对来自客户端的**交易提案进行模拟执行**。当收到提案后，Endorser 会在一个隔离的沙盒环境（通常是 Docker 容器）中运行对应的智能合约，对交易合法性和 ACL 权限进行校验，并生成模拟执行的结果，即**读写集（ReadWriteSet）**。此时交易并没有真正改变账本状态。Endorser 会对读写集进行密码学签名并返回给客户端。
+* **提交节点（Committer）：** 
+  提交节点负责维护最终的账本状态。**所有加入通道的 Peer 节点都是提交节点**。当 Committer 收到从排序服务广播过来的包含了一批交易的区块后，会对每个交易的背书签名是否满足策略，以及交易读写集是否存在版本冲突（如双花问题）进行最终的**验证（Validate）**。验证通过的合法交易会被标记为有效，并更新到本地账本的历史区块和世界数据库中。
 
-交易意味着围绕着某个链码进行操作。
+#### 3. 排序节点（Orderer）
+Orderer 节点组成了排序服务（Ordering Service），它们**不关心交易的具体内容，也不维护世界状态**，并且不执行智能合约逻辑。
+排序服务的唯一核心职责是**达成共识并全局排序**：接收全网客户端发送来的已背书交易，确定交易发生的全局顺序，将它们打包成区块，最后将区块安全地广播分发给通道内的所有 Peer 节点。
+Fabric 中的排序服务是可插拔的，现代版本默认且推荐使用的是基于 Raft 协议（Crash Fault Tolerant，CFT）的排序服务，以提供企业级的高可用性和一致性。
 
-交易可以改变世界状态。
+#### 4. 成员权限管理（Fabric CA）
+企业级账本是带许可的（Permissioned），网络中的每一个实体（Peer, Orderer, Client）都必须拥有明确的数字身份（X.509 证书）。
+Fabric CA 负责网络内的身份管理，提供注册（Registration）和登记（Enrollment）服务，为实体签发**注册证书（ECert）**和用于加密通信的 **TLS 证书**。通过 MSP（Member Service Provider）组件，Fabric 网络在处理交易时强制校验身份的合法性，拦截任何未经授权的操作。
 
-交易中包括的内容主要有：
+### 交易流程剖析
 
-* 交易类型：目前包括 Deploy、Invoke、Query、Terminate 四种；
-* uuid：代表交易的唯一编号；
-* 链码编号 chaincodeID：交易针对的链码；
-* 负载内容的哈希值：Deploy 或 Invoke 时候可以指定负载内容；
-* 交易的保密等级 ConfidentialityLevel；
-* 交易相关的 metadata 信息；
-* 临时生成值 nonce：跟安全机制相关；
-* 交易者的证书信息 cert；
-* 签名信息 signature；
-* metadata 信息；
-* 时间戳 timestamp。
-
-交易的数据结构（Protobuf 格式）定义为
-
-```protobuf
-message Transaction {
-    enum Type {
-        UNDEFINED = 0;
-        // deploy a chaincode to the network and call `Init` function
-        CHAINCODE_DEPLOY = 1;
-        // call a chaincode `Invoke` function as a transaction
-        CHAINCODE_INVOKE = 2;
-        // call a chaincode `query` function
-        CHAINCODE_QUERY = 3;
-        // terminate a chaincode; not implemented yet
-        CHAINCODE_TERMINATE = 4;
-    }
-    Type type = 1;
-    //store ChaincodeID as bytes so its encrypted value can be stored
-    bytes chaincodeID = 2;
-    bytes payload = 3;
-    bytes metadata = 4;
-    string uuid = 5;
-    google.protobuf.Timestamp timestamp = 6;
-
-    ConfidentialityLevel confidentialityLevel = 7;
-    string confidentialityProtocolVersion = 8;
-    bytes nonce = 9;
-
-    bytes toValidators = 10;
-    bytes cert = 11;
-    bytes signature = 12;
-}
-```
-
-在 1.0 架构中，一个 transaction 包括如下信息：
-
-[ledger] [channel], **proposal:**[chaincode, <function name, arguments>] **endorsement:**[proposal hash, simulation result, signature]
-
-* endorsements: proposal hash, simulation result, signature
-* function-spec: function name, arguments
-* proposal: [channel,] chaincode, <function-spec>
-
-#### 区块
-
-区块打包交易，确认交易后的世界状态。
-
-一个区块中包括的内容主要有：
-
-* 版本号 version：协议的版本信息；
-* 时间戳 timestamp：由区块提议者设定；
-* 交易信息的默克尔树的根哈希（Hash）值：由区块包含的交易构成；
-* 世界状态的默克尔树的根哈希值：由交易发生后整个世界状态的值构成；
-* 前一个区块的哈希值：构成链所必须；
-* 共识相关的元数据：可选值；
-* 非哈希数据：不参与哈希过程，各个 Peer 上的值可能不同，例如本地提交时间、交易处理的返回值等；
-
-_注意具体的交易信息并不存放在区块中。_
-
-区块的数据结构（Protobuf 格式）定义为
-
-```protobuf
-message Block {
-    uint32 version = 1;
-    google.protobuf.Timestamp timestamp = 2;
-    repeated Transaction transactions = 3;
-    bytes stateHash = 4;
-    bytes previousBlockHash = 5;
-    bytes consensusMetadata = 6;
-    NonHashData nonHashData = 7;
-}
-```
-
-一个真实的区块内容示例：
-
-```json
-{
-    "nonHashData": {
-        "localLedgerCommitTimestamp": {
-            "nanos": 975295157,
-                "seconds": 1466057539
-        },
-            "transactionResults": [
-            {
-                "uuid": "7be1529ee16969baf9f3156247a0ee8e7eee99a6a0a816776acff65e6e1def71249f4cb1cad5e0f0b60b25dd2a6975efb282741c0e1ecc53fa8c10a9aaa31137"
-            }
-            ]
-    },
-        "previousBlockHash": "RrndKwuojRMjOz/rdD7rJD/NUupiuBuCtQwnZG7Vdi/XXcTd2MDyAMsFAZ1ntZL2/IIcSUeatIZAKS6ss7fEvg==",
-        "stateHash": "TiIwROg48Z4xXFFIPEunNpavMxnvmZKg+yFxKK3VBY0zqiK3L0QQ5ILIV85iy7U+EiVhwEbkBb1Kb7w1ddqU5g==",
-        "transactions": [
-        {
-            "chaincodeID": "CkdnaXRodWIuY29tL2h5cGVybGVkZ2VyL2ZhYnJpYy9leGFtcGxlcy9jaGFpbmNvZGUvZ28vY2hhaW5jb2RlX2V4YW1wbGUwMhKAATdiZTE1MjllZTE2OTY5YmFmOWYzMTU2MjQ3YTBlZThlN2VlZTk5YTZhMGE4MTY3NzZhY2ZmNjVlNmUxZGVmNzEyNDlmNGNiMWNhZDVlMGYwYjYwYjI1ZGQyYTY5NzVlZmIyODI3NDFjMGUxZWNjNTNmYThjMTBhOWFhYTMxMTM3",
-            "payload": "Cu0BCAESzAEKR2dpdGh1Yi5jb20vaHlwZXJsZWRnZXIvZmFicmljL2V4YW1wbGVzL2NoYWluY29kZS9nby9jaGFpbmNvZGVfZXhhbXBsZTAyEoABN2JlMTUyOWVlMTY5NjliYWY5ZjMxNTYyNDdhMGVlOGU3ZWVlOTlhNmEwYTgxNjc3NmFjZmY2NWU2ZTFkZWY3MTI0OWY0Y2IxY2FkNWUwZjBiNjBiMjVkZDJhNjk3NWVmYjI4Mjc0MWMwZTFlY2M1M2ZhOGMxMGE5YWFhMzExMzcaGgoEaW5pdBIBYRIFMTAwMDASAWISBTIwMDAw",
-            "timestamp": {
-                "nanos": 298275779,
-                "seconds": 1466057529
-            },
-            "type": 1,
-            "uuid": "7be1529ee16969baf9f3156247a0ee8e7eee99a6a0a816776acff65e6e1def71249f4cb1cad5e0f0b60b25dd2a6975efb282741c0e1ecc53fa8c10a9aaa31137"
-        }
-    ]
-}
-```
-
-#### 世界状态
-
-世界状态用于存放链码执行过程中涉及到的状态变量，是一个键值数据库。典型的元素为 `[chaincodeID, ckey]: value` 结构。
-
-为了方便计算变更后的哈希值，一般采用默克尔树数据结构进行存储。树的结构由两个参数（`numBuckets` 和 `maxGroupingAtEachLevel`）来进行初始配置，并由 `hashFunction` 配置决定存放键值到叶子节点的方式。显然，各个节点必须保持相同的配置，并且启动后一般不建议变动。
-
-* `numBuckets`：叶子节点的个数，每个叶子节点是一个桶（bucket），所有的键值被 `hashFunction` 散列分散到各个桶，决定树的宽度；
-* `maxGroupingAtEachLevel`：决定每个节点由多少个子节点的哈希值构成，决定树的深度。
-
-其中，桶的内容由它所保存的键值先按照 chaincodeID 聚合，再按照升序方式组成。
-
-一般地，假设某桶中包括 $$ M $$ 个 chaincodeID，对于 $$ chaincodeID_i $$，假设其包括 $$ N $$ 个键值对，则聚合 $$G_i$$ 内容可以计算为：
-
-$$ G_i = Len(chaincodeID_i) + chaincodeID_i + N + \sum_{1}^{N} {len(key_j) + key_j + len(value_j) + value_j} $$
-
-该桶的内容则为
-
-$$ bucket = \sum_{1}^{M} G_i $$
-
-*注：这里的 `+` 代表字符串拼接，并非数学运算。*
-
-### 链码服务
-
-链码包含所有的处理逻辑，并对外提供接口，外部通过调用链码接口来改变世界状态。
-
-#### 接口和操作
-
-链码需要实现 Chaincode 接口，以被 VP 节点调用。
-
-```go
-type Chaincode interface {
-    Init(stub *ChaincodeStub, function string, args []string) ([]byte, error)
-    Invoke(stub *ChaincodeStub, function string, args []string) ([]byte, error)
-    Query(stub *ChaincodeStub, function string, args []string) ([]byte, error)
-}
-```
-
-链码目前支持的交易类型包括：部署（Deploy）、调用（Invoke）和查询（Query）。
-
-* 部署：VP 节点利用链码创建沙盒，沙盒启动后，处理 protobuf 协议的 shim 层一次性发送包含 ChaincodeID 信息的 REGISTER 消息给 VP 节点，进行注册，注册完成后，VP 节点通过 gRPC 传递参数并调用链码 Init 函数完成初始化；
-* 调用：VP 节点发送 TRANSACTION 消息给链码沙盒的 shim 层，shim 层用传过来的参数调用链码的 Invoke 函数完成调用；
-* 查询：VP 节点发送 QUERY 消息给链码沙盒的 shim 层，shim 层用传过来的参数调用链码的 Query 函数完成查询。
-
-不同链码之间可能互相调用和查询。
-
-#### 容器
-
-在实现上，链码需要运行在隔离的容器中，超级账本采用了 Docker 作为默认容器。
-
-对容器的操作支持三种方法：build、start、stop，对应的接口为 VM。
-
-```go
-type VM interface {
-    build(ctxt context.Context, id string, args []string, env []string, attachstdin bool, attachstdout bool, reader io.Reader) error
-    start(ctxt context.Context, id string, args []string, env []string, attachstdin bool, attachstdout bool) error
-    stop(ctxt context.Context, id string, timeout uint, dontkill bool, dontremove bool) error
-}
-```
-
-链码部署成功后，会创建连接到部署它的 VP 节点的 gRPC 通道，以接受后续 Invoke 或 Query 指令。
-
-
-#### gRPC 消息
-
-VP 节点和容器之间通过 gRPC 消息来交互。消息基本结构为
-
-```protobuf
-message ChaincodeMessage {
-    enum Type {
-        UNDEFINED = 0;
-        REGISTER = 1;
-        REGISTERED = 2;
-        INIT = 3;
-        READY = 4;
-        TRANSACTION = 5;
-        COMPLETED = 6;
-        ERROR = 7;
-        GET_STATE = 8;
-        PUT_STATE = 9;
-        DEL_STATE = 10;
-        INVOKE_CHAINCODE = 11;
-        INVOKE_QUERY = 12;
-        RESPONSE = 13;
-        QUERY = 14;
-        QUERY_COMPLETED = 15;
-        QUERY_ERROR = 16;
-        RANGE_QUERY_STATE = 17;
-    }
-
-    Type type = 1;
-    google.protobuf.Timestamp timestamp = 2;
-    bytes payload = 3;
-    string uuid = 4;
-}
-```
-
-当发生链码部署时，容器启动后发送 `REGISTER` 消息到 VP 节点。如果成功，VP 节点返回 `REGISTERED` 消息，并发送 `INIT` 消息到容器，调用链码中的 Init 方法。
-
-当发生链码调用时，VP 节点发送 `TRANSACTION` 消息到容器，调用其 Invoke 方法。如果成功，容器会返回 `RESPONSE` 消息。
-
-类似的，当发生链码查询时，VP 节点发送 `QUERY` 消息到容器，调用其 Query 方法。如果成功，容器会返回 `RESPONSE` 消息。
-
-### 成员权限管理
-
-通过基于 PKI 的成员权限管理，平台可以对接入的节点和客户端的能力进行限制。
-
-证书有三种，Enrollment，Transaction，以及确保安全通信的 TLS 证书。
-
-* 注册证书 ECert：颁发给提供了注册凭证的用户或节点，一般长期有效；
-* 交易证书 TCert：颁发给用户，控制每个交易的权限，一般针对某个交易，短期有效。
-* 通信证书 TLSCert：控制对网络的访问，并且防止窃听。
-
-![](_images/memserv-components.webp)
-
-### 新的架构设计
-
-目前，VP 节点执行了所有的操作，包括接收交易，进行交易验证，进行一致性达成，进行账本维护等。这些功能的耦合导致节点性能很难进行扩展。
-
-新的思路就是对这些功能进行解耦，让每个功能都相对单一，容易进行扩展。社区内已经有了一些讨论。
-
-Fabric 1.0 的设计采用了适当的解耦，根据功能将节点角色解耦开，让不同节点处理不同类型的工作负载。
-
-![示例工作过程](_images/dataflow.png)
-
-* 客户端：客户端应用使用 SDK 来跟 Fabric 打交道，构造合法的交易提案提交给 Endorser；收集到足够多 Endorser 支持后可以构造合法的交易请求，发给 Orderer 或代理节点。
-* Endorser 节点（背书节点）：负责对来自客户端的交易进行合法性和 ACL 权限检查（模拟交易），通过则签名并返回结果给客户端。
-* Committer 节点（提交节点）：负责维护账本，将达成一致顺序的批量交易结果进行状态检查，生成区块，执行合法的交易，并写入账本。同一个物理节点可以同时担任 Endorser 和 Committer 的角色。
-* Orderer 节点（排序节点）：仅负责排序，给交易全局的排序，一般不需要跟账本和交易内容打交道。
-* CA：负责所有证书的维护，遵循 PKI。
+有了明确的角色分工后，我们可以清晰地梳理出 Fabric 中一笔交易从发起到最终确认的生命周期，也就是其引以为傲的 **“执行-排序-验证”** 流程。
 
 ![示例交易过程](_images/transaction_flow.png)
+
+交易的完整生命周期可分为三个主要阶段：
+
+#### 阶段一：提案与执行（Execute / Endorsement）
+1. **发起提案**：客户端（Client）构造一个交易提案（Proposal），指定要调用的链码名称和函数参数，并使用自己的身份私钥进行签名。客户端根据该链码的**背书策略（Endorsement Policy）**（例如：需要组织A和组织B共同签名才能生效），将提案发送给指定的背书节点（Endorser）。
+2. **模拟执行**：背书节点收到提案后，首先验证客户端的签名及权限。然后，在当前的账本状态下，背书节点**模拟执行（Execute）**指定的链码逻辑。
+3. **生成读写集**：模拟执行不会立刻更新账本。链码执行过程中对状态数据库的所有读取（Read）和最终的写回意图（Write）会被记录下来，生成一个**读写集（ReadWriteSet）**。
+4. **背书响应**：背书节点使用自身的私钥对这个包含了读写集的响应进行签名（这被称作“背书”），然后返回给客户端。
+
+#### 阶段二：打包与排序（Order）
+5. **收集确认**：客户端持续收集来自不同背书节点的响应。当收集到的有效背书签名满足了背书策略的要求后，客户端将原始提案内容加上背书节点的签名结果、读写集，打包成一笔完整的交易请求（Transaction）。
+6. **提交排序**：客户端将这笔完整的交易发送给排序服务（Orderer）。
+7. **全局共识与打包**：Orderer 不看交易内容，只是将并发到达的大量交易按照先后顺序排列好，打包生成新的区块。这样保证了全网上所有的 Peer 节点未来看到的交易顺序是绝对一致的。
+
+#### 阶段三：验证与提交（Validate / Commit）
+8. **区块广播**：Orderer 将打包好的新区块通过网络分发广播给通道内的各个提交节点（Committer）。在实际实现中，通常使用 Gossip 协议加速区块在组织内部节点间的传递。
+9. **并发验证**：Committer 收到区块后，会对区块中的**每一笔**交易进行两道关键的**验证（Validate）**：
+   - 验证这笔交易的背书签名是否真的满足了链码配置的背书策略（防止客户端伪造或背书数量不足）。
+   - 验证交易的读写集版本号。即，从模拟执行（阶段一）到此时准备写入账本（阶段三）的时间差内，这笔交易读取过的状态有没有被其它并发的交易篡改过（多版本并发控制冲突检查）。
+10. **最终提交与状态更新**：如果上述验证通过，该交易被标记为合法（Valid）；如果发生冲突，则标记为非法（Invalid）。最后，无论合法还是非法，该区块都会被追加到区块链的末尾（保证不可篡改的历史），但是**只有合法的交易对应的写集，才会被更新到 Peer 的世界状态数据库中**。
+11. **事件通知**：Peer 节点产生事件通知，告知客户端交易已成功写入或者验证失败。
+
+### 世界状态与账本存储
+
+在上述流程中，Peer 节点维护的账本（Ledger）深刻体现了这种设计的合理性。每个 Peer 节点的账本在物理上实际上包含了两个不同的部分：
+
+1. **底层区块链（Blockchain Log）：**
+   这是一个只能追加（Append-Only）的数据结构，通常存储在文件系统中。它记录了所有区块的串联历史，包含了所有发生过的交易记录，无论这笔交易在最后的验证环节是成功还是失败。这保证了极强的**审计性（Auditability）**，任何人都可以回放区块日志完全重构出当前的状态。
+
+2. **世界状态数据库（World State）：**
+   这是一个键值对（Key-Value）数据库，只保存账本在当前时刻的最新状态（即所有合法交易执行后的最终结果集）。链码的执行和查询通常直接在世界状态数据库上进行以提升效率。目前 Fabric 支持 LevelDB（默认）和 CouchDB（支持更复杂的富查询如 JSON 选择器）两种状态数据库引擎。
+
+通过将不可篡改的历史日志和最新的查询状态解耦，Fabric 兼顾了区块链的加密安全性和企业级应用查询性能的需求。
