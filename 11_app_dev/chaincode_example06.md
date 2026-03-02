@@ -85,7 +85,7 @@
 - `createExpressOrder` 寄货方创建寄货单  init
 - `finishExpressOrder` 收货方签收寄货单 invoke
 - `addExpressPointer` 物流公司添加新的快递点  invoke
-- `updateExpressOrder` 更新物流公司订单,添加快递点的信息 invoke  
+- `updateExpressOrder` 更新物流公司订单，添加快递点的信息 invoke  
 
 
 - `getExpressOrderById` 查询订单状态  query
