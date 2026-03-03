@@ -18,8 +18,7 @@
 
 ### 保险行业
 
-保险行业区块链倡议组织（Blockchain
-Insurance Industry Initiative，B3i）诞生于 2016 年下半年，面向保险行业，探索基于分布式账本的新型技术。
+保险行业区块链倡议组织（Blockchain Insurance Industry Initiative，B3i）诞生于 2016 年下半年，面向保险行业，探索基于分布式账本的新型技术。
 
 分布式账本带来的可信能力，将有望给保险行业带来新的变革。
 
