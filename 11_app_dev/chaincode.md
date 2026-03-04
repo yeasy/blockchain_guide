@@ -68,6 +68,62 @@ func main() {
 * `"github.com/hyperledger/fabric-chaincode-go/shim"`：shim 包提供了链码与账本交互的中间层。链码通过 `shim.ChaincodeStub` 提供的方法来读取和修改账本状态。
 * `pb "github.com/hyperledger/fabric-protos-go/peer"`: Init 和 Invoke 方法需要返回 `pb.Response` 类型。
 
+**推荐**：上述基于 shim 的编程模式是较早的 API。从 Fabric v1.4+ 开始，推荐使用 **Contract API**（contractapi 包）来开发链码，它提供了更高级的抽象，支持更清晰的错误处理和交易上下文管理。对于新项目，建议优先采用 Contract API 而非 shim API。
+
+#### Contract API 示例（推荐）
+
+从 Fabric v2.x 起，推荐使用 `contractapi` 包开发链码。相比 shim API，Contract API 提供了更清晰的结构和更好的错误处理：
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/hyperledger/fabric-contract-api-go/contractapi"
+)
+
+// SmartContract 提供操作账本的函数
+type SmartContract struct {
+	contractapi.Contract
+}
+
+// InitLedger 初始化账本数据
+func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) error {
+	// 初始化逻辑
+	return ctx.GetStub().PutState("hello", []byte("world"))
+}
+
+// Read 读取指定 key 的值
+func (s *SmartContract) Read(ctx contractapi.TransactionContextInterface, key string) (string, error) {
+	value, err := ctx.GetStub().GetState(key)
+	if err != nil {
+		return "", fmt.Errorf("failed to read from world state: %v", err)
+	}
+	if value == nil {
+		return "", fmt.Errorf("the asset %s does not exist", key)
+	}
+	return string(value), nil
+}
+
+// Write 写入指定 key 的值
+func (s *SmartContract) Write(ctx contractapi.TransactionContextInterface, key string, value string) error {
+	return ctx.GetStub().PutState(key, []byte(value))
+}
+
+func main() {
+	chaincode, err := contractapi.NewChaincode(&SmartContract{})
+	if err != nil {
+		fmt.Printf("Error creating chaincode: %s", err)
+		return
+	}
+	if err := chaincode.Start(); err != nil {
+		fmt.Printf("Error starting chaincode: %s", err)
+	}
+}
+```
+
+Contract API 的主要优势包括：函数参数直接映射（无需手动解析 `args`）、自动序列化/反序列化、内置的交易上下文（`TransactionContextInterface`）、以及更符合 Go 语言习惯的错误处理模式。
+
 #### Init 和 Invoke 方法
 
 编写链码，关键是要实现 Init 和 Invoke 这两个方法。

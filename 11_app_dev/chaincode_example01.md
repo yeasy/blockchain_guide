@@ -29,7 +29,9 @@ func main() {
 }
 ```
 
-当智能合约部署在区块链上，可以通过 rest api 进行交互。
+当智能合约部署在区块链上，可以通过客户端与之交互。
+
+*注：以下 REST API 交互方式仅适用于早期 Fabric 版本（v0.6 及之前）。现代 Fabric（v2.x+）使用 Peer CLI 或 Fabric Gateway API 来操作链码，详见《管理链上代码》和《SDK 支持》章节。*
 
 三个主要的函数是 `init`，`invoke`，`query`。在三个函数中，通过 `stub.PutState`与 `stub.GetState` 存储访问 ledger 上的键值对。
 
