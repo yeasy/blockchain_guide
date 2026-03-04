@@ -134,7 +134,7 @@ $ go test -v -run=TestGetFoo
 
 ### 提交代码
 
-使用 LF ID 登录 [jira.hyperledger.org](http://jira.hyperledger.org) 或 Github Issue，查看有没有未分配（unassigned）的任务，如果对某个任务感兴趣，可以添加自己为任务的 assignee。任何人都可以自行创建新的任务。如果是较大的特性，还需要先撰写 rfc 来描述设计，可以参考 https://github.com/hyperledger/fabric-rfcs。
+可以查看项目的 Github Issue，查看有没有未分配（unassigned）的任务，如果对某个任务感兴趣，可以添加自己为任务的 assignee。任何人都可以自行创建新的任务。如果是较大的特性，还需要先撰写 rfc 来描述设计，可以参考 https://github.com/hyperledger/fabric-rfcs。
 
 初始创建的任务处于 `TODO` 状态；开始工作后可以标记为 `In Progress` 状态；提交对应补丁后需要更新为 `In Review` 状态；任务完成后更新为 `Done` 状态。
 
