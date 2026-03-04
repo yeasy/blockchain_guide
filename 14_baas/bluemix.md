@@ -29,4 +29,4 @@ IBM Blockchain Platform 允许用户在任何计算环境（IBM Cloud、AWS、Az
 
 平台还提供了丰富的 API 和 SDK 支持，方便应用与区块链网络进行交互。
 
-*注：早期的 IBM Bluemix 品牌已整合入 IBM Cloud，原有的简单 Fabric 试用服务已升级为更强大的企业级平台。*
+*注：早期的 IBM Bluemix 品牌已于 2017 年完全整合入 IBM Cloud。原有的简单 Fabric 试用服务已升级为 IBM Blockchain Platform，这是一套基于 Kubernetes 的企业级管理平台，可部署在任何云环境或本地数据中心。用户可访问官方文档了解最新的功能和定价信息。*
