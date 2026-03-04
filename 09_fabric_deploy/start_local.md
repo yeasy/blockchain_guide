@@ -439,7 +439,7 @@ $ configtxgen \
     -channelID ${APP_CHANNEL} \
     -profile ${APP_CHANNEL_PROFILE} \
     -asOrg Org2MSP \
-    -outputAnchorPeersUpdate ${UPDATE_ANCHOR_ORG1_TX}
+    -outputAnchorPeersUpdate ${UPDATE_ANCHOR_ORG2_TX}
 ```
 
 所生成的锚节点配置更新文件会在后续步骤被客户端所使用，因此需要复制到客户端节点上。

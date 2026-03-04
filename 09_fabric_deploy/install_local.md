@@ -20,7 +20,7 @@ sudo apt-get install git curl
 ### 3. 安装 Docker
 
 Fabric 运行依赖 Docker 容器环境。
-*   **Docker**: 18.03 或更高版本。
+*   **Docker**: 24.0 或更高版本。（推荐使用 24.0+ 以支持最新特性和安全补丁）
 *   **Docker Compose**: 推荐安装 Docker Desktop（包含 Docker Compose）或独立的 Docker Compose 插件。
 
 ## 使用官方脚本安装 (推荐)

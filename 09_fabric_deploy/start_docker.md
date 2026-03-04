@@ -9,10 +9,10 @@ $ git clone https://github.com/yeasy/docker-compose-files
 $ cd docker-compose-files/hyperledger_fabric
 ```
 
-以 Fabric 2.0.0 版本为例，进入到对应目录下，并先下载所需镜像文件：
+以 Fabric 2.5.0 版本为例，进入到对应目录下，并先下载所需镜像文件（注：此为示例版本，建议生产环境使用 LTS 版本如 2.5.x 或 3.x）：
 
 ```bash
-$ cd v2.0.0
+$ cd v2.5.0
 $ make download
 ```
 
