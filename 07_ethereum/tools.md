@@ -34,7 +34,7 @@
 
 *   [Hardhat](https://hardhat.org/)：目前最主流的以太坊开发环境，基于 JavaScript/TypeScript，拥有庞大的插件生态。
 *   [Foundry](https://github.com/foundry-rs/foundry)：基于 Rust 编写的极速开发框架，支持用 Solidity 编写测试脚本，正在快速取代 Hardhat。
-*   [Remix](http://remix.ethereum.org)：基于浏览器的 IDE，无需安装，适合快速原型开发和教学。
+*   [Remix](https://remix.ethereum.org)：基于浏览器的 IDE，无需安装，适合快速原型开发和教学。
 
 ### 网站资源
 

@@ -47,14 +47,14 @@ $ geth --datadir /path/to/datadir init /path/to/genesis.json
 接下来用以下命令启动节点，并进入 Geth 命令行界面。
 
 ```bash
-$ geth --identity "TestNode" --rpc --rpcport "8545" --datadir /path/to/datadir --port "30303" --nodiscover console
+$ geth --identity "TestNode" --http --http.port "8545" --datadir /path/to/datadir --port "30303" --nodiscover console
 ```
 
 各选项的含义如下。
 
 * `--identity`：指定节点 ID；
-* `--rpc`： 表示开启 HTTP-RPC 服务；
-* `--rpcport`： 指定 HTTP-RPC 服务监听端口号（默认为 8545）；
+* `--http`： 表示开启 HTTP-RPC 服务（旧版使用 `--rpc`，已废弃）；
+* `--http.port`： 指定 HTTP-RPC 服务监听端口号（默认为 8545）；
 * `--datadir`： 指定区块链数据的存储位置；
 * `--port`： 指定和其他节点连接所用的端口号（默认为 30303）；
 * `--nodiscover`： 关闭节点发现机制，防止加入有同样初始配置的陌生节点；
@@ -91,14 +91,17 @@ $ apt-get install solc
 
 新建一个 Solidity 智能合约文件，命名为 `testContract.sol`，内容如下。该合约包含一个方法 multiply，作用是将输入的整数乘以 7 后输出。
 
-```
-pragma solidity ^0.4.0;
-contract testContract {
-  function multiply(uint a) returns(uint d) {
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+contract TestContract {
+  function multiply(uint a) public pure returns(uint d) {
     d = a * 7;
   }
 }
 ```
+
+*注：本示例使用 Solidity 0.8.x 语法。0.8.0 版本引入了内置溢出检查等重要安全改进。早期版本（0.4.x-0.6.x）的语法有所不同，如无需显式标注 `public`/`pure` 等修饰符。读者在参考旧教程时应注意版本差异。*
 
 用 solc 获得合约编译后的 EVM 二进制码。
 
