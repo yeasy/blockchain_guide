@@ -1,10 +1,60 @@
-## 版本历史
+## Version History
+
+* 2.2.4: 2026-03-03
+  * Update to new version;
+  * Add latest progress;
+  * Support BFT consensus algorithm;
+  * Add more details.
+
+* 2.0.0: 2026-01-12
+  * Major update: Comprehensive revision of content to adapt to the technical landscape of 2026;
+  * Add: Chapter 14 frontier trends (AI, DePIN, RWA);
+  * Update: Bitcoin (Taproot, Ordinals, ETF) and Ethereum (PoS, Layer 2, Account Abstraction);
+  * Update: Cryptography (Post-Quantum, ZK-SNARKs/STARKs) and Consensus Algorithms (PoS, HotStuff);
+  * Optimize: Remove obsolete EOS chapter, integrate Hyperledger project status.
+
+* 1.8.6: 2026-03-04
+  * Fix terminology "miner" -> "validator" on line 19 of `07_ethereum/design.md` (context after Merge);
+  * Add full Contract API example to `11_app_dev/chaincode.md` (recommended over shim API);
+  * Add Fabric Gateway chapter and Go language code examples to `10_fabric_op/sdk.md`;
+  * Update REST API deprecation notice in `11_app_dev/chaincode_example01.md` (v0.6 only);
+  * Update ordering node section in `13_fabric_design/design.md`: add Fabric v3.0 BFT ordering service description;
+  * Update BFT ordering performance characteristics in `13_fabric_design/performance.md`;
+  * Fix various external links: Burrow archive, gRPC/Go official website HTTPS upgrade, Remix HTTPS, Cello Git repo migration, Kafka document link correction;
+  * Fix deprecated `grpc.WithInsecure()` -> `insecure.NewCredentials()` modern pattern in `appendix/grpc.md`;
+  * Correct Vyper positioning description in `07_ethereum/concept.md` (security alternative language rather than mainstream), fix double periods;
+  * Update ZKML limitations description in `15_frontiers/ai_web3.md`, reflecting 2025 technical progress;
+  * Correct modular blockchain date format in `02_overview/classify.md`.
+
+* 1.8.5: 2026-03-03
+  * Comprehensive technical review by experts, fix 8 P0 critical errors and 8 P1 important issues;
+  * Fix mining reward data (12.5 -> 3.125 BTC) in `06_bitcoin/mining.md`, add halving history and hash rate data;
+  * Fix PoS consensus context in `07_ethereum/concept.md`, remove outdated "mining" expressions and ETH price references;
+  * Fix duplicate rows in comparison table and UTXO spelling in `07_ethereum/design.md`;
+  * Update Solidity ^0.8.0 syntax and Geth --http command in `07_ethereum/smart_contract.md`;
+  * Fix Prometheus "push" -> "pull" method in `10_fabric_op/operation.md`;
+  * Fix Caliper/Grid URLs, Fabric 3.0 official release status in `08_hyperledger/project.md`;
+  * Fix Org2 anchor node variable name error in `09_fabric_deploy/start_local.md`;
+  * Fix import path error in `appendix/golang/tools.md`, update golint -> golangci-lint;
+  * Update protobuf import path and protoc command migration in `appendix/grpc.md`;
+  * Add Tendermint BFT chapter and six consensus algorithms comparison table in `04_distributed_system/bft.md`;
+  * Add new DeFi attacks (flash loans, MEV, cross-chain bridges, governance attacks) to `05_crypto/smart_contract_vulns.md`;
+  * Add MEV chapter in `12_web3/defi.md` and governance attack case in `12_web3/dao.md`;
+  * Add Web3 challenges and reality chapter in `12_web3/intro.md`;
+  * Add ZKML limitations analysis in `15_frontiers/ai_web3.md`;
+  * Add sustainability risk analysis in `15_frontiers/depin.md`;
+  * Add core regulatory framework checklist (Reg D, MiFID II, MiCA, etc.) in `15_frontiers/rwa.md`;
+  * Add modular blockchain classification in `02_overview/classify.md`;
+  * Update 12 modern terms in `appendix/terms.md`;
+  * Update Docker version recommendations (18.03 -> 24.0+), Kafka deprecation notes, Layer 2 performance context;
+  * Update USDT/USDC market cap data, add time labels;
+  * Improve Cello image version warning, Azure service shutdown notice.
 
 * 1.8.4: 2026-01-13
-  * 全面编辑审阅，确保内容达到正式出版标准；
-  * 修复 `06_bitcoin/currency.md` 中关于中国货币历史的 TBD 标记；
-  * 修复 `10_fabric_op/upgrade.md` 中 Kafka 迁移说明的 TBD 标记，说明 Kafka 已废弃；
-  * 验证所有章节内容时效性（均已更新至 2025 年）。
+  * Comprehensive editorial review for publication readiness;
+  * Fix Chinese monetary history TBD marker in `06_bitcoin/currency.md`;
+  * Fix Kafka migration TBD marker in `10_fabric_op/upgrade.md`, noting Kafka is deprecated;
+  * Verify all chapter content relevance (all updated to 2025).
 
 * 1.8.3: 2026-01-12
   * Comprehensive editorial review for publication readiness;
@@ -57,66 +107,56 @@
   * Update bitcoin project.
 
 * 1.2.0: 2018-12-31
-  * 添加常用 Golang 工具和技巧；
-  * 更新密码学相关知识，增加布隆过滤器等；
-  * 更新超级账本项目内容；
-  * 更新分布式系统章节。
+  * Add common Golang tools and tips;
+  * Update cryptography related knowledge, add bloom filters etc;
+  * Update content of Hyperledger projects;
+  * Update distributed system chapter.
 
 * 1.1.0: 2018-04-24
-  * 更新群签名；
-  * 更新区块链和分布式账本演化；
-  * 更新比特币、以太坊最新进展。
+  * Update group signature;
+  * Update evolution of blockchain and distributed ledgers;
+  * Update latest progress of Bitcoin and Ethereum.
 
 * 1.0.0: 2017-12-31
-  * 更新 baas 设计；
-  * 更新附录部分；
-  * 修正部分表达。
+  * Update BaaS design;
+  * Update appendix section;
+  * Correct some expressions.
 
 * 0.9.0: 2017-08-24
-  * 修正字词；
-  * 添加 fabric 1.0 的内容；
-  * 《区块链原理、设计与应用》正式出版。
+  * Correct wording;
+  * Add content for fabric 1.0;
+  * "Blockchain Principles, Design and Application" officially published.
 
 * 0.8.0: 2017-03-07
-  * 完善应用场景等；
-  * 完善分布式系统技术；
-  * 完善密码学技术；
-  * 根据最新代码更新 Hyperledger 使用。
+  * Improve application scenarios etc;
+  * Improve distributed system technologies;
+  * Improve cryptography technologies;
+  * Update Hyperledger usage according to latest code.
 
 * 0.7.0: 2016-09-10
-  * 完善一致性技术等；
-  * 修正文字。
+  * Improve consensus technologies etc;
+  * Correct wording.
 
 * 0.6.0: 2016-08-05
-  * 修改文字；
-  * 增加更多智能合约；
-  * 增加更多业务场景。
+  * Modify wording;
+  * Add more smart contracts;
+  * Add more business scenarios.
 
 * 0.5.0: 2016-07-10
-  * 增加 Hyperledger 项目的内容；
-  * 增加以太坊项目内容；
-  * 增加闪电网络介绍、关键技术剖析；
-  * 补充区块链即服务；
-  * 增加比特币项目。
+  * Add content for Hyperledger project;
+  * Add content for Ethereum project;
+  * Add Lightning Network introduction and key technology analysis;
+  * Add Blockchain as a Service (BaaS);
+  * Add Bitcoin project.
 
 * 0.4.0: 2016-06-02
-    * 添加应用场景分析。
+  * Add application scenario analysis.
 
 * 0.3.0: 2016-05-12
-    * 添加数字货币问题分析。
+  * Add digital currency issue analysis.
 
 * 0.2.0: 2016-04-07
-    * 添加 Hyperledger 项目简介。
+  * Add Hyperledger project introduction.
 
 * 0.1.0: 2016-01-17
-    * 添加区块链简介。
-
-
-## v2.0.0
-
-* 2026-01-12
-  * 重大更新：全面修订内容以适应 2026 年技术现状。
-  * 新增：第 14 章 前沿趋势 (AI, DePIN, RWA)。
-  * 更新：比特币 (Taproot, Ordinals, ETF) 和以太坊 (PoS, Layer 2, Account Abstraction)。
-  * 更新：密码学 (抗量子算法, ZK-SNARKs/STARKs) 和 共识算法 (PoS, HotStuff)。
-  * 优化：移除过时的 EOS 章节，整合 Hyperledger 项目状态。
+  * Add blockchain introduction.
