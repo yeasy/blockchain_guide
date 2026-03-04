@@ -62,7 +62,18 @@
 * NFT：Non-Fungible Token，非同质化代币。用于表示独一无二的数字资产的所有权；
 * Layer 2（二层网络）：构建在 Layer 1（主链）之上的扩展协议，旨在提高交易速度并降低成本，如 Rollup；
 * Rollup（汇总）：一种 Layer 2 方案，将大量交易在链下执行并压缩，然后提交到主链进行验证；
-* Web3：基于区块链的下一代互联网，强调用户对数据和资产的拥有权。
+* Web3：基于区块链的下一代互联网，强调用户对数据和资产的拥有权；
+* Account Abstraction（账户抽象）：通过 ERC-4337 等标准，允许智能合约作为用户账户，支持社交恢复、Gas 代付等功能；
+* DePIN：Decentralized Physical Infrastructure Network，去中心化物理基础设施网络，通过代币激励来建设和维护现实世界的物理设施；
+* EIP-4844（Proto-Danksharding）：以太坊 Dencun 升级引入的 Blob 数据类型，大幅降低 Layer 2 交易成本；
+* Flash Loan（闪电贷）：DeFi 中无需抵押的即时贷款，必须在同一交易内完成借还；
+* MEV：Maximal Extractable Value，最大可提取价值，验证者通过重排交易获取的额外利润；
+* RWA：Real World Assets，现实世界资产代币化，将传统金融资产（如债券、房地产）映射到区块链上；
+* SBT：Soulbound Token，灵魂绑定代币，不可转让的 NFT，用于表示身份、资质等；
+* TVL：Total Value Locked，总锁定价值，衡量 DeFi 协议中锁定资产规模的指标；
+* ZKML：Zero-Knowledge Machine Learning，零知识机器学习，利用 ZKP 验证 ML 模型推理的正确性；
+* VRF：Verifiable Random Function，可验证随机函数，可以生成可验证的伪随机输出的密码学工具；
+* BLS：Boneh-Lynn-Shacham 签名，支持签名聚合的密码学方案，广泛用于 PoS 共识中的验证者签名。
 
 ### 超级账本相关术语
 
