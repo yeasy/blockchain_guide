@@ -9,11 +9,11 @@ Hyperledger 所有项目代码托管在 [Github](https://github.com/hyperledger/
 * [Cello](https://github.com/hyperledger/cello)：提供区块链平台的部署和运行时管理功能。使用 Cello，管理员可以轻松部署和管理多条区块链；应用开发者可以无需关心如何搭建和维护区块链，由 IBM 团队于 2017 年 1 月贡献到社区；
 * [Indy](https://github.com/hyperledger/indy)：提供基于分布式账本技术的数字身份管理机制，由 Sovrin 基金会发起，2017 年 3 月底正式贡献到社区；
 * [Composer](https://github.com/hyperledger/composer)：[End of Life] 提供面向链码开发的高级语言支持，自动生成链码代码等，由 IBM 团队发起并维护，2017 年 3 月底贡献到社区。目前已经停止维护；
-* [Burrow](https://github.com/hyperledger/burrow)：提供以太坊虚拟机的支持，实现支持高效交易的带权限的区块链平台，由 Monax 公司发起支持，2017 年 4 月贡献到社区；
+* [Burrow](https://github.com/hyperledger-archives/burrow) [Archived]：提供以太坊虚拟机的支持，实现支持高效交易的带权限的区块链平台，由 Monax 公司发起支持，2017 年 4 月贡献到社区。该项目已于被归档，代码已移至归档库；
 * [Quilt](https://github.com/hyperledger/quilt)：对 W3C 支持的跨账本协议 Interledger 的 Java 实现。2017 年 10 月正式贡献到社区；
-* [Caliper](https://github.com/hyperledger/burrow)：提供对区块链平台性能的测试工具，由华为公司发起支持，2018 年 3 月正式贡献到社区。
+* [Caliper](https://github.com/hyperledger/caliper)：提供对区块链平台性能的测试工具，由华为公司发起支持，2018 年 3 月正式贡献到社区。
 * [Ursa](https://github.com/hyperledger/ursa)：[End of Life] 提供一套密码学相关组件，初始贡献者包括来自 Fujitsu、Sovrin、Intel、DFINITY、State Street、IBM、Bitwise IO 等企业的开发者，2018 年 11 月正式被接收到社区，2023 年 4 月结束生命周期；
-* [Grid](https://github.com/hyperledger/burrow)：提供帮助快速构建供应链应用的框架，由 Cargill、Intel 和 Bitwise IO 公司发起支持，2018 年 12 月正式贡献到社区；
+* [Grid](https://github.com/hyperledger/grid)：提供帮助快速构建供应链应用的框架，由 Cargill、Intel 和 Bitwise IO 公司发起支持，2018 年 12 月正式贡献到社区；
 * [Transact](https://github.com/hyperledger/transact)：提供运行交易的引擎和框架，由 Bitwise IO、Cargill、Intel、IBM、HACERA 等公司发起支持，2019 年 5 月正式贡献到社区；
 * [Aries](https://github.com/hyperledger/aries)：为客户端提供共享的密码学钱包，由 Sovrin、C3I 和 Evernym 等公司发起支持，2019 年 5 月正式贡献到社区；
 * [Besu](https://github.com/hyperledger/besu)：作为企业级的以太坊客户端支持，由 Consensys、Hacera、JPM 和 Redhat 等公司发起支持，2019 年 8 月正式贡献到社区；
@@ -37,7 +37,7 @@ Hyperledger 所有项目代码托管在 [Github](https://github.com/hyperledger/
 
 Fabric 项目基于 Go 语言实现，贡献者超过 200 人，总提交次数已经超过 15000 次，核心代码数超过 15 万行。
 
-Fabric 项目目前处于活跃状态，当前长期支持版本（LTS）为 2.5.x 系列，已发布至 v2.5.9（2024年6月）。Fabric 3.0 已发布 Beta 版本，引入了拜占庭容错（BFT）排序服务等新特性。项目同时包括 Fabric CA、Fabric Gateway、多语言 SDK 等子项目。
+Fabric 项目目前处于活跃状态，当前长期支持版本（LTS）为 2.5.x 系列，已发布至 v2.5.9（2024年6月）。Fabric 3.0 已于 2024 年 9 月正式发布，引入了拜占庭容错（BFT）排序服务、移除系统通道依赖等新特性。项目同时包括 Fabric CA、Fabric Gateway、多语言 SDK 等子项目。
 
 项目的邮件列表地址为 fabric@lists.hyperledger.org。
 
@@ -107,11 +107,11 @@ Composer 项目由 IBM 团队于 2017 年 3 月底贡献到社区，试图提供
 
 项目的邮件列表地址为 composer@lists.hyperledger.org。
 
-### Burrow 项目
+### Burrow 项目 [Archived]
 
 ![Hyperledger Burrow 项目](_images/burrow.png)
 
-Burrow 项目由 Monax、Intel 等企业于 2017 年 4 月提交到社区。核心代码在 Github 上地址为 https://github.com/hyperledger/burrow。
+Burrow 项目由 Monax、Intel 等企业于 2017 年 4 月提交到社区。核心代码在 Github 上地址为 https://github.com/hyperledger-archives/burrow（项目已被归档，原地址已重定向至归档库）。
 
 该项目的前身为 eris-db，基于 Go 语言实现的以太坊虚拟机，目前贡献者超过 20人，提交次数已经超过 2000 次。
 
