@@ -21,7 +21,7 @@ $ go install && go clean
 * -tls：是否启用 TLS，默认关闭；
 * -rootCert string：启用 TLS 时指定信任的根 CA 证书路径；
 * -mTls：是否开启双向验证（即服务端也同时验证客户端身份），默认关闭。
-* -clientCert string：：启用 TLS 时候客户端证书路径；
+* -clientCert string：启用 TLS 时候客户端证书路径；
 * -clientKey string：启用 TLS 时候客户端私钥路径；
 
 典型地，用户可以通过环境变量指定所需的参数值，使用如下命令启动监听。
