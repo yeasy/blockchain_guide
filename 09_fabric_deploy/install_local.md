@@ -1,4 +1,4 @@
-# 安装 Fabric
+## 安装 Fabric
 
 本节主要介绍如何安装 Hyperledger Fabric 的相关组件（二进制文件和 Docker 镜像）。
 

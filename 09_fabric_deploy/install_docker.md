@@ -1,4 +1,4 @@
-# 配置容器环境
+## 配置容器环境
 
 Hyperledger Fabric 深度依赖容器技术。为了运行 Fabric 网络，你需要准备好 Docker 和 Docker Compose 环境。
 
