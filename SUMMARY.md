@@ -139,6 +139,7 @@
 * [前沿趋势](15_frontiers/README.md)
   * [AI 与 Web3 的融合](15_frontiers/ai_web3.md)
   * [AI+Web3 深度融合案例](15_frontiers/ai_web3_deep_cases.md)
+  * [代理型 AI 与区块链融合](15_frontiers/ai_agents_blockchain.md)
   * [DePIN：去中心化物理基础设施](15_frontiers/depin.md)
   * [RWA：现实世界资产](15_frontiers/rwa.md)
   * [跨链协议与互操作性](15_frontiers/interoperability.md)
