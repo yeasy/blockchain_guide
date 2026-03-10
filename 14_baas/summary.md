@@ -5,3 +5,6 @@
 本章随后还介绍了业界领先的 IBM Bluemix 和微软 Azure 云上提供的区块链服务。最后讲解了如何使用超级账本 Cello 项目快速搭建一套个性化的区块链服务平台。
 
 区块链技术的普及离不开生态系统和相关工具的成熟，区块链应用的落地同样离不开完善的 DevOps 支持。本章的内容能够给予读者不同的视角，从系统方案的角度出发，思考如何在新技术变革中保持应对变化的敏捷与高效。
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/blockchain_guide/issues) 或 [PR](https://github.com/yeasy/blockchain_guide/pulls)。
