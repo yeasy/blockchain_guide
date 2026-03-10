@@ -9,3 +9,6 @@
 Web3 代表了互联网发展的新范式，将用户数据的所有权从平台转移到用户手中。DeFi 则展示了可编程货币的强大威力，让金融服务变得更加开放、透明和可组合。
 
 随着技术的成熟和监管框架的完善，Web3 和 DeFi 有望在未来几年进入更广泛的主流应用阶段。
+---
+
+> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/blockchain_guide/issues) 或 [PR](https://github.com/yeasy/blockchain_guide/pulls)。
