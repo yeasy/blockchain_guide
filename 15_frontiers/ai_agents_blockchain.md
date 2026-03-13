@@ -243,6 +243,43 @@ AI Agent #1234 的 TBA:
   - Ethereum Mainnet：处理约 20%（大额交易）
   - 其他链：约 15%
 
+### 2.4 Stripe MPP：传统支付巨头的代理支付标准
+
+2026 年 3 月，Stripe 发布了 **Machine Payments Protocol（MPP）**，标志着传统支付基础设施正式向 AI 代理经济延伸。与 x402 侧重链上原生支付不同，MPP 同时支持**稳定币、法币（卡支付、先买后付）和 Shared Payment Tokens（SPT）**，覆盖了更广泛的支付场景。
+
+#### 协议流程
+
+```
+1. 代理请求资源（API 端点、服务、数据）
+   GET /api/resource HTTP/1.1
+
+2. 服务返回支付请求
+   HTTP/1.1 402 Payment Required
+   + 金额、币种、收款方式（稳定币或法币）
+
+3. 代理通过 MPP 授权支付
+   （Stripe PaymentIntents API 处理结算）
+
+4. 服务验证到账 → 返回资源
+   HTTP/1.1 200 OK
+```
+
+#### MPP 与 x402 的互补定位
+
+| 维度 | x402 | Stripe MPP |
+|------|------|-----------|
+| **支付方式** | 链上稳定币（USDC 等） | 稳定币 + 法币 + SPT |
+| **结算层** | 链上直接结算 | Stripe 基础设施 |
+| **适用场景** | DeFi 原生、链上微支付 | 跨链下 SaaS、API 服务、实体商务 |
+| **合规性** | 依赖链上治理 | 继承 Stripe 的全球合规体系 |
+| **开发体验** | 需集成链上钱包与签名 | 几行代码接入 PaymentIntents API |
+
+MPP 属于 Stripe 更广泛的 **Agentic Commerce Suite** 的一部分，该套件还包含与 MCP（Model Context Protocol）的集成以及 Agentic Commerce Protocol（ACP），目标是为代理经济提供从工具发现到支付结算的完整闭环。
+
+MPP 的意义在于：它将 Stripe 服务的数百万商户直接暴露给 AI 代理，使得代理不仅能在链上 DeFi 世界中交易，还能在传统互联网商业生态中自主购买服务和商品。
+
+---
+
 **AI 代理的应用**：
 ```python
 # Python Agent 示例
