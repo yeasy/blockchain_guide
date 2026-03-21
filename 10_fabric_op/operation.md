@@ -56,6 +56,7 @@ $ curl http://peer:9443/healthz
 
 ```bash
 $ curl http://orderer:8443/metrics
+
 # HELP blockcutter_block_fill_duration The time from first transaction enqueuing to the block being cut in seconds.
 # TYPE blockcutter_block_fill_duration histogram
 blockcutter_block_fill_duration_bucket{channel="businesschannel",le="0.005"} 0
@@ -63,11 +64,13 @@ blockcutter_block_fill_duration_bucket{channel="businesschannel",le="0.01"} 0
 blockcutter_block_fill_duration_bucket{channel="businesschannel",le="0.025"} 0
 ...
 process_virtual_memory_bytes 3.37268736e+08
+
 # HELP process_virtual_memory_max_bytes Maximum amount of virtual memory available in bytes.
 # TYPE process_virtual_memory_max_bytes gauge
 process_virtual_memory_max_bytes -1
 
 $ curl http://peer:9443/metrics
+
 # HELP chaincode_launch_duration The time to launch a chaincode.
 # TYPE chaincode_launch_duration histogram
 chaincode_launch_duration_bucket{chaincode="+lifecycle:1.4.0",success="true",le="0.005"} 1
@@ -75,6 +78,7 @@ chaincode_launch_duration_bucket{chaincode="+lifecycle:1.4.0",success="true",le=
 chaincode_launch_duration_bucket{chaincode="+lifecycle:1.4.0",success="true",le="0.025"} 1
 ...
 process_virtual_memory_bytes 4.21298176e+08
+
 # HELP process_virtual_memory_max_bytes Maximum amount of virtual memory available in bytes.
 # TYPE process_virtual_memory_max_bytes gauge
 process_virtual_memory_max_bytes -1

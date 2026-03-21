@@ -35,6 +35,7 @@ Orderer 节点负责交易排序和区块生成：
 ### 查看节点状态
 
 ```bash
+
 # 查看 Peer 节点加入的通道
 peer channel list
 
@@ -45,6 +46,7 @@ peer lifecycle chaincode queryinstalled
 ### 节点日志管理
 
 ```bash
+
 # 查看 Docker 容器日志
 docker logs peer0.org1.example.com
 

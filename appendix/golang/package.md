@@ -18,6 +18,7 @@ Go Modules 的日常使用非常简单，主要依赖 `go` 命令行工具。
 
 ```bash
 $ go mod init <module-name>
+
 # 例如：go mod init github.com/myuser/myproject
 ```
 

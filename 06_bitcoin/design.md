@@ -82,7 +82,7 @@
 
 以 P2PKH 为例，输出脚本的格式为
 
-```
+```text
 scriptPubKey: OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 ```
 
@@ -90,7 +90,7 @@ scriptPubKey: OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 
 另外一个交易如果要花费这个输出，在引用这个输出的时候，需要提供认领脚本格式为
 
-```
+```text
 scriptSig: <sig> <pubKey>
 ```
 
@@ -98,7 +98,7 @@ scriptSig: <sig> <pubKey>
 
 进行交易验证时，会按照先 scriptSig 后 scriptPubKey 的顺序进行依次入栈处理，即完整指令为：
 
-```
+```text
 <sig> <pubKey> OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 ```
 

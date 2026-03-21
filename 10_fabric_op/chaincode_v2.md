@@ -22,6 +22,7 @@
 打包操作在本地进行，不需要连接网络。
 
 ```bash
+
 # 设置环境变量
 export CC_NAME=basic
 export CC_VERSION=1.0
@@ -47,8 +48,10 @@ peer lifecycle chaincode install ${CC_NAME}.tar.gz
 安装成功后，系统会返回一个**包标识符 (Package ID)**，格式为 `label:hash`。你需要记录下这个 ID，后续步骤会用到。
 
 ```bash
+
 # 查询已安装的链码包ID
 peer lifecycle chaincode queryinstalled
+
 # 输出示例: basic_1.0:e23a...
 ```
 
@@ -59,6 +62,7 @@ peer lifecycle chaincode queryinstalled
 **注意**：所有组织必须批准**完全相同**的参数（包括 Package ID），才能达成共识。
 
 ```bash
+
 # 环境变量
 export PACKAGE_ID=basic_1.0:e23a...
 export CHANNEL_NAME=mychannel

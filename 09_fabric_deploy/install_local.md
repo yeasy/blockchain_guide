@@ -87,6 +87,7 @@ cd fabric
 使用 `make` 命令编译组件。编译后的二进制文件位于 `build/bin` 目录。
 
 ```bash
+
 # 编译所有组件
 make all
 

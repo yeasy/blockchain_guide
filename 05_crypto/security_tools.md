@@ -15,6 +15,7 @@
 **使用示例**：
 
 ```bash
+
 # 安装 Slither
 pip install slither-analyzer
 
@@ -52,7 +53,7 @@ contract VulnerableContract {
 
 运行 Slither 会输出类似如下的警告：
 
-```
+```text
 INFO:Slither:Analyzing contract...
 Reentrancy in withdraw (VulnerableContract.withdraw):
 	External call: (bool success, ) = msg.sender.call{value: amount}("")
@@ -72,6 +73,7 @@ Reentrancy in withdraw (VulnerableContract.withdraw):
 **使用示例**：
 
 ```bash
+
 # 安装 Mythril
 pip install mythril
 
@@ -107,6 +109,7 @@ myth analyze contract.sol --graph graph.html
 **使用示例**：
 
 ```bash
+
 # 安装 Echidna（需要 Docker）
 docker pull trailofbits/echidna
 
@@ -158,6 +161,7 @@ docker run --rm -v /path/to/contracts:/contracts trailofbits/echidna echidna /co
 **使用示例**：
 
 ```bash
+
 # 安装 Hardhat 和 OpenZeppelin 插件
 npm install --save-dev hardhat @nomiclabs/hardhat-ethers @openzeppelin/hardhat-upgrades
 
@@ -229,6 +233,7 @@ describe("VulnerableContract", function () {
 from manticore.ethereum import ManticoreEVM
 
 m = ManticoreEVM()
+
 # 从 Solidity 源码加载合约
 source_code = open('contract.sol').read()
 user_account = m.create_account(balance=1*10**18)
@@ -242,7 +247,7 @@ m.run()
 
 在实际项目中，通常需要多工具组合使用以获得全面的安全覆盖。推荐的审计流程：
 
-```
+```text
 1. 自动扫描阶段
    ├─ Slither：快速识别常见漏洞（5分钟）
    └─ Mythril：深度符号执行（30-60分钟）

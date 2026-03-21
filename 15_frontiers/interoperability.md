@@ -14,7 +14,7 @@
 
 - **锁定和铸造 (Lock-and-Mint)**：在 A 链上锁定原生资产，在 B 链上铸造等额的包装资产（Wrapped Token）。这种方式保持了原资产的流动性，但增加了复杂性。
 
-  ```
+  ```yaml
   用户: 在 Ethereum 上有 1 BTC
   步骤 1: 将 1 BTC 转入跨链桥的智能合约，资金被锁定
   步骤 2: 跨链协议监听到锁定事件
@@ -29,7 +29,7 @@
 
 仅仅转移资产不够，DApp 之间也需要相互通信。例如一个跨链 swap 需要这样的流程：
 
-```
+```text
 步骤 1: 用户在 Ethereum 上调用 CrossSwapRouter.swap()
 步骤 2: 路由器在 Arbitrum 上的合约中执行相反操作
 步骤 3: Arbitrum 上的结果需要返回 Ethereum 进行确认
@@ -53,7 +53,7 @@
 
 **去中心化桥的基本流程**：
 
-```
+```text
 A 链 <--> 中继/预言机网络 <--> B 链
 
 步骤：
@@ -203,7 +203,7 @@ contract SecureBridge {
 
 **Polkadot 架构**（最典型的中继链设计）：
 
-```
+```text
                     平行链 1 - Acala (DeFi)
                   /
     验证者集合 ← 中继链 (Polkadot) ← 平行链 2 - Moonbeam (EVM 兼容)
@@ -231,7 +231,7 @@ contract SecureBridge {
 
 **跨链消息协议 (XCMP)**：
 
-```
+```text
 平行链 A → 中继链 (临时存储消息) → 平行链 B
 
 消息结构：
@@ -257,7 +257,7 @@ contract SecureBridge {
 
 两个参与者在链下进行多轮互动，仅在最后一次在链上进行清算。
 
-```
+```yaml
 场景: Alice 和 Bob 进行多次支付
 
 步骤 1: Alice 和 Bob 各向合约存入 100 ETH（总计 200 ETH）
@@ -290,7 +290,7 @@ contract SecureBridge {
 
 一条相对独立的区块链，通过双向桥与主链相连。
 
-```
+```text
 特点：
 - 有自己的验证者集合和共识机制
 - 可以选择高吞吐量的共识（如 PoA）换取安全性
@@ -305,7 +305,7 @@ contract SecureBridge {
 
 用于支付通道和原子交换，基于密码学承诺。
 
-```
+```javascript
 原理：使用 Hash 和时间锁保证交易原子性
 
 Alice 想用 BTC 换取 Bob 的 ETH：
@@ -376,7 +376,7 @@ contract AtomicSwap {
 
 #### 4.1 Ronin Bridge 案例分析 (2022年，6.2亿美元)
 
-```
+```text
 漏洞：Sky Mavis（Ronin 运营商）的 AWS 账户被入侵，攻击者获得了以下验证者的私钥：
   - Sky Mavis 拥有的 4 个验证者节点
   - Axie DAO 拥有的 1 个验证者节点
@@ -586,7 +586,7 @@ contract SecureCrossChainBridge {
 
 随着 zk-SNARK 的成熟，跨链验证可以更轻量化。例如 LayerZero 使用 zk 证明验证源链的区块头，大幅降低验证成本。
 
-```
+```text
 传统轻客户端：验证者签名，需要多个签名 → 数百字节
 zk 证明方案：一个零知识证明 → 几百字节，且验证成本恒定
 ```
