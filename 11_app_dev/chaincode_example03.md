@@ -62,7 +62,7 @@
 
 request 参数:
 
-```
+```text
 args[0] 银行名称
 args[1] 初始化发布金额
 ```
@@ -76,7 +76,7 @@ response 参数:
 #### `createBank`
 
 request 参数:
-```
+```text
 args[0] 银行名称
 ```
 
@@ -90,7 +90,7 @@ response 参数:
 
 request 参数:
 
-```
+```text
 args[0] 公司名称
 ```
 
@@ -104,7 +104,7 @@ response 参数:
 
 request 参数:
 
-```
+```text
 args[0] 再次发行货币数额
 
 ```
@@ -118,7 +118,7 @@ response 参数:
 
 request 参数:
 
-```
+```text
 args[0] 商业银行ID
 args[1] 转账数额
 ```
@@ -133,7 +133,7 @@ response 参数:
 
 request 参数:
 
-```
+```text
 args[0] 商业银行ID
 args[1] 企业ID
 args[2] 转账数额
@@ -148,7 +148,7 @@ response 参数:
 #### `transfer`
 
 request 参数:
-```
+```text
 args[0] 转账用户ID
 args[1] 被转账用户ID
 args[2] 转账余额
@@ -196,7 +196,7 @@ response 参数
 
 request 参数
 
-```
+```text
 args[0] 商业银行ID
 ```
 
@@ -210,7 +210,7 @@ response 参数
 
 request 参数
 
-```
+```text
 args[0] 企业ID
 ```
 
@@ -223,7 +223,7 @@ response 参数
 #### `getTransactionById`
 
 request 参数
-```
+```text
 args[0] 交易ID
 ```
 
@@ -237,13 +237,13 @@ response 参数
 
 request 参数
 
-```
+```text
 CenterBank
 ```
 
 response 参数
 
-```
+```text
 err  nil 为成功
 ```
 
@@ -251,33 +251,33 @@ err  nil 为成功
 
 request 参数
 
-```
+```text
 Bank
 ```
 
 response 参数
 
-```
+```text
 err  nil 为成功
 ```
 
 #### `writeCompany`
 
 request 参数
-```
+```text
 Company
 ```
 
 response 参数
 
-```
+```text
 err  nil 为成功
 ```
 
 #### `writeTransaction`
 
 request 参数
-```
+```text
 Transaction
 ```
 

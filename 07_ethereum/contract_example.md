@@ -113,7 +113,7 @@ contract Ballot {
 
 在第一行，`pragma` 关键字指定了和该合约兼容的编译器版本。
 
-```
+```solidity
 pragma solidity ^0.4.11;
 ```
 

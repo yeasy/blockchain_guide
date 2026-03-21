@@ -63,7 +63,7 @@ $ geth --identity "TestNode" --http --http.port "8545" --datadir /path/to/datadi
 
 用上述 `geth console` 命令进入的命令行界面采用 JavaScript 语法。可以用以下命令新建一个账号。
 
-```
+```text
 > personal.newAccount()
 
 Passphrase:
@@ -73,7 +73,7 @@ Repeat passphrase:
 
 输入两遍密码后，会显示生成的账号，如`"0x1b6eaa5c016af9a3d7549c8679966311183f129e"`。可以用以下命令查看该账号余额。
 
-```
+```text
 > myAddress = "0x1b6eaa5c016af9a3d7549c8679966311183f129e"
 > eth.getBalance(myAddress)
 0
@@ -125,7 +125,7 @@ Contract JSON ABI
 
 下面回到 Geth 的 JavaScript 环境命令行界面，用变量记录上述两个值。注意在 code 前加上 `0x` 前缀。
 
-```
+```text
 > code = "0x6060604052341561000c57fe5b5b60a58061001b6000396000f30060606040526000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063c6888fa114603a575bfe5b3415604157fe5b60556004808035906020019091905050606b565b6040518082815260200191505060405180910390f35b60006007820290505b9190505600a165627a7a72305820748467daab52f2f1a63180df2c4926f3431a2aa82dcdfbcbde5e7d036742a94b0029"
 > abi = [{"constant":false,"inputs":[{"name":"a","type":"uint256"}],"name":"multiply","outputs":[{"name":"d","type":"uint256"}],"payable":false,"type":"function"}]
 ```
@@ -134,7 +134,7 @@ Contract JSON ABI
 
 在 Geth 的 JavaScript 环境命令行界面，首先用以下命令解锁自己的账户，否则无法发送交易。
 
-```
+```text
 > personal.unlockAccount(myAddress)
 
 Unlock account 0x1b6eaa5c016af9a3d7549c8679966311183f129e
@@ -144,14 +144,14 @@ true
 
 接下来发送部署合约的交易。
 
-```
+```text
 > myContract = eth.contract(abi)
 > contract = myContract.new({from:myAddress,data:code,gas:1000000})
 ```
 
 如果此时没有在挖矿，用 `txpool.status` 命令可看到本地交易池中有一个待确认的交易。可用以下命令查看当前待确认的交易。
 
-```
+```text
 > eth.getBlock("pending",true).transactions
 
 [{
@@ -178,13 +178,13 @@ true
 
 用以下命令可以发送交易，其中 sendTransaction 方法的前几个参数与合约中 multiply 方法的输入参数对应。这种方式，交易会通过挖矿记录到区块链中，如果涉及状态改变也会获得全网共识。
 
-```
+```text
 > contract.multiply.sendTransaction(10, {from:myAddress})
 ```
 
 如果只是想本地运行该方法查看返回结果，可采用如下方式获取结果。
 
-```
+```text
 > contract.multiply.call(10)
 70
 ```

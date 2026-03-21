@@ -33,6 +33,7 @@ sudo apt-get install ethereum
 
 ```bash
 geth version
+
 # 输出示例：
 # Geth
 # Version: 1.13.x-stable
@@ -48,6 +49,7 @@ geth version
 访问 [go.dev/dl](https://go.dev/dl/) 下载并安装 Go 1.21 或更高版本。
 
 ```bash
+
 # 验证安装
 go version
 ```
@@ -75,6 +77,7 @@ make geth
 基本的 Geth 启动命令：
 
 ```bash
+
 # 连接主网（需配合共识层客户端）
 geth --http --http.api eth,net,engine,admin
 

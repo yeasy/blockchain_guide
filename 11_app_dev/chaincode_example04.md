@@ -42,6 +42,7 @@
     - 修改操作// 0:正常毕业 1：退学 2:入学
 
 对学历操作信息所有的操作都归为记录。    
+
 #### function及各自实现的功能
 
 - `init` 初始化函数
@@ -66,31 +67,31 @@
  `createSchool`
 
 request参数:
-```
+```text
 args[0] 学校名称
 args[1] 学校所在位置
 ```
 response参数:
-```
+```text
 学校信息的字节数组，当创建一所新学校时，该学校学生账户地址列表为空
 ```
 
 `createStudent`
 
 request参数：
-```
+```text
 args[0] 学生的姓名
 ```
 
 response参数：
-```
+```text
 学生信息的字节数组表示，刚创建过往学历信息列表为空
 ```
 
 `updateDiploma` 
 
 request参数
-```
+```text
 args[0] 学校账户地址
 args[1] 学校签名
 args[2] 待修改学生的账户地址
@@ -98,72 +99,72 @@ args[3] //对该学生的学历进行怎样的修改，0：正常毕业  1：退
 ```
 
 response参数
-```
+```text
 返回修改记录的字节数组表示
 ```
 
 `enrollStudent`
 
 request参数:
-```
+```text
 args[0] 学校账户地址
 args[1] 学校签名
 args[2] 学生账户地址
 ```
 
 response参数
-```
+```text
 返回修改记录的字节数组表示
 ```
 
 `getStudentByAddress`
 
 request参数
-```
+```text
 args[0] address
 ```
 response参数
-```
+```text
 学生信息的字节数组表示
 ```
 
 `getRecordById`
 
 request参数
-```
+```text
 args[0] 修改记录的ID
 ```
 response参数
-```
+```text
 修改记录的字节数组表示
 ```
 
 `getRecords`
 
 response参数
-```
+```text
 获取修改记录数组（如果个数大于10，返回前10个）
 ```
 `getSchoolByAddress`
 
 request参数
-```
+```text
 args[0] address
 ```
 response参数
-```
+```text
 学校信息的字节数组表示
 ```
 
 `getBackgroundById`
 
 request参数
-```
+```text
 args[0] ID
 ```
 
 response参数
-```
+```text
 学历信息的字节数组表示
 ```
 

@@ -380,6 +380,7 @@ describe("SafeAuction", function () {
 #### 3.2 覆盖率目标
 
 ```bash
+
 # 运行覆盖率检查
 npx hardhat coverage
 
@@ -393,6 +394,7 @@ npx hardhat coverage
 #### 4.1 内部审计清单
 
 ```markdown
+
 ## 智能合约审计清单
 
 ### 安全性检查
@@ -421,6 +423,7 @@ npx hardhat coverage
 #### 4.2 自动化审计
 
 ```bash
+
 # 运行 Slither
 slither contracts/SafeAuction.sol
 
@@ -436,6 +439,7 @@ echidna contracts/SafeAuction.sol --solc-args "--optimize"
 #### 5.1 合约验证
 
 ```bash
+
 # 在区块链浏览器上验证源码
 npx hardhat verify --network mainnet 0xContractAddress --constructor-args args.js
 ```

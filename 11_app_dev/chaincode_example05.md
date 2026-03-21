@@ -48,31 +48,32 @@
 
 - `writeUser` 将新用户写入到键值对中  
 - `writeTransaction` 记录交易
+
 #### 接口设计
 
 `createUser`
 
 request参数:
-```
+```text
 args[0] 剩余能量值 
 args[1] 剩余金额
 ```
 response参数:
-```
+```text
 新建家庭用户的json表示
 ```
 
 `buyByAddress`
 
 request参数:
-```
+```text
 args[0] 卖家的账户地址
 args[1] 买家签名
 args[2] 买家的账户地址
 args[3] 想要购买的电量数值
 ```
 response参数:
-```
+```text
 购买成功的话返回该transaction的json串。
 购买失败返回error
 ```
@@ -80,53 +81,53 @@ response参数:
 `getTransactionById`
 
 request参数:
-```
+```text
 args[0] 交易编号
 ```
 response参数:
-``` 
+```text
 查询结果的transaction 交易表示
 ```
 
 `getTransactions`
 
 request参数:
-```
+ ```text
 none
  ```
 response参数:
-```
+```text
 获取所有的交易列表（如果交易大于10，则返回前10个）
 ```
 
 `getHomeByAddress`
 
 request参数
-```
+```text
 args[0] address
 ```
 response参数
-```
+```text
 用户信息的json表示
 ```
 
 `getHomes`
 
 response参数
-```
+```text
 获取所有的用户列表（如果用户个数大于10，则返回前10个）
 ```
 
 `changeStatus`
 
 request参数:
-```
+```text
 args[0] 账户地址
 args[1]　账户签名
 args[2] 对自己的账户进行的操作，0：设置为不可购买  1：设置状态为可购买
 ```
 response参数:
-```
+```text
 修改后的用户信息json表示
 ```
 
