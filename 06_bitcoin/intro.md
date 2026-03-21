@@ -22,7 +22,7 @@
 
 ![比特币白皮书邮件](_images/bitcoin_wp.png)
 
-2008 年 11 月 1 日 19:16:33，中本聪在 metzdowd 的加密技术邮件列表发布比特币白皮书：“比特币：一种点对点的电子现金系统（Bitcoin: A Peer-to-Peer Electronic Cash System）”。
+2008 年 10 月 31 日，中本聪在 metzdowd 的加密技术邮件列表发布比特币白皮书：“比特币：一种点对点的电子现金系统（Bitcoin: A Peer-to-Peer Electronic Cash System）”。
 
 2009 年 1 月 3 日 18:15:05，中本聪在位于芬兰赫尔辛基（Helsinki）的一个小型服务器上挖出了首批 50 个比特币，并在首个区块中记录了当天泰晤士报的头版标题：“The Times 03/Jan/2009 Chancellor on brink of second bailout for banks（财政大臣考虑再次紧急援助银行危机）”。首个区块也被称为创世区块或初始区块（Genesis Block），可以通过 [https://blockchain.info/block-index/14849](https://blockchain.info/block-index/14849) 查看其详细内容。
 
