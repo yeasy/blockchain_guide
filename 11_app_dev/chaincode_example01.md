@@ -1,4 +1,5 @@
 ## 链码示例一：信息公证
+
 ### 简介
 
 [chaincode_example01.go](chaincode_example01.go) 主要实现如下的功能：
