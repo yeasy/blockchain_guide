@@ -20,7 +20,7 @@ $ make download
 
 * docker-compose-2orgs-4peer-raft.yaml：包括 4 个 peer 节点（属于两个组织）、3 个 Orderer 节点（Raft 模式）、2 个 CA 节点、1 个客户端节点；
 * docker-compose-1orgs-1peers-dev.yaml：包括 1 个 peer 节点、1 个 Orderer 节点、1 个 CA 节点、1 个客户端节点。本地 Fabric 源码被挂载到了客户端节点中，方便进行调试；
-* docker-compose-2orgs-4peer-kafka.yaml：包括 4 个 peer 节点（属于两个组织）、3 个 Orderer 节点（Kafka 模式）、2 个 CA 节点、1 个客户端节点；
+* docker-compose-2orgs-4peer-kafka.yaml：包括 4 个 peer 节点（属于两个组织）、3 个 Orderer 节点（Kafka 模式）、2 个 CA 节点、1 个客户端节点。注意：Kafka 排序服务在 Fabric v2.3 中已弃用，并在 v3.0 中正式移除，新部署应优先使用 Raft 模式；
 * docker-compose-2orgs-4peer-couchdb.yaml：包括 4 个 peer 节点（属于两个组织，启用 couchDB 作为状态数据库）、2 个 Orderer 节点、1 个 CA 节点、1 个客户端节点。
 
 使用 Make 命令进行操作。例如使用 HLF_MODE 指定排序服务为 Raft 模式，快速启动网络并执行一系列测试：
