@@ -1,5 +1,9 @@
 ## Version History
 
+* 2.2.5: 2026-03-24
+  * Align README quick start and learning paths with the current SUMMARY structure;
+  * Clarify version marker and refresh front-page navigation guidance.
+
 * 2.2.4: 2026-03-03
   * Update to new version;
   * Add latest progress;
