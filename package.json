@@ -2,11 +2,11 @@
   "name": "blockchain_guide",
   "private": true,
   "scripts": {
-    "build": "honkit build",
-    "serve": "honkit serve"
+    "build": "rm -rf _site _site_site && mdpress build --format site --output _site && rm -rf _site && mv _site_site _site",
+    "serve": "mdpress serve",
+    "pdf": "mdpress build --format pdf"
   },
   "devDependencies": {
-    "honkit": "^6.1.7",
     "honkit-plugin-prism": "^2.5.4",
     "gitbook-plugin-image-captions": "^3.1.0",
     "gitbook-plugin-prism": "^2.4.0",
