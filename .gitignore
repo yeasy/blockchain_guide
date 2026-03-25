@@ -5,6 +5,7 @@
 node_modules/
 
 _book/
+_site*
 book.pdf
 区块链技术指南.pdf
 
