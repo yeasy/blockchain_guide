@@ -50,11 +50,11 @@ graph LR
 
 **在线阅读**：https://yeasy.gitbook.io/blockchain_guide/
 
-**本地阅读**（使用 [mdPress](https://github.com/yeasy/mdpress) 构建）：
+**本地阅读**（先安装 [mdPress](https://github.com/yeasy/mdpress)）：
 
 ```bash
 brew tap yeasy/tap && brew install mdpress
-mdpress serve
+npm run serve
 ```
 
 ## 进阶学习
