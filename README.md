@@ -1,6 +1,6 @@
 # 区块链技术指南
 
-v2.2.5
+v2.2.5 | [PDF 下载](https://github.com/yeasy/blockchain_guide/releases/latest/download/blockchain_guide.pdf)
 
 区块链是金融科技（Fintech）领域的一项基础性的创新。
 
