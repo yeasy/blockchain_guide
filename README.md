@@ -1,6 +1,6 @@
 # 区块链技术指南
 
-v2.2.5 | [PDF 下载](https://github.com/yeasy/blockchain_guide/releases/latest/download/blockchain_guide.pdf)
+[![Release](https://img.shields.io/github/release/yeasy/blockchain_guide.svg)](https://github.com/yeasy/blockchain_guide/releases) [![PDF](https://img.shields.io/badge/PDF-下载-orange)](https://github.com/yeasy/blockchain_guide/releases/latest)
 
 区块链是金融科技（Fintech）领域的一项基础性的创新。
 
@@ -12,7 +12,7 @@ v2.2.5 | [PDF 下载](https://github.com/yeasy/blockchain_guide/releases/latest/
 
 ## 五分钟快速上手
 
-"5分钟理解区块链"——跟随以下步骤快速掌握核心概念：
+“5分钟理解区块链”——跟随以下步骤快速掌握核心概念：
 
 1. **区块链基础**（第1-2章）：理解区块链的起源、定义、演化与关键挑战
 2. **比特币与以太坊**（第6-7章）：掌握主流公链的工作原理、设计与智能合约能力
@@ -56,6 +56,10 @@ graph LR
 brew tap yeasy/tap && brew install mdpress
 mdpress serve
 ```
+
+## 下载离线版本
+
+本书提供 PDF 版本供离线阅读，可前往 [GitHub Releases](https://github.com/yeasy/blockchain_guide/releases/latest) 页面下载最新版本。
 
 ## 进阶学习
 
