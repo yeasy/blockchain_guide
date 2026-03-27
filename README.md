@@ -54,7 +54,7 @@ graph LR
 
 ```bash
 brew tap yeasy/tap && brew install mdpress
-npm run serve
+mdpress serve
 ```
 
 ## 进阶学习
