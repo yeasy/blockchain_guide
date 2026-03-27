@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build PDF
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Chromium and CJK fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser fonts-noto-cjk fonts-noto-cjk-extra
+
+      - name: Install mdpress (latest)
+        run: |
+          LATEST_TAG=$(curl -fsSL https://api.github.com/repos/yeasy/mdpress/releases/latest | jq -r .tag_name)
+          VERSION="${LATEST_TAG#v}"
+          curl -fsSL "https://github.com/yeasy/mdPress/releases/download/$LATEST_TAG/mdpress_${VERSION}_linux_amd64.tar.gz" -o mdpress.tar.gz
+          tar xzf mdpress.tar.gz
+          sudo mv mdpress /usr/local/bin/
+          mdpress --version
+
+      - name: Build PDF
+        run: mdpress build --format pdf --output blockchain_guide.pdf
+
+      - name: Upload PDF as artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: blockchain_guide-pdf
+          path: blockchain_guide.pdf
