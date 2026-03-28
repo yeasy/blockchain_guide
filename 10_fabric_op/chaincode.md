@@ -243,7 +243,7 @@ $ peer chaincode invoke \
 	--tls \
 	--cafile ${ORDERER_TLS_CA}
 ```
- 
+
 这一命令会调用最新版本的 test_cc 链码，将参数 `'{"Args":["invoke","a","b","10"]}'` 传入链码中的 `Invoke()` 方法执行。命令会生成一笔交易，需指定排序者地址。
 
 需要注意，invoke 命令不支持指定链码版本，默认调用最新版本的链码。

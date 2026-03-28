@@ -42,7 +42,7 @@
     - 物流费用支付类型  //0：寄货方支付 1：收货方支付
     - 寄货方预支付费用  //模拟实际预支付，寄货方支付物流费下值为物流费，否则为0
     - 快递配送信息    // 快递运送状态，所经过快递分拨中心与快递点的数组
-    - 收货方签名 
+    - 收货方签名
 
 - 寄货方
     - 姓名
@@ -86,13 +86,13 @@
 - `createExpressOrder` 寄货方创建寄货单  init
 - `finishExpressOrder` 收货方签收寄货单 invoke
 - `addExpressPointer` 物流公司添加新的快递点  invoke
-- `updateExpressOrder` 更新物流公司订单，添加快递点的信息 invoke  
+- `updateExpressOrder` 更新物流公司订单，添加快递点的信息 invoke
 
 
 - `getExpressOrderById` 查询订单状态  query
 - `getExpress`  获取物流公司信息      query
 - `getUserByAddress` 获取用户信息   query
-- `getExpressPointByAddress`  获取快递点信息  query   
+- `getExpressPointByAddress`  获取快递点信息  query
 
 - `writeExpress` 存储物流公司信息 （以物流公司账户地址进行存储）
 - `writeExpressOrder` 存储寄货单  （以“express”+id 进行存储）
@@ -105,7 +105,7 @@
 
 request参数
 ```text
-args[0] 姓名 
+args[0] 姓名
 args[1] 所在地址
 args[2] 联系方式
 args[3] 账户余额
@@ -116,7 +116,7 @@ response参数
 user信息的json表示
 ```
 
- `createExpressPointer` 
+ `createExpressPointer`
 
 request参数
 ```text

@@ -18,7 +18,7 @@ godoc 命令使用格式如下。
 
 ```bash
 $ godoc package [name ...]
-``` 
+```
 
 比较有用的命令行参数包括：
 
@@ -216,7 +216,7 @@ $ go install golang.org/x/tools/cmd/goimports@latest
 
 go vet 对代码的准确性进行基本检查，如函数调用参数缺失、不可达代码，或调用格式不匹配等。使用也十分简单，指定要检查的软件包路径作为参数即可。
 
-#### go tool 
+#### go tool
 
 `go tool` 命令中包括许多有用的工具子命令，包括 addr2line、api、asm、cgo、compile、cover、dist、doc、fix、link、nm、objdump、pack、pprof、trace。
 

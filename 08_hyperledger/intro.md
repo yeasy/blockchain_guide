@@ -4,7 +4,7 @@
 
 2015 年 12 月，开源世界的旗舰组织 —— [Linux 基金会](https://www.linuxfoundation.org) 宣布启动超级账本（Hyperledger）联合项目；2016 年 2 月 9 日，[公布](https://www.hyperledger.org/news/announcement/2016/02/hyperledger-project-announces-30-founding-members) 了 30 家创始企业成员（包括 IBM、Accenture、Intel、J.P.Morgan、R3、DAH、DTCC、FUJITSU、HITACHI、SWIFT、Cisco 等）。超级账本项目致力为透明、公开、去中心化的企业级分布式账本技术提供开源参考实现，并推动区块链和分布式账本相关协议、规范和标准的发展。项目官方网站为 [hyperledger.org](https://www.hyperledger.org)。
 
-成立之初，项目就收到了众多开源技术贡献。IBM 贡献了 4 万多行已有的 [Open Blockchain](https://github.com/openblockchain) 代码，Digital Asset 贡献了企业和开发者相关资源，R3 贡献了新的金融交易架构，Intel 贡献了分布式账本相关的代码。  
+成立之初，项目就收到了众多开源技术贡献。IBM 贡献了 4 万多行已有的 [Open Blockchain](https://github.com/openblockchain) 代码，Digital Asset 贡献了企业和开发者相关资源，R3 贡献了新的金融交易架构，Intel 贡献了分布式账本相关的代码。
 
 作为一个联合项目（Collaborative Project），超级账本由面向不同目的和场景的子项目构成。目前活跃的顶级项目包括 Fabric、Sawtooth、Iroha、Besu、Indy、Aries、Cello、Caliper、Firefly 等，所有项目都遵守 Apache v2 许可，并约定共同遵守如下的 [基本原则](https://github.com/hyperledger/hyperledger)：
 

@@ -65,7 +65,7 @@ An optional company name []:
 如生成的 csr 文件内容可能为：
 
 ```bash
-$ cat for_request.csr                                                                                                                                       
+$ cat for_request.csr
 -----BEGIN CERTIFICATE REQUEST-----
 MIIBrzCCARgCAQAwbzELMAkGA1UEBhMCQ04xEDAOBgNVBAgTB0JlaWppbmcxEDAO
 BgNVBAcTB0JlaWppbmcxEzARBgNVBAoTCkJsb2NrY2hhaW4xDDAKBgNVBAsTA0Rl

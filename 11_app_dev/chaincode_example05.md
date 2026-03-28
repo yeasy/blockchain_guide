@@ -47,7 +47,7 @@
 - `getHomeByAddress` 通过地址获取用户 query
 - `changeStatus` 某一位用户修改自身的状态  invoke
 
-- `writeUser` 将新用户写入到键值对中  
+- `writeUser` 将新用户写入到键值对中
 - `writeTransaction` 记录交易
 
 #### 接口设计
@@ -56,7 +56,7 @@
 
 request参数:
 ```text
-args[0] 剩余能量值 
+args[0] 剩余能量值
 args[1] 剩余金额
 ```
 response参数:
