@@ -18,7 +18,7 @@ Remix 是官方提供的浏览器 IDE，无需任何安装，立即可用。
 **创建第一个合约**：
 
 1. 打开 Remix IDE
-2. 在左侧文件面板中，点击 "+" 创建新文件
+2. 在左侧文件面板中，点击 “+” 创建新文件
 3. 命名为 `HelloWorld.sol`
 4. 输入以下代码：
 
@@ -39,10 +39,10 @@ contract HelloWorld {
 }
 ```
 
-5. 点击左侧 "Solidity Compiler" 图标（看起来像一个积木）
+5. 点击左侧 “Solidity Compiler” 图标（看起来像一个积木）
 6. 选择编译器版本 `0.8.0` 或以上
-7. 点击 "Compile HelloWorld.sol"
-8. 如果没有错误，你应该看到绿色的 "Compile" 按钮
+7. 点击 “Compile HelloWorld.sol”
+8. 如果没有错误，你应该看到绿色的 “Compile” 按钮
 
 #### 0.2 Hardhat 本地开发环境搭建
 

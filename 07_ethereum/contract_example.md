@@ -8,8 +8,8 @@
 
 实现上述功能的合约代码如下所示，并不复杂，语法跟 JavaScript 十分类似。
 
-```js
-pragma solidity ^0.4.11;
+```solidity
+pragma solidity ^0.8.0;
 
 contract Ballot {
     struct Voter {
@@ -29,7 +29,7 @@ contract Ballot {
     Proposal[] public proposals;
 
     // Create a new ballot to choose one of `proposalNames`
-    function Ballot(bytes32[] proposalNames) {
+    constructor(bytes32[] memory proposalNames) {
         chairperson = msg.sender;
         voters[chairperson].weight = 1;
 
@@ -43,14 +43,14 @@ contract Ballot {
 
     // Give `voter` the right to vote on this ballot.
     // May only be called by `chairperson`.
-    function giveRightToVote(address voter) {
+    function giveRightToVote(address voter) public {
         require((msg.sender == chairperson) && !voters[voter].voted);
         voters[voter].weight = 1;
     }
 
     // Delegate your vote to the voter `to`.
-    function delegate(address to) {
-        Voter sender = voters[msg.sender];
+    function delegate(address to) public {
+        Voter storage sender = voters[msg.sender];
         require(!sender.voted);
         require(to != msg.sender);
 
@@ -63,18 +63,18 @@ contract Ballot {
 
         sender.voted = true;
         sender.delegate = to;
-        Voter delegate = voters[to];
-        if (delegate.voted) {
-            proposals[delegate.vote].voteCount += sender.weight;
+        Voter storage delegate_ = voters[to];
+        if (delegate_.voted) {
+            proposals[delegate_.vote].voteCount += sender.weight;
         } else {
-            delegate.weight += sender.weight;
+            delegate_.weight += sender.weight;
         }
     }
 
     // Give your vote (including votes delegated to you)
     // to proposal `proposals[proposal].name`.
-    function vote(uint proposal) {
-        Voter sender = voters[msg.sender];
+    function vote(uint proposal) public {
+        Voter storage sender = voters[msg.sender];
         require(!sender.voted);
         sender.voted = true;
         sender.vote = proposal;
@@ -84,7 +84,7 @@ contract Ballot {
 
     // @dev Computes the winning proposal taking all
     // previous votes into account.
-    function winningProposal() constant
+    function winningProposal() public view
             returns (uint winningProposal)
     {
         uint winningVoteCount = 0;
@@ -99,7 +99,7 @@ contract Ballot {
     // Calls winningProposal() function to get the index
     // of the winner contained in the proposals array and then
     // returns the name of the winner
-    function winnerName() constant
+    function winnerName() public view
             returns (bytes32 winnerName)
     {
         winnerName = proposals[winningProposal()].name;
@@ -114,10 +114,10 @@ contract Ballot {
 在第一行，`pragma` 关键字指定了和该合约兼容的编译器版本。
 
 ```solidity
-pragma solidity ^0.4.11;
+pragma solidity ^0.8.0;
 ```
 
-该合约指定，不兼容比 `0.4.11` 更旧的编译器版本，且 `^` 符号表示也不兼容从 `0.5.0` 起的新编译器版本。即兼容版本范围是 `0.4.11 <= version < 0.5.0`。该语法与 npm 的版本描述语法一致。
+该合约指定，不兼容比 `0.8.0` 更旧的编译器版本，且 `^` 符号表示也不兼容从 `0.9.0` 起的新编译器版本。即兼容版本范围是 `0.8.0 <= version < 0.9.0`。该语法与 npm 的版本描述语法一致。
 
 #### 结构体类型
 
@@ -154,7 +154,7 @@ Solidity 中的合约（contract）类似面向对象编程语言中的类。每
 
 ##### 创建投票
 
-函数 `function Ballot(bytes32[] proposalNames)` 用于创建一个新的投票。
+函数 `constructor(bytes32[] memory proposalNames)` 用于创建一个新的投票。
 
 所有提案的名称通过参数 `bytes32[] proposalNames` 传入，逐个记录到状态变量 `proposals` 中。同时用 `msg.sender` 获取当前调用消息的发送者的地址，记录为投票发起人 `chairperson`，该发起人投票权重设为 1。
 
@@ -182,14 +182,14 @@ Solidity 中的合约（contract）类似面向对象编程语言中的类。每
 
 ##### 查询获胜提案
 
-函数 `function winningProposal() constant returns (uint winningProposal)` 将返回获胜提案的索引号。
+函数 `function winningProposal() public view returns (uint winningProposal)` 将返回获胜提案的索引号。
 
-这里，`returns (uint winningProposal)` 指定了函数的返回值类型，`constant` 表示该函数不会改变合约状态变量的值。
+这里，`returns (uint winningProposal)` 指定了函数的返回值类型，`view` 表示该函数不会改变合约状态变量的值。
 
 函数通过遍历所有提案进行记票，得到获胜提案。
 
 ##### 查询获胜者名称
 
-函数 `function winnerName() constant returns (bytes32 winnerName)` 实现返回获胜者的名称。
+函数 `function winnerName() public view returns (bytes32 winnerName)` 实现返回获胜者的名称。
 
 这里采用内部调用 `winningProposal()` 函数的方式获得获胜提案。如果需要采用外部调用，则需要写为 `this.winningProposal()`。

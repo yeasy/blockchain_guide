@@ -120,7 +120,7 @@ $ make checks
 
 #### 执行单元测试
 
-执行如下命令： 
+执行如下命令：
 
 ```sh
 $ make unit-test
@@ -159,8 +159,8 @@ $ git commit -a -s
 
 This pathset fixes a duplication msg bug in gossip protocol.
 
-A more detailed description can be here, with several paragraphs and 
-sentences, including issue to fix, why to fix, what is done in the 
+A more detailed description can be here, with several paragraphs and
+sentences, including issue to fix, why to fix, what is done in the
 patchset and potential remaining issues...
 ```
 
