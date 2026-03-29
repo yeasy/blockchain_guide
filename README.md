@@ -61,7 +61,7 @@ mdpress serve
 
 本书提供 PDF 版本供离线阅读，可前往 [GitHub Releases](https://github.com/yeasy/blockchain_guide/releases/latest) 页面下载最新版本。
 
-如需获取默认分支自动更新的预览版，可直接下载 [latest preview PDF](https://github.com/yeasy/blockchain_guide/releases/download/preview-pdf/latest.pdf)。该文件会随主线更新覆盖，不代表正式发布版本。
+如需获取默认分支自动更新的预览版，可直接下载 [blockchain_guide.pdf](https://github.com/yeasy/blockchain_guide/releases/download/preview-pdf/blockchain_guide.pdf)。该文件会随主线更新覆盖，不代表正式发布版本。
 
 ## 进阶学习
 
