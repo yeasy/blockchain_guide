@@ -10,7 +10,6 @@
 
 以太坊项目的官网网站为 [ethereum.org](https://ethereum.org)，代码托管在 [github.com/ethereum](https://github.com/ethereum)。
 
-
 ### 以太坊项目简史
 
 相对比特币网络自 2009 年上线的历史，以太坊项目要年轻的多。

@@ -39,7 +39,6 @@ ApplicationV2_0 |v2.0.0 | 应用 | 新的链码生命周期管理
 ApplicationV2_0 |v2.0.0 | 应用 | 支持 FabToken
 ApplicationV2_0 |v2.0.0 | 应用 | 支持链码操作
 
-
 ### 推荐升级步骤
 
 #### 升级排序服务
