@@ -18,7 +18,6 @@
 * [Ethereum 社区](https://ethereum.org): 围绕以太坊区块链平台的开放社区。
 * [DAO](https://ethereum.org/dao/)： Distributed Autonomous Organization，基于以太坊平台的公募基金(众筹)组织，或去中心化的风投。众筹资金超过 1.6 亿美金。
 
-
 ### 国内
 
 #### 学术界

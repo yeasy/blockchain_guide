@@ -4,6 +4,5 @@
 
 从应用角度讲，以比特币为代表的加密货币只是基于区块链技术的一种金融应用。区块链技术还能带来更通用的计算能力和更广泛的商业价值。本书后续章节将具体介绍区块链的核心技术，以及代表性的开源项目，包括 [以太坊](https://www.ethereum.org/)和[超级账本](https://hyperledger.org) 等。这些开源项目加速释放了区块链技术的威力，为更多更复杂的应用场景提供了技术支持。
 
-
 ---
 > 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/blockchain_guide/issues) 或 [PR](https://github.com/yeasy/blockchain_guide/pulls)。

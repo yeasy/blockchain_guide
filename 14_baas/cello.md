@@ -44,7 +44,6 @@ Cello 代码的官方仓库在 Github 上，读者可以获取代码。例如通
 $ git clone https://github.com/hyperledger-cello/cello.git && cd cello
 ```
 
-
 ### 配置 Worker 节点
 
 #### 安装和配置 Docker 服务
@@ -70,7 +69,6 @@ ExecStart=/usr/bin/dockerd -H fd:// $DOCKER_OPTS
 $ sudo systemctl daemon-reload
 $ sudo systemctl restart docker.service
 ```
-
 
 #### 下载 Docker 镜像
 
