@@ -1,9 +1,0 @@
-{
-  "name": "blockchain_guide",
-  "private": true,
-  "scripts": {
-    "build": "rm -rf _site _site_site && mdpress build --format site --output _site && rm -rf _site && mv _site_site _site",
-    "serve": "mdpress serve",
-    "pdf": "mdpress build --format pdf"
-  }
-}
