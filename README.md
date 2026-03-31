@@ -83,8 +83,8 @@ mdpress serve
 
 | 书名 | 与本书的关系 |
 |------|------------|
-| [《大模型安全权威指南》](https://github.com/yeasy/ai_security_guide) | 区块链与 AI 安全的交叉领域 |
-| [《Docker — 从入门到实践》](https://github.com/yeasy/docker_practice) | 区块链节点的容器化部署基础 |
+| [《Docker 从入门到实践》](https://yeasy.gitbook.io/docker_practice) | 区块链节点的容器化部署与运维实践 |
+| [《大模型安全权威指南》](https://yeasy.gitbook.io/ai_security_guide) | 密码学、安全攻防与区块链安全共通 |
 
 ## 参与贡献
 
