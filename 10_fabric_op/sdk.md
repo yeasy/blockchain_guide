@@ -1,8 +1,8 @@
 ## SDK 支持
 
-除了基于命令行的客户端之外，超级账本 Fabric 提供了多种语言的 SDK，包括 Node.Js、Python、Java、Go 等。它们封装了 Fabric 网络中节点提供的 gRPC 服务接口，可以实现更方便的调用。
+除了基于命令行的客户端之外，超级账本 Fabric 历史上还提供过多种语言的 SDK，包括 Node.js、Python、Java、Go 等。但对新项目来说，更重要的是区分**历史 SDK**与**当前推荐路径**。
 
-这些客户端 SDK 允许用户和应用跟 Fabric 网络进行交互，还可以实现更为复杂的操作，实现包括节点的启停、通道的创建和加入、链码的生命周期管理等操作。SDK 项目目前已经初步成熟，更多特性仍在开发中，感兴趣的读者可以通过如下途径获取到 SDK 的源码并进行尝试。
+这些客户端能力允许用户和应用跟 Fabric 网络进行交互，但现代应用开发的推荐主路径已经转向 **Fabric Gateway**。因此，本节后半部分提到的传统 SDK 应更多理解为**历史项目或兼容性参考**，而不是新项目的默认选型。
 
 **特别说明**：自 Fabric v2.4+ 起，Fabric Gateway 成为推荐的应用开发方式，它提供了更简洁的 API，简化了交易构造和背书收集的过程。建议新项目优先使用 Fabric Gateway API 而非传统的 SDK 接口。
 
@@ -67,30 +67,30 @@ func main() {
 
 相比传统 SDK，Fabric Gateway 的优势在于：客户端逻辑大幅简化（无需手动管理背书策略和节点发现）、自动重试机制、更好的错误处理，以及显著减少的网络往返次数。
 
-### 基于 Node.Js 实现的 SDK
+### 历史 Node.js SDK（兼容性参考）
 
-作为早期创建的 SDK 项目之一，Node.Js 实现的 SDK 目前已经支持了对 Fabric 链码的主要操作，包括安装链码、实例化并进行调用等，以及访问 Fabric CA 服务。内带了不少操作的例子可供参考。
+作为早期创建的 SDK 项目之一，Node.js SDK 曾支持对 Fabric 链码的主要操作以及访问 Fabric CA 服务。但在现代 Fabric 版本中，它更适合作为历史参考；新开发建议优先选择 Fabric Gateway。
 
 源码仓库地址在 github.com/hyperledger/fabric-sdk-node。
 
 源码的 test/integration/e2e 目录下包括了大量应用的示例代码，可供参考。
 
-### 基于 Python 实现的 SDK
+### 历史 Python SDK（历史项目）
 
-早期创建的 SDK 项目之一。Python 实现的 SDK 目前已经完成了对 Fabric 链码的主要操作，包括安装链码、实例化并进行调用等，以及使用 Fabric CA 的基础功能。
+Python 实现的 SDK 是早期项目，当前更多适合作为历史资料参考；如果是新的生产项目，不应把它当作官方推荐主线。
 
 源码仓库地址在 github.com/hyperledger/fabric-sdk-py。
 
 源码的 test/integration 目录下包括了大量应用的示例代码，可供参考。
 
-### 基于 Java 实现的 SDK
+### 历史 Java SDK（兼容性参考）
 
-属于较新的 SDK 项目。Java SDK 目前支持对 Fabric 中链码的主要操作，以及访问 Fabric CA 服务。
+Java SDK 曾支持对 Fabric 中链码的主要操作以及访问 Fabric CA 服务，但现代 Java 应用开发同样更推荐 Fabric Gateway。
 
 源码仓库地址在 github.com/hyperledger/fabric-sdk-java。
 
-### 基于 Go 实现的 SDK
+### 历史 Go SDK（已被 Gateway 路线取代）
 
-属于较新的 SDK 项目。Go SDK 提取了原先 Fabric 中的相关代码，目前支持对 Fabric 中链码的主要操作。将来，Fabric 中的命令行客户端将可能基于该 SDK 重新实现。
+Go SDK 也属于较早期的客户端路线。对新项目而言，更稳妥的建议仍然是优先使用 Fabric Gateway，而不是把传统 Go SDK 视为首选方案。
 
 源码仓库地址在 github.com/hyperledger/fabric-sdk-go。
