@@ -49,7 +49,7 @@ ApplicationV2_0 |v2.0.0 | 应用 | 支持链码操作
 
 升级排序服务程序。重新启动并检查是否工作正常，如获取区块、发送交易等。
 
-*注：自 Fabric v2.3 起，Kafka 排序服务已被正式废弃。如需从 Kafka 迁移到 Raft，建议参考官方文档中的迁移指南，基本流程是：先在系统通道上添加 Raft consenter、更新共识类型配置、最后移除 Kafka 节点。对于新部署的网络，v2.x 应使用 Raft 排序服务，v3.0+ 应优先使用 BFT（拜占庭容错）排序服务以获得更高的安全性和容错能力。*
+*注：自 Fabric v2.3 起，Kafka 排序服务已被正式废弃；升级到 v3.x 之前，应先完成从 Kafka 到 Raft 的迁移。对于新部署网络，当前更稳妥的默认建议仍是优先使用 **Raft**；BFT 更适合在确有拜占庭容错需求时专项评估，而不应简单视为 v3.0+ 的默认首选。*
 
 #### 升级 Peer 节点
 
@@ -79,12 +79,8 @@ $ fabric-ca-client getcacert -u https://<fabric-ca-server>:7054 --tls.certfiles 
 
 #### 升级第三方组件
 
-包括 CouchDB、Kafka 等第三方组件，升级之前最好备份数据文件。
+包括 CouchDB 等第三方组件，升级之前最好备份数据文件。
 
 CouchDB 版本自 1.x 版本可以很容易升级到高版本，具体操作可以参考项目文档：https://docs.couchdb.org/en/stable/install/upgrading.html。
 
-如果仍然使用 Kafka 模式的排序服务，则还可以升级 Kafka。
-
-Kafka 自 0.10.0.x 版本开始保持了较好的兼容性，可以较为容易升级到更高版本。之前版本也可执行滚动升级，可参考项目文档：https://kafka.apache.org/documentation.html#upgrade。
-
-Kafka 版本更新后需要更新 orderer.yaml 中的 Kafka.Version 域并重启 Orderer。
+如果网络仍停留在 Kafka 排序服务上，更稳妥的做法不是继续升级 Kafka，而是尽快按照官方迁移文档转向 Raft，再继续进行 Fabric 主版本升级。

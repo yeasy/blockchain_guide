@@ -2,10 +2,9 @@
 
 Azure 是微软推出的云计算平台，向用户提供开放的 IaaS 和 PaaS 服务。
 
-微软曾提供 Azure Blockchain Service，但该服务已于 2021 年 9 月 10 日正式停止支持和停用（Retired）。目前，微软推荐用户使用基于 Azure 的 Quorum Blockchain Service (QBS) 或直接在虚拟机/容器服务上自行部署区块链网络。本文档中的 Azure Blockchain Service 相关内容仅供历史参考。
+微软曾提供 Azure Blockchain Service，但该服务已于 2021 年 9 月 10 日正式停止支持和停用（Retired）。后续的 Quorum Blockchain Service（QBS）也已结束历史阶段，不应再视为当前可选的主流托管路径。本文档中的 Azure Blockchain Service 相关内容仅供历史参考；对今天的用户来说，更现实的方案是直接在 Azure 的虚拟机、AKS 或其他通用基础设施上自行部署区块链网络。
 
 用户可以在 Azure 应用市场（https://azuremarketplace.microsoft.com/en-us/marketplace/apps）中搜索 “blockchain” 关键字查看最新的区块链解决方案，包括：
-*   **Quorum Blockchain Service (QBS)**：由 ConsenSys 管理的完全托管服务；
 *   **Hyperledger Fabric on Azure Kubernetes Service (AKS)**：提供在 AKS 上部署 Fabric 网络的模板；
 *   **Avalanche 验证节点** 等。
 
