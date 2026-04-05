@@ -110,6 +110,12 @@ mdpress serve
 * QQ 群  II：523889325（已满）
 * QQ 群   I：335626996（已满）
 
+## 许可证
+
+本书采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可证。
+
+您可以自由分享和演绎，但需署名、非商业使用、相同方式共享。
+
 ## Star History
 
 <p align="center">
