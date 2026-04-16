@@ -36,7 +36,7 @@ geth version
 
 # 输出示例：
 # Geth
-# Version: 1.13.x-stable
+# Version: 1.17.x-stable
 # ...
 ```
 
