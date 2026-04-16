@@ -13,3 +13,5 @@ book.pdf
 .obsidian/*
 .DS_Store
 *.sublime-*
+
+.agent/
