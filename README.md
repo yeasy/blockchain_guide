@@ -1,14 +1,35 @@
+<div align="center">
+
 # 区块链技术指南
 
-[![Release](https://img.shields.io/github/release/yeasy/blockchain_guide.svg)](https://github.com/yeasy/blockchain_guide/releases) [![PDF](https://img.shields.io/badge/PDF-下载-orange)](https://github.com/yeasy/blockchain_guide/releases/latest)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![GitHub stars](https://img.shields.io/github/stars/yeasy/blockchain_guide?style=social)](https://github.com/yeasy/blockchain_guide)
+[![Release](https://img.shields.io/github/release/yeasy/blockchain_guide.svg)](https://github.com/yeasy/blockchain_guide/releases)
+[![Online Reading](https://img.shields.io/badge/在线阅读-GitBook-brightgreen)](https://yeasy.gitbook.io/blockchain_guide)
+[![PDF](https://img.shields.io/badge/PDF-下载-orange)](https://github.com/yeasy/blockchain_guide/releases/latest)
 
-区块链是金融科技（Fintech）领域的一项基础性的创新。
+> 从原理到实践，系统掌握区块链核心技术与企业级应用
 
-作为新一代分布式记账（Distributed Ledger Technology，DLT）系统的核心技术，区块链被认为在金融、物联网、商业贸易、征信、资产管理等众多领域都拥有广泛的应用前景。
+<img src="cover.jpg" width="300" alt="区块链技术指南封面">
+
+</div>
+
+---
+
+## 关于本书
+
+区块链是金融科技（Fintech）领域的一项基础性的创新。作为新一代分布式记账（Distributed Ledger Technology，DLT）系统的核心技术，区块链被认为在金融、物联网、商业贸易、征信、资产管理等众多领域都拥有广泛的应用前景。
 
 区块链技术涉及分布式系统、密码学、博弈论、网络协议等诸多学科知识，为学习和实践都带来了不小的挑战。
 
 本书希望能客观探索区块链概念的来龙去脉，剖析关键技术和原理，同时以全球最大的开源分布式账本项目——超级账本为例讲解具体应用。在开发超级账本项目，以及为企业设计方案过程中，笔者积累了一些实践经验，也通过本书分享出来，希望能有助于分布式账本科技的发展和应用。
+
+## 目标读者
+
+- **区块链入门者**：对区块链技术充满好奇，希望系统了解其原理和应用
+- **以太坊开发者**：希望掌握智能合约开发与 DeFi 生态
+- **企业级应用者**：需要设计和部署超级账本解决方案的技术人员
+- **架构师**：需要设计高可用、高性能区块链系统的资深工程师
 
 ## 五分钟快速上手
 
@@ -85,6 +106,8 @@ mdpress serve
 |------|------------|
 | [《Docker 从入门到实践》](https://yeasy.gitbook.io/docker_practice) | 区块链节点的容器化部署与运维实践 |
 | [《大模型安全权威指南》](https://yeasy.gitbook.io/ai_security_guide) | 密码学、安全攻防与区块链安全共通 |
+| [《智能体 AI 权威指南》](https://yeasy.gitbook.io/agentic_ai_guide) | AI 智能体与区块链结合的前沿探索 |
+| [《零基础学 AI》](https://yeasy.gitbook.io/ai_beginner_guide) | AI 基础入门，理解 AI + Web3 融合趋势 |
 
 ## 参与贡献
 
