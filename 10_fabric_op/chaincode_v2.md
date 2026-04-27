@@ -1,12 +1,12 @@
 ## 管理链上代码（Lifecycle）
 
-从 Fabric 2.0 开始，引入了全新的链码生命周期管理机制（Chaincode Lifecycle），旨在支持更去中心化的治理模式。与 1.x 版本中“一旦实例化全网生效”的模式不同，新生命周期要求组织间达成共识才能启动链码。
+从 Fabric 2.0 开始，引入了全新的链码生命周期管理机制（Chaincode Lifecycle），旨在支持更去中心化的治理模式。与 1.x 版本中“一旦实例化全网生效”的旧 LSCC 生命周期不同，新生命周期要求组织间达成共识才能启动链码。
 
-本章将详细介绍如何使用 `peer lifecycle chaincode` 命令族来管理 Fabric 2.x/3.0 网络的链码。
+本章将详细介绍如何使用 `peer lifecycle chaincode` 命令族来管理 Fabric 2.5 LTS 和 Fabric 3.x 网络的链码。旧的 `peer chaincode install/instantiate/upgrade/list` 仅作为历史网络和迁移背景理解，不应用于启用 `V2_0` 应用能力的通道。
 
 ## 链码生命周期概览
 
-在 Fabric 2.x/3.0 中，部署一个链码需要经历以下四个核心步骤：
+在 Fabric 2.5 LTS 和 Fabric 3.x 中，部署一个链码需要经历以下四个核心步骤：
 
 1.  **打包 (Package)**: 将链码源码和元数据打包成 `.tar.gz` 文件。
 2.  **安装 (Install)**: 将链码包安装到 **每个** 需要运行该链码的 Peer 节点上。

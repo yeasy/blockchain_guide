@@ -1,722 +1,434 @@
-/*
-	author:swb
-	time:16/7/05
-	MIT License
-*/
-
 package main
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"strconv"
-	"time"
 
-	"github.com/hyperledger/fabric/core/chaincode/shim"
+	"github.com/hyperledger/fabric-contract-api-go/v2/contractapi"
 )
 
-var bankNo int = 0
-var cpNo int = 0
-var transactionNo int = 0
+const (
+	centerBankKey      = "centerBank"
+	bankCounterKey     = "counter:bank"
+	companyCounterKey  = "counter:company"
+	transferCounterKey = "counter:transaction"
+)
 
-// SimpleChaincode example simple Chaincode implementation
-type SimpleChaincode struct {
+// SmartContract models a small central-bank digital currency ledger.
+type SmartContract struct {
+	contractapi.Contract
 }
 
 type CenterBank struct {
-	Name        string
-	TotalNumber int
-	RestNumber  int
+	Name        string `json:"name"`
+	TotalNumber int    `json:"totalNumber"`
+	RestNumber  int    `json:"restNumber"`
 }
 
 type Bank struct {
-	Name        string
-	TotalNumber int
-	RestNumber  int
-	ID          int
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	TotalNumber int    `json:"totalNumber"`
+	RestNumber  int    `json:"restNumber"`
 }
 
 type Company struct {
-	Name   string
-	Number int
-	ID     int
+	ID     int    `json:"id"`
+	Name   string `json:"name"`
+	Number int    `json:"number"`
 }
 
 type Transaction struct {
-	FromType int //CenterBank 0 Bank 1  Company 1
-	FromID   int
-	ToType   int //Bank 1 Company 2
-	ToID     int
-	Time     int64
-	Number   int
-	ID       int
+	ID       int   `json:"id"`
+	FromType int   `json:"fromType"`
+	FromID   int   `json:"fromId"`
+	ToType   int   `json:"toType"`
+	ToID     int   `json:"toId"`
+	Time     int64 `json:"time"`
+	Number   int   `json:"number"`
+}
+
+// InitLedger creates the central bank and its initial issued balance.
+func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface, name string, total string) (*CenterBank, error) {
+	amount, err := parsePositiveAmount(total)
+	if err != nil {
+		return nil, err
+	}
+
+	centerBank := &CenterBank{Name: name, TotalNumber: amount, RestNumber: amount}
+	if err := putJSON(ctx, centerBankKey, centerBank); err != nil {
+		return nil, err
+	}
+	return centerBank, nil
+}
+
+// CreateBank registers a commercial bank.
+func (s *SmartContract) CreateBank(ctx contractapi.TransactionContextInterface, name string) (*Bank, error) {
+	id, err := nextID(ctx, bankCounterKey)
+	if err != nil {
+		return nil, err
+	}
+	bank := &Bank{ID: id, Name: name}
+	if err := putJSON(ctx, bankKey(id), bank); err != nil {
+		return nil, err
+	}
+	return bank, nil
+}
+
+// CreateCompany registers a company.
+func (s *SmartContract) CreateCompany(ctx contractapi.TransactionContextInterface, name string) (*Company, error) {
+	id, err := nextID(ctx, companyCounterKey)
+	if err != nil {
+		return nil, err
+	}
+	company := &Company{ID: id, Name: name}
+	if err := putJSON(ctx, companyKey(id), company); err != nil {
+		return nil, err
+	}
+	return company, nil
+}
+
+// IssueCoin increases the central-bank supply.
+func (s *SmartContract) IssueCoin(ctx contractapi.TransactionContextInterface, amount string) (*Transaction, error) {
+	value, err := parsePositiveAmount(amount)
+	if err != nil {
+		return nil, err
+	}
+
+	centerBank, err := readCenterBank(ctx)
+	if err != nil {
+		return nil, err
+	}
+	centerBank.TotalNumber += value
+	centerBank.RestNumber += value
+	if err := putJSON(ctx, centerBankKey, centerBank); err != nil {
+		return nil, err
+	}
+	return recordTransaction(ctx, 0, 0, 0, 0, value)
+}
+
+// IssueCoinToBank transfers issued currency from the central bank to a commercial bank.
+func (s *SmartContract) IssueCoinToBank(ctx contractapi.TransactionContextInterface, bankID string, amount string) (*Transaction, error) {
+	id, value, err := parseIDAndAmount(bankID, amount)
+	if err != nil {
+		return nil, err
+	}
+
+	centerBank, err := readCenterBank(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if centerBank.RestNumber < value {
+		return nil, fmt.Errorf("central bank balance is insufficient")
+	}
+	bank, err := readBank(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+
+	centerBank.RestNumber -= value
+	bank.TotalNumber += value
+	bank.RestNumber += value
+
+	if err := putJSON(ctx, centerBankKey, centerBank); err != nil {
+		return nil, err
+	}
+	if err := putJSON(ctx, bankKey(id), bank); err != nil {
+		return nil, err
+	}
+	return recordTransaction(ctx, 0, 0, 1, id, value)
+}
+
+// IssueCoinToCompany transfers currency from a bank to a company.
+func (s *SmartContract) IssueCoinToCompany(ctx contractapi.TransactionContextInterface, bankID string, companyID string, amount string) (*Transaction, error) {
+	fromID, err := strconv.Atoi(bankID)
+	if err != nil {
+		return nil, fmt.Errorf("bank id must be an integer: %w", err)
+	}
+	toID, value, err := parseIDAndAmount(companyID, amount)
+	if err != nil {
+		return nil, err
+	}
+
+	bank, err := readBank(ctx, fromID)
+	if err != nil {
+		return nil, err
+	}
+	if bank.RestNumber < value {
+		return nil, fmt.Errorf("bank %d balance is insufficient", fromID)
+	}
+	company, err := readCompany(ctx, toID)
+	if err != nil {
+		return nil, err
+	}
+
+	bank.RestNumber -= value
+	company.Number += value
+
+	if err := putJSON(ctx, bankKey(fromID), bank); err != nil {
+		return nil, err
+	}
+	if err := putJSON(ctx, companyKey(toID), company); err != nil {
+		return nil, err
+	}
+	return recordTransaction(ctx, 1, fromID, 2, toID, value)
+}
+
+// Transfer moves currency between companies.
+func (s *SmartContract) Transfer(ctx contractapi.TransactionContextInterface, fromCompanyID string, toCompanyID string, amount string) (*Transaction, error) {
+	fromID, err := strconv.Atoi(fromCompanyID)
+	if err != nil {
+		return nil, fmt.Errorf("from company id must be an integer: %w", err)
+	}
+	toID, value, err := parseIDAndAmount(toCompanyID, amount)
+	if err != nil {
+		return nil, err
+	}
+
+	from, err := readCompany(ctx, fromID)
+	if err != nil {
+		return nil, err
+	}
+	if from.Number < value {
+		return nil, fmt.Errorf("company %d balance is insufficient", fromID)
+	}
+	to, err := readCompany(ctx, toID)
+	if err != nil {
+		return nil, err
+	}
+
+	from.Number -= value
+	to.Number += value
+
+	if err := putJSON(ctx, companyKey(fromID), from); err != nil {
+		return nil, err
+	}
+	if err := putJSON(ctx, companyKey(toID), to); err != nil {
+		return nil, err
+	}
+	return recordTransaction(ctx, 2, fromID, 2, toID, value)
+}
+
+func (s *SmartContract) GetCenterBank(ctx contractapi.TransactionContextInterface) (*CenterBank, error) {
+	return readCenterBank(ctx)
+}
+
+func (s *SmartContract) GetBankByID(ctx contractapi.TransactionContextInterface, id string) (*Bank, error) {
+	bankID, err := strconv.Atoi(id)
+	if err != nil {
+		return nil, err
+	}
+	return readBank(ctx, bankID)
+}
+
+func (s *SmartContract) GetCompanyByID(ctx contractapi.TransactionContextInterface, id string) (*Company, error) {
+	companyID, err := strconv.Atoi(id)
+	if err != nil {
+		return nil, err
+	}
+	return readCompany(ctx, companyID)
+}
+
+func (s *SmartContract) GetTransactionByID(ctx contractapi.TransactionContextInterface, id string) (*Transaction, error) {
+	transactionID, err := strconv.Atoi(id)
+	if err != nil {
+		return nil, err
+	}
+	return readTransaction(ctx, transactionID)
+}
+
+func (s *SmartContract) GetBanks(ctx contractapi.TransactionContextInterface) ([]Bank, error) {
+	count, err := currentID(ctx, bankCounterKey)
+	if err != nil {
+		return nil, err
+	}
+	banks := make([]Bank, 0, count)
+	for id := 0; id < count; id++ {
+		bank, err := readBank(ctx, id)
+		if err != nil {
+			return nil, err
+		}
+		banks = append(banks, *bank)
+	}
+	return banks, nil
+}
+
+func (s *SmartContract) GetCompanies(ctx contractapi.TransactionContextInterface) ([]Company, error) {
+	count, err := currentID(ctx, companyCounterKey)
+	if err != nil {
+		return nil, err
+	}
+	companies := make([]Company, 0, count)
+	for id := 0; id < count; id++ {
+		company, err := readCompany(ctx, id)
+		if err != nil {
+			return nil, err
+		}
+		companies = append(companies, *company)
+	}
+	return companies, nil
+}
+
+// GetCompanys keeps the historical example name available.
+func (s *SmartContract) GetCompanys(ctx contractapi.TransactionContextInterface) ([]Company, error) {
+	return s.GetCompanies(ctx)
+}
+
+func (s *SmartContract) GetTransactions(ctx contractapi.TransactionContextInterface) ([]Transaction, error) {
+	count, err := currentID(ctx, transferCounterKey)
+	if err != nil {
+		return nil, err
+	}
+	transactions := make([]Transaction, 0, count)
+	for id := 0; id < count; id++ {
+		transaction, err := readTransaction(ctx, id)
+		if err != nil {
+			return nil, err
+		}
+		transactions = append(transactions, *transaction)
+	}
+	return transactions, nil
+}
+
+func parseIDAndAmount(id string, amount string) (int, int, error) {
+	parsedID, err := strconv.Atoi(id)
+	if err != nil {
+		return 0, 0, fmt.Errorf("id must be an integer: %w", err)
+	}
+	value, err := parsePositiveAmount(amount)
+	if err != nil {
+		return 0, 0, err
+	}
+	return parsedID, value, nil
+}
+
+func parsePositiveAmount(value string) (int, error) {
+	amount, err := strconv.Atoi(value)
+	if err != nil {
+		return 0, fmt.Errorf("amount must be an integer: %w", err)
+	}
+	if amount <= 0 {
+		return 0, fmt.Errorf("amount must be greater than zero")
+	}
+	return amount, nil
+}
+
+func recordTransaction(ctx contractapi.TransactionContextInterface, fromType int, fromID int, toType int, toID int, amount int) (*Transaction, error) {
+	id, err := nextID(ctx, transferCounterKey)
+	if err != nil {
+		return nil, err
+	}
+	timestamp, err := ctx.GetStub().GetTxTimestamp()
+	if err != nil {
+		return nil, fmt.Errorf("failed to read transaction timestamp: %w", err)
+	}
+
+	transaction := &Transaction{ID: id, FromType: fromType, FromID: fromID, ToType: toType, ToID: toID, Time: timestamp.Seconds, Number: amount}
+	if err := putJSON(ctx, transactionKey(id), transaction); err != nil {
+		return nil, err
+	}
+	return transaction, nil
+}
+
+func readCenterBank(ctx contractapi.TransactionContextInterface) (*CenterBank, error) {
+	var centerBank CenterBank
+	if err := readJSON(ctx, centerBankKey, &centerBank); err != nil {
+		return nil, err
+	}
+	return &centerBank, nil
+}
+
+func readBank(ctx contractapi.TransactionContextInterface, id int) (*Bank, error) {
+	var bank Bank
+	if err := readJSON(ctx, bankKey(id), &bank); err != nil {
+		return nil, err
+	}
+	return &bank, nil
+}
+
+func readCompany(ctx contractapi.TransactionContextInterface, id int) (*Company, error) {
+	var company Company
+	if err := readJSON(ctx, companyKey(id), &company); err != nil {
+		return nil, err
+	}
+	return &company, nil
+}
+
+func readTransaction(ctx contractapi.TransactionContextInterface, id int) (*Transaction, error) {
+	var transaction Transaction
+	if err := readJSON(ctx, transactionKey(id), &transaction); err != nil {
+		return nil, err
+	}
+	return &transaction, nil
+}
+
+func nextID(ctx contractapi.TransactionContextInterface, counterKey string) (int, error) {
+	id, err := currentID(ctx, counterKey)
+	if err != nil {
+		return 0, err
+	}
+	if err := ctx.GetStub().PutState(counterKey, []byte(strconv.Itoa(id+1))); err != nil {
+		return 0, fmt.Errorf("failed to update counter %s: %w", counterKey, err)
+	}
+	return id, nil
+}
+
+func currentID(ctx contractapi.TransactionContextInterface, counterKey string) (int, error) {
+	data, err := ctx.GetStub().GetState(counterKey)
+	if err != nil {
+		return 0, fmt.Errorf("failed to read counter %s: %w", counterKey, err)
+	}
+	if data == nil {
+		return 0, nil
+	}
+	return strconv.Atoi(string(data))
+}
+
+func readJSON(ctx contractapi.TransactionContextInterface, key string, target interface{}) error {
+	data, err := ctx.GetStub().GetState(key)
+	if err != nil {
+		return fmt.Errorf("failed to read %s: %w", key, err)
+	}
+	if data == nil {
+		return fmt.Errorf("state %s does not exist", key)
+	}
+	if err := json.Unmarshal(data, target); err != nil {
+		return fmt.Errorf("failed to decode %s: %w", key, err)
+	}
+	return nil
+}
+
+func putJSON(ctx contractapi.TransactionContextInterface, key string, value interface{}) error {
+	data, err := json.Marshal(value)
+	if err != nil {
+		return fmt.Errorf("failed to encode %s: %w", key, err)
+	}
+	if err := ctx.GetStub().PutState(key, data); err != nil {
+		return fmt.Errorf("failed to write %s: %w", key, err)
+	}
+	return nil
+}
+
+func bankKey(id int) string {
+	return fmt.Sprintf("bank:%d", id)
+}
+
+func companyKey(id int) string {
+	return fmt.Sprintf("company:%d", id)
+}
+
+func transactionKey(id int) string {
+	return fmt.Sprintf("transaction:%d", id)
 }
 
 func main() {
-	err := shim.Start(new(SimpleChaincode))
+	chaincode, err := contractapi.NewChaincode(&SmartContract{})
 	if err != nil {
-		fmt.Printf("Error starting Simple chaincode: %s", err)
+		fmt.Printf("Error creating chaincode: %s", err)
+		return
 	}
-}
-
-// Init resets all the things
-func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
-	if len(args) != 2 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 2")
+	if err := chaincode.Start(); err != nil {
+		fmt.Printf("Error starting chaincode: %s", err)
 	}
-	var totalNumber int
-	var centerBank CenterBank
-	var cbBytes []byte
-	totalNumber, err := strconv.Atoi(args[1])
-	if err != nil {
-		return nil, errors.New("Expecting integer value for asset holding")
-	}
-	centerBank = CenterBank{Name: args[0], TotalNumber: totalNumber, RestNumber: 0}
-	err = writeCenterBank(stub,centerBank)
-	if err != nil {
-		return nil, errors.New("write Error" + err.Error())
-	}
-
-	cbBytes,err = json.Marshal(&centerBank)
-	if err!= nil{
-		return nil,errors.New("Error retrieving cbBytes")
-	}
-	return cbBytes, nil
-}
-
-// Invoke isur entry point to invoke a chaincode function
-func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
-	if function == "createBank" {
-		return t.createBank(stub, args)
-	} else if function == "createCompany" {
-		return t.createCompany(stub, args)
-	} else if function == "issueCoin" {
-		return t.issueCoin(stub, args)
-	} else if function == "issueCoinToBank" {
-		return t.issueCoinToBank(stub, args)
-	} else if function == "issueCoinToCp" {
-		return t.issueCoinToCp(stub, args)
-	} else if function =="transfer"{
-		return t.transfer(stub,args)
-	}
-
-	return nil, errors.New("Received unknown function invocation")
-}
-
-func (t *SimpleChaincode) createBank(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
-	if len(args) != 1 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 1")
-	}
-	var bank Bank
-	var bankBytes []byte
-	var centerBank CenterBank
-
-	bank = Bank{Name:args[0],TotalNumber:0,RestNumber:0,ID:bankNo}
-
-	err := writeCenterBank(stub,centerBank)
-	if err != nil {
-		return nil, errors.New("write Error" + err.Error())
-	}
-
-	bankBytes,err = json.Marshal(&bank)
-	if err!= nil{
-		return nil,errors.New("Error retrieving cbBytes")
-	}
-
-	bankNo = bankNo +1
-	return bankBytes, nil
-}
-
-func (t *SimpleChaincode) createCompany(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
-	if len(args) != 1 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 1")
-	}
-	var company Company
-	company = Company{Name:args[0],Number:0,ID:cpNo}
-
-	err := writeCompany(stub,company)
-	if err != nil{
-		return nil, errors.New("write Error" + err.Error())
-	}
-
-	cpBytes,err := json.Marshal(&company)
-	if(err!=nil){
-		return nil,err
-	}
-
-	cpNo = cpNo +1
-	return cpBytes, nil
-}
-
-func (t *SimpleChaincode) issueCoin(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
-	if len(args) != 1 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 1")
-	}
-	var centerBank CenterBank
-	var tsBytes []byte
-
-	issueNumber ,err:= strconv.Atoi(args[0])
-	if err!=nil{
-		return nil,errors.New("want Integer number")
-	}
-	centerBank,_,err = getCenterBank(stub)
-	if err !=nil{
-		return nil,errors.New("get errors")
-	}
-
-	centerBank.TotalNumber = centerBank.TotalNumber + issueNumber
-	centerBank.RestNumber = centerBank.RestNumber + issueNumber
-
-	err = writeCenterBank(stub,centerBank)
-	if err != nil {
-		return nil, errors.New("write Error" + err.Error())
-	}
-
-	transaction := Transaction{FromType:0,FromID:0,ToType:0,ToID:0,Time:time.Now().Unix(),Number:issueNumber,ID:transactionNo}
-	err = writeTransaction(stub,transaction)
-	if err != nil {
-		return nil, errors.New("write Error" + err.Error())
-	}
-
-	tsBytes,err = json.Marshal(&transaction)
-	if err != nil {
-		fmt.Println("Error unmarshalling centerBank")
-	}
-
-	transactionNo = transactionNo +1
-	return tsBytes, nil
-}
-
-func (t *SimpleChaincode) issueCoinToBank(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
-	if len(args) != 2 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 2")
-	}
-
-	var centerBank CenterBank
-	var bank Bank
-	var bankId string
-	var issueNumber int
-	var tsBytes []byte
-	var err error
-	var bankIdInt int
-
-	bankId = args[0]
-	bankIdInt,err = strconv.Atoi(args[0])
-	if err!=nil{
-		return nil,errors.New("want Integer number")
-	}
-	issueNumber,err = strconv.Atoi(args[1])
-	if err!=nil{
-		return nil,errors.New("want Integer number")
-	}
-
-	centerBank,_,err = getCenterBank(stub)
-	if err !=nil{
-		return nil,errors.New("get errors")
-	}
-	if centerBank.RestNumber<issueNumber{
-		return nil,errors.New("Not enough money")
-	}
-
-	bank,_,err = getBankById(stub,bankId)
-	if err != nil {
-		return nil,errors.New("get errors")
-	}
-	bank.RestNumber = bank.RestNumber + issueNumber
-	bank.TotalNumber = bank.TotalNumber + issueNumber
-	centerBank.RestNumber = centerBank.RestNumber - issueNumber
-
-
-	err = writeCenterBank(stub,centerBank)
-	if err != nil {
-		bank.RestNumber = bank.RestNumber - issueNumber
-		bank.TotalNumber = bank.TotalNumber - issueNumber
-		centerBank.RestNumber = centerBank.RestNumber + issueNumber
-		return nil, errors.New("write errors"+err.Error())
-	}
-
-	err = writeBank(stub,bank)
-	if err != nil {
-		bank.RestNumber = bank.RestNumber - issueNumber
-		bank.TotalNumber = bank.TotalNumber - issueNumber
-		centerBank.RestNumber = centerBank.RestNumber + issueNumber
-		err = writeCenterBank(stub,centerBank)
-		if err != nil {
-			return nil, errors.New("roll down errors"+err.Error())
-		}
-		return nil, err
-	}
-
-	transaction := Transaction{FromType:0,FromID:0,ToType:1,ToID:bankIdInt,Time:time.Now().Unix(),Number:issueNumber,ID:transactionNo}
-	err = writeTransaction(stub,transaction)
-	if err != nil {
-		return nil, errors.New("write Error" + err.Error())
-	}
-
-	tsBytes,err = json.Marshal(&transaction)
-	if err != nil {
-		fmt.Println("Error unmarshalling centerBank")
-	}
-
-	transactionNo = transactionNo +1
-	return tsBytes, nil
-}
-
-func (t *SimpleChaincode) issueCoinToCp(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
-	if len(args) != 3 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 3")
-	}
-
-	var company Company
-	var bank Bank
-	var bankId string
-	var bankIdInt int
-	var companyId string
-	var companyIdInt int
-	var issueNumber int
-	var tsBytes []byte
-	var err error
-
-	bankId = args[0]
-	bankIdInt,err = strconv.Atoi(args[0])
-	if err!=nil{
-		return nil,errors.New("want integer")
-	}
-	companyId = args[1]
-	companyIdInt,err = strconv.Atoi(args[1])
-	if err!=nil{
-		return nil,errors.New("want integer")
-	}
-	issueNumber,err= strconv.Atoi(args[2])
-	if err!=nil{
-		return nil,errors.New("want integer")
-	}
-
-	bank,_,err = getBankById(stub,bankId)
-	if err != nil {
-		return nil,errors.New("get errors")
-	}
-	if bank.RestNumber<issueNumber{
-		return nil,errors.New("Not enough money")	
-	}
-
-	company,_,err = getCompanyById(stub,companyId)
-	if err != nil {
-		return nil,errors.New("get errors")
-	}
-	bank.RestNumber = bank.RestNumber - issueNumber
-	company.Number = company.Number + issueNumber
-
-	err = writeBank(stub,bank)
-	if err != nil {
-		bank.RestNumber = bank.RestNumber + issueNumber
-		company.Number = company.Number - issueNumber
-		return nil, err
-	}
-
-	err = writeCompany(stub,company)
-	if err != nil {
-		bank.RestNumber = bank.RestNumber + issueNumber
-		company.Number = company.Number - issueNumber
-		err = writeBank(stub,bank)
-		if err != nil {
-			return nil, errors.New("roll down errors"+err.Error())
-		}
-		return nil, err
-	}
-
-	transaction := Transaction{FromType:1,FromID:bankIdInt,ToType:1,ToID:companyIdInt,Time:time.Now().Unix(),Number:issueNumber,ID:transactionNo}
-	err = writeTransaction(stub,transaction)
-	if err != nil {
-		return nil, errors.New("write Error" + err.Error())
-	}
-
-	tsBytes,err = json.Marshal(&transaction)
-	if err != nil {
-		fmt.Println("Error unmarshalling centerBank")
-	}
-
-	transactionNo = transactionNo +1
-	return tsBytes, nil
-}
-
-func (t *SimpleChaincode) transfer(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
-	if len(args) != 3 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 3")
-	}
-
-	var cpFrom Company
-	var cpTo Company
-	var cpFromId string
-	var cpFromIdInt int
-	var cpToId string
-	var cpToIdInt int
-	var issueNumber int
-	var tsBytes [] byte
-	var err error
-
-	cpFromId = args[0]
-	cpFromIdInt,err = strconv.Atoi(args[0])
-	if err!=nil{
-		return nil,errors.New("want integer")
-	}
-	cpToId = args[1]
-	cpToIdInt,err = strconv.Atoi(args[1])
-	if err!=nil{
-		return nil,errors.New("want integer")
-	}
-	issueNumber,err = strconv.Atoi(args[2])
-	if err != nil {
-		return nil, errors.New("Expecting integer value for asset holding")
-	}
-
-	cpFrom,_,err = getCompanyById(stub,cpFromId)
-	if err != nil {
-		return nil,errors.New("get errors")
-	}
-	if cpFrom.Number<issueNumber{
-		return nil,errors.New("Not enough money")	
-	}
-
-	cpTo,_,err = getCompanyById(stub,cpToId)
-	if err != nil {
-		return nil,errors.New("get errors")
-	}
-
-	cpFrom.Number = cpFrom.Number - issueNumber
-	cpTo.Number = cpTo.Number + issueNumber
-
-	err = writeCompany(stub,cpFrom)
-	if err != nil {
-		cpFrom.Number = cpFrom.Number - issueNumber
-		cpTo.Number = cpTo.Number + issueNumber
-		return nil, errors.New("write Error" + err.Error())
-	}
-
-	err = writeCompany(stub,cpTo)
-	if err != nil {
-		cpFrom.Number = cpFrom.Number - issueNumber
-		cpTo.Number = cpTo.Number + issueNumber
-		err = writeCompany(stub,cpFrom)
-		if err !=nil{
-			return nil,errors.New("roll down error")
-		}
-		return nil, errors.New("write Error" + err.Error())
-	}
-
-	transaction := Transaction{FromType:2,FromID:cpFromIdInt,ToType:2,ToID:cpToIdInt,Time:time.Now().Unix(),Number:issueNumber,ID:transactionNo}
-	err = writeTransaction(stub,transaction)
-	if err != nil {
-		return nil, errors.New("write Error" + err.Error())
-	}
-
-	tsBytes,err = json.Marshal(&transaction)
-	if err != nil {
-		fmt.Println("Error unmarshalling centerBank")
-	}
-
-	transactionNo = transactionNo +1
-	return tsBytes, nil
-}
-
-// Query is our entry point for queries
-func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
-	fmt.Println("query is running " + function)
-
-	if function == "getCenterBank" {
-		if len(args) != 0 {
-			return nil, errors.New("Incorrect number of arguments. Expecting 0")
-		}
-		_,cbBytes, err := getCenterBank(stub)
-		if err != nil {
-			fmt.Println("Error get centerBank")
-			return nil, err
-		}
-		return cbBytes, nil
-	} else if function == "getBankById" {
-		if len(args) != 1 {
-			return nil, errors.New("Incorrect number of arguments. Expecting 0")
-		}
-		_,bankBytes, err := getBankById(stub, args[0])
-		if err != nil {
-			fmt.Println("Error unmarshalling centerBank")
-			return nil, err
-		}
-		return bankBytes, nil
-	} else if function == "getCompanyById" {
-		if len(args) != 1 {
-			return nil, errors.New("Incorrect number of arguments. Expecting 0")
-		}
-		_,cpBytes, err := getCompanyById(stub, args[0])
-		if err != nil {
-			fmt.Println("Error unmarshalling centerBank")
-			return nil, err
-		}
-		return cpBytes, nil
-	} else if function == "getTransactionById" {
-		if len(args) != 1 {
-			return nil, errors.New("Incorrect number of arguments. Expecting 0")
-		}
-		_,tsBytes, err := getTransactionById(stub, args[0])
-		if err != nil {
-			fmt.Println("Error unmarshalling")
-			return nil, err
-		}
-		return tsBytes, nil
-	} else if function == "getBanks" {
-		if len(args) != 0 {
-			return nil, errors.New("Incorrect number of arguments. Expecting 0")
-		}
-		banks, err := getBanks(stub)
-		if err != nil {
-			fmt.Println("Error unmarshalling")
-			return nil, err
-		}
-		bankBytes, err1 := json.Marshal(&banks)
-		if err1 != nil {
-			fmt.Println("Error marshalling banks")
-		}	
-		return bankBytes, nil
-	} else if function == "getCompanys" {
-		if len(args) != 0 {
-			return nil, errors.New("Incorrect number of arguments. Expecting 0")
-		}
-		cps, err := getCompanys(stub)
-		if err != nil {
-			fmt.Println("Error unmarshalling")
-			return nil, err
-		}
-		cpBytes, err1 := json.Marshal(&cps)
-		if err1 != nil {
-			fmt.Println("Error marshalling banks")
-		}	
-		return cpBytes, nil
-	} else if function == "getTransactions" {
-		if len(args) != 0 {
-			return nil, errors.New("Incorrect number of arguments. Expecting 0")
-		}
-		tss, err := getTransactions(stub)
-		if err != nil {
-			fmt.Println("Error unmarshalling")
-			return nil, err
-		}
-		tsBytes, err1 := json.Marshal(&tss)
-		if err1 != nil {
-			fmt.Println("Error marshalling banks")
-		}	
-		return tsBytes, nil
-	}
-	return nil,nil
-}
-
-func getCenterBank(stub *shim.ChaincodeStub) (CenterBank, []byte,error) {
-	var centerBank CenterBank
-	cbBytes, err := stub.GetState("centerBank")
-	if err != nil {
-		fmt.Println("Error retrieving cbBytes")
-	}
-	err = json.Unmarshal(cbBytes, &centerBank)
-	if err != nil {
-		fmt.Println("Error unmarshalling centerBank")
-	}
-	return centerBank,cbBytes, nil
-}
-
-func getCompanyById(stub *shim.ChaincodeStub, id string) (Company,[]byte, error) {
-	var company Company
-	cpBytes,err := stub.GetState("company"+id)
-	if err != nil {
-		fmt.Println("Error retrieving cpBytes")
-	}
-	err = json.Unmarshal(cpBytes, &company)
-	if err != nil {
-		fmt.Println("Error unmarshalling centerBank")
-	}
-	return company,cpBytes, nil
-}
-
-func getBankById(stub *shim.ChaincodeStub, id string) (Bank, []byte,error) {
-	var bank Bank
-	cbBytes,err := stub.GetState("bank"+id)
-	if err != nil {
-		fmt.Println("Error retrieving cpBytes")
-	}
-	err = json.Unmarshal(cbBytes, &bank)
-	if err != nil {
-		fmt.Println("Error unmarshalling centerBank")
-	}
-	return bank,cbBytes, nil
-}
-
-func getTransactionById(stub *shim.ChaincodeStub, id string) (Transaction,[]byte, error) {
-	var transaction Transaction
-	tsBytes,err := stub.GetState("transaction"+id)
-	if err != nil {
-		fmt.Println("Error retrieving cpBytes")
-	}
-	err = json.Unmarshal(tsBytes, &transaction)
-	if err != nil {
-		fmt.Println("Error unmarshalling centerBank")
-	}
-	return transaction,tsBytes, nil
-}
-
-func getBanks(stub *shim.ChaincodeStub) ([]Bank, error) {
-	var banks []Bank
-	var number string 
-	var err error
-	var bank Bank
-	if bankNo<=10 {
-		i:=0
-		for i<bankNo {
-			number= strconv.Itoa(i)
-			bank,_, err = getBankById(stub, number)
-			if err != nil {
-				return nil, errors.New("Error get detail")
-			}
-			banks = append(banks,bank)
-			i = i+1
-		}
-	} else{
-		i:=0
-		for i<10{
-			number=strconv.Itoa(i)
-			bank,_, err = getBankById(stub, number)
-			if err != nil {
-				return nil, errors.New("Error get detail")
-			}
-			banks = append(banks,bank)
-			i = i+1
-		}
-		return banks, nil
-	}
-	return nil,nil
-}
-
-func getCompanys(stub *shim.ChaincodeStub) ([]Company, error) {
-	var companys []Company
-	var number string 
-	var err error
-	var company Company
-	if cpNo<=10 {
-		i:=0
-		for i<bankNo {
-			number=strconv.Itoa(i)
-			company,_ ,err = getCompanyById(stub,number)
-			if err != nil {
-				return nil, errors.New("Error get detail")
-			}
-			companys = append(companys,company)
-			i = i+1
-		}
-	} else{
-		i:=0
-		for i<10{
-			number=strconv.Itoa(i)
-			company,_ ,err = getCompanyById(stub,number)
-			if err != nil {
-				return nil, errors.New("Error get detail")
-			}
-			companys = append(companys,company)
-			i = i+1
-		}
-		return companys, nil
-	}
-	return nil,nil
-}
-
-func getTransactions(stub *shim.ChaincodeStub) ([]Transaction, error) {
-	var transactions []Transaction
-	var number string 
-	var err error
-	var transaction Transaction
-	if transactionNo<=10 {
-		i:=0
-		for i<transactionNo {
-			number=strconv.Itoa(i)
-			transaction,_ ,err = getTransactionById(stub,number)
-			if err != nil {
-				return nil, errors.New("Error get detail")
-			}
-			transactions = append(transactions,transaction)
-			i = i+1
-		}
-	} else{
-		i:=0
-		for i<10{
-			number=strconv.Itoa(i)
-			transaction,_ ,err = getTransactionById(stub,number)
-			if err != nil {
-				return nil, errors.New("Error get detail")
-			}
-			transactions = append(transactions,transaction)
-			i = i+1
-		}		
-		return transactions, nil
-	}
-	return nil,nil
-}
-
-func writeCenterBank(stub *shim.ChaincodeStub,centerBank CenterBank) (error) {
-	cbBytes, err := json.Marshal(&centerBank)
-	if err != nil {
-		return err
-	}
-	err = stub.PutState("centerBank", cbBytes)
-	if err != nil {
-		return errors.New("PutState Error" + err.Error())
-	}
-	return nil
-}
-
-func writeBank(stub *shim.ChaincodeStub,bank Bank) (error) {
-	var bankId string
-	bankBytes, err := json.Marshal(&bank)
-	if err != nil {
-		return err
-	}
-	bankId= strconv.Itoa(bank.ID)
-	if err!= nil{
-		return errors.New("want Integer number")
-	}
-	err = stub.PutState("bank"+bankId, bankBytes)
-	if err != nil {
-		return errors.New("PutState Error" + err.Error())
-	}
-	return nil
-}
-
-func writeCompany(stub *shim.ChaincodeStub,company Company) (error) {
-	var companyId string
-	cpBytes, err := json.Marshal(&company)
-	if err != nil {
-		return err
-	}
-	companyId= strconv.Itoa(company.ID)
-	if err!= nil{
-		return errors.New("want Integer number")
-	}
-	err = stub.PutState("company"+companyId, cpBytes)
-	if err != nil {
-		return errors.New("PutState Error" + err.Error())
-	}
-	return nil
-}
-
-func writeTransaction(stub *shim.ChaincodeStub,transaction Transaction) (error) {
-	var tsId string
-	tsBytes, err := json.Marshal(&transaction)
-	if err != nil {
-		return err
-	}
-	tsId= strconv.Itoa(transaction.ID)
-	if err!= nil{
-		return errors.New("want Integer number")
-	}
-	err = stub.PutState("transaction"+tsId, tsBytes)
-	if err != nil {
-		return errors.New("PutState Error" + err.Error())
-	}
-	return nil
 }

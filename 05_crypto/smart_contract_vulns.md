@@ -40,7 +40,7 @@ function withdraw() public {
 
 **防范**：
 *   使用 Solidity 0.8.0 及以上版本（内置了溢出检查）。
-*   在旧版本中使用 OpenZeppelin 的 `SafeMath` 库。
+*   Solidity 0.8.0 之前的遗留代码可使用 OpenZeppelin Contracts v4 的 `SafeMath`；当前 v5 已移除被 0.8.0 原生检查取代的 `SafeMath` 方法。
 
 ### 3. 短地址攻击 （Short Address Attack）
 
@@ -67,7 +67,7 @@ function withdraw() public {
 
 **防范**：
 *   严格检查每个 public/external 函数的权限需求。
-*   使用 OpenZeppelin 的 `Ownable` 或 `AccessControl` 库。
+*   使用 OpenZeppelin 的 `Ownable` 或 `AccessControl` 库；按当前 v5 示例编写时，`Ownable` 构造函数需要显式传入 `initialOwner`。
 
 ### 6. 其它常见漏洞
 
@@ -79,7 +79,7 @@ function withdraw() public {
 
 随着 DeFi 生态的成熟，出现了若干新型攻击向量：
 
-*   **闪电贷攻击 (Flash Loan Attack)**：攻击者利用闪电贷在单笔交易中借入大量资金，通过操纵预言机价格或流动性池来套利，交易结束前归还贷款。由于无需抵押，攻击成本极低。典型案例包括 bZx（2020）、Cream Finance（2021）、Euler Finance（2023，损失约 1.97 亿美元）。防范措施包括使用时间加权平均价格（TWAP）预言机、限制单笔交易的价格影响、添加闪电贷检测机制。
+*   **闪电贷相关攻击 (Flash-Loan-Enabled Attack)**：闪电贷常被用来在单笔交易中放大资金量，进而操纵薄流动性市场、预言机价格、治理投票或清算路径。防护重点不是“检测是否使用闪电贷”这种脆弱信号，而是让业务逻辑在任何临时大额资金下仍然安全：使用抗操纵的多源价格预言机或足够窗口的 TWAP，限制单笔价格影响和滑点，设置熔断/延迟机制，并用属性测试覆盖极端流动性场景。
 
 *   **MEV（最大可提取价值）攻击**：矿工/验证者通过重排、插入或审查交易来提取额外价值。常见形式包括三明治攻击（在用户交易前后插入交易来套利）、即时清算（抢先执行清算交易获取奖励）等。以太坊社区通过 PBS（提议者-构建者分离）和 Flashbots 等方案来缓解 MEV 问题。
 

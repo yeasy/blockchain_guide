@@ -6,14 +6,14 @@
 
 以云计算为代表的现代计算技术，其发展历史上有若干重要的时间点和事件：
 
-* 1969 - ARPANet（Advanced Research Projects Agency Network）：现代互联网的前身，由美国高级研究计划署（Advanced Research Project Agency）提出，使用的协议是 NCP ，核心缺陷之一是无法做到和个别计算机网络交流；
-* 1973 - TCP/IP：Vinton.Cerf（温顿•瑟夫）与 Bob Karn（鲍勃•卡恩）共同开发出 TCP 模型，解决了 NCP 的缺陷；
-* 1982 - Internet：TCP/IP 正式成为规范，并被大规模应用，现代互联网诞生；
+* 1969 - ARPANet（Advanced Research Projects Agency Network）：现代互联网的前身，由美国高级研究计划署（Advanced Research Projects Agency）提出，使用的协议是 NCP，核心缺陷之一是难以连接不同类型的计算机网络；
+* 1974 - TCP：Vint Cerf（温顿•瑟夫）与 Robert E. Kahn（鲍勃•卡恩）发表《A Protocol for Packet Network Intercommunication》，奠定后来 TCP/IP 协议族的基础；
+* 1983 - Internet：ARPANET 在 1983 年 1 月 1 日切换到 TCP/IP，现代互联网由此进入统一协议阶段；
 * 1989 - WWW：早期互联网的应用主要包括 telnet、ftp、email 等，蒂姆·伯纳斯-李（Tim Berners-Lee）设计的 WWW 协议成为互联网的杀手级应用，引爆了现代互联网，从那开始，互联网业务快速扩张；
 * 1999 - salesforce：互联网出现后，一度只能进行通信应用，但 salesforce 开始以云的理念提供基于互联网的企业级服务；
 * 2006 - aws ec2：AWS EC2 奠定了云计算的业界标杆，直到今天，竞争者们仍然在试图追赶 AWS 的脚步；
 * 2013 - cognitive：以 IBM Watson 为代表的认知计算开始进入商业领域，计算开始变得智能，进入“后云计算时代”。
-* 2023 - GenAI：以 ChatGPT 为代表的生成式 AI 爆发，人类进入通用人工智能（AGI）的初步阶段。
+* 2023 - GenAI：以 ChatGPT 为代表的生成式 AI 爆发，通用型 AI 应用进入大众视野；通用人工智能（AGI）仍是研究和产业界持续争论的远期目标。
 
 从这个历史中能看出哪些端倪呢？
 
@@ -27,7 +27,7 @@
 
 ![坚持还是放弃？](_images/near_dream.jpg)
 
-目前，区块链在金融相关领域的应用相对成熟，其它方向尚处于初步实践阶段。但毫无疑问的是，区块链技术在已经落地的行业中，确实带来了生产力提升。2018 年 3 月，国际银行间金融电信协会（The Society for Worldwide Interbank Financial Telecommunication，SWIFT）基于超级账本项目经过一年多的成功验证，宣布认可分布式账本技术可满足银行间实时交易，同时遵守监管的报告要求。这一认可标志着分布式账本技术从实验阶段进入实际生产应用阶段的重要里程碑，之后的多年发展验证了这一判断。
+目前，区块链在金融相关领域的应用相对成熟，其它方向尚处于初步实践阶段。2018 年 3 月，国际银行间金融电信协会（The Society for Worldwide Interbank Financial Telecommunication，SWIFT）公布了基于 Hyperledger Fabric 1.0 的 Nostro 账户对账 DLT 概念验证结果。该 PoC 有 34 家银行参与，证明相关方案可以满足自动化实时流动性监控和对账所需的部分业务功能与数据丰富度；但报告同时指出，要支撑大规模、任务关键型全球金融基础设施，还需要解决实时流动性报告、标准接口、通道规模和技术成熟度等前提条件。因此，它更适合作为企业级 DLT 的重要验证案例，而不是已经生产化落地的结论。
 
 此外，相关标准化组织也在积极从标准和规范角度探讨如何使用分布式账本。包括：
 

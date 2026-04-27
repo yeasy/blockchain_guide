@@ -139,7 +139,7 @@ A 链 <--> 中继/预言机网络 <--> B 链
 | **标准化风险** | 跨链代币标准(OFT/ERC-20B)存在通用漏洞 | 假想场景二 | 对标准的安全审计需>5个安全公司；分阶段推出新标准 |
 | **验证者中心化** | 验证者集合过小或相关联 | 假想场景三 | 增加验证者数量至100+；实现随机验证者采样 |
 | **消息延迟无界** | 没有明确的消息最大延迟承诺 | 假想场景四 | 引入“超时预言机”(Timeout Oracle)，若消息>T秒未到达则触发备用机制 |
-| **状态同步不原子** | 跨链交易在中间链上无法回滚 | N/A（尚未发生） | 使用IBC（Inter-Blockchain Communication）等原子化协议 |
+| **状态同步不原子** | 跨链交易在中间链上无法回滚 | N/A（尚未发生） | 使用 IBC 等具备 packet、acknowledgement、timeout 语义的协议，并在应用层设计退款、回滚或补偿逻辑 |
 
 #### 2026年跨链安全最佳实践
 
@@ -371,7 +371,7 @@ contract AtomicSwap {
 | **Cosmos** | IBC | 50+ | 轻客户端验证 | 灵活，模块化强 | 验证者需要参与，成本高 |
 | **Wormhole** | 桥接 | 20+ | 多签中继 | 快速，支持链多 | 高价值目标，曾被黑 |
 | **Stargate** | 桥接 | 8 | 统一流动性 | 1 秒确认，流动性好 | 流动性依赖，费用较高 |
-| **LayerZero** | 预言机/中继 | 50+ | 轻节点 + 预言机 | 灵活可编程 | 预言机风险，尚在早期 |
+| **LayerZero** | 全链消息传递 | 50+ | Endpoint + DVN + Executor | 灵活可编程，应用可配置验证网络 | DVN/Executor 配置和应用集成风险 |
 | **Polygon zkEVM** | 侧链 + zkProof | 2 | zk 证明 | 完全 EVM 兼容，安全 | 复杂度高，生态新 |
 
 ### 4. 跨链安全事件及教训
@@ -586,7 +586,7 @@ contract SecureCrossChainBridge {
 
 **轻客户端技术演进**：
 
-随着 zk-SNARK 的成熟，跨链验证可以更轻量化。例如 LayerZero 使用 zk 证明验证源链的区块头，大幅降低验证成本。
+随着 zk-SNARK 的成熟，跨链验证可以更轻量化。但 LayerZero V2 的核心表述应围绕 Endpoint、Decentralized Verifier Networks（DVNs）和 Executors：DVN 负责验证消息，Executor 负责目标链执行。不要把 LayerZero V2 简化为 ZK 区块头验证方案；ZK 轻客户端是跨链验证的一条重要方向，但不是所有主流跨链消息协议的默认机制。
 
 ```text
 传统轻客户端：验证者签名，需要多个签名 → 数百字节

@@ -46,12 +46,11 @@ contract HelloWorld {
 
 #### 0.2 Hardhat 本地开发环境搭建
 
-Hardhat 是以太坊开发的业界标准框架，提供强大的测试、调试和部署功能。
+Hardhat 是以太坊开发的主流框架，提供测试、调试、部署和本地链模拟能力。本实验使用 Hardhat 3 的 TypeScript + Mocha + ethers.js 工具链。
 
 **安装步骤**：
 
 ```bash
-
 # 创建项目目录
 mkdir ethereum-learning
 cd ethereum-learning
@@ -59,14 +58,14 @@ cd ethereum-learning
 # 初始化 Node.js 项目
 npm init -y
 
-# 安装 Hardhat
+# 安装 Hardhat（Hardhat 3 要求 Node.js 22 或以上）
 npm install --save-dev hardhat
 
 # 初始化 Hardhat 项目
-npx hardhat
+npx hardhat --init
 
-# 选择 "Create a sample project"（回车）
-# 确认依赖安装（回车）
+# 选择 "A TypeScript Hardhat project using Mocha and Ethers.js"
+# 按提示安装 @nomicfoundation/hardhat-toolbox-mocha-ethers 等依赖
 ```
 
 **项目结构**：
@@ -74,12 +73,16 @@ npx hardhat
 ```text
 ethereum-learning/
 ├── contracts/
-│   └── Lock.sol              # 智能合约
+│   ├── Counter.sol           # 示例合约
+│   └── Counter.t.sol         # Solidity 测试（可选）
+├── ignition/
+│   └── modules/
+│       └── Counter.ts        # Hardhat Ignition 部署模块
 ├── test/
-│   └── Lock.js               # 测试文件
+│   └── Counter.ts            # TypeScript 测试文件
 ├── scripts/
-│   └── deploy.js             # 部署脚本
-├── hardhat.config.js         # Hardhat 配置
+│   └── deploy.ts             # 脚本文件
+├── hardhat.config.ts         # Hardhat 配置
 └── package.json
 ```
 
@@ -134,63 +137,65 @@ contract SimpleStorage {
 }
 ```
 
-**编写测试** (`test/SimpleStorage.test.js`)：
+**编写测试** (`test/SimpleStorage.test.ts`)：
 
-```javascript
-const { expect } = require("chai");
+```typescript
+import { expect } from "chai";
+import { network } from "hardhat";
 
 describe("SimpleStorage", function () {
-    let storage;
-    let owner;
+    let ethers: any;
+    let storage: any;
+    let owner: any;
 
     // 在每个测试前执行
     beforeEach(async function () {
+        ({ ethers } = await network.create());
         [owner] = await ethers.getSigners();
-        const Storage = await ethers.getContractFactory("SimpleStorage");
-        storage = await Storage.deploy();
-        await storage.deployed();
+        storage = await ethers.deployContract("SimpleStorage");
+        await storage.waitForDeployment();
     });
 
     describe("初始状态", function () {
         it("初始值应该为 0", async function () {
-            expect(await storage.getValue()).to.equal(0);
+            expect(await storage.getValue()).to.equal(0n);
         });
 
         it("storedValue 应该可以直接访问", async function () {
-            expect(await storage.storedValue()).to.equal(0);
+            expect(await storage.storedValue()).to.equal(0n);
         });
     });
 
     describe("setValue 函数", function () {
         it("应该能够设置新值", async function () {
             await storage.setValue(42);
-            expect(await storage.getValue()).to.equal(42);
+            expect(await storage.getValue()).to.equal(42n);
         });
 
         it("应该发出 ValueChanged 事件", async function () {
             // 监听事件
             await expect(storage.setValue(100))
                 .to.emit(storage, "ValueChanged")
-                .withArgs(100, owner.address);
+                .withArgs(100n, owner.address);
         });
 
         it("每次设置都应该覆盖旧值", async function () {
             await storage.setValue(10);
-            expect(await storage.getValue()).to.equal(10);
+            expect(await storage.getValue()).to.equal(10n);
 
             await storage.setValue(20);
-            expect(await storage.getValue()).to.equal(20);
+            expect(await storage.getValue()).to.equal(20n);
         });
     });
 
     describe("add 函数", function () {
         it("应该正确相加", async function () {
-            expect(await storage.add(5, 3)).to.equal(8);
+            expect(await storage.add(5, 3)).to.equal(8n);
         });
 
         it("应该处理大数字", async function () {
-            const big = ethers.BigNumber.from("10").pow(18);
-            expect(await storage.add(big, big)).to.equal(big.mul(2));
+            const big = 10n ** 18n;
+            expect(await storage.add(big, big)).to.equal(big * 2n);
         });
     });
 
@@ -198,6 +203,7 @@ describe("SimpleStorage", function () {
         it("setValue 是一个状态修改交易", async function () {
             const tx = await storage.setValue(50);
             const receipt = await tx.wait();
+            if (receipt === null) throw new Error("交易未确认");
             console.log("setValue Gas 消耗:", receipt.gasUsed.toString());
             // 预期: ~43,000-44,000
         });
@@ -205,7 +211,7 @@ describe("SimpleStorage", function () {
         it("getValue 是一个只读调用", async function () {
             // 不会消耗任何 Gas
             const result = await storage.getValue();
-            expect(result).to.equal(0);
+            expect(result).to.equal(0n);
         });
     });
 });
@@ -214,7 +220,7 @@ describe("SimpleStorage", function () {
 **运行测试**：
 
 ```bash
-npx hardhat test test/SimpleStorage.test.js
+npx hardhat test test/SimpleStorage.test.ts
 ```
 
 **预期输出**：
@@ -307,26 +313,28 @@ contract SimpleToken {
 }
 ```
 
-**测试代码** (`test/SimpleToken.test.js`)：
+**测试代码** (`test/SimpleToken.test.ts`)：
 
-```javascript
-const { expect } = require("chai");
+```typescript
+import { expect } from "chai";
+import { network } from "hardhat";
 
 describe("SimpleToken", function () {
-    let token;
-    let owner, alice, bob;
+    let ethers: any;
+    let token: any;
+    let owner: any, alice: any, bob: any;
 
     beforeEach(async function () {
+        ({ ethers } = await network.create());
         [owner, alice, bob] = await ethers.getSigners();
 
-        const Token = await ethers.getContractFactory("SimpleToken");
-        token = await Token.deploy(1000); // 初始供应 1000 tokens
-        await token.deployed();
+        token = await ethers.deployContract("SimpleToken", [1000]); // 初始供应 1000 tokens
+        await token.waitForDeployment();
     });
 
     describe("初始化", function () {
         it("应该有正确的总供应", async function () {
-            const expected = ethers.utils.parseEther("1000");
+            const expected = ethers.parseEther("1000");
             expect(await token.totalSupply()).to.equal(expected);
         });
 
@@ -338,24 +346,24 @@ describe("SimpleToken", function () {
 
     describe("转账", function () {
         it("应该能够转账代币", async function () {
-            const amount = ethers.utils.parseEther("100");
+            const amount = ethers.parseEther("100");
             await token.transfer(alice.address, amount);
 
             expect(await token.balanceOf(alice.address)).to.equal(amount);
             expect(await token.balanceOf(owner.address)).to.equal(
-                ethers.utils.parseEther("900")
+                ethers.parseEther("900")
             );
         });
 
         it("应该发出 Transfer 事件", async function () {
-            const amount = ethers.utils.parseEther("50");
+            const amount = ethers.parseEther("50");
             await expect(token.transfer(bob.address, amount))
                 .to.emit(token, "Transfer")
                 .withArgs(owner.address, bob.address, amount);
         });
 
         it("不应该允许转账超过余额", async function () {
-            const tooMuch = ethers.utils.parseEther("2000");
+            const tooMuch = ethers.parseEther("2000");
             await expect(
                 token.transfer(alice.address, tooMuch)
             ).to.be.revertedWith("Insufficient balance");
@@ -364,14 +372,14 @@ describe("SimpleToken", function () {
 
     describe("授权和代理转账", function () {
         it("应该能够授权", async function () {
-            const amount = ethers.utils.parseEther("100");
+            const amount = ethers.parseEther("100");
             await token.approve(alice.address, amount);
 
             expect(await token.allowance(owner.address, alice.address)).to.equal(amount);
         });
 
         it("应该能够进行代理转账", async function () {
-            const amount = ethers.utils.parseEther("100");
+            const amount = ethers.parseEther("100");
 
             // owner 授权 alice 花费 100 tokens
             await token.approve(alice.address, amount);
@@ -380,12 +388,12 @@ describe("SimpleToken", function () {
             await token.connect(alice).transferFrom(owner.address, bob.address, amount);
 
             expect(await token.balanceOf(bob.address)).to.equal(amount);
-            expect(await token.allowance(owner.address, alice.address)).to.equal(0);
+            expect(await token.allowance(owner.address, alice.address)).to.equal(0n);
         });
 
         it("不应该允许转账超过授权额度", async function () {
-            const approved = ethers.utils.parseEther("50");
-            const attempted = ethers.utils.parseEther("100");
+            const approved = ethers.parseEther("50");
+            const attempted = ethers.parseEther("100");
 
             await token.approve(alice.address, approved);
 
@@ -400,161 +408,177 @@ describe("SimpleToken", function () {
 **运行测试**：
 
 ```bash
-npx hardhat test test/SimpleToken.test.js
+npx hardhat test test/SimpleToken.test.ts
 ```
 
-### 实验 3：使用 Ganache 搭建本地测试网
+### 实验 3：使用 Hardhat Network 或 Anvil 搭建本地测试网
 
-Ganache 是一个功能更强大的本地区块链模拟器，提供 GUI 界面和更多调试功能。
+Ganache 及其旧 CLI 已经 sunset，不再作为新项目的默认本地链。新项目优先使用 Hardhat Network；如果需要独立的高性能本地节点，可使用 Foundry Anvil。
 
-**安装 Ganache**：
+**Hardhat Network（推荐默认选择）**：
 
 ```bash
+# 在当前 Hardhat 项目内启动本地 JSON-RPC 节点
+npx hardhat node
 
-# 安装 ganache-cli
-npm install --save-dev ganache-cli
-
-# 或安装 Ganache GUI（推荐）
-# 访问 https://www.trufflesuite.com/ganache 下载桌面应用
+# 在另一个终端连接这个节点运行脚本或测试
+npx hardhat run scripts/interact.ts --network localhost
 ```
 
-**启动 Ganache**：
+Hardhat Network 的特点：
+- 默认提供 20 个测试账户，每个账户有充足测试 ETH
+- 和 Hardhat 测试、调试、stack trace、console.log 深度集成
+- 支持主网 fork、快照、时间调整等测试辅助能力
+
+**Foundry Anvil（独立本地节点）**：
 
 ```bash
+# 安装 Foundry 后，启动 Anvil
+anvil
 
-# CLI 方式
-npx ganache-cli --deterministic --accounts 10 --host 0.0.0.0
-
-# 或使用 GUI 应用（更直观）
+# 使用远程 RPC fork 主网或测试网
+anvil --fork-url https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY
 ```
 
-**Ganache 提供的好处**：
-- 10 个预生成的账户，每个初始 100 ETH
-- 可视化的区块链状态
-- 详细的交易日志
-- 时间快进功能（用于测试时间锁）
+Anvil 的特点：
+- 启动快，适合和 Foundry/Forge/Cast 一起使用
+- 默认提供 10 个测试账户，每个账户有 10000 ETH
+- 默认 RPC 地址通常为 `http://127.0.0.1:8545`
+- 支持 fork、固定区块、自动出块和间隔出块
 
-**在 Hardhat 中配置 Ganache**：
+**在 Hardhat 中连接 Anvil**：
 
-```javascript
-// hardhat.config.js
-module.exports = {
-    solidity: "0.8.0",
+```typescript
+// hardhat.config.ts
+import { configVariable, defineConfig } from "hardhat/config";
+import hardhatToolboxMochaEthers from "@nomicfoundation/hardhat-toolbox-mocha-ethers";
+
+export default defineConfig({
+    plugins: [hardhatToolboxMochaEthers],
+    solidity: "0.8.28",
     networks: {
-        ganache: {
+        anvil: {
+            type: "http",
             url: "http://127.0.0.1:8545",
-            accounts: [
-                // 粘贴 Ganache 显示的私钥
-                "0xac0974bec39a17e36ba4a6b4d238ff944bacb476c6b8d6c1f02e31a0c2b7e6c1",
-                // ... 更多账户
-            ]
+            chainId: 31337
         },
-        hardhat: {
+        hardhatMainnet: {
+            type: "edr-simulated",
+            chainType: "l1",
             forking: {
-                enabled: true,
-                url: "https://eth-mainnet.alchemyapi.io/v2/YOUR_API_KEY"
+                url: configVariable("MAINNET_RPC_URL")
             }
         }
     }
-};
+});
 ```
 
-**使用 Ganache 运行测试**：
+**使用 Anvil 运行测试**：
 
 ```bash
-
-# 终端 1：启动 Ganache
-npx ganache-cli
+# 终端 1：启动 Anvil
+anvil
 
 # 终端 2：运行 Hardhat 测试
-npx hardhat test --network ganache
+npx hardhat test --network anvil
 ```
 
 ### 实验 4：在测试网部署合约
 
 **选择测试网**：
 
-- **Sepolia**（推荐）：最新的以太坊官方测试网
-- **Goerli**：已弃用，勿用
-- **Mumbra**：Polygon 测试网
+- **Sepolia**（推荐）：以太坊应用和智能合约开发的默认测试网
+- **Hoodi**：验证者、质押和协议升级测试网，不是普通 dApp 的默认选择
+- **Polygon Amoy**：Polygon PoS 当前测试网，替代旧 Polygon PoS 测试网
 
 **获取测试代币**：
 
 ```bash
-
 # 访问 Sepolia 水龙头
 # https://sepoliafaucet.com
 # https://www.alchemy.com/faucets/ethereum-sepolia
 
-# 或使用 Alchemy 的 Python 脚本
-pip install eth-faucet
-python -m eth_faucet --address YOUR_ADDRESS --network sepolia
+# Polygon Amoy 测试 POL 可使用 Polygon 文档列出的第三方水龙头
+# https://docs.polygon.technology/tools/gas/matic-faucet/
 ```
 
-**配置网络** (`hardhat.config.js`)：
+**配置网络** (`hardhat.config.ts`)：
 
-```javascript
-require("@nomiclabs/hardhat-waffle");
-require("dotenv").config();
+```typescript
+import { configVariable, defineConfig } from "hardhat/config";
+import hardhatToolboxMochaEthers from "@nomicfoundation/hardhat-toolbox-mocha-ethers";
 
-module.exports = {
-    solidity: "0.8.0",
+export default defineConfig({
+    plugins: [hardhatToolboxMochaEthers],
+    solidity: "0.8.28",
     networks: {
         sepolia: {
-            url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
-            accounts: [process.env.PRIVATE_KEY]
+            type: "http",
+            chainType: "l1",
+            url: configVariable("SEPOLIA_RPC_URL"),
+            accounts: [configVariable("SEPOLIA_PRIVATE_KEY")]
+        },
+        polygonAmoy: {
+            type: "http",
+            chainId: 80002,
+            url: configVariable("POLYGON_AMOY_RPC_URL"),
+            accounts: [configVariable("POLYGON_AMOY_PRIVATE_KEY")]
         }
     },
-    etherscan: {
-        apiKey: process.env.ETHERSCAN_API_KEY
+    verify: {
+        etherscan: {
+            apiKey: configVariable("ETHERSCAN_API_KEY")
+        }
     }
-};
+});
 ```
 
-**创建 .env 文件**：
+Hardhat 3 的 `configVariable` 默认读取环境变量；敏感值也可以用 `hardhat-keystore` 加密保存。
 
-```text
-ALCHEMY_API_KEY=your_alchemy_api_key_here
-PRIVATE_KEY=your_wallet_private_key_here
-ETHERSCAN_API_KEY=your_etherscan_api_key_here
+```bash
+# macOS/Linux 示例
+export SEPOLIA_RPC_URL="https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY"
+export SEPOLIA_PRIVATE_KEY="your_private_key_here"
+export MAINNET_RPC_URL="https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY"
+export POLYGON_AMOY_RPC_URL="https://polygon-amoy.g.alchemy.com/v2/YOUR_API_KEY"
+export POLYGON_AMOY_PRIVATE_KEY="your_private_key_here"
+export ETHERSCAN_API_KEY="your_etherscan_api_key_here"
+
+# 或使用 Hardhat keystore
+npx hardhat keystore set SEPOLIA_RPC_URL
+npx hardhat keystore set SEPOLIA_PRIVATE_KEY
+npx hardhat keystore set MAINNET_RPC_URL
+npx hardhat keystore set ETHERSCAN_API_KEY
 ```
 
-**部署脚本** (`scripts/deploy.js`)：
+**部署脚本** (`scripts/deploy.ts`)：
 
-```javascript
-const hre = require("hardhat");
+```typescript
+import fs from "node:fs";
+import { network } from "hardhat";
 
-async function main() {
-    console.log("部署开始...");
+console.log("部署开始...");
 
-    // 编译合约
-    const SimpleStorage = await hre.ethers.getContractFactory("SimpleStorage");
+const { ethers } = await network.create();
 
-    // 部署
-    const storage = await SimpleStorage.deploy();
-    await storage.deployed();
+// 部署
+const storage = await ethers.deployContract("SimpleStorage");
+await storage.waitForDeployment();
 
-    console.log(`SimpleStorage 已部署到: ${storage.address}`);
+const address = await storage.getAddress();
+console.log(`SimpleStorage 已部署到: ${address}`);
 
-    // 保存地址以供后续使用
-    require("fs").writeFileSync(
-        "deployed.json",
-        JSON.stringify({ SimpleStorage: storage.address })
-    );
-}
-
-main()
-    .then(() => process.exit(0))
-    .catch((error) => {
-        console.error(error);
-        process.exit(1);
-    });
+// 保存地址以供后续使用
+fs.writeFileSync(
+    "deployed.json",
+    JSON.stringify({ SimpleStorage: address }, null, 2)
+);
 ```
 
 **执行部署**：
 
 ```bash
-npx hardhat run scripts/deploy.js --network sepolia
+npx hardhat run scripts/deploy.ts --network sepolia
 ```
 
 **验证合约** (在 Etherscan 上公开代码)：
@@ -565,57 +589,49 @@ npx hardhat verify --network sepolia CONTRACT_ADDRESS "constructor arguments"
 
 ### 实验 5：与合约交互
 
-**创建交互脚本** (`scripts/interact.js`)：
+**创建交互脚本** (`scripts/interact.ts`)：
 
-```javascript
-const hre = require("hardhat");
-const fs = require("fs");
+```typescript
+import fs from "node:fs";
+import { network } from "hardhat";
 
-async function main() {
-    const deployment = JSON.parse(fs.readFileSync("deployed.json"));
-    const contractAddress = deployment.SimpleStorage;
+const deployment = JSON.parse(fs.readFileSync("deployed.json", "utf8"));
+const contractAddress = deployment.SimpleStorage;
 
-    const [signer] = await hre.ethers.getSigners();
-    console.log(`使用账户: ${signer.address}`);
+const { ethers } = await network.create();
+const [signer] = await ethers.getSigners();
+console.log(`使用账户: ${signer.address}`);
 
-    // 连接到部署的合约
-    const SimpleStorage = await hre.ethers.getContractFactory("SimpleStorage");
-    const storage = await SimpleStorage.attach(contractAddress);
+// 连接到部署的合约
+const storage = await ethers.getContractAt("SimpleStorage", contractAddress, signer);
 
-    // 查询初始值
-    let value = await storage.getValue();
-    console.log(`初始值: ${value}`);
+// 查询初始值
+let value = await storage.getValue();
+console.log(`初始值: ${value}`);
 
-    // 设置新值（这会触发交易）
-    console.log("\n正在设置新值为 42...");
-    const tx = await storage.setValue(42);
-    console.log(`交易哈希: ${tx.hash}`);
+// 设置新值（这会触发交易）
+console.log("\n正在设置新值为 42...");
+const tx = await storage.setValue(42);
+console.log(`交易哈希: ${tx.hash}`);
 
-    // 等待交易确认
-    const receipt = await tx.wait();
-    console.log(`交易已确认，区块号: ${receipt.blockNumber}`);
+// 等待交易确认
+const receipt = await tx.wait();
+if (receipt === null) throw new Error("交易未确认");
+console.log(`交易已确认，区块号: ${receipt.blockNumber}`);
 
-    // 查询新值
-    value = await storage.getValue();
-    console.log(`新值: ${value}`);
+// 查询新值
+value = await storage.getValue();
+console.log(`新值: ${value}`);
 
-    // 添加数字
-    const result = await storage.add(10, 20);
-    console.log(`\n10 + 20 = ${result}`);
-}
-
-main()
-    .then(() => process.exit(0))
-    .catch((error) => {
-        console.error(error);
-        process.exit(1);
-    });
+// 添加数字
+const result = await storage.add(10, 20);
+console.log(`\n10 + 20 = ${result}`);
 ```
 
 **执行交互**：
 
 ```bash
-npx hardhat run scripts/interact.js --network sepolia
+npx hardhat run scripts/interact.ts --network sepolia
 ```
 
 ### 实验 6：Gas 优化分析
@@ -646,26 +662,34 @@ contract Optimized {
 
 **测试脚本分析 Gas**：
 
-```javascript
+```typescript
+import { network } from "hardhat";
+
 describe("Gas 优化", function () {
     it("对比 ++ 和 +1", async function () {
-        const Unoptimized = await ethers.getContractFactory("Unoptimized");
-        const Optimized = await ethers.getContractFactory("Optimized");
+        const { ethers } = await network.create();
 
-        const unopt = await Unoptimized.deploy();
-        const opt = await Optimized.deploy();
+        const unopt = await ethers.deployContract("Unoptimized");
+        const opt = await ethers.deployContract("Optimized");
+        await unopt.waitForDeployment();
+        await opt.waitForDeployment();
 
         const tx1 = await unopt.increment();
         const receipt1 = await tx1.wait();
-        const gas1 = receipt1.gasUsed.toNumber();
+        if (receipt1 === null) throw new Error("交易未确认");
+        const gas1 = receipt1.gasUsed;
 
         const tx2 = await opt.increment();
         const receipt2 = await tx2.wait();
-        const gas2 = receipt2.gasUsed.toNumber();
+        if (receipt2 === null) throw new Error("交易未确认");
+        const gas2 = receipt2.gasUsed;
+
+        const saved = gas1 - gas2;
+        const percent = Number(saved * 10000n / gas1) / 100;
 
         console.log(`counter+1: ${gas1} gas`);
         console.log(`++counter: ${gas2} gas`);
-        console.log(`节省: ${gas1 - gas2} gas (${((1 - gas2/gas1)*100).toFixed(2)}%)`);
+        console.log(`节省: ${saved} gas (${percent.toFixed(2)}%)`);
     });
 });
 ```

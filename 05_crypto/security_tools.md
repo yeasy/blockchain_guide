@@ -4,11 +4,11 @@
 
 ### 1. Slither
 
-**简介**：Slither 是由 Trail of Bits 开发的静态分析框架，用 Python 编写，专为 Solidity 合约设计。它能够快速扫描合约代码，识别常见的安全漏洞和代码坏味道。
+**简介**：Slither 是由 Trail of Bits 开发的静态分析框架，用 Python 编写，支持 Solidity 和 Vyper。它能够快速扫描合约代码，识别常见的安全漏洞和代码坏味道，并可接入 CI、Hardhat 和 Foundry 项目。
 
 **核心特性**：
 - **快速静态分析**：基于数据流和控制流分析，无需执行代码即可识别潜在问题
-- **丰富的检测器库**：内置 70+ 个检测器，覆盖重入、整数溢出、权限控制等常见漏洞
+- **丰富的检测器库**：内置多类检测器，覆盖重入、整数溢出、权限控制等常见漏洞
 - **易于集成**：可作为命令行工具、Python 库使用，支持 CI/CD 集成
 - **详细的报告**：按严重级别（高、中、低、信息）分类输出，并提供修复建议
 
@@ -21,6 +21,9 @@ pip install slither-analyzer
 
 # 分析合约
 slither contract.sol
+
+# 在 Hardhat/Foundry/Dapp/Brownie 项目根目录分析
+slither .
 
 # 输出详细报告
 slither contract.sol --json results.json
@@ -62,7 +65,7 @@ Reentrancy in withdraw (VulnerableContract.withdraw):
 
 ### 2. Mythril
 
-**简介**：Mythril 是以太坊安全公司 ConsenSys 开发的符号执行引擎，能够深入分析合约的执行路径并发现漏洞。
+**简介**：Mythril 是 ConsenSys Diligence 维护的 EVM 字节码符号执行工具，可分析 Solidity 源码编译产物或链上合约地址，发现特定路径下才触发的漏洞。
 
 **核心特性**：
 - **符号执行**：模拟合约执行的所有可能路径，发现在特定条件下才会触发的漏洞
@@ -83,8 +86,8 @@ myth analyze contract.sol
 # 分析部署在主网上的合约
 myth analyze 0x06012c8cf97bead5deae237070f9587f8e7a266d
 
-# 生成图形化报告
-myth analyze contract.sol --graph graph.html
+# 生成适合集成处理的 JSON 报告
+myth analyze contract.sol -o jsonv2
 ```
 
 **适用场景**：
@@ -148,29 +151,34 @@ docker run --rm -v /path/to/contracts:/contracts trailofbits/echidna echidna /co
 - 优势：能发现符号执行可能遗漏的状态组合问题；快速反馈
 - 劣势：不能保证发现所有漏洞；依赖于属性定义的质量
 
-### 4. OpenZeppelin Hardhat
+### 4. Hardhat 与 OpenZeppelin Upgrades
 
-**简介**：OpenZeppelin 提供的 Hardhat 插件集成了多个审计工具的功能，并提供了强大的测试框架。
+**简介**：Hardhat 是开发、测试和部署框架。OpenZeppelin 的 `@openzeppelin/hardhat-upgrades` 插件用于在 Hardhat 脚本中部署和升级代理合约，并做升级安全校验；它不是 Slither/Mythril 的集成审计套件。Slither 和 Mythril 应作为独立 CLI、pre-commit 或 CI 步骤运行。
 
-**核心特性**：
-- **集成化审计**：在一个项目中集成 Slither、Mythril 等多个工具
-- **测试框架**：支持编写 Solidity 和 JavaScript 测试，覆盖率分析
-- **自动化检查**：在构建过程中自动执行安全检查
-- **文档完整**：提供最佳实践指南和安全库（SafeMath、Ownable 等）
+**核心用途**：
+- **开发测试**：使用 Hardhat 编译、运行单元测试和本地主网分叉测试
+- **安全升级**：使用 OpenZeppelin Upgrades 部署代理并校验升级兼容性
+- **独立扫描**：Slither 支持直接扫描 Hardhat/Foundry 项目；Mythril 通过 `myth analyze` 单独运行
+- **安全库**：使用 OpenZeppelin Contracts v5 时按当前路径导入，并处理 v5 构造函数变化
 
 **使用示例**：
 
 ```bash
 
-# 安装 Hardhat 和 OpenZeppelin 插件
-npm install --save-dev hardhat @nomiclabs/hardhat-ethers @openzeppelin/hardhat-upgrades
+# 安装 Hardhat、ethers 插件和 OpenZeppelin Upgrades
+npm install --save-dev hardhat @nomicfoundation/hardhat-ethers ethers @openzeppelin/hardhat-upgrades
 
 # 创建项目
 npx hardhat init
+```
 
-# 配置 hardhat.config.js
+```javascript
+// hardhat.config.js
+require("@nomicfoundation/hardhat-ethers");
+require("@openzeppelin/hardhat-upgrades");
+
 module.exports = {
-  solidity: "0.8.0",
+  solidity: "0.8.24",
   paths: {
     sources: "./contracts",
     tests: "./test",
@@ -184,16 +192,25 @@ module.exports = {
     }
   }
 };
+```
 
-# 运行测试和覆盖率分析
+```bash
+# 运行测试
 npx hardhat test
+
+# 如已安装 solidity-coverage，可运行覆盖率分析
 npx hardhat coverage
+
+# 安全扫描作为独立步骤运行
+slither .
+myth analyze contracts/VulnerableContract.sol -o jsonv2
 ```
 
 **测试示例**：
 
 ```javascript
 const { expect } = require("chai");
+const { ethers } = require("hardhat");
 
 describe("VulnerableContract", function () {
     let contract;
@@ -208,19 +225,19 @@ describe("VulnerableContract", function () {
 
         // 部署攻击合约
         const AttackContract = await ethers.getContractFactory("ReentrancyAttack");
-        const attack = await AttackContract.deploy(contract.address);
+        const attack = await AttackContract.deploy(await contract.getAddress());
 
         // 尝试发动重入攻击，应该被阻止
         await expect(
-            attack.attack({ value: ethers.utils.parseEther("1") })
-        ).to.be.revertedWith("ReentrancyGuard: reentrant call");
+            attack.attack({ value: ethers.parseEther("1") })
+        ).to.be.revertedWithCustomError(contract, "ReentrancyGuardReentrantCall");
     });
 });
 ```
 
 ### 5. Manticore
 
-**简介**：Trail of Bits 的 Manticore 是一个分析工具，支持智能合约和二进制文件的符号执行。
+**简介**：Trail of Bits 的 Manticore 是一个符号执行工具，支持智能合约、二进制文件和 WASM。其官方仓库已标明处于维护模式：不再内部持续开发，仅接受小型修复和轻量改进。因此它更适合复现实验、研究或已有流程中的定制分析，新项目通常应优先使用 Slither、Echidna、Foundry fuzz/invariant tests 等仍活跃的工具链。
 
 **核心特性**：
 - **多语言支持**：支持 EVM 字节码、二进制、WASM
@@ -277,10 +294,17 @@ m.run()
 | Slither | 静态分析 | 低 | 快 | 中 | 快速初步审查 |
 | Mythril | 符号执行 | 高 | 慢 | 高 | 深度逻辑漏洞 |
 | Echidna | 模糊测试 | 中 | 中 | 中 | 状态空间探索 |
-| Hardhat | 集成框架 | 低 | 中 | 中 | 开发测试 |
-| Manticore | 符号执行 | 高 | 慢 | 高 | 复杂漏洞分析 |
+| Hardhat | 开发测试框架 | 低 | 中 | 中 | 编译、测试、本地主网分叉 |
+| Manticore | 符号执行（维护模式） | 高 | 慢 | 高 | 研究、复现、已有定制流程 |
 
-### 8. 最佳实践建议
+### 8. 安全分类和验收基线
+
+- **SWC Registry**：适合作为历史漏洞编号和旧报告映射参考；官方页面已说明内容不再主动维护，不应作为当前唯一验收基线。
+- **OWASP SCSVS / SCSTG / SCWE**：适合开发、测试和安全验收中的需求清单、测试指南和弱点枚举。
+- **EEA EthTrust Security Levels v2 / Editor's Draft**：适合审计团队和项目方约定安全等级、形成合约验收基线。
+- **Securify**：原 Securify v1 仓库已废弃并指向 Securify v2；除非为了复现历史结果，不建议作为新项目默认扫描器。
+
+### 9. 最佳实践建议
 
 1. **尽早整合自动化审计**：在开发阶段而非部署前，将安全检查纳入 CI/CD 流程
 2. **多工具交叉验证**：不要完全依赖单一工具，不同工具各有盲点

@@ -1,43 +1,18 @@
 ## 链码示例二：交易资产
 
-### 简介
+[chaincode_example02.go](chaincode_example02.go) 使用 Go Contract API 实现两个账户之间的整数余额转账。
 
-[chaincode_example02.go](chaincode_example02.go) 主要实现如下的功能：
+### 主要交易函数
 
-* 初始化 A、B 两个账户，并为两个账户赋初始资产值；
-* 在 A、B 两个账户之间进行资产交易；
-* 分别查询 A、B 两个账户上的余额，确认交易成功；
-* 删除账户。
+* `InitAccounts`：初始化两个账户及其余额；
+* `Transfer`：从一个账户向另一个账户转账；
+* `ReadAccount`：读取账户余额；
+* `Delete`：删除账户。
 
-### 主要函数
-
-* `init`：初始化 A、B 两个账户；
-* `invoke`：实现 A、B 账户间的转账；
-* `query`：查询 A、B 账户上的余额；
-* `delete`：删除账户。
-
-### 依赖的包
+示例依赖当前 Go Contract API：
 
 ```go
-import (
-	"errors"
-	"fmt"
-	"strconv"
-
-	"github.com/hyperledger/fabric-chaincode-go/shim"
-)
-```
-`strconv` 实现 int 与 string 类型之间的转换。
-
-在invoke 函数中，存在：
-```go
-X, err = strconv.Atoi(args[2])
-	Aval = Aval - X
-	Bval = Bval + X
+import "github.com/hyperledger/fabric-contract-api-go/v2/contractapi"
 ```
 
-当 `args[2]<0` 时，A 账户余额增加，否则 B 账户余额减少。
-
-### 可扩展功能
-
-实例中未包含新增账户并初始化的功能。开发者可以根据自己的业务模型进行添加。
+转账逻辑会检查金额必须为正数、账户必须存在、付款账户余额必须充足。客户端应用应通过 Gateway API 的 submit 类调用提交 `Transfer`，通过 evaluate 类调用读取 `ReadAccount`。

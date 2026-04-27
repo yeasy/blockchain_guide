@@ -7,44 +7,65 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  release:
+  build-pdf:
+    name: Build PDF
     runs-on: ubuntu-latest
+    env:
+      MDPRESS_VERSION: "0.7.9"
+      MDPRESS_SHA256: "922bf55514d6705431956250f6d76141d4301055c43099a6902928508db55dc7"
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       - name: Install Chromium and CJK fonts
         run: |
           sudo apt-get update
           sudo apt-get install -y chromium-browser fonts-noto-cjk fonts-noto-cjk-extra
 
-      - name: Install mdpress (latest)
+      - name: Install mdpress
         run: |
-          LATEST_TAG=$(curl -fsSL -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ github.token }}" https://api.github.com/repos/yeasy/mdpress/releases/latest | jq -r .tag_name)
-          VERSION="${LATEST_TAG#v}"
-          curl -fsSL "https://github.com/yeasy/mdPress/releases/download/$LATEST_TAG/mdpress_${VERSION}_linux_amd64.tar.gz" -o /tmp/mdpress.tar.gz
+          curl -fsSL "https://github.com/yeasy/mdPress/releases/download/v${MDPRESS_VERSION}/mdpress_${MDPRESS_VERSION}_linux_amd64.tar.gz" -o /tmp/mdpress.tar.gz
+          echo "${MDPRESS_SHA256}  /tmp/mdpress.tar.gz" | sha256sum -c -
           tar xzf /tmp/mdpress.tar.gz -C /tmp mdpress
-          sudo mv /tmp/mdpress /usr/local/bin/
+          sudo install -m 0755 /tmp/mdpress /usr/local/bin/mdpress
           mdpress --version
 
       - name: Extract tag name
         id: tag
-        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+          else
+            echo "TAG_NAME=latest" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Build PDF
-        run: mdpress build --format pdf --output blockchain_guide-${{ steps.tag.outputs.TAG_NAME || 'latest' }}.pdf
-
-      - name: Create Release with PDF
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v3
-        with:
-          generate_release_notes: true
-          files: "blockchain_guide-${{ steps.tag.outputs.TAG_NAME }}.pdf"
+        run: mdpress build --format pdf --output blockchain_guide-${{ steps.tag.outputs.TAG_NAME }}.pdf
 
       - name: Upload PDF as artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: blockchain_guide-pdf
           path: "blockchain_guide-*.pdf"
+
+  release:
+    name: Create release
+    needs: build-pdf
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+    steps:
+      - name: Download PDF artifact
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: blockchain_guide-pdf
+          path: dist
+
+      - name: Create Release with PDF
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda # v3
+        with:
+          generate_release_notes: true
+          files: "dist/blockchain_guide-*.pdf"

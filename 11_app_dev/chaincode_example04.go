@@ -1,466 +1,323 @@
-/*
-	authors:
-		"swb"<swbsin@163.com>
-		"Gymgle"<ymgongcn@gmail.com>
-	MIT License
-*/
-
 package main
 
 import (
-	"crypto/md5"
-	"crypto/rand"
-	"encoding/base64"
+	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
-	"errors"
 	"fmt"
-	"io"
 	"strconv"
-	"time"
 
-	"github.com/hyperledger/fabric/core/chaincode/shim"
-	pb "github.com/hyperledger/fabric/protos/peer"
+	"github.com/hyperledger/fabric-contract-api-go/v2/contractapi"
 )
 
-type SimpleChaincode struct {
+const (
+	recordCounterKey     = "counter:record"
+	backgroundCounterKey = "counter:background"
+)
+
+// SmartContract records school, student, and diploma changes.
+type SmartContract struct {
+	contractapi.Contract
 }
 
-var BackGroundNo int = 0
-var RecordNo int = 0
-
 type School struct {
-	Name           string
-	Location       string
-	Address        string
-	PriKey         string
-	PubKey         string
-	StudentAddress []string
+	Name             string   `json:"name"`
+	Location         string   `json:"location"`
+	Address          string   `json:"address"`
+	PriKey           string   `json:"priKey"`
+	PubKey           string   `json:"pubKey"`
+	StudentAddresses []string `json:"studentAddresses"`
 }
 
 type Student struct {
-	Name         string
-	Address      string
-	BackgroundId []int
+	Name          string `json:"name"`
+	Address       string `json:"address"`
+	BackgroundIDs []int  `json:"backgroundIds"`
 }
 
-// 学历信息，当离开学校才能记入
 type Background struct {
-	Id       int
-	ExitTime int64
-	Status   string //0:毕业 1：退学
+	ID       int    `json:"id"`
+	ExitTime int64  `json:"exitTime"`
+	Status   string `json:"status"`
 }
 
 type Record struct {
-	Id              int
-	SchoolAddress   string
-	StudentAddress  string
-	SchoolSign      string
-	ModifyTime      int64
-	ModifyOperation string // 0:正常毕业 1：退学 2:入学
+	ID              int    `json:"id"`
+	SchoolAddress   string `json:"schoolAddress"`
+	StudentAddress  string `json:"studentAddress"`
+	SchoolSign      string `json:"schoolSign"`
+	ModifyTime      int64  `json:"modifyTime"`
+	ModifyOperation string `json:"modifyOperation"`
 }
 
-/*
- * 区块链网络实例化"diploma"智能合约时调用该方法
- */
-func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
-	return shim.Success(nil)
+func (s *SmartContract) CreateSchool(ctx contractapi.TransactionContextInterface, name string, location string) (*School, error) {
+	address := newAddress(ctx, "school")
+	school := &School{
+		Name:             name,
+		Location:         location,
+		Address:          address,
+		PriKey:           address + "1",
+		PubKey:           address + "2",
+		StudentAddresses: []string{},
+	}
+	if err := putJSON(ctx, schoolKey(address), school); err != nil {
+		return nil, err
+	}
+	return school, nil
 }
 
-/*
- * 客户端发起请求执行"diploma"智能合约时会调用 Invoke 方法
- */
-func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
-	// 获取请求调用智能合约的方法和参数
-	function, args := stub.GetFunctionAndParameters()
-	// Route to the appropriate handler function to interact with the ledger appropriately
-	if function == "createSchool" {
-		return t.createSchool(stub, args)
-	} else if function == "createStudent" {
-		return t.createStudent(stub, args)
-	} else if function == "enrollStudent" {
-		return t.enrollStudent(stub, args)
-	} else if function == "updateDiploma" {
-		return t.updateDiploma(stub, args)
-	} else if function == "getRecords" {
-		return t.getRecords(stub)
-	} else if function == "getRecordById" {
-		return t.getRecordById(stub, args)
-	} else if function == "getStudentByAddress" {
-		return t.getStudentByAddress(stub, args)
-	} else if function == "getSchoolByAddress" {
-		return t.getSchoolByAddress(stub, args)
-	} else if function == "getBackgroundById" {
-		return t.getBackgroundById(stub, args)
+func (s *SmartContract) CreateStudent(ctx contractapi.TransactionContextInterface, name string) (*Student, error) {
+	address := newAddress(ctx, "student")
+	student := &Student{Name: name, Address: address, BackgroundIDs: []int{}}
+	if err := putJSON(ctx, studentKey(address), student); err != nil {
+		return nil, err
 	}
-	return shim.Success(nil)
+	return student, nil
 }
 
-/*
- * 添加一所新学校
- * args[0] 学校名称
- * args[1] 学校所在位置
- */
-func (t *SimpleChaincode) createSchool(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	if len(args) != 2 {
-		return shim.Error("Incorrect number of arguments. Expecting 2")
-	}
-
-	var school School
-	var schoolBytes []byte
-	var stuAddress []string
-	var address, priKey, pubKey string
-	address, priKey, pubKey = GetAddress()
-
-	school = School{Name: args[0], Location: args[1], Address: address, PriKey: priKey, PubKey: pubKey, StudentAddress: stuAddress}
-	err := writeSchool(stub, school)
+func (s *SmartContract) EnrollStudent(ctx contractapi.TransactionContextInterface, schoolAddress string, schoolSignature string, studentAddress string) (*Record, error) {
+	school, err := readSchool(ctx, schoolAddress)
 	if err != nil {
-		shim.Error("Error write school")
+		return nil, err
+	}
+	if !validSchoolSignature(school, schoolSignature) {
+		return nil, fmt.Errorf("invalid school signature")
+	}
+	if _, err := readStudent(ctx, studentAddress); err != nil {
+		return nil, err
 	}
 
-	schoolBytes, err = json.Marshal(&school)
-	if err != nil {
-		return shim.Error("Error retrieving schoolBytes")
+	school.StudentAddresses = appendUnique(school.StudentAddresses, studentAddress)
+	if err := putJSON(ctx, schoolKey(schoolAddress), school); err != nil {
+		return nil, err
 	}
-
-	return shim.Success(schoolBytes)
+	return writeRecord(ctx, schoolAddress, studentAddress, schoolSignature, "enroll")
 }
 
-/*
- * 添加一名新学生
- * args[0] 学生的姓名
- */
-func (t *SimpleChaincode) createStudent(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments. Expecting 1")
-	}
-
-	var student Student
-	var studentBytes []byte
-	var stuAddress string
-	var bgID []int
-	stuAddress, _, _ = GetAddress()
-
-	student = Student{Name: args[0], Address: stuAddress, BackgroundId: bgID}
-	err := writeStudent(stub, student)
+func (s *SmartContract) UpdateDiploma(ctx contractapi.TransactionContextInterface, schoolAddress string, schoolSignature string, studentAddress string, status string) (*Record, error) {
+	school, err := readSchool(ctx, schoolAddress)
 	if err != nil {
-		return shim.Error("Error write student")
+		return nil, err
 	}
-
-	studentBytes, err = json.Marshal(&student)
+	if !validSchoolSignature(school, schoolSignature) {
+		return nil, fmt.Errorf("invalid school signature")
+	}
+	student, err := readStudent(ctx, studentAddress)
 	if err != nil {
-		return shim.Error("Error retrieving studentBytes")
+		return nil, err
 	}
 
-	return shim.Success(studentBytes)
+	backgroundID, err := nextID(ctx, backgroundCounterKey)
+	if err != nil {
+		return nil, err
+	}
+	timestamp, err := txUnixTime(ctx)
+	if err != nil {
+		return nil, err
+	}
+	background := &Background{ID: backgroundID, ExitTime: timestamp, Status: status}
+	student.BackgroundIDs = append(student.BackgroundIDs, backgroundID)
+
+	if err := putJSON(ctx, backgroundKey(backgroundID), background); err != nil {
+		return nil, err
+	}
+	if err := putJSON(ctx, studentKey(studentAddress), student); err != nil {
+		return nil, err
+	}
+	return writeRecord(ctx, schoolAddress, studentAddress, schoolSignature, status)
 }
 
-/*
- * 学校招生（返回学校信息）
- * args[0] 学校账户地址
- * args[1] 学校签名
- * args[2] 学生账户地址
- */
-func (t *SimpleChaincode) enrollStudent(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	if len(args) != 3 {
-		return shim.Error("Incorrect number of arguments. Expecting 3")
-	}
-
-	schAddress := args[0]
-	schoolSign := args[1]
-	stuAddress := args[2]
-
-	var school School
-	var schBytes []byte
-	var err error
-
-	// 根据学校账户地址获取学校信息
-	schBytes, err = stub.GetState(schAddress)
-	if err != nil {
-		return shim.Error("Error retrieving data")
-	}
-	err = json.Unmarshal(schBytes, &school)
-	if err != nil {
-		return shim.Error("Error unmarshalling data")
-	}
-
-	var record Record
-	record = Record{Id: RecordNo, SchoolAddress: schAddress, StudentAddress: stuAddress, SchoolSign: schoolSign, ModifyTime: time.Now().Unix(), ModifyOperation: "2"} // 2 表示入学
-
-	err = writeRecord(stub, record)
-	if err != nil {
-		return shim.Error("Error write record")
-	}
-
-	school.StudentAddress = append(school.StudentAddress, stuAddress)
-	err = writeSchool(stub, school)
-	if err != nil {
-		return shim.Error("Error write school")
-	}
-
-	RecordNo = RecordNo + 1
-	recordBytes, err := json.Marshal(&record)
-	if err != nil {
-		return shim.Error("Error retrieving recordBytes")
-	}
-
-	return shim.Success(recordBytes)
+func (s *SmartContract) GetStudentByAddress(ctx contractapi.TransactionContextInterface, address string) (*Student, error) {
+	return readStudent(ctx, address)
 }
 
-/*
- * 由学校更新学生学历信息，并签名（返回记录信息）
- * args[0] 学校账户地址
- * args[1] 学校签名
- * args[2] 待修改学生的账户地址
- * args[3] 对该学生的学历进行怎样的修改，0：正常毕业  1：退学
- */
-func (t *SimpleChaincode) updateDiploma(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	if len(args) != 4 {
-		return shim.Error("Incorrect number of arguments. Expecting 4")
-	}
+func (s *SmartContract) GetSchoolByAddress(ctx contractapi.TransactionContextInterface, address string) (*School, error) {
+	return readSchool(ctx, address)
+}
 
-	schAddress := args[0]
-	schoolSign := args[1]
-	stuAddress := args[2]
-	modOperation := args[3]
-
-	var recordBytes []byte
-	var student Student
-	var stuBytes []byte
-	var err error
-
-	// 根据学生账户地址获取学生信息
-	stuBytes, err = stub.GetState(stuAddress)
+func (s *SmartContract) GetRecordByID(ctx contractapi.TransactionContextInterface, id string) (*Record, error) {
+	recordID, err := strconv.Atoi(id)
 	if err != nil {
-		return shim.Error("Error retrieving data")
+		return nil, err
 	}
-	err = json.Unmarshal(stuBytes, &student)
+	return readRecord(ctx, recordID)
+}
+
+func (s *SmartContract) GetBackgroundByID(ctx contractapi.TransactionContextInterface, id string) (*Background, error) {
+	backgroundID, err := strconv.Atoi(id)
 	if err != nil {
-		return shim.Error("Error unmarshalling data")
+		return nil, err
 	}
+	return readBackground(ctx, backgroundID)
+}
 
-	var record Record
-	record = Record{Id: RecordNo, SchoolAddress: schAddress, StudentAddress: stuAddress, SchoolSign: schoolSign, ModifyTime: time.Now().Unix(), ModifyOperation: modOperation}
-
-	err = writeRecord(stub, record)
+func (s *SmartContract) GetRecords(ctx contractapi.TransactionContextInterface) ([]Record, error) {
+	count, err := currentID(ctx, recordCounterKey)
 	if err != nil {
-		return shim.Error("Error write record")
+		return nil, err
 	}
-
-	var background Background
-	background = Background{Id: BackGroundNo, ExitTime: time.Now().Unix(), Status: modOperation}
-	err = writeBackground(stub, background)
-	if err != nil {
-		return shim.Error("Error write background")
-	}
-
-	// 如果学生正常毕业，也要更新学生的教育背景
-	if modOperation == "0" {
-		student.BackgroundId = append(student.BackgroundId, BackGroundNo)
-		student = Student{Name: student.Name, Address: student.Address, BackgroundId: student.BackgroundId}
-		err = writeStudent(stub, student)
+	records := make([]Record, 0, count)
+	for id := 0; id < count; id++ {
+		record, err := readRecord(ctx, id)
 		if err != nil {
-			return shim.Error("Error write student")
+			return nil, err
 		}
+		records = append(records, *record)
 	}
-
-	BackGroundNo = BackGroundNo + 1
-	recordBytes, err = json.Marshal(&record)
-	if err != nil {
-		return shim.Error("Error retrieving schoolBytes")
-	}
-
-	return shim.Success(recordBytes)
+	return records, nil
 }
 
-/*
- * 通过学生的地址获取学生的学历信息
- * args[0] address
- */
-func (t *SimpleChaincode) getStudentByAddress(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments. Expecting 1")
-	}
-
-	stuBytes, err := stub.GetState(args[0])
+func writeRecord(ctx contractapi.TransactionContextInterface, schoolAddress string, studentAddress string, schoolSignature string, operation string) (*Record, error) {
+	id, err := nextID(ctx, recordCounterKey)
 	if err != nil {
-		shim.Error("Error retrieving data")
+		return nil, err
 	}
-	return shim.Success(stuBytes)
+	timestamp, err := txUnixTime(ctx)
+	if err != nil {
+		return nil, err
+	}
+	record := &Record{
+		ID:              id,
+		SchoolAddress:   schoolAddress,
+		StudentAddress:  studentAddress,
+		SchoolSign:      schoolSignature,
+		ModifyTime:      timestamp,
+		ModifyOperation: operation,
+	}
+	if err := putJSON(ctx, recordKey(id), record); err != nil {
+		return nil, err
+	}
+	return record, nil
 }
 
-/*
- * 通过地址获取学校的信息
- * args[0] address
- */
-func (t *SimpleChaincode) getSchoolByAddress(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments. Expecting 1")
+func readSchool(ctx contractapi.TransactionContextInterface, address string) (*School, error) {
+	var school School
+	if err := readJSON(ctx, schoolKey(address), &school); err != nil {
+		return nil, err
 	}
-
-	schBytes, err := stub.GetState(args[0])
-	if err != nil {
-		shim.Error("Error retrieving data")
-	}
-	return shim.Success(schBytes)
+	return &school, nil
 }
 
-/*
- * 通过 Id 获取记录
- * args[0] 记录的 Id
- */
-func (t *SimpleChaincode) getRecordById(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments. Expecting 1")
+func readStudent(ctx contractapi.TransactionContextInterface, address string) (*Student, error) {
+	var student Student
+	if err := readJSON(ctx, studentKey(address), &student); err != nil {
+		return nil, err
 	}
-
-	recBytes, err := stub.GetState("Record" + args[0])
-	if err != nil {
-		return shim.Error("Error retrieving data")
-	}
-
-	return shim.Success(recBytes)
+	return &student, nil
 }
 
-/*
- * 获取全部记录（如果记录数大于10,返回前10个）
- */
-func (t *SimpleChaincode) getRecords(stub shim.ChaincodeStubInterface) pb.Response {
-	var records []Record
-	var number string
-	var err error
+func readRecord(ctx contractapi.TransactionContextInterface, id int) (*Record, error) {
 	var record Record
-	var recBytes []byte
-	if RecordNo < 10 {
-		i := 0
-		for i <= RecordNo {
-			number = strconv.Itoa(i)
-			recBytes, err = stub.GetState("Record" + number)
-			if err != nil {
-				return shim.Error("Error get detail")
-			}
-			err = json.Unmarshal(recBytes, &record)
-			if err != nil {
-				return shim.Error("Error unmarshalling data")
-			}
-			records = append(records, record)
-			i = i + 1
-		}
-	} else {
-		i := 0
-		for i < 10 {
-			number = strconv.Itoa(i)
-			recBytes, err = stub.GetState("Record" + number)
-			if err != nil {
-				return shim.Error("Error get detail")
-			}
-			err = json.Unmarshal(recBytes, &record)
-			if err != nil {
-				return shim.Error("Error unmarshalling data")
-			}
-			records = append(records, record)
-			i = i + 1
+	if err := readJSON(ctx, recordKey(id), &record); err != nil {
+		return nil, err
+	}
+	return &record, nil
+}
+
+func readBackground(ctx contractapi.TransactionContextInterface, id int) (*Background, error) {
+	var background Background
+	if err := readJSON(ctx, backgroundKey(id), &background); err != nil {
+		return nil, err
+	}
+	return &background, nil
+}
+
+func validSchoolSignature(school *School, signature string) bool {
+	return signature == school.PriKey || signature == school.PriKey+":signed" || signature == school.Address+"1"
+}
+
+func appendUnique(values []string, value string) []string {
+	for _, existing := range values {
+		if existing == value {
+			return values
 		}
 	}
-	recordsBytes, err := json.Marshal(&records)
-	if err != nil {
-		shim.Error("Error get records")
-	}
-	return shim.Success(recordsBytes)
+	return append(values, value)
 }
 
-/*
- * 通过 Id 获取所存储的学历信息
- * args[0] ID
- */
-func (t *SimpleChaincode) getBackgroundById(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	backBytes, err := stub.GetState("BackGround" + args[0])
-	if err != nil {
-		return shim.Error("Error retrieving data")
-	}
-	return shim.Success(backBytes)
+func newAddress(ctx contractapi.TransactionContextInterface, prefix string) string {
+	sum := sha256.Sum256([]byte(prefix + ":" + ctx.GetStub().GetTxID()))
+	return hex.EncodeToString(sum[:])
 }
 
-func writeRecord(stub shim.ChaincodeStubInterface, record Record) error {
-	var recID string
-	recordBytes, err := json.Marshal(&record)
+func txUnixTime(ctx contractapi.TransactionContextInterface) (int64, error) {
+	timestamp, err := ctx.GetStub().GetTxTimestamp()
 	if err != nil {
-		return err
+		return 0, fmt.Errorf("failed to read transaction timestamp: %w", err)
 	}
+	return timestamp.Seconds, nil
+}
 
-	recID = strconv.Itoa(record.Id)
-	err = stub.PutState("Record"+recID, recordBytes)
+func nextID(ctx contractapi.TransactionContextInterface, counterKey string) (int, error) {
+	id, err := currentID(ctx, counterKey)
 	if err != nil {
-		return errors.New("PutState Error" + err.Error())
+		return 0, err
+	}
+	if err := ctx.GetStub().PutState(counterKey, []byte(strconv.Itoa(id+1))); err != nil {
+		return 0, fmt.Errorf("failed to update counter %s: %w", counterKey, err)
+	}
+	return id, nil
+}
+
+func currentID(ctx contractapi.TransactionContextInterface, counterKey string) (int, error) {
+	data, err := ctx.GetStub().GetState(counterKey)
+	if err != nil {
+		return 0, fmt.Errorf("failed to read counter %s: %w", counterKey, err)
+	}
+	if data == nil {
+		return 0, nil
+	}
+	return strconv.Atoi(string(data))
+}
+
+func readJSON(ctx contractapi.TransactionContextInterface, key string, target interface{}) error {
+	data, err := ctx.GetStub().GetState(key)
+	if err != nil {
+		return fmt.Errorf("failed to read %s: %w", key, err)
+	}
+	if data == nil {
+		return fmt.Errorf("state %s does not exist", key)
+	}
+	if err := json.Unmarshal(data, target); err != nil {
+		return fmt.Errorf("failed to decode %s: %w", key, err)
 	}
 	return nil
 }
 
-func writeSchool(stub shim.ChaincodeStubInterface, school School) error {
-	schBytes, err := json.Marshal(&school)
+func putJSON(ctx contractapi.TransactionContextInterface, key string, value interface{}) error {
+	data, err := json.Marshal(value)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to encode %s: %w", key, err)
 	}
-
-	err = stub.PutState(school.Address, schBytes)
-	if err != nil {
-		return errors.New("PutState Error" + err.Error())
+	if err := ctx.GetStub().PutState(key, data); err != nil {
+		return fmt.Errorf("failed to write %s: %w", key, err)
 	}
 	return nil
 }
 
-func writeStudent(stub shim.ChaincodeStubInterface, student Student) error {
-	stuBytes, err := json.Marshal(&student)
-	if err != nil {
-		return err
-	}
-
-	err = stub.PutState(student.Address, stuBytes)
-	if err != nil {
-		return errors.New("PutState Error" + err.Error())
-	}
-	return nil
+func schoolKey(address string) string {
+	return "school:" + address
 }
 
-func writeBackground(stub shim.ChaincodeStubInterface, background Background) error {
-	var backID string
-	backBytes, err := json.Marshal(&background)
-	if err != nil {
-		return err
-	}
-
-	backID = strconv.Itoa(background.Id)
-	err = stub.PutState("BackGround"+backID, backBytes)
-	if err != nil {
-		return errors.New("PutState Error" + err.Error())
-	}
-	return nil
+func studentKey(address string) string {
+	return "student:" + address
 }
 
-/*
- * 生成Address
- */
-func GetAddress() (string, string, string) {
-	var address, priKey, pubKey string
-	b := make([]byte, 48)
+func recordKey(id int) string {
+	return fmt.Sprintf("record:%d", id)
+}
 
-	if _, err := io.ReadFull(rand.Reader, b); err != nil {
-		return "", "", ""
-	}
-
-	h := md5.New()
-	h.Write([]byte(base64.URLEncoding.EncodeToString(b)))
-
-	address = hex.EncodeToString(h.Sum(nil))
-	priKey = address + "1"
-	pubKey = address + "2"
-
-	return address, priKey, pubKey
+func backgroundKey(id int) string {
+	return fmt.Sprintf("background:%d", id)
 }
 
 func main() {
-	err := shim.Start(new(SimpleChaincode))
+	chaincode, err := contractapi.NewChaincode(&SmartContract{})
 	if err != nil {
-		fmt.Printf("Error starting Simple chaincode: %s", err)
+		fmt.Printf("Error creating chaincode: %s", err)
+		return
+	}
+	if err := chaincode.Start(); err != nil {
+		fmt.Printf("Error starting chaincode: %s", err)
 	}
 }

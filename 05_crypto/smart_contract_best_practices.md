@@ -16,7 +16,7 @@
 **示例 - 不好的做法**：
 
 ```solidity
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.24;
 
 // 一个合约承载了太多职责：转账、质押、治理、预言机等
 contract Monolith {
@@ -31,35 +31,53 @@ contract Monolith {
 
 ```solidity
 // 分离职责，使用接口定义清晰的边界
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.24;
 
-interface IToken {
-    function transfer(address to, uint amount) external returns (bool);
-    function balanceOf(address account) external view returns (uint);
-}
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 interface IOracle {
-    function getPrice(address token) external view returns (uint);
+    function getPrice(address token) external view returns (uint256);
 }
 
 contract TransferModule {
-    IToken public token;
+    using SafeERC20 for IERC20;
 
-    function safeTransfer(address to, uint amount) external {
-        require(token.transfer(to, amount), "Transfer failed");
+    IERC20 public immutable token;
+
+    constructor(IERC20 token_) {
+        token = token_;
+    }
+
+    function safeTransfer(address to, uint256 amount) external {
+        token.safeTransfer(to, amount);
     }
 }
 
-contract StakingModule {
-    IToken public token;
-    mapping(address => uint) public stakes;
+contract StakingModule is ReentrancyGuard {
+    using SafeERC20 for IERC20;
 
-    function stake(uint amount) external {
-        stakes[msg.sender] += amount;
-        token.transfer(address(this), amount);
+    IERC20 public immutable token;
+    mapping(address => uint256) public stakes;
+
+    constructor(IERC20 token_) {
+        token = token_;
+    }
+
+    function stake(uint256 amount) external nonReentrant {
+        require(amount > 0, "Zero amount");       // Checks
+        stakes[msg.sender] += amount;             // Effects
+        token.safeTransferFrom(                   // Interactions
+            msg.sender,
+            address(this),
+            amount
+        );
     }
 }
 ```
+
+实际合约中，`unstake`、`claim` 等共享 `stakes` 状态的外部入口也应使用同一套 CEI 和重入保护策略；若代币存在转账税或 rebasing 行为，应改用余额差额记账。
 
 #### 1.2 状态机设计
 
@@ -173,10 +191,11 @@ contract GoodWithdrawal {
 对于无法完全避免重入的复杂场景，使用重入锁提供保护。
 
 ```solidity
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.24;
 
 contract WithReentrancyGuard {
     uint private locked = 1;
+    address public externalContract;
 
     modifier nonReentrant() {
         require(locked == 1, "No reentrancy");
@@ -187,12 +206,13 @@ contract WithReentrancyGuard {
 
     function complexOperation() external nonReentrant {
         // 即使这里调用不信任的外部合约，也不会重入
-        externalContract.call();
+        (bool success, ) = externalContract.call("");
+        require(success, "External call failed");
     }
 }
 
 // 或使用 OpenZeppelin 的实现
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 contract SafeContract is ReentrancyGuard {
     function withdraw() public nonReentrant {
@@ -204,9 +224,16 @@ contract SafeContract is ReentrancyGuard {
 #### 2.3 显式处理低级调用的返回值
 
 ```solidity
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.24;
+
+import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 contract ProperErrorHandling {
+    using SafeERC20 for IERC20;
+
+    address public token;
+
     // 不良做法：忽略返回值
     function bad_transfer() public {
         address(0x123).call{value: 1 ether}("");  // 失败时无提示
@@ -227,8 +254,7 @@ contract ProperErrorHandling {
         );
     }
 
-    // 正确做法 3：使用 SafeERC20
-    using SafeERC20 for IERC20;
+    // 正确做法 3：使用 SafeERC20 兼容不返回 bool 的 ERC-20
     function good_transfer_v3() public {
         IERC20(token).safeTransfer(address(0x123), 1 ether);
     }
@@ -264,13 +290,15 @@ contract TimeDependenceIssues {
 #### 2.5 严格的权限控制
 
 ```solidity
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.24;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
 
 // 简单场景：使用 Ownable
 contract SimpleAccess is Ownable {
+    constructor(address initialOwner) Ownable(initialOwner) {}
+
     function criticalFunction() public onlyOwner {
         // 仅拥有者可调用
     }
@@ -281,9 +309,9 @@ contract ComplexAccess is AccessControl {
     bytes32 public constant ADMIN_ROLE = keccak256("ADMIN_ROLE");
     bytes32 public constant MODERATOR_ROLE = keccak256("MODERATOR_ROLE");
 
-    constructor() {
-        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(ADMIN_ROLE, msg.sender);
+    constructor(address admin) {
+        _grantRole(DEFAULT_ADMIN_ROLE, admin);
+        _grantRole(ADMIN_ROLE, admin);
     }
 
     function withdraw() public onlyRole(ADMIN_ROLE) {
@@ -399,7 +427,7 @@ npx hardhat coverage
 
 ### 安全性检查
 - [ ] 没有重入漏洞（使用 CEI 模式或重入锁）
-- [ ] 整数溢出/下溢已处理（Solidity 0.8.0+ 或 SafeMath）
+- [ ] 整数溢出/下溢已处理（Solidity 0.8.0+ 内置检查；遗留 v4 代码才考虑 SafeMath）
 - [ ] 访问控制正确（所有 public 函数都检查权限）
 - [ ] 外部调用都检查返回值
 - [ ] 没有依赖 tx.origin 进行认证
@@ -493,16 +521,19 @@ def monitor_events():
 #### 5.3 升级机制
 
 ```solidity
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.24;
 
-import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts/proxy/utils/UUPSUpgradeable.sol";
+import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
-contract UpgradeableAuction is Initializable, UUPSUpgradeable {
-    uint public version = 1;
+contract UpgradeableAuction is Initializable, OwnableUpgradeable, UUPSUpgradeable {
+    uint256 public version;
 
-    function initialize() public initializer {
-        // 初始化逻辑
+    function initialize(address initialOwner) public initializer {
+        __Ownable_init(initialOwner);
+        __UUPSUpgradeable_init();
+        version = 1;
     }
 
     function _authorizeUpgrade(address newImplementation) internal onlyOwner override {
@@ -520,16 +551,17 @@ contract UpgradeableAuction is Initializable, UUPSUpgradeable {
 | 权限缺失 | 任何人可调用关键函数 | onlyOwner, AccessControl | Slither |
 | 外部调用失败忽略 | 状态不一致 | 检查返回值、SafeERC20 | Slither |
 | 时间戳依赖 | 矿工操纵 | 添加时间范围、预言机 | Mythril |
-| 闪电贷 | 突然大额借入 | 时间加权价格、速率限制 | Echidna |
+| 闪电贷相关操纵 | 预言机或流动性被瞬时扭曲 | 多源预言机、TWAP、价格影响限制、熔断 | 属性测试、链上监控 |
 | MEV 抢跑 | 交易被插队 | 批处理、承诺-reveal | 链上分析 |
 
 ### 7. 资源与工具链
 
 **必读资源**：
-- OpenZeppelin Contracts：经审计的合约库
+- OpenZeppelin Contracts：经审计的合约库（示例默认按 v5 路径和构造函数书写）
 - Solidity 官方文档：语言规范和安全警告
-- Ethereum Security：官方安全指南
-- CWE-1035：常见弱点枚举
+- OWASP SCSVS / SCSTG / SCWE：智能合约安全需求、测试指南和弱点枚举
+- EEA EthTrust Security Levels：审计和验收时可使用的安全等级基线
+- SWC Registry：历史漏洞编号参考；不应作为当前唯一基线
 
 **工具集**：
 - Hardhat：开发和测试框架

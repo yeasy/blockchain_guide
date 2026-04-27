@@ -207,7 +207,7 @@ AI Agent #1234 的 TBA:
 
 ### 2.3 x402 协议：Web 原生支付标准
 
-**x402**（HTTP 402 Payment Required）由 Coinbase 联合 Stripe、Cloudflare 和 AWS 开发，为链上微支付和 AI 代理费用结算确立了 Web 标准。
+**x402**（HTTP 402 Payment Required）是 Coinbase Developer Platform 推动的开放支付协议，生态贡献者包括 Cloudflare 等。它把 HTTP 402 与链上稳定币支付结合起来，让 API、内容服务和 AI 代理可以用标准化请求/响应完成小额或按量付费；不应把它写成 Coinbase、Stripe、Cloudflare、AWS 共同发布的既定 Web 标准。
 
 #### 协议流程
 
@@ -226,59 +226,48 @@ AI Agent #1234 的 TBA:
    (可选：使用 session token 批量操作)
 
 4. 服务器验证链上支付 → 返回数据
-   HTTP/1.1 200 OK
-   {
-     ”prediction": [...],
-     "tx_hash": "0x5f8d...“
-   }
+  HTTP/1.1 200 OK
+  {
+    "prediction": [...],
+    "tx_hash": "0x5f8d..."
+  }
 ```
 
-#### 2025-2026 年采用统计（截至 2026-04-08）
+#### 采用状态
 
-* **总交易笔数**：超 1.5 亿笔（2025-11月统计超 1 亿笔，2026-04月末预估）
-* **总交易金额**：超 5,000 万美元
-* **主要网络分布**（基于 2025-Q4 快照）：
-  - Solana：处理近 25%（高 TPM）
-  - Base (Coinbase L2)：处理约 40%（稳定币主导）
-  - Ethereum Mainnet：处理约 20%（大额交易）
-  - 其他链：约 15%
+官方文档更适合将 x402 描述为仍在快速扩展的开放协议和 SDK 生态。交易量、链分布、Google 原生集成或“V2 默认路由”等说法，如果没有官方仪表盘或发布说明支撑，不应写成事实。
 
-注：x402 V2 发布于 2025-09 月，Google 已原生集成作为 Agentic Payments Protocol 默认稳定币路由。交易量增长反映 AI Agent 经济快速扩展。
+### 2.4 Stripe ACP：传统支付巨头的代理支付接口
 
-### 2.4 Stripe MPP：传统支付巨头的代理支付标准
-
-2026 年 3 月，Stripe 发布了 **Machine Payments Protocol（MPP）**，标志着传统支付基础设施正式向 AI 代理经济延伸。与 x402 侧重链上原生支付不同，MPP 同时支持**稳定币、法币（卡支付、先买后付）和 Shared Payment Tokens（SPT）**，覆盖了更广泛的支付场景。
+Stripe 官方文档描述的是 **Agentic Commerce Protocol（ACP）**，而不是此前材料中误称的“机器支付协议”。ACP 是面向代理购物/结账的协议，可通过 RESTful 接口或 MCP server 暴露商户 checkout，并使用 Stripe Shared Payment Token（SPT）把支付凭据安全交给商户现有支付栈处理。
 
 #### 协议流程
 
 ```text
-1. 代理请求资源（API 端点、服务、数据）
-   GET /api/resource HTTP/1.1
+1. 代理向商户发起 checkout
+   CreateCheckoutRequest
 
-2. 服务返回支付请求
-   HTTP/1.1 402 Payment Required
-   + 金额、币种、收款方式（稳定币或法币）
+2. 商户返回购物车、金额、配送和可选项
+   Checkout state
 
-3. 代理通过 MPP 授权支付
-   （Stripe PaymentIntents API 处理结算）
+3. 用户确认支付后，代理生成 SharedPaymentToken
+   CompleteCheckoutRequest + SPT
 
-4. 服务验证到账 → 返回资源
-   HTTP/1.1 200 OK
+4. 商户创建 PaymentIntent 并完成确认
+   PaymentIntent confirmation
 ```
 
-#### MPP 与 x402 的互补定位
+#### ACP 与 x402 的互补定位
 
-| 维度 | x402 | Stripe MPP |
+| 维度 | x402 | Stripe ACP |
 |------|------|-----------|
-| **支付方式** | 链上稳定币（USDC 等） | 稳定币 + 法币 + SPT |
-| **结算层** | 链上直接结算 | Stripe 基础设施 |
-| **适用场景** | DeFi 原生、链上微支付 | 跨链下 SaaS、API 服务、实体商务 |
-| **合规性** | 依赖链上治理 | 继承 Stripe 的全球合规体系 |
-| **开发体验** | 需集成链上钱包与签名 | 几行代码接入 PaymentIntents API |
+| **支付方式** | 链上稳定币（如 USDC） | SPT + 商户现有支付栈 |
+| **结算层** | 链上直接结算或 facilitator 验证 | Stripe PaymentIntents 等传统支付基础设施 |
+| **适用场景** | API、内容访问、链上微支付 | 代理购物、商户 checkout、实物或数字商品订单 |
+| **合规性** | 依赖链上钱包、facilitator 和商户自身合规设计 | 继承商户与支付服务商的合规流程 |
+| **开发体验** | 需集成 x402 中间件、钱包签名和支付验证 | 需实现 ACP checkout 端点，并接入 SPT/PaymentIntent |
 
-MPP 属于 Stripe 更广泛的 **Agentic Commerce Suite** 的一部分，该套件还包含与 MCP（Model Context Protocol）的集成以及 Agentic Commerce Protocol（ACP），目标是为代理经济提供从工具发现到支付结算的完整闭环。
-
-MPP 的意义在于：它将 Stripe 服务的数百万商户直接暴露给 AI 代理，使得代理不仅能在链上 DeFi 世界中交易，还能在传统互联网商业生态中自主购买服务和商品。
+ACP 的意义在于：它把传统商户 checkout 暴露给兼容代理，同时让支付处理仍落在商户和支付服务商已有的风控、退款和争议处理体系中。它和 x402 的关系更像“代理商务结账协议”和“HTTP 原生链上支付协议”的并列方案。
 
 ---
 
