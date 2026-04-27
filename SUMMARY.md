@@ -100,6 +100,7 @@
   * [简介](10_fabric_op/intro.md)
   * [使用多通道](10_fabric_op/channel.md)
   * [管理节点](10_fabric_op/node.md)
+  * [管理链上代码（旧版）](10_fabric_op/chaincode.md)
   * [管理链上代码（Lifecycle）](10_fabric_op/chaincode_v2.md)
   * [监听网络事件](10_fabric_op/events.md)
   * [自动探测网络信息](10_fabric_op/discover.md)

@@ -46,7 +46,7 @@ geth version
 
 ### 1. 安装 Go 语言环境
 
-访问 [go.dev/dl](https://go.dev/dl/) 下载并安装 Go 1.21 或更高版本。
+访问 [go.dev/dl](https://go.dev/dl/) 下载并安装 Go 1.24 或更高版本。编译旧稳定分支时，以该分支 `go.mod` 中声明的 Go 版本为准。
 
 ```bash
 
@@ -72,17 +72,17 @@ make geth
 
 ## 运行节点
 
-由于 The Merge 后需要执行层+共识层配合，推荐使用官方的 [ethereum-docker](https://github.com/eth-educators/ethstaker-guides) 或 [eth-docker](https://eth-docker.net/) 等工具来简化部署。
+由于 The Merge 后需要执行层+共识层配合，生产或长期运行节点应同时配置 Geth 和共识层客户端，并共享同一个 JWT secret。也可以使用节点部署工具简化客户端组合。
 
 基本的 Geth 启动命令：
 
 ```bash
 
 # 连接主网（需配合共识层客户端）
-geth --http --http.api eth,net,engine,admin
+geth --http --http.api eth,net --authrpc.addr localhost --authrpc.port 8551 --authrpc.vhosts localhost --authrpc.jwtsecret /path/to/jwtsecret
 
 # 连接 Sepolia 测试网
-geth --sepolia --http
+geth --sepolia --http --http.api eth,net --authrpc.addr localhost --authrpc.port 8551 --authrpc.vhosts localhost --authrpc.jwtsecret /path/to/jwtsecret
 ```
 
 更多配置和同步选项请参考 [Geth 官方文档](https://geth.ethereum.org/docs/)。

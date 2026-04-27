@@ -1,185 +1,120 @@
-/*
-Copyright IBM Corp. 2016 All Rights Reserved.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-		 http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package main
 
-//WARNING - this chaincode's ID is hard-coded in chaincode_example04 to illustrate one way of
-//calling chaincode from a chaincode. If this example is modified, chaincode_example04.go has
-//to be modified as well with the new ID of chaincode_example02.
-//chaincode_example05 show's how chaincode ID can be passed in as a parameter instead of
-//hard-coding.
-
 import (
-	"errors"
 	"fmt"
 	"strconv"
 
-	"github.com/hyperledger/fabric/core/chaincode/shim"
+	"github.com/hyperledger/fabric-contract-api-go/v2/contractapi"
 )
 
-// SimpleChaincode example simple Chaincode implementation
-type SimpleChaincode struct {
+// SmartContract transfers integer balances between named accounts.
+type SmartContract struct {
+	contractapi.Contract
 }
 
-func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
-	var A, B string    // Entities
-	var Aval, Bval int // Asset holdings
-	var err error
+type Account struct {
+	Name    string `json:"name"`
+	Balance int    `json:"balance"`
+}
 
-	if len(args) != 4 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 4")
-	}
-
-	// Initialize the chaincode
-	A = args[0]
-	Aval, err = strconv.Atoi(args[1])
+// InitAccounts creates two accounts with their opening balances.
+func (s *SmartContract) InitAccounts(ctx contractapi.TransactionContextInterface, a string, aBalance string, b string, bBalance string) error {
+	aValue, err := parseAmount(aBalance)
 	if err != nil {
-		return nil, errors.New("Expecting integer value for asset holding")
+		return fmt.Errorf("invalid balance for %s: %w", a, err)
 	}
-	B = args[2]
-	Bval, err = strconv.Atoi(args[3])
+	bValue, err := parseAmount(bBalance)
 	if err != nil {
-		return nil, errors.New("Expecting integer value for asset holding")
+		return fmt.Errorf("invalid balance for %s: %w", b, err)
 	}
-	fmt.Printf("Aval = %d, Bval = %d\n", Aval, Bval)
+	if err := putBalance(ctx, a, aValue); err != nil {
+		return err
+	}
+	return putBalance(ctx, b, bValue)
+}
 
-	// Write the state to the ledger
-	err = stub.PutState(A, []byte(strconv.Itoa(Aval)))
+// Transfer moves amount from one account to another.
+func (s *SmartContract) Transfer(ctx contractapi.TransactionContextInterface, from string, to string, amount string) (*Account, error) {
+	value, err := parseAmount(amount)
 	if err != nil {
 		return nil, err
 	}
+	if value <= 0 {
+		return nil, fmt.Errorf("amount must be greater than zero")
+	}
 
-	err = stub.PutState(B, []byte(strconv.Itoa(Bval)))
+	fromBalance, err := getBalance(ctx, from)
 	if err != nil {
 		return nil, err
 	}
-
-	return nil, nil
-}
-
-// Transaction makes payment of X units from A to B
-func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
-	if function == "delete" {
-		// Deletes an entity from its state
-		return t.delete(stub, args)
-	}
-
-	var A, B string    // Entities
-	var Aval, Bval int // Asset holdings
-	var X int          // Transaction value
-	var err error
-
-	if len(args) != 3 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 3")
-	}
-
-	A = args[0]
-	B = args[1]
-
-	// Get the state from the ledger
-
-	Avalbytes, err := stub.GetState(A)
-	if err != nil {
-		return nil, errors.New("Failed to get state")
-	}
-	if Avalbytes == nil {
-		return nil, errors.New("Entity not found")
-	}
-	Aval, _ = strconv.Atoi(string(Avalbytes))
-
-	Bvalbytes, err := stub.GetState(B)
-	if err != nil {
-		return nil, errors.New("Failed to get state")
-	}
-	if Bvalbytes == nil {
-		return nil, errors.New("Entity not found")
-	}
-	Bval, _ = strconv.Atoi(string(Bvalbytes))
-
-	// Perform the execution
-	X, err = strconv.Atoi(args[2])
-	Aval = Aval - X
-	Bval = Bval + X
-	fmt.Printf("Aval = %d, Bval = %d\n", Aval, Bval)
-
-	// Write the state back to the ledger
-	err = stub.PutState(A, []byte(strconv.Itoa(Aval)))
+	toBalance, err := getBalance(ctx, to)
 	if err != nil {
 		return nil, err
 	}
+	if fromBalance < value {
+		return nil, fmt.Errorf("account %s has insufficient balance", from)
+	}
 
-	err = stub.PutState(B, []byte(strconv.Itoa(Bval)))
-	if err != nil {
+	fromBalance -= value
+	toBalance += value
+
+	if err := putBalance(ctx, from, fromBalance); err != nil {
+		return nil, err
+	}
+	if err := putBalance(ctx, to, toBalance); err != nil {
 		return nil, err
 	}
 
-	return nil, nil
+	return &Account{Name: from, Balance: fromBalance}, nil
 }
 
-// Deletes an entity from state
-func (t *SimpleChaincode) delete(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
-	if len(args) != 1 {
-		return nil, errors.New("Incorrect number of arguments. Expecting 1")
-	}
-
-	A := args[0]
-
-	// Delete the key from the state in ledger
-	err := stub.DelState(A)
+// ReadAccount returns the current account balance.
+func (s *SmartContract) ReadAccount(ctx contractapi.TransactionContextInterface, name string) (*Account, error) {
+	balance, err := getBalance(ctx, name)
 	if err != nil {
-		return nil, errors.New("Failed to delete state")
+		return nil, err
 	}
-
-	return nil, nil
+	return &Account{Name: name, Balance: balance}, nil
 }
 
-// Query callback representing the query of a chaincode
-func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
-	if function != "query" {
-		return nil, errors.New("Invalid query function name. Expecting \"query\"")
-	}
-	var A string // Entities
-	var err error
+// Delete removes an account.
+func (s *SmartContract) Delete(ctx contractapi.TransactionContextInterface, name string) error {
+	return ctx.GetStub().DelState(name)
+}
 
-	if len(args) != 1 {
-		return nil, errors.New("Incorrect number of arguments. Expecting name of the person to query")
-	}
-
-	A = args[0]
-
-	// Get the state from the ledger
-	Avalbytes, err := stub.GetState(A)
+func parseAmount(value string) (int, error) {
+	amount, err := strconv.Atoi(value)
 	if err != nil {
-		jsonResp := "{\"Error\":\"Failed to get state for " + A + "\"}"
-		return nil, errors.New(jsonResp)
+		return 0, fmt.Errorf("expected integer amount: %w", err)
 	}
+	return amount, nil
+}
 
-	if Avalbytes == nil {
-		jsonResp := "{\"Error\":\"Nil amount for " + A + "\"}"
-		return nil, errors.New(jsonResp)
+func getBalance(ctx contractapi.TransactionContextInterface, name string) (int, error) {
+	data, err := ctx.GetStub().GetState(name)
+	if err != nil {
+		return 0, fmt.Errorf("failed to read account %s: %w", name, err)
 	}
+	if data == nil {
+		return 0, fmt.Errorf("account %s does not exist", name)
+	}
+	return parseAmount(string(data))
+}
 
-	jsonResp := "{\"Name\":\"" + A + "\",\"Amount\":\"" + string(Avalbytes) + "\"}"
-	fmt.Printf("Query Response:%s\n", jsonResp)
-	return Avalbytes, nil
+func putBalance(ctx contractapi.TransactionContextInterface, name string, balance int) error {
+	if name == "" {
+		return fmt.Errorf("account name must not be empty")
+	}
+	return ctx.GetStub().PutState(name, []byte(strconv.Itoa(balance)))
 }
 
 func main() {
-	err := shim.Start(new(SimpleChaincode))
+	chaincode, err := contractapi.NewChaincode(&SmartContract{})
 	if err != nil {
-		fmt.Printf("Error starting Simple chaincode: %s", err)
+		fmt.Printf("Error creating chaincode: %s", err)
+		return
+	}
+	if err := chaincode.Start(); err != nil {
+		fmt.Printf("Error starting chaincode: %s", err)
 	}
 }

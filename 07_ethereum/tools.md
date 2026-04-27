@@ -2,7 +2,7 @@
 
 ### 客户端和开发库
 
-以太坊社区现在提供了多种语言实现的客户端，支持标准的 JSON-RPC 协议。随着以太坊 2.0（共识层）的升级，现在的节点通常由执行层客户端（Execution Client）和共识层客户端（Consensus Client）共同组成。
+以太坊社区提供了多种语言实现的客户端，支持标准的 JSON-RPC 协议。合并后，主网节点通常由执行层客户端（Execution Client）和共识层客户端（Consensus Client）共同组成。
 
 **执行层客户端（Execution Client）：**
 *   [Geth (go-ethereum)](https://github.com/ethereum/go-ethereum)：Go 语言实现，最主流的客户端；
@@ -16,8 +16,8 @@
 *   [Teku](https://github.com/ConsenSys/teku)：Java 语言实现。
 
 **开发库：**
-*   [ethers.js](https://github.com/ethers-io/ethers.js/)：轻量级且功能强大的 JavaScript 库，目前最受欢迎；
-*   [web3.js](https://github.com/web3/web3.js)：历史最悠久的 JavaScript 库；
+*   [ethers.js](https://docs.ethers.org/v6/)：轻量级且功能强大的 JavaScript/TypeScript 库，当前 v6 API 使用 `bigint`、`ethers.parseEther()` 等现代接口；
+*   [web3.js](https://github.com/web3/web3.js)：历史悠久的 JavaScript 库，常见于 legacy 项目；
 *   [viem](https://github.com/wagmi-dev/viem)：基于 TypeScript 构建的新一代库，专注于性能。
 
 ### 以太坊钱包
@@ -32,9 +32,15 @@
 
 现代以太坊开发工具栈已经发生了巨大变化。
 
-*   [Hardhat](https://hardhat.org/)：目前最主流的以太坊开发环境，基于 JavaScript/TypeScript，拥有庞大的插件生态。
-*   [Foundry](https://github.com/foundry-rs/foundry)：基于 Rust 编写的极速开发框架，支持用 Solidity 编写测试脚本，正在快速取代 Hardhat。
+*   [Hardhat](https://hardhat.org/)：主流以太坊开发环境，支持 TypeScript、Solidity 测试、Hardhat Network、本地调试和插件生态。
+*   [Foundry](https://getfoundry.sh/)：基于 Rust 编写的高性能开发框架，包含 Forge、Cast、Anvil 和 Chisel，适合 Solidity 原生测试和脚本化工作流。
 *   [Remix](https://remix.ethereum.org)：基于浏览器的 IDE，无需安装，适合快速原型开发和教学。
+*   [Ganache](https://archive.trufflesuite.com/ganache/)：Truffle/Ganache 已 sunset，代码和文档作为归档保留；新项目优先使用 Hardhat Network 或 Foundry Anvil。
+
+### 本地测试链
+
+*   [Hardhat Network](https://hardhat.org/docs/guides/hardhat-node)：Hardhat 内置的本地开发链，可通过 `npx hardhat node` 暴露 JSON-RPC，适合与 Hardhat 测试、调试、fork 和脚本集成。
+*   [Anvil](https://getfoundry.sh/anvil/overview)：Foundry 提供的快速本地 Ethereum 节点，适合独立本地链、fork 测试和与 Forge/Cast 配合使用。
 
 ### 网站资源
 

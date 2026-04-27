@@ -1,6 +1,6 @@
 ## 智能合约案例：投票
 
-本节将介绍一个用 Solidity 语言编写的智能合约案例。代码来源于 [Solidity 官方文档](https://solidity.readthedocs.io/en/latest/index.html) 中的示例。
+本节将介绍一个用 Solidity 语言编写的智能合约案例。代码来源于 [Solidity 官方文档](https://docs.soliditylang.org/en/latest/solidity-by-example.html#voting) 中的示例。
 
 该智能合约实现了一个自动化的、透明的投票应用。投票发起人可以发起投票，将投票权赋予投票人；投票人可以自己投票，或将自己的票委托给其他投票人；任何人都可以公开查询投票的结果。
 

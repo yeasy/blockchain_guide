@@ -2,17 +2,17 @@
 
 ![超级账本项目](_images/hyperledger_logo.png)
 
-2015 年 12 月，开源世界的旗舰组织 —— [Linux 基金会](https://www.linuxfoundation.org) 宣布启动超级账本（Hyperledger）联合项目；2016 年 2 月 9 日，[公布](https://www.hyperledger.org/news/announcement/2016/02/hyperledger-project-announces-30-founding-members) 了 30 家创始企业成员（包括 IBM、Accenture、Intel、J.P.Morgan、R3、DAH、DTCC、FUJITSU、HITACHI、SWIFT、Cisco 等）。超级账本项目致力为透明、公开、去中心化的企业级分布式账本技术提供开源参考实现，并推动区块链和分布式账本相关协议、规范和标准的发展。项目官方网站为 [hyperledger.org](https://www.hyperledger.org)。
+2015 年 12 月，开源世界的旗舰组织 —— [Linux 基金会](https://www.linuxfoundation.org) 宣布启动超级账本（Hyperledger）联合项目；2016 年 2 月 9 日，[公布](https://www.hyperledger.org/news/announcement/2016/02/hyperledger-project-announces-30-founding-members) 了 30 家创始企业成员（包括 IBM、Accenture、Intel、J.P.Morgan、R3、DAH、DTCC、FUJITSU、HITACHI、SWIFT、Cisco 等）。2024 年 9 月 16 日，Linux 基金会正式启动 [LF Decentralized Trust](https://www.lfdecentralizedtrust.org/announcements/linux-foundation-decentralized-trust-launches-with-17-projects-100-founding-members)，将 Hyperledger Foundation、Trust Over IP 等社区纳入更大的去中心化信任技术伞形组织；Hyperledger 相关技术成为 LFDT 项目，项目官方网站和目录以 [lfdecentralizedtrust.org](https://www.lfdecentralizedtrust.org/projects) 为准。
 
 成立之初，项目就收到了众多开源技术贡献。IBM 贡献了 4 万多行已有的 [Open Blockchain](https://github.com/openblockchain) 代码，Digital Asset 贡献了企业和开发者相关资源，R3 贡献了新的金融交易架构，Intel 贡献了分布式账本相关的代码。
 
-作为一个联合项目（Collaborative Project），超级账本由面向不同目的和场景的子项目构成。目前活跃的顶级项目包括 Fabric、Sawtooth、Iroha、Besu、Indy、Aries、Cello、Caliper、Firefly 等，所有项目都遵守 Apache v2 许可，并约定共同遵守如下的 [基本原则](https://github.com/hyperledger/hyperledger)：
+作为 LFDT 旗下的项目集合，超级账本由面向不同目的和场景的子项目构成。官方项目目录按孵化、毕业、休眠、归档等生命周期维护清单；代表性项目包括 Fabric、Besu、Cacti、FireFly、Indy、Iroha、AnonCreds、Identus、Web3j 等。Sawtooth 和 Aries 不应再作为活跃项目介绍：Sawtooth 已归档，并于 2024 年 2 月应维护者请求停止在 Hyperledger 社区内继续活跃维护，Aries 官方页面已标记为归档。所有项目都遵守 Apache v2 许可，并约定共同遵守如下的 [基本原则](https://github.com/hyperledger/hyperledger)：
 
 * 重视模块化设计：包括交易、合同、一致性、身份、存储等技术场景；
 * 重视代码可读性：保障新功能和模块都可以很容易添加和扩展；
 * 可持续的演化路线：随着需求的深入和更多的应用场景，不断增加和演化新的项目。
 
-*注：部分早期项目如 Composer、Quilt、Ursa、Avalon 等已结束生命周期（End of Life）。*
+*注：部分早期项目如 Composer、Quilt、Ursa、Avalon 等已归档或停止维护。当前状态请以 LFDT 项目目录、项目页面和治理站点为准，本章不再沿用早期“活跃/退出/终结”标签描述项目生命周期。*
 
 超级账本项目的企业会员和技术项目发展都十分迅速，如下图所示（图示数据仅供参考，最新信息请访问官网）。
 

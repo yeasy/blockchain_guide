@@ -22,7 +22,7 @@ Orderer 节点负责交易排序和区块生成：
 *   接收来自客户端的交易。
 *   对交易进行全局排序。
 *   将交易打包成区块并分发给 Peer 节点。
-*   Fabric 2.x 默认使用 **Raft** 共识协议。
+*   Fabric 2.5 LTS 常用 **Raft** 共识协议；Fabric 3.x 还支持 BFT 排序服务，Kafka 已不再支持。
 
 ### CA 节点
 
@@ -56,11 +56,11 @@ peer node logging setlevel gossip warning
 
 ### Orderer 集群管理
 
-Raft 模式下的 Orderer 集群支持动态添加和移除节点。通过更新系统通道配置可以实现节点的增减，无需停机。
+Raft 或 BFT 模式下的 Orderer 集群支持动态添加和移除节点。当前网络应通过应用通道配置更新和 `osnadmin` Channel Participation API 管理排序节点加入、移除和通道列表；仍带系统通道的 Fabric 2.x 旧网络应先迁移并移除系统通道，再升级到 Fabric 3.x。
 
 ## 最佳实践
 
 1.  **资源隔离**：生产环境中，Peer、Orderer 和 CA 应部署在不同的物理机或虚拟机上。
-2.  **备份策略**：定期备份 Peer 节点的账本数据和配置文件。
+2.  **备份策略**：定期备份 Peer 节点的账本、私有数据、状态数据库和配置文件；账本快照可用于新 Peer 加入或一致性检查，但不能替代完整备份。
 3.  **监控告警**：使用 Prometheus + Grafana 监控节点健康状态。
 4.  **证书管理**：设置证书到期提醒，避免因证书过期导致网络故障。

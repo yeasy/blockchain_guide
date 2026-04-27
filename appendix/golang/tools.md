@@ -122,10 +122,10 @@ $ gofmt [flags] [path ...]
 
 #### go get
 
-快速获取某个软件包并执行编译和安装，例如
+在 Go modules 时代，`go get` 主要用于向当前模块添加或更新依赖，例如
 
 ```sh
-$ go get github.com/hyperledger/fabric
+$ go get google.golang.org/grpc@latest
 ```
 
 支持如下参数：
@@ -133,7 +133,7 @@ $ go get github.com/hyperledger/fabric
 * `-u` 参数：可以强制更新到最新版。
 * `-d` 参数：仅获取软件包，不执行编译安装。
 
-注意：在 Go modules 时代，`go get` 仅用于向 go.mod 添加依赖。若要安装命令行工具，应改用 `go install` 命令并指定版本（例如 `go install github.com/hyperledger/fabric@latest`），以避免污染项目的依赖管理。
+注意：若要安装命令行工具，应改用 `go install` 命令并指定版本（例如 `go install google.golang.org/protobuf/cmd/protoc-gen-go@latest`），以避免污染项目的依赖管理。
 
 #### go install
 

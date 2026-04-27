@@ -37,9 +37,8 @@ A. Back, M. Corallo, L. Dashjr, M. Friedenbach, G. Maxwell, A. Miller, A. Poelst
 
 ### 区块链服务平台
 
-* [IBM Blockchain](https://www.ibm.com/blockchain)：https://www.ibm.com/blockchain；
+* [IBM Blockchain Platform 停止支持公告](https://www.ibm.com/support/pages/ibm-blockchain-platform-software-reaches-end-support-april-30-2023)：IBM Blockchain Platform 原产品支持已于 2023 年 4 月 30 日结束；
 * [Oracle Blockchain Platform](https://www.oracle.com/cloud/blockchain/)：https://www.oracle.com/cloud/blockchain；
 * [腾讯云区块链](https://cloud.tencent.com/product/tbaas)：https://cloud.tencent.com/product/tbaas；
 * [阿里云区块链](https://www.aliyun.com/product/baas)：https://www.aliyun.com/product/baas；
 * [百度云区块链](https://cloud.baidu.com/solution/blockchain.html)：https://cloud.baidu.com/solution/blockchain.html；
-* [纸贵科技区块链](https://baas.zhigui.com)：https://baas.zhigui.com。

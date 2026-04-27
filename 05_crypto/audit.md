@@ -18,9 +18,11 @@
 
 *   **Slither**：Python 编写的 Solidity 静态分析框架，能快速检测出多种常见漏洞，且误报率较低。
 *   **Mythril**：基于符号执行（Symbolic Execution）的以太坊智能合约安全分析工具。
-*   **Manticore**：符号执行工具，支持 EVM 和 x86 二进制文件，适用于深入的漏洞挖掘。
+*   **Manticore**：符号执行工具，支持 EVM、二进制文件和 WASM；官方仓库已处于维护模式，适合研究、复现或已有定制流程，不宜作为新项目唯一深度分析工具。
 *   **Echidna**：基于属性的模糊测试（Fuzzing）工具，用于测试合约是否违反了设定的安全属性。
-*   **Securify**：由以太坊基金会支持的安全扫描器。
+*   **Securify**：Securify v1 仓库已废弃并指向 Securify v2；新项目应先评估维护状态和编译器兼容性。
+
+审计报告中的漏洞分类和验收基线建议使用仍在维护的标准：OWASP SCSVS/SCSTG/SCWE 适合作为开发与测试清单；EEA EthTrust Security Levels v2 或最新 Editor's Draft 适合作为审计等级和交付验收基线。SWC Registry 可用于兼容历史编号，但官方已说明其内容不再主动维护，不应单独作为当前基线。
 
 ### 审计要点
 

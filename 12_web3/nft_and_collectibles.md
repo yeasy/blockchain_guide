@@ -21,139 +21,61 @@ NFT（非同质化代币，Non-Fungible Token）是指具有唯一性和不可�
 最基础的 NFT 标准，每个代币通过唯一的 tokenId 识别。
 
 ```solidity
-pragma solidity ^0.8.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
 
-interface IERC721 {
-    // 返回账户拥有的 NFT 数量
-    function balanceOf(address owner) external view returns (uint256 balance);
-
-    // 返回 NFT 的所有者
-    function ownerOf(uint256 tokenId) external view returns (address owner);
-
-    // 转账 NFT
-    function transferFrom(address from, address to, uint256 tokenId) external;
-
-    // 授权第三方进行操作
-    function approve(address to, uint256 tokenId) external;
-
-    // 返回被授权的地址
-    function getApproved(uint256 tokenId) external view returns (address operator);
-
-    // 批量授权
-    function setApprovalForAll(address operator, bool approved) external;
-
-    // 检查是否被授权
-    function isApprovedForAll(address owner, address operator) external view returns (bool);
+interface IERC165 {
+    function supportsInterface(bytes4 interfaceId) external view returns (bool);
 }
 
-// 事件
-event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
-event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
-event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
-```
-
-**完整实现示例**：
-
-```solidity
-pragma solidity ^0.8.0;
-
-contract SimpleNFT {
-    string public name = "Simple NFT";
-    string public symbol = "SNFT";
-
-    // Token 元数据
-    mapping(uint256 => string) private tokenURI;
-    mapping(uint256 => address) private tokenOwner;
-    mapping(address => uint256) private balances;
-    mapping(uint256 => address) private tokenApprovals;
-    mapping(address => mapping(address => bool)) private operatorApprovals;
-
-    uint256 private tokenIdCounter;
-
-    // 事件
+// ERC-721 核心接口。name/symbol/tokenURI 属于 IERC721Metadata 扩展。
+interface IERC721 is IERC165 {
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
     event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
-    event Mint(address indexed to, uint256 indexed tokenId, string uri);
+    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
 
-    // 铸造 NFT
-    function mint(address to, string memory uri) public returns (uint256) {
-        require(to != address(0), "Invalid address");
+    function balanceOf(address owner) external view returns (uint256 balance);
+    function ownerOf(uint256 tokenId) external view returns (address owner);
+    function approve(address to, uint256 tokenId) external;
+    function getApproved(uint256 tokenId) external view returns (address operator);
+    function setApprovalForAll(address operator, bool approved) external;
+    function isApprovedForAll(address owner, address operator) external view returns (bool);
+    function transferFrom(address from, address to, uint256 tokenId) external;
+    function safeTransferFrom(address from, address to, uint256 tokenId) external;
+    function safeTransferFrom(address from, address to, uint256 tokenId, bytes calldata data) external;
+}
 
-        uint256 tokenId = tokenIdCounter++;
-        tokenOwner[tokenId] = to;
-        balances[to]++;
+interface IERC721Metadata is IERC721 {
+    function name() external view returns (string memory);
+    function symbol() external view returns (string memory);
+    function tokenURI(uint256 tokenId) external view returns (string memory);
+}
+```
 
-        tokenURI[tokenId] = uri;
+**安全最小实现示例**：
 
-        emit Mint(to, tokenId, uri);
-        emit Transfer(address(0), to, tokenId);
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
 
-        return tokenId;
+import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+contract SimpleCollectible is ERC721, Ownable {
+    uint256 private nextTokenId = 1;
+    string private baseTokenURI;
+
+    constructor(string memory baseURI_) ERC721("Simple Collectible", "SCOL") Ownable(msg.sender) {
+        baseTokenURI = baseURI_;
     }
 
-    // 销毁 NFT
-    function burn(uint256 tokenId) public {
-        require(msg.sender == tokenOwner[tokenId], "Not owner");
-
-        address owner = tokenOwner[tokenId];
-        balances[owner]--;
-        delete tokenOwner[tokenId];
-        delete tokenURI[tokenId];
-
-        emit Transfer(owner, address(0), tokenId);
+    function safeMint(address to) external onlyOwner returns (uint256 tokenId) {
+        tokenId = nextTokenId++;
+        _safeMint(to, tokenId);
     }
 
-    // 转账（带授权检查）
-    function transferFrom(address from, address to, uint256 tokenId) public {
-        require(from == tokenOwner[tokenId], "Not from owner");
-        require(to != address(0), "Invalid address");
-        require(
-            msg.sender == from || msg.sender == tokenApprovals[tokenId] || operatorApprovals[from][msg.sender],
-            "Not approved"
-        );
-
-        // 转移所有权
-        tokenOwner[tokenId] = to;
-        balances[from]--;
-        balances[to]++;
-
-        // 清除单次授权
-        if (tokenApprovals[tokenId] != address(0)) {
-            delete tokenApprovals[tokenId];
-        }
-
-        emit Transfer(from, to, tokenId);
-    }
-
-    // 获取 Token 元数据 URI
-    function getTokenURI(uint256 tokenId) public view returns (string memory) {
-        require(tokenOwner[tokenId] != address(0), "Token does not exist");
-        return tokenURI[tokenId];
-    }
-
-    // 获取余额
-    function balanceOf(address owner) public view returns (uint256) {
-        return balances[owner];
-    }
-
-    // 获取所有者
-    function ownerOf(uint256 tokenId) public view returns (address) {
-        return tokenOwner[tokenId];
-    }
-
-    // 授权
-    function approve(address to, uint256 tokenId) public {
-        address owner = tokenOwner[tokenId];
-        require(msg.sender == owner || operatorApprovals[owner][msg.sender], "Not authorized");
-
-        tokenApprovals[tokenId] = to;
-        emit Approval(owner, to, tokenId);
-    }
-
-    // 批量授权
-    function setApprovalForAll(address operator, bool approved) public {
-        operatorApprovals[msg.sender][operator] = approved;
-        emit ApprovalForAll(msg.sender, operator, approved);
+    function _baseURI() internal view override returns (string memory) {
+        return baseTokenURI;
     }
 }
 ```
@@ -163,9 +85,15 @@ contract SimpleNFT {
 支持同时发行可交换和不可交换代币，更灵活且 Gas 高效。
 
 ```solidity
-pragma solidity ^0.8.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
 
+// ERC-1155 核心接口节选；实际开发应直接使用 OpenZeppelin 的 IERC1155/ERC1155。
 interface IERC1155 {
+    event TransferSingle(address indexed operator, address indexed from, address indexed to, uint256 id, uint256 value);
+    event TransferBatch(address indexed operator, address indexed from, address indexed to, uint256[] ids, uint256[] values);
+    event ApprovalForAll(address indexed account, address indexed operator, bool approved);
+
     // 查询余额
     function balanceOf(address account, uint256 id) external view returns (uint256);
 
@@ -191,10 +119,6 @@ interface IERC1155 {
     // 检查授权
     function isApprovedForAll(address account, address operator) external view returns (bool);
 }
-
-event TransferSingle(address indexed operator, address indexed from, address indexed to, uint256 id, uint256 value);
-event TransferBatch(address indexed operator, address indexed from, address indexed to, uint256[] ids, uint256[] values);
-event ApprovalForAll(address indexed account, address indexed operator, bool approved);
 ```
 
 **ERC-1155 的优势**：
@@ -240,34 +164,30 @@ ERC-721 使用 JSON 格式描述元数据：
 }
 ```
 
-#### 3.2 使用 IPFS 存储元数据
+#### 3.2 使用链外存储保存元数据
 
 ```javascript
-// 使用 web3.storage 或 NFT.storage 上传到 IPFS
-const NFTStorage = require('nft.storage');
-const fs = require('fs');
+// 伪代码：使用当前存储服务的官方 SDK 或 HTTP API。
+// NFT.Storage Classic 的免费上传/API/SDK 已停止接受新上传，不应作为新项目模板。
+async function uploadMetadata(storage, imageFile) {
+  const imageCid = await storage.uploadFile(imageFile);
 
-async function uploadMetadata() {
-    const client = new NFTStorage({ token: process.env.NFT_STORAGE_TOKEN });
+  const metadata = {
+    name: "My NFT",
+    description: "A beautiful digital art",
+    image: `ipfs://${imageCid}`,
+    attributes: [
+      { trait_type: "Color", value: "Blue" },
+      { trait_type: "Rarity", value: "Rare" }
+    ]
+  };
 
-    const metadata = {
-        name: "My NFT",
-        description: "A beautiful digital art",
-        image: new File([fs.readFileSync('art.jpg')], 'art.jpg', { type: 'image/jpeg' }),
-        attributes: [
-            { trait_type: "Color", value: "Blue" },
-            { trait_type: "Rarity", value: "Rare" }
-        ]
-    };
-
-    // 上传并获取 IPFS CID
-    const cid = await client.store(metadata);
-    const uri = `ipfs://${cid}`;
-
-    console.log(`元数据已上传到: ${uri}`);
-    return uri;
+  const metadataCid = await storage.uploadJson(metadata);
+  return `ipfs://${metadataCid}`;
 }
 ```
+
+关键点是把合约中的 `tokenURI` 指向内容寻址的元数据 URI，并为生产项目准备多个存储/固定副本，避免单一网关或单一服务影响可用性。
 
 ### 4. NFT 应用场景
 
@@ -280,33 +200,35 @@ OpenSea、Blur 等平台使开发者和艺术家无需编写代码即可创建�
 - 社区驱动的价值发现
 - 版税机制（艺术家可在每次转售中获得分成）
 
-**代码示例 - 支持版税的 NFT**：
+**代码示例 - 声明版税的 NFT**：
 
 ```solidity
-pragma solidity ^0.8.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
 
-contract RoyaltyNFT {
-    mapping(uint256 => address) public creators;
-    mapping(uint256 => uint256) public royaltyPercent;  // 百分比，基数 10000
+import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import {ERC721Royalty} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Royalty.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-    event RoyaltyTransfer(address indexed recipient, uint256 amount);
+contract RoyaltyCollectible is ERC721Royalty, Ownable {
+    uint256 private nextTokenId = 1;
 
-    // 销售时调用，自动分配版税
-    function handleSale(uint256 tokenId, uint256 salePrice) internal {
-        address creator = creators[tokenId];
-        if (creator != address(0)) {
-            uint256 royalty = (salePrice * royaltyPercent[tokenId]) / 10000;
-            payable(creator).transfer(royalty);
-            emit RoyaltyTransfer(creator, royalty);
-        }
+    constructor(address royaltyReceiver)
+        ERC721("Royalty Collectible", "RCL")
+        Ownable(msg.sender)
+    {
+        // 500 = 5%，OpenZeppelin ERC2981 默认分母为 10000。
+        _setDefaultRoyalty(royaltyReceiver, 500);
     }
 
-    // 市场合约会调用此函数
-    function onSale(uint256 tokenId, uint256 price) public {
-        handleSale(tokenId, price);
+    function safeMint(address to) external onlyOwner returns (uint256 tokenId) {
+        tokenId = nextTokenId++;
+        _safeMint(to, tokenId);
     }
 }
 ```
+
+ERC-2981 只负责让市场通过 `royaltyInfo(tokenId, salePrice)` 查询收款地址和金额；NFT 合约不应暴露自定义销售回调或在合约内直接转账。是否支付、如何支付应由支持该标准的市场在交易结算中处理。
 
 #### 4.2 游戏资产
 
@@ -315,17 +237,23 @@ contract RoyaltyNFT {
 **示例架构**：
 
 ```solidity
-pragma solidity ^0.8.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
 
-contract GameAsset is ERC1155 {
+import {ERC1155} from "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+contract GameAsset is ERC1155, Ownable {
     enum AssetType { Weapon, Armor, Consumable }
 
+    uint256 private nextAssetId = 1;
     mapping(uint256 => AssetType) public assetTypes;
     mapping(uint256 => uint256) public assetStats;  // 攻击力、防御力等
 
-    function mintWeapon(address to, uint256 damage) public onlyGameMaster {
-        uint256 assetId = totalAssets++;
+    constructor(string memory baseURI) ERC1155(baseURI) Ownable(msg.sender) {}
 
+    function mintWeapon(address to, uint256 damage) external onlyOwner returns (uint256 assetId) {
+        assetId = nextAssetId++;
         assetTypes[assetId] = AssetType.Weapon;
         assetStats[assetId] = damage;
 
@@ -353,26 +281,37 @@ contract GameAsset is ERC1155 {
 ENS（Ethereum Name Service）将复杂的钱包地址映射到易记的域名。
 
 ```solidity
-pragma solidity ^0.8.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
 
-contract SimpleDomainNFT {
-    mapping(string => address) public domainOwners;
-    mapping(address => string) public addressToDomain;
+import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+
+contract SimpleDomainNFT is ERC721, Ownable {
+    uint256 private nextTokenId = 1;
+    mapping(string => uint256) public domainToTokenId;
+    mapping(uint256 => string) public tokenDomains;
 
     event DomainRegistered(string indexed domain, address indexed owner);
 
-    function registerDomain(string memory domain, address to) public {
-        require(bytes(domain).length > 0, "Invalid domain");
-        require(domainOwners[domain] == address(0), "Domain taken");
+    constructor() ERC721("Simple Domain", "SDOM") Ownable(msg.sender) {}
 
-        domainOwners[domain] = to;
-        addressToDomain[to] = domain;
+    function registerDomain(string memory domain, address to) external onlyOwner returns (uint256 tokenId) {
+        require(bytes(domain).length > 0, "Invalid domain");
+        require(domainToTokenId[domain] == 0, "Domain taken");
+
+        tokenId = nextTokenId++;
+        domainToTokenId[domain] = tokenId;
+        tokenDomains[tokenId] = domain;
+        _safeMint(to, tokenId);
 
         emit DomainRegistered(domain, to);
     }
 
     function resolveDomain(string memory domain) public view returns (address) {
-        return domainOwners[domain];
+        uint256 tokenId = domainToTokenId[domain];
+        require(tokenId != 0, "Domain not registered");
+        return ownerOf(tokenId);
     }
 }
 ```
@@ -384,64 +323,80 @@ contract SimpleDomainNFT {
 **简单的 NFT 市场实现**：
 
 ```solidity
-pragma solidity ^0.8.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
 
-interface IERC721 {
-    function transferFrom(address from, address to, uint256 tokenId) external;
-}
+import {IERC721} from "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract NFTMarketplace {
+contract NFTMarketplace is ReentrancyGuard {
     struct Listing {
         address seller;
         uint256 price;
-        bool active;
     }
 
-    IERC721 public nftContract;
+    IERC721 public immutable nft;
     mapping(uint256 => Listing) public listings;
+    mapping(address => uint256) public proceeds;
 
     event Listed(uint256 indexed tokenId, address indexed seller, uint256 price);
     event Sold(uint256 indexed tokenId, address indexed seller, address indexed buyer, uint256 price);
+    event Unlisted(uint256 indexed tokenId);
+    event ProceedsWithdrawn(address indexed seller, uint256 amount);
 
-    constructor(address _nftContract) {
-        nftContract = IERC721(_nftContract);
+    constructor(IERC721 nft_) {
+        nft = nft_;
     }
 
     // 卖家上架 NFT
-    function list(uint256 tokenId, uint256 price) public {
+    function list(uint256 tokenId, uint256 price) external {
         require(price > 0, "Invalid price");
+        require(nft.ownerOf(tokenId) == msg.sender, "Not owner");
+        require(
+            nft.getApproved(tokenId) == address(this) ||
+                nft.isApprovedForAll(msg.sender, address(this)),
+            "Marketplace not approved"
+        );
 
         listings[tokenId] = Listing({
             seller: msg.sender,
-            price: price,
-            active: true
+            price: price
         });
 
         emit Listed(tokenId, msg.sender, price);
     }
 
-    // 买家购买 NFT
-    function buy(uint256 tokenId) public payable {
+    // 买家购买 NFT：检查 -> 更新状态 -> 外部交互
+    function buy(uint256 tokenId) external payable nonReentrant {
         Listing memory listing = listings[tokenId];
-        require(listing.active, "Not listed");
-        require(msg.value >= listing.price, "Insufficient payment");
+        require(listing.seller != address(0), "Not listed");
+        require(msg.value == listing.price, "Wrong payment");
 
-        // 转移 NFT
-        nftContract.transferFrom(listing.seller, msg.sender, tokenId);
+        delete listings[tokenId];
+        proceeds[listing.seller] += msg.value;
 
-        // 转移支付
-        payable(listing.seller).transfer(msg.value);
-
-        // 标记为已售
-        listings[tokenId].active = false;
+        nft.safeTransferFrom(listing.seller, msg.sender, tokenId);
 
         emit Sold(tokenId, listing.seller, msg.sender, listing.price);
     }
 
     // 卖家撤销上架
-    function unlist(uint256 tokenId) public {
+    function unlist(uint256 tokenId) external {
         require(listings[tokenId].seller == msg.sender, "Not seller");
-        listings[tokenId].active = false;
+        delete listings[tokenId];
+        emit Unlisted(tokenId);
+    }
+
+    // 提款模式避免购买流程中直接向卖家转账
+    function withdrawProceeds() external nonReentrant {
+        uint256 amount = proceeds[msg.sender];
+        require(amount > 0, "No proceeds");
+
+        proceeds[msg.sender] = 0;
+        (bool ok, ) = payable(msg.sender).call{value: amount}("");
+        require(ok, "Withdraw failed");
+
+        emit ProceedsWithdrawn(msg.sender, amount);
     }
 }
 ```
@@ -467,14 +422,17 @@ contract NFTMarketplace {
 
 1. **使用经审计的 ERC-721 标准库**
    ```solidity
-   import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+   // SPDX-License-Identifier: MIT
+   pragma solidity ^0.8.24;
+
+   import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
    contract MyNFT is ERC721 {
        constructor() ERC721("MyNFT", "MNFT") {}
    }
    ```
 
-2. **元数据持久化**：使用 Arweave（永久存储）而非 IPFS（节点可能关闭）
+2. **元数据持久化**：使用内容寻址 URI，并准备多节点 pinning、Filecoin、Arweave 等备份，避免依赖单一网关或单一服务
 
 3. **版税支持**：实现 ERC-2981 标准以获得市场支持
 

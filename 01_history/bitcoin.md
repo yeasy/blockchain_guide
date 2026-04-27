@@ -6,15 +6,15 @@
 
 上世纪 50 年代计算机（ENIAC，1946 年）出现后，人们就尝试利用信息技术提高支付系统的效率。除了作为电子支付手段的各种银行卡，自 80 年代起，利用密码学手段构建的加密数字货币（Cryptocurrency）也开始成为研究的热门。
 
-加密货币前后经历了 30 多年的探索，比较典型的成果包括 [e-Cash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)、[HashCash](https://en.wikipedia.org/wiki/Hashcash)、[B-money](http://www.weidai.com/bmoney.txt)和 Bit Gold 等。
+加密货币前后经历了 30 多年的探索，比较典型的成果包括 [e-Cash](https://doi.org/10.1007/978-1-4757-0602-4_18)、[Hashcash](https://www.hashcash.org/)、[B-money](http://www.weidai.com/bmoney.txt) 和 Bit Gold 等。
 
 ![David Chaum](_images/David_Chaum.jpg)
 
-1983 年，时任加州大学圣塔芭芭拉分校教授的 [David Chaum](https://en.wikipedia.org/wiki/David_Chaum) 最早在论文《Blind Signature for Untraceable Payments》中提出了 [e-Cash](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)，并于 1989 年创建了 [DigiCash](https://en.wikipedia.org/wiki/Digicash) 公司。ecash 系统是首个尝试实现不可追踪（untraceable）的匿名数字货币，基于 David Chaum 自己发明的盲签名技术，曾被应用于部分银行的小额支付系统中。ecash 虽然不可追踪，但仍依赖中心化机构（银行）的协助，同期也由于信用卡体系的快速崛起，DigiCash 公司最终于 1998 年宣告破产。鉴于 David Chaum 在数字货币研究领域发展早期的贡献，有人认为他是“数字货币之父”。值得一提的是，David Chaum 目前仍活跃在数字货币领域，期待他能做出更重要的贡献。
+1983 年，时任加州大学圣塔芭芭拉分校教授的 [David Chaum](https://en.wikipedia.org/wiki/David_Chaum) 最早在论文《Blind Signature for Untraceable Payments》中提出了 [e-Cash](https://doi.org/10.1007/978-1-4757-0602-4_18)，并于 1989 年创建了 [DigiCash](https://en.wikipedia.org/wiki/Digicash) 公司。ecash 系统是首个尝试实现不可追踪（untraceable）的匿名数字货币，基于 David Chaum 自己发明的盲签名技术，曾被应用于部分银行的小额支付系统中。ecash 虽然不可追踪，但仍依赖中心化机构（银行）的协助，同期也由于信用卡体系的快速崛起，DigiCash 公司最终于 1998 年宣告破产。鉴于 David Chaum 在数字货币研究领域发展早期的贡献，有人认为他是“数字货币之父”。值得一提的是，David Chaum 目前仍活跃在数字货币领域，期待他能做出更重要的贡献。
 
 ![Adam Back](_images/Adam_Back.jpg)
 
-1997 年，[Adam Back](https://en.wikipedia.org/wiki/Adam_Back) 提出了 [HashCash](https://en.wikipedia.org/wiki/Hashcash)，来解决邮件系统和博客网站中“拒绝服务攻击（Deny of Service，DoS）”攻击问题。Hashcash 首次应用工作量证明（Proof of Work，PoW）机制来获取额度，该机制后来被比特币所采用。类似思想最早曾在 1993 年的论文《Pricing via processing or combating junk mail》中提出。
+1997 年，Adam Back 提出了 [Hashcash](https://www.hashcash.org/)，来解决邮件系统和博客网站中“拒绝服务攻击（Deny of Service，DoS）”攻击问题。Hashcash 应用工作量证明（Proof of Work，PoW）机制来获取额度，该机制后来被比特币所采用。类似思想最早曾在 1993 年的论文《Pricing via processing or combating junk mail》中提出。
 
 ![Wei Dai](_images/Wei_Dai.jpg)
 
@@ -38,7 +38,7 @@
 
 ### 比特币的诞生
 
-2008 年 10 月 31 日（东部时间），星期五下午 2 点 10 分，化名 Satoshi Nakamoto（中本聪）的人在 [metzdowd 密码学邮件列表](http://www.metzdowd.com/pipermail/cryptography/2008-October/014810.html) 中提出了比特币（Bitcoin）的设计白皮书《Bitcoin: A Peer-to-Peer Electronic Cash System》，并在 2009 年公开了最初的实现代码。首个比特币是 UTC 时间 2009 年 1 月 3 日 18:15:05 生成。但比特币真正流行开来，被人们所关注则是至少两年以后了。
+2008 年 10 月 31 日（东部时间），星期五下午 2 点 10 分，化名 Satoshi Nakamoto（中本聪）的人在 [metzdowd 密码学邮件列表](https://www.metzdowd.com/pipermail/cryptography/2008-October/014810.html) 中提出了比特币（Bitcoin）的设计白皮书《Bitcoin: A Peer-to-Peer Electronic Cash System》，并在 2009 年公开了最初的实现代码。首个比特币是 UTC 时间 2009 年 1 月 3 日 18:15:05 生成。但比特币真正流行开来，被人们所关注则是至少两年以后了。
 
 作为开源项目，比特币很快吸引了大量开发者的加入，目前的官方网站 [bitcoin.org](https://bitcoin.org)，提供了比特币相关的代码实现和各种工具软件。
 
@@ -48,9 +48,9 @@
 
 直到今天，关于比特币的话题仍充满了不少争议。但大部分人应该都会认可，比特币是数字货币历史上，甚至整个金融历史上一次了不起的社会学实验。
 
-比特币网络上线以来，在无人管理的情况下，已经在全球范围内无间断地运行了超过 17 年时间，成功处理了数亿笔交易。难得的是，比特币网络从未出现过重大的系统故障。
+比特币网络上线以来，在没有中心运营方的情况下，已经在全球范围内运行了超过 17 年时间，成功处理了数亿笔交易。但这并不意味着它从未经历严重技术事件：2010 年 8 月曾发生 CVE-2010-5139 价值溢出漏洞，攻击者可构造异常交易创造超额比特币；2013 年 3 月也曾因 0.8 与旧版本节点兼容性问题出现链分叉。这些事件最终通过紧急修复、算力切换和社区协调得到处理。
 
-比特币网络目前由数千个核心节点参与构成，不需要任何中心化的支持机构参与，纯靠分布式机制支持了稳定上升的交易量。
+比特币网络目前由数千个可独立验证规则的节点和全球矿工参与构成，不需要中心化的支持机构参与。其安全性主要来自有效区块链上累积的工作量证明和诚实算力占优的经济假设，而不是简单取决于节点数量。
 
 比特币**首次真正从实践意义上实现了安全可靠的去中心化数字货币机制**，这也是它受到无数金融科技从业者热捧的根本原因。
 

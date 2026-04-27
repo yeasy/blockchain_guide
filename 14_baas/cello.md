@@ -53,21 +53,17 @@ $ git clone https://github.com/hyperledger-cello/cello.git && cd cello
 ```sh
 $ curl -fsSL https://get.docker.com/ | sh
 ```
-安装成功后，修改 Docker 服务配置。更新 `/lib/systemd/system/docker.service` 文件如下。
+安装成功后，不要把 Docker daemon 以未加密方式暴露到所有网络地址的 2375 端口。Docker API 等价于主机 root 权限，生产或联网环境应优先使用 SSH Docker context；确需远程 API 时，应使用 TLS 认证的 2376 端口并限制来源地址。
 
 ```sh
-[Service]
-DOCKER_OPTS="$DOCKER_OPTS -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock --api-cors-header='*' --default-ulimit=nofile=8192:16384 --default-ulimit=nproc=8192:16384"
-EnvironmentFile=-/etc/default/docker
-ExecStart=
-ExecStart=/usr/bin/dockerd -H fd:// $DOCKER_OPTS
+$ docker context create cello-worker --docker "host=ssh://cello@worker.example.com"
+$ docker --context cello-worker ps
 ```
 
-修改后，需要通过如下命令重启 Docker 服务。
+如果历史 Cello 组件只能填写 Daemon URL，可让 Worker 仅在本机回环地址监听，再通过 SSH 隧道或内网代理映射，避免公网监听：
 
 ```sh
-$ sudo systemctl daemon-reload
-$ sudo systemctl restart docker.service
+$ ssh -L 127.0.0.1:2375:127.0.0.1:2375 cello@worker.example.com
 ```
 
 #### 下载 Docker 镜像
@@ -86,7 +82,7 @@ $ cd scripts/worker_node_setup && bash download_images.sh
 $ sysctl -w net.ipv4.ip_forward=1
 ```
 
-同时检查主机的 iptables 设置，确保必要的端口被打开（如 2375、7050~10000 等）。
+同时检查主机的 iptables 设置，确保必要的 Fabric 业务端口被打开（如 7050~10000 等）。不要向公网开放未认证的 `2375` 端口；如必须使用远程 Docker API，应使用 TLS 认证的 `2376` 并限制安全组来源。
 
 ### 配置 Master 节点
 
@@ -114,10 +110,10 @@ $ make start
 如果启动过程没有提示出现问题，则说明当前环境满足了运行条件。如果出现问题，可通过查看日志信息进行定位。可以在终端看到类似以下的容器输出，说明服务启动成功：
 ```sh
 CONTAINER ID   IMAGE                            COMMAND                  CREATED         STATUS         PORTS                                                                                  NAMES
-81e6459965ec   hyperledger/cello-agent-docker   "gunicorn server:app…"   4 seconds ago   Up 2 seconds   0.0.0.0:2375->2375/tcp, :::2375->2375/tcp, 0.0.0.0:5001->5001/tcp, :::5001->5001/tcp   cello.docker.agent
-04367ab6bd5e   postgres:11.1                    "docker-entrypoint.s…"   4 seconds ago   Up 2 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp                                              cello-postgres
-29b56a279893   hyperledger/cello-api-engine     "/bin/sh -c 'bash /e…"   4 seconds ago   Up 2 seconds   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp                                              cello-api-engine
-a272a06d8280   hyperledger/cello-dashboard      "bash -c 'nginx -g '…"   4 seconds ago   Up 2 seconds   80/tcp, 0.0.0.0:8081->8081/tcp, :::8081->8081/tcp                                      cello-dashboard
+81e6459965ec   hyperledger/cello-agent-docker   "gunicorn server:app…"   4 seconds ago   Up 2 seconds   127.0.0.1:5001->5001/tcp                    cello.docker.agent
+04367ab6bd5e   postgres:11.1                    "docker-entrypoint.s…"   4 seconds ago   Up 2 seconds   127.0.0.1:5432->5432/tcp                    cello-postgres
+29b56a279893   hyperledger/cello-api-engine     "/bin/sh -c 'bash /e…"   4 seconds ago   Up 2 seconds   127.0.0.1:8080->8080/tcp                    cello-api-engine
+a272a06d8280   hyperledger/cello-dashboard      "bash -c 'nginx -g '…"   4 seconds ago   Up 2 seconds   127.0.0.1:8081->8081/tcp                    cello-dashboard
 ```
 
 #### 管理平台服务
