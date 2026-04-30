@@ -16,12 +16,12 @@
 
 ```mermaid
 graph TD
-    A[“用户发起请求”]
-    B[“Gateway 合约<br/>接收推理请求<br/>等待链下应答<br/>存储结果”]
-    C[“Node Operator<br/>监听链上请求<br/>本地运行 AI 模型<br/>Ollama/vLLM 框架”]
-    D[“GPU Cluster<br/>模型存储与推理加速<br/>证明生成 2-10 秒”]
-    E[“Verifier 合约<br/>验证 zkML Proof<br/>确认模型版本<br/>验证输入/输出哈希<br/>确保计算未被篡改”]
-    F[“链上存储<br/>最终结果”]
+    A["用户发起请求"]
+    B["Gateway 合约<br/>接收推理请求<br/>等待链下应答<br/>存储结果"]
+    C["Node Operator<br/>监听链上请求<br/>本地运行 AI 模型<br/>Ollama/vLLM 框架"]
+    D["GPU Cluster<br/>模型存储与推理加速<br/>证明生成 2-10 秒"]
+    E["Verifier 合约<br/>验证 zkML Proof<br/>确认模型版本<br/>验证输入/输出哈希<br/>确保计算未被篡改"]
+    F["链上存储<br/>最终结果"]
 
     A --> B
     B --> C
