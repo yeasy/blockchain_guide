@@ -38,9 +38,11 @@ EIP-4844 引入了一种新的数据格式 —— **Blob (Binary Large Object)**
 
 EIP-4844 上线后，采用 Blob 的 Rollup 可以用更低成本发布数据，Layer 2 费用随之显著下降，为社交、游戏等高频应用降低了门槛。
 
-### 下一步升级：Pectra
+### 下一步升级：Pectra 与 Fusaka
 
 在 Dencun 升级为 Layer 2 的高效性打下基础后，Ethereum 社区继续推进协议演进。**Pectra 升级**（于 2025 年 5 月 7 日执行）提高了 blob 吞吐目标，并引入 EIP-7702 等账户抽象相关能力，继续改善 Rollup 和钱包体验。
+
+紧随其后的 **Fusaka 升级**（于 2025 年 12 月 3 日激活）以 PeerDAS（Peer Data Availability Sampling）为核心，让节点只需采样部分 blob 数据即可验证数据可用性，从而显著提升 blob 吞吐上限并降低节点存储 / 带宽压力。配合分阶段提高 blob 目标，Layer 2 的数据发布成本进一步下降。
 
 ### 总结
 
