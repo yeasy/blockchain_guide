@@ -24,9 +24,13 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       - name: Install Chromium and CJK fonts
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: stable
+      - name: Install CJK fonts
         run: |
           sudo apt-get update
-          sudo apt-get install -y chromium-browser fonts-noto-cjk fonts-noto-cjk-extra
+          sudo apt-get install -y fonts-noto-cjk fonts-noto-cjk-extra
 
       - name: Install mdpress
         run: |
