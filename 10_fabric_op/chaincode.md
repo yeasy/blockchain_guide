@@ -155,7 +155,7 @@ CIP 文件中主要包括如下数据。
 
 collection.json 的一个示例如下所示。
 
-```json
+```jsonc
 [
  {
 	 "name": "public", // 集合名称

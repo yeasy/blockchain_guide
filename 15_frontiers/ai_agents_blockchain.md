@@ -57,7 +57,7 @@ graph TD
 传统 Solidity 的陷阱：
 function transfer(address to, uint amount) public {
     // 重入风险：攻击者在转账前反复调用此函数
-    (bool success,) = to.call{value: amount}("“);
+    (bool success,) = to.call{value: amount}("");
     balances[msg.sender] -= amount;
 }
 
