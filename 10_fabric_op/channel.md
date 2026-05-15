@@ -273,7 +273,7 @@ Blockchain info: {"height":7,"currentBlockHash":"bHlVT/swOzeJ8JaTXyhStu40QL4JBxZ
 
 其中，比较重要的数据结构包括 ChaincodeSpec、ChaincodeInvocationSpec、Proposal 等，它们的具体结构如下图所示。
 
-![获取通道基本信息时的 Signed Proposal 结构](_images/channel_join_signed_proposal.png)
+![获取通道基本信息时的 Signed Proposal 结构](_images/channel_getinfo_signed_proposal.png)
 
 ### 对通道配置更新添加签名
 
