@@ -12,7 +12,7 @@
 
 * 2.0.0: 2026-01-12
   * Major update: Comprehensive revision of content to adapt to the technical landscape of 2026;
-  * Add: Chapter 14 frontier trends (AI, DePIN, RWA);
+  * Add: Chapter 15 frontier trends (AI, DePIN, RWA);
   * Update: Bitcoin (Taproot, Ordinals, ETF) and Ethereum (PoS, Layer 2, Account Abstraction);
   * Update: Cryptography (Post-Quantum, ZK-SNARKs/STARKs) and Consensus Algorithms (PoS, HotStuff);
   * Optimize: Remove obsolete EOS chapter, integrate Hyperledger project status.

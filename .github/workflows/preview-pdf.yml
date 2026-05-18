@@ -18,8 +18,8 @@ jobs:
     name: Build preview PDF
     runs-on: ubuntu-latest
     env:
-      MDPRESS_VERSION: "0.7.9"
-      MDPRESS_SHA256: "922bf55514d6705431956250f6d76141d4301055c43099a6902928508db55dc7"
+      MDPRESS_VERSION: "0.7.10"
+      MDPRESS_SHA256: "17e53e455996940bbbce64c69c43b3fb543f1501e03b74cf0434074efebd2db4"
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
