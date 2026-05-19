@@ -50,12 +50,14 @@ $ git clone https://github.com/hyperledger-cello/cello.git && cd cello
 
 #### 安装和配置 Docker 服务
 
-首先安装 Docker，推荐使用 1.12 或者更新的版本。可通过如下命令快速安装 Docker。
+首先安装 Docker。早期 Cello 文档常见的 “Docker 1.12 或更新版本” 已不适合作为今天的部署建议；请按当前 Docker 官方文档选择受支持的 Docker Engine / Docker Desktop 版本，并优先使用系统包仓库或企业镜像源安装。`get.docker.com` 便利脚本只适合开发和测试环境，不建议用于生产环境。
 
 ```sh
-$ curl -fsSL https://get.docker.com/ | sh
+$ curl -fsSL https://get.docker.com -o get-docker.sh
+$ sudo sh get-docker.sh --dry-run
 ```
-安装成功后，不要把 Docker daemon 以未加密方式暴露到所有网络地址的 2375 端口。Docker API 等价于主机 root 权限，生产或联网环境应优先使用 SSH Docker context；确需远程 API 时，应使用 TLS 认证的 2376 端口并限制来源地址。
+
+如果只是本地实验，可在阅读脚本输出并确认风险后运行；生产或长期环境应按 Docker 官方的 apt/yum 仓库方式安装。安装成功后，不要把 Docker daemon 以未加密方式暴露到所有网络地址的 2375 端口。Docker API 等价于主机 root 权限，生产或联网环境应优先使用 SSH Docker context；确需远程 API 时，应使用 TLS 认证的 2376 端口并限制来源地址。
 
 ```sh
 $ docker context create cello-worker --docker "host=ssh://cello@worker.example.com"

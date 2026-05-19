@@ -35,11 +35,13 @@ metrics:
 对应的常用环境变量前缀为 `CORE_`：
 
 ```bash
-CORE_OPERATIONS_LISTENADDRESS=0.0.0.0:9443
+CORE_OPERATIONS_LISTENADDRESS=127.0.0.1:9443
 CORE_OPERATIONS_TLS_ENABLED=false
 CORE_METRICS_PROVIDER=prometheus
 CORE_METRICS_STATSD_ADDRESS=127.0.0.1:8125
 ```
+
+上面的环境变量仅适合本机调试。Fabric 官方文档说明，operations service 不使用通道 MSP 做访问控制；当 TLS 关闭时，能连到端点的客户端都可以使用该 API。若需要让监控系统远程访问，应绑定受控内网地址，启用 operations TLS 和客户端证书认证，并使用独立运维 CA。
 
 Orderer 在 `orderer.yaml` 的 `Operations` 和 `Metrics` 段配置：
 
@@ -60,7 +62,7 @@ Metrics:
 对应的常用环境变量前缀为 `ORDERER_`：
 
 ```bash
-ORDERER_OPERATIONS_LISTENADDRESS=0.0.0.0:8443
+ORDERER_OPERATIONS_LISTENADDRESS=127.0.0.1:8443
 ORDERER_OPERATIONS_TLS_ENABLED=false
 ORDERER_METRICS_PROVIDER=prometheus
 ORDERER_METRICS_STATSD_ADDRESS=127.0.0.1:8125
