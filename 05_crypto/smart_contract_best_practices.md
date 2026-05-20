@@ -346,7 +346,7 @@ describe("SafeAuction", function () {
     describe("State transitions", function () {
         it("Should not allow bidding before auction starts", async function () {
             await expect(
-                auction.connect(bidder1).placeBid({ value: ethers.utils.parseEther("1") })
+                auction.connect(bidder1).placeBid({ value: ethers.parseEther("1") })
             ).to.be.revertedWith("Invalid state");
         });
 
@@ -362,7 +362,7 @@ describe("SafeAuction", function () {
         });
 
         it("Should accept valid bids", async function () {
-            const bidAmount = ethers.utils.parseEther("1");
+            const bidAmount = ethers.parseEther("1");
             await auction.connect(bidder1).placeBid({ value: bidAmount });
             expect(await auction.bids(bidder1.address)).to.equal(bidAmount);
         });
@@ -373,7 +373,7 @@ describe("SafeAuction", function () {
             await ethers.provider.send("evm_mine");
 
             await expect(
-                auction.connect(bidder1).placeBid({ value: ethers.utils.parseEther("1") })
+                auction.connect(bidder1).placeBid({ value: ethers.parseEther("1") })
             ).to.be.revertedWith("Auction has ended");
         });
     });
