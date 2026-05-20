@@ -398,7 +398,7 @@ describe("SafeAuction", function () {
         it("Should handle uint256 overflow", async function () {
             // 测试边界值
             await auction.startAuction();
-            const maxUint = ethers.constants.MaxUint256;
+            const maxUint = ethers.MaxUint256;
             // 测试逻辑
         });
     });

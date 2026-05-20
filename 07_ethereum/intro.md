@@ -60,6 +60,6 @@
 * 采用权益证明（PoS）共识机制，验证者通过质押以太币参与网络共识，相比早期的 PoW 机制能耗降低超过 99%；
 * 区块产生间隔约 12 秒，相比比特币的 10 分钟大幅提升了交易确认速度。
 
-此外，以太坊通过 Layer 2 扩展方案（如 Optimistic Rollups 和 ZK Rollups）来解决网络可扩展性问题。2024 年的 Dencun 升级引入了 Proto-Danksharding，大幅降低了 Layer 2 网络的数据存储成本。主流的 Layer 2 项目包括 Arbitrum、Optimism、zkSync、Starknet 等。
+此外，以太坊通过 Layer 2 扩展方案（如 Optimistic Rollups 和 ZK Rollups）来解决网络可扩展性问题。2024 年的 Dencun 升级引入了 Proto-Danksharding，大幅降低了 Layer 2 网络的数据存储成本。主流的 Layer 2 项目包括 Arbitrum、Base、Optimism、zkSync、Starknet 等。
 
 这些技术特点，使以太坊成为了 DeFi、NFT 和各类去中心化应用的首选平台，生态系统规模远超其他智能合约平台。
