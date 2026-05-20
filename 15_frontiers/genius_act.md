@@ -273,7 +273,9 @@ USDC 现有储备披露和合规基础相对完整，但 GENIUS Act 最终规则
 
 ### 3. 新兴稳定币的机遇与门槛
 
-对于想要进入美国市场的新稳定币项目（如Ethena的USDe、Paxos的BUSD等）：
+对于想要进入美国市场的新稳定币项目（如 Ethena 的 USDe、Paxos 相关的 USDG / PYUSD 等）：
+
+> 注：BUSD 不宜再作为“新进入美国市场”的案例。Paxos 已在 2023-02 宣布停止铸造新的 Paxos-issued BUSD，后续更适合作为稳定币监管和项目退出的历史案例。
 
 #### 机遇：
 
