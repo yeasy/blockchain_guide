@@ -156,7 +156,7 @@ Ursa 项目曾经提供一套方便、安全的密码学软件库（包括加解
 Grid 项目由 Cargill、Intel 和 Bitwise IO 公司于 2018 年 12 月提交到社区。核心代码在 Github 上地址为 https://github.com/hyperledger/grid。
 
 Grid 项目为开发基于区块链的供应链场景应用提供框架支持和参考实现，包括智能合约、数据模型、领域模型、样例应用等。
-，主要基于 Python 语言实现，并使用 Sabre（基于 WebAssembly/WASM 的智能合约引擎）来运行智能合约。目前贡献者超过 40人，提交次数超过 5000 次。
+主要基于 Python 语言实现，并使用 Sabre（基于 WebAssembly/WASM 的智能合约引擎）来运行智能合约。目前贡献者超过 40人，提交次数超过 5000 次。
 
 项目的邮件列表地址为 grid@lists.hyperledger.org。
 

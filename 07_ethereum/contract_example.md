@@ -9,6 +9,7 @@
 实现上述功能的合约代码如下所示，并不复杂，语法跟 JavaScript 十分类似。
 
 ```solidity
+// 教程示例使用宽松 floor；生产代码建议固定到当前稳定版（如 ^0.8.28+）。
 pragma solidity ^0.8.0;
 
 contract Ballot {
