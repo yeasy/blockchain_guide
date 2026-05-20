@@ -95,7 +95,7 @@ $ osnadmin channel join \
     * 创建签名 Proposal 消息（头部类型为 ORDERER_TRANSACTION），发送到排序服务共识实现，指定目标为系统通道；
     * Orderer 从共识实现收到对应消息，初始化本地账本结构，完成应用通道的创建过程。
 * 客户端从 Orderer Deliver gRPC 服务获取应用通道的初始区块（具体过程类似 fetch 命令），请求类型为 CONFIG_UPDATE，负载为 SeekInfo。
-* 客户端将收到的区块写入到本地的 chainID + ".block" 文件。这个文件后续会被需要加入到通道的节点使用。
+* 客户端将收到的区块写入到本地的 chainID + `.block` 文件。这个文件后续会被需要加入到通道的节点使用。
 
 其中，最关键的数据结构是配置交易相关的 Envelope 结构，如下图所示。
 

@@ -32,7 +32,7 @@ Recoverable Sequence Maturity Contract，即“可撤销的顺序成熟度合同
 * Alice 生成一个随机密钥（secret），并计算其哈希值 H。
 * Alice 部署 HTLC 合约，将资金锁定到合约中，解锁条件是：任何人提供满足 Hash(secret) = H 的 secret，即可解锁资产。同时设置时间锁，超时后资金退还给 Alice。
 * Bob 观察到 Alice 提供的哈希值 H，并在链上（或跨链）部署一个自己的 HTLC 合约，将他的资金锁定，并使用同一个哈希值 H 作为解锁条件。
-* Alice 提供 secret 原像（例如 "abc123"）到 Bob 的 HTLC 合约上，满足了哈希值要求，获得资产。
+* Alice 提供 secret 原像（例如 `abc123`）到 Bob 的 HTLC 合约上，满足了哈希值要求，获得资产。
 * Bob 通过链上记录看到 Alice 提供的 secret，在 Alice 部署的 HTLC 合约上，使用 secret 解锁资金，获得资产。
 
 如果任意一人不提供正确的信息，则智能合约在超时后，会将资产退回。从上面过程可以看出，Bob 的合约超时时间，要短于 Alice 的合约超时时间。
