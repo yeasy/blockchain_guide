@@ -249,6 +249,23 @@ SimpleStorage
 
 **目标**：理解标准合约接口、代币的基本操作（转账、授权）。
 
+实际项目应优先使用 OpenZeppelin Contracts v5 的 `ERC20` 实现，而不是从零手写完整标准。v5 示例通常从 `@openzeppelin/contracts/token/ERC20/ERC20.sol` 导入，在派生合约中定义供应机制，例如：
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+contract MyToken is ERC20 {
+    constructor(uint256 initialSupply) ERC20("Simple Token", "STK") {
+        _mint(msg.sender, initialSupply * 10 ** decimals());
+    }
+}
+```
+
+下面的 `SimpleToken` 是教学用最小实现，用来展示 ERC-20 的核心状态和事件；生产代码不要直接复用。
+
 **合约代码** (`contracts/SimpleToken.sol`)：
 
 ```solidity

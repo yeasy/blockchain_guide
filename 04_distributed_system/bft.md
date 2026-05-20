@@ -78,7 +78,7 @@ PBFT 算法和 Raft 算法都通过领导者简化正常路径，但故障模型
 
 2018 年，清华大学的 Chenxing Li 等在论文《Scaling Nakamoto Consensus to Thousands of Transactions per Second》中提出了 Conflux 共识协议。该协议在 GHOST 算法基础上改善了安全性，面向公有区块链场景，理论上能达到 6000+ tps。
 
-2019 年，康奈尔大学和 VMWare 研究院的 Maofan Yin 等在论文《HotStuff: BFT Consensus with Linearity and Responsiveness》中对 PBFT 算法进行了改进：利用主节点来简化通信量，将通信复杂度从 PBFT 的 O(n²) 降低到 O(n)，同时将视图切换与共识操作进行统一。值得一提的是，Facebook Libra 白皮书中采用了该成果。
+2019 年，康奈尔大学和 VMWare 研究院的 Maofan Yin 等在论文《HotStuff: BFT Consensus with Linearity and Responsiveness》中对 PBFT 算法进行了改进：利用主节点来简化通信量，将通信复杂度从 PBFT 的 O(n²) 降低到 O(n)，同时将视图切换与共识操作进行统一。值得一提的是，Facebook Libra 白皮书中采用了该成果；Libra 后更名为 Diem，Diem 项目已于 2022 年出售核心资产并停止推进。
 
 比特币网络在设计时使用了 PoW（Proof of Work）的概率型算法思路，从如下两个角度解决大规模场景下的拜占庭容错问题。
 

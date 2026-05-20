@@ -261,7 +261,45 @@ contract ProperErrorHandling {
 }
 ```
 
-#### 2.4 避免依赖 block.timestamp 进行关键判断
+#### 2.4 使用自定义错误表达失败原因
+
+Solidity 0.8.x 中可以用 custom errors 替代长字符串错误。它们更适合 ABI 解码、测试断言和 gas 成本控制。
+
+```solidity
+pragma solidity ^0.8.24;
+
+contract CheckedAuction {
+    enum State { Created, Active, Ended }
+
+    error InvalidState(State expected, State actual);
+    error BidMustBePositive();
+
+    State public state = State.Created;
+
+    modifier atState(State expected) {
+        if (state != expected) {
+            revert InvalidState(expected, state);
+        }
+        _;
+    }
+
+    function placeBid() external payable atState(State.Active) {
+        if (msg.value == 0) {
+            revert BidMustBePositive();
+        }
+        // 记录出价
+    }
+}
+```
+
+测试中应断言具体错误，而不是只匹配字符串：
+
+```typescript
+await expect(auction.placeBid({ value: 0 }))
+    .to.be.revertedWithCustomError(auction, "BidMustBePositive");
+```
+
+#### 2.5 避免依赖 block.timestamp 进行关键判断
 
 ```solidity
 pragma solidity ^0.8.0;
@@ -287,7 +325,7 @@ contract TimeDependenceIssues {
 }
 ```
 
-#### 2.5 严格的权限控制
+#### 2.6 严格的权限控制
 
 ```solidity
 pragma solidity ^0.8.24;
@@ -328,10 +366,12 @@ contract ComplexAccess is AccessControl {
 
 #### 3.1 全面的单元测试
 
-```javascript
-// test/SafeAuction.test.js
-const { expect } = require("chai");
-const { ethers } = require("hardhat");
+```typescript
+// test/SafeAuction.test.ts
+import { expect } from "chai";
+import { network } from "hardhat";
+
+const { ethers } = await network.connect();
 
 describe("SafeAuction", function () {
     let auction;
@@ -341,6 +381,7 @@ describe("SafeAuction", function () {
         [owner, bidder1, bidder2] = await ethers.getSigners();
         const Auction = await ethers.getContractFactory("SafeAuction");
         auction = await Auction.deploy();
+        await auction.waitForDeployment();
     });
 
     describe("State transitions", function () {
@@ -382,7 +423,8 @@ describe("SafeAuction", function () {
         it("Should prevent reentrancy in settlement", async function () {
             // 部署攻击合约并测试
             const AttackFactory = await ethers.getContractFactory("ReentrancyAttack");
-            const attack = await AttackFactory.deploy(auction.address);
+            const attack = await AttackFactory.deploy(await auction.getAddress());
+            await attack.waitForDeployment();
             // 测试代码
         });
     });
