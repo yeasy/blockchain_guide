@@ -31,5 +31,5 @@ $ git remote add upstream https://github.com/yeasy/blockchain_guide
 $ git fetch upstream
 $ git checkout master
 $ git rebase upstream/master
-$ git push -f origin master
+$ git push --force-with-lease origin master  # 仅用于你自己的 fork；不确定时优先使用 GitHub 的 Sync fork
 ```

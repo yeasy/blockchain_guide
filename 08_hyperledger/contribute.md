@@ -195,7 +195,7 @@ $ git commit -a --amend
 补丁被接收后可以删除对应的分支：
 
 ```bash
-$ git fetch upstream master && git rebase FETCH_HEAD && git push -f origin
+$ git fetch upstream master && git rebase FETCH_HEAD
 $ git push -d origin issue-xxx
 $ git branch -d issue-xxx
 ```
