@@ -550,22 +550,24 @@ export default defineConfig({
 });
 ```
 
-Hardhat 3 的 `configVariable` 默认读取环境变量；敏感值也可以用 `hardhat-keystore` 加密保存。
+Hardhat 3 的 `configVariable` 可以从环境变量读取配置值；私钥、API Key 等敏感值优先使用 `hardhat-keystore` 加密保存，避免进入 shell 历史或明文配置文件。
 
 ```bash
-# macOS/Linux 示例
+# 推荐：使用 Hardhat keystore 保存敏感值
+npx hardhat keystore set SEPOLIA_RPC_URL
+npx hardhat keystore set SEPOLIA_PRIVATE_KEY
+npx hardhat keystore set MAINNET_RPC_URL
+npx hardhat keystore set POLYGON_AMOY_RPC_URL
+npx hardhat keystore set POLYGON_AMOY_PRIVATE_KEY
+npx hardhat keystore set ETHERSCAN_API_KEY
+
+# 临时测试网环境也可以用环境变量，但不要写入仓库、截图或共享终端记录
 export SEPOLIA_RPC_URL="https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY"
 export SEPOLIA_PRIVATE_KEY="your_private_key_here"
 export MAINNET_RPC_URL="https://eth-mainnet.g.alchemy.com/v2/YOUR_API_KEY"
 export POLYGON_AMOY_RPC_URL="https://polygon-amoy.g.alchemy.com/v2/YOUR_API_KEY"
 export POLYGON_AMOY_PRIVATE_KEY="your_private_key_here"
 export ETHERSCAN_API_KEY="your_etherscan_api_key_here"
-
-# 或使用 Hardhat keystore
-npx hardhat keystore set SEPOLIA_RPC_URL
-npx hardhat keystore set SEPOLIA_PRIVATE_KEY
-npx hardhat keystore set MAINNET_RPC_URL
-npx hardhat keystore set ETHERSCAN_API_KEY
 ```
 
 **部署脚本** (`scripts/deploy.ts`)：
