@@ -20,7 +20,7 @@
 
 ### 其他项目
 
-在人力资源和教育领域，MIT 研究员朱莉安娜·纳扎雷（Juliana Nazaré）和学术创新部主管菲利普·施密特（Philipp Schmidt）发表了文章[《MIT Media Lab Uses the Bitcoin Blockchain for Digital Certificates》](http://quarktalk.cc/threads/mit-media-lab-uses-the-bitcoin-blockchain-for-digital-certificates.1553/)，介绍基于区块链的学历认证系统。基于该系统，用人单位可以确认求职者的学历信息是真实可靠的。2018 年 2 月，麻省理工学院向应届毕业生颁发了首批基于区块链的数字学位证书。
+在人力资源和教育领域，MIT Media Lab 与 Learning Machine 发起的 [Blockcerts](https://www.blockcerts.org/) 项目探索了基于区块链的数字证书标准。基于该系统，用人单位可以确认求职者的学历信息是真实可靠的。2017 年，麻省理工学院开始向部分毕业生颁发基于区块链的数字学位证书。
 
 此外，还包括一些其他相关的应用项目：
 

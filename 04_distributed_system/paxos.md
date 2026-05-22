@@ -7,7 +7,7 @@ Paxos 问题是指分布式的系统中存在故障（crash fault），但不存
 1988 年，Brian M. Oki 和 Barbara H. Liskov 在论文《Viewstamped Replication: A New Primary Copy Method to
 Support Highly-Available Distributed Systems》中首次提出了解决 Paxos 问题的算法。
 
-Paxos 算法由 Leslie Lamport 于 1989 年完成，1990 年在论文《The Part-time Parliament》中提出，1998 年在 ACM Transactions on Computer Systems (TOCS) 上正式发表的 [Paxos](http://research.microsoft.com/users/lamport/pubs/lamport-paxos.pdf) 共识算法，从工程角度实现了一种在崩溃故障模型下保障分布式系统安全性的机制：只要算法假设成立，已经被选定的值不会被另一个值推翻。Paxos 算法本质上与前者相同，被广泛应用在 Chubby 等系统中；ZooKeeper 使用的是目标相近的 ZAB 协议。Leslie Lamport 作为分布式系统领域的早期研究者，因为相关杰出贡献获得了 2013 年度图灵奖。
+Paxos 算法由 Leslie Lamport 于 1989 年完成，1990 年在论文《The Part-time Parliament》中提出，1998 年在 ACM Transactions on Computer Systems (TOCS) 上正式发表的 [Paxos](https://www.microsoft.com/en-us/research/publication/part-time-parliament/) 共识算法，从工程角度实现了一种在崩溃故障模型下保障分布式系统安全性的机制：只要算法假设成立，已经被选定的值不会被另一个值推翻。Paxos 算法本质上与前者相同，被广泛应用在 Chubby 等系统中；ZooKeeper 使用的是目标相近的 ZAB 协议。Leslie Lamport 作为分布式系统领域的早期研究者，因为相关杰出贡献获得了 2013 年度图灵奖。
 
 论文中为了描述问题编造了一个虚构故事：在古代爱琴海的 Paxos 岛，议会如何通过表决来达成共识。议员们通过信使传递消息来对议案进行表决。但议员可能离开，信使可能走丢，甚至重复传递消息。
 
