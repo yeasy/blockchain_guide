@@ -15,3 +15,5 @@
 * `GetHomeByAddress`、`GetHomes`、`GetTransactionByID`、`GetTransactions`：读取状态。
 
 交易逻辑会检查买方签名、卖方交易状态、卖方电量和买方余额。交易时间使用 Fabric 交易时间戳。
+
+> 与 [学历认证示例](chaincode_example04.md) 一样，本例使用派生字符串模拟签名验证，仅保留业务流程骨架。真实系统中应由客户端身份、证书和密码学库完成签名与验签。
