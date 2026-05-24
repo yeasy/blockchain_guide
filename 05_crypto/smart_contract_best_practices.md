@@ -607,7 +607,7 @@ contract UpgradeableAuction is Initializable, OwnableUpgradeable, UUPSUpgradeabl
 
 **工具集**：
 - Hardhat：开发和测试框架
-- Truffle：成熟的开发套件
+- Truffle：成熟的开发套件（ConsenSys 已于 2023-09 宣布 sunset，存量项目可参考迁移说明，新项目推荐选 Hardhat 或 Foundry）
 - Foundry：高性能的 Rust 实现
 - etherscan API：链上数据获取
 
