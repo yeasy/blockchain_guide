@@ -4,7 +4,7 @@
 
 区块链技术自身仍在快速发展中，生态环境也在蓬勃成长。
 
-本书源码开源托管在 Github 上，欢迎参与维护：[github.com/yeasy/blockchain_guide](https://github.com/yeasy/blockchain_guide)。
+本书源码开源托管在 GitHub 上，欢迎参与维护：[github.com/yeasy/blockchain_guide](https://github.com/yeasy/blockchain_guide)。
 
 首先，在 GitHub 上 `fork` 到自己的仓库，如 `docker_user/blockchain_guide`，然后 `clone` 到本地，并设置用户信息。
 
