@@ -307,7 +307,7 @@ contract SecureBridge {
 
 用于支付通道和原子交换，基于密码学承诺。
 
-```javascript
+```text
 原理：使用 Hash 和时间锁保证交易原子性
 
 Alice 想用 BTC 换取 Bob 的 ETH：
@@ -330,35 +330,58 @@ Alice 想用 BTC 换取 Bob 的 ETH：
 
 结果：要么双方都成功交换，要么都失败退款，不存在中间状态。
 安全性来自于：即使恶意一方中途退出，诚实方也能通过时间锁收回资金。
+```
 
-代码示例：
+代码示例（教学用，省略跨链监听和 Bitcoin 锁定脚本）：
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
 contract AtomicSwap {
     bytes32 public hashlock;
-    uint public timelock;
-    address public seller;
+    uint256 public timelock;
+    address payable public seller;
     address payable public buyer;
-    uint public amount;
+    uint256 public amount;
+    enum State { Empty, Open, Redeemed, Refunded }
+    State public state;
 
-    function initiate(bytes32 _hash, uint _time, address payable _buyer) external payable {
+    function initiate(bytes32 _hash, uint256 _time, address payable _buyer) external payable {
+        require(state == State.Empty, "Swap already initialized");
+        require(msg.value > 0, "No value locked");
+        require(_time > block.timestamp, "Timelock must be future");
         hashlock = _hash;
         timelock = _time;
-        seller = msg.sender;
+        seller = payable(msg.sender);
         buyer = _buyer;
         amount = msg.value;
+        state = State.Open;
     }
 
     // 买家使用原像来领取
     function redeem(bytes calldata _preimage) external {
+        require(state == State.Open, "Swap is not open");
         require(msg.sender == buyer, "Only buyer");
+        require(block.timestamp < timelock, "Swap expired");
         require(sha256(_preimage) == hashlock, "Wrong preimage");
-        buyer.transfer(amount);
+        state = State.Redeemed;
+        uint256 payout = amount;
+        amount = 0;
+        (bool ok, ) = buyer.call{value: payout}("");
+        require(ok, "Transfer failed");
     }
 
     // 卖家可在超时后退款
     function refund() external {
+        require(state == State.Open, "Swap is not open");
         require(msg.sender == seller, "Only seller");
         require(block.timestamp >= timelock, "Too early");
-        payable(seller).transfer(amount);
+        state = State.Refunded;
+        uint256 payout = amount;
+        amount = 0;
+        (bool ok, ) = seller.call{value: payout}("");
+        require(ok, "Transfer failed");
     }
 }
 ```
@@ -421,6 +444,17 @@ contract SecureCrossChainBridge {
     Validator[] public validators;
     uint8 public constant REQUIRED_SIGNATURES = 7; // 2/3 + 1
     uint8 public constant TOTAL_VALIDATORS = 10;
+    address public governance;
+
+    modifier onlyGovernance() {
+        require(msg.sender == governance, "Only governance");
+        _;
+    }
+
+    constructor(address _governance) {
+        require(_governance != address(0), "Invalid governance");
+        governance = _governance;
+    }
 
     // 2. 事件日志（便于监测异常）
     event LargeWithdrawal(address indexed recipient, uint256 amount);
@@ -443,6 +477,7 @@ contract SecureCrossChainBridge {
         bool executed;
     }
     mapping(uint256 => PendingWithdrawal) public pendingWithdrawals;
+    uint256 public nextWithdrawalId;
     uint256 public constant WITHDRAWAL_DELAY = 7 days;
 
     // 5. 跨链消息验证
@@ -493,7 +528,7 @@ contract SecureCrossChainBridge {
         }
 
         // 创建延迟提款请求
-        uint256 id = pendingWithdrawals.length;
+        uint256 id = nextWithdrawalId++;
         pendingWithdrawals[id] = PendingWithdrawal({
             recipient: msg.sender,
             amount: amount,

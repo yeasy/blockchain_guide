@@ -1,3 +1,8 @@
+//go:build ignore
+// +build ignore
+
+// Historical Hyperledger Fabric 1.x helper. It uses legacy protobuf packages
+// and is kept as a reference snippet, not as current runnable tooling.
 // Usage: ./prog inputPkg outputPkg
 
 package main
