@@ -63,7 +63,7 @@ signpackage | 本地操作 | 为给定链码包添加签名（旧生命周期）
 --- | --- | ---
 --connectionProfile | string | 指定连接配置（Connection Profile）文件
 -C, --chainID | string | 所面向的通道，默认为 `testchainid`
--c, --ctor  | string | 指定链码命令的参数信息，Json 格式，默认为 `{}`
+-c, --ctor  | string | 指定链码命令的参数信息，JSON 格式，默认为 `{}`
 -E, --escc  | string | 指定所用背书系统链码的名称，默认为 `escc`
 -l, --lang  | string | 链码实现语言，默认为 `golang`
 -n, --name  | string | 链码名称
