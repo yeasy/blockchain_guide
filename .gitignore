@@ -4,6 +4,10 @@
 ~*
 node_modules/
 
+# Python bytecode
+__pycache__/
+*.pyc
+
 _book/
 _site*
 book.pdf
