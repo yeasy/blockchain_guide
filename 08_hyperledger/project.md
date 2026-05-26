@@ -9,7 +9,7 @@ Hyperledger/LFDT 项目代码主要托管在 [GitHub](https://github.com/hyperle
 * [Cello](https://github.com/hyperledger/cello)：提供区块链平台的部署和运行时管理功能。使用 Cello，管理员可以轻松部署和管理多条区块链；应用开发者可以无需关心如何搭建和维护区块链，由 IBM 团队于 2017 年 1 月贡献到社区；
 * [Indy](https://github.com/hyperledger/indy)：提供基于分布式账本技术的数字身份管理机制，由 Sovrin 基金会发起，2017 年 3 月底正式贡献到社区；
 * [Composer](https://github.com/hyperledger/composer)：[Archived] 曾提供面向链码开发的高级语言支持，自动生成链码代码等，由 IBM 团队发起并维护，2017 年 3 月底贡献到社区。目前已经停止维护；
-* [Burrow](https://github.com/hyperledger-archives/burrow) [Archived]：提供以太坊虚拟机的支持，实现支持高效交易的带权限的区块链平台，由 Monax 公司发起支持，2017 年 4 月贡献到社区。该项目已于被归档，代码已移至归档库；
+* [Burrow](https://github.com/hyperledger-archives/burrow) [Archived]：提供以太坊虚拟机的支持，实现支持高效交易的带权限的区块链平台，由 Monax 公司发起支持，2017 年 4 月贡献到社区。该项目已被归档，代码已移至归档库；
 * [Quilt](https://github.com/hyperledger/quilt)：对 W3C 支持的跨账本协议 Interledger 的 Java 实现。2017 年 10 月正式贡献到社区；
 * [Caliper](https://github.com/hyperledger/caliper)：提供对区块链平台性能的测试工具，由华为公司发起支持，2018 年 3 月正式贡献到社区。
 * [Ursa](https://github.com/hyperledger/ursa)：[Archived] 曾提供一套密码学相关组件，初始贡献者包括来自 Fujitsu、Sovrin、Intel、DFINITY、State Street、IBM、Bitwise IO 等企业的开发者，2018 年 11 月正式被接收到社区，2023 年 4 月停止维护；
@@ -19,7 +19,7 @@ Hyperledger/LFDT 项目代码主要托管在 [GitHub](https://github.com/hyperle
 * [Besu](https://github.com/hyperledger/besu)：作为企业级的以太坊客户端支持，由 Consensys、Hacera、JPM 和 Redhat 等公司发起支持，2019 年 8 月正式贡献到社区；
 * [Avalon](https://github.com/hyperledger/avalon)：提供链下计算支持，增强安全性和可扩展性，由 Intel、IEX、IBM 和 Consensys 等公司发起支持，2019 年 9 月正式贡献到社区。
 
-这些顶级项目分别从平台、工具和类库三个层次相互协作，构成了完善的生态系统，如下图所示。
+这些项目在不同历史阶段分别从平台、工具和类库三个层次支撑 Hyperledger / LFDT 生态；其中活跃项目、孵化项目、休眠项目和归档项目的当前状态应以 LFDT Projects 与年度 TAC 评审为准。
 
 ![Hyperledger 顶级项目](_images/top_projects.png)
 
