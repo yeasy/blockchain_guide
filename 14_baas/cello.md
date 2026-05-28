@@ -140,7 +140,7 @@ $ make help
 
 Cello 服务启动后，管理员可以通过 Cello 的 Dashboard 页面管理区块链。
 
-默认情况下，可通过 Master 节点的 8081 端口访问 Dashboard（例如 localhost:8081）。默认的登录用户名和密码为 `admin:pass`。
+默认情况下，可通过 Master 节点的 8081 端口访问 Dashboard（例如 localhost:8081）。默认的登录用户名和密码为 `admin:pass`；该凭据仅适合本地测试，首次登录后应立即修改，并且在修改前不要把 Dashboard 暴露到共享网络。
 
 ![Cello Dashboard](_images/cello_dashboard.png)
 
