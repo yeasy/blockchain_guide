@@ -92,7 +92,7 @@ $ make linter
 $ make native
 ```
 
-会自动生成 orderer、peer、configtxgen、configtxlator、cryptogen、doscover、idemixgen 等可执行文件。
+会自动生成 orderer、peer、configtxgen、configtxlator、cryptogen、discover、idemixgen 等可执行文件。
 
 用户也可以使用对应的可执行文件名称来单独编译，例如，执行如下命令会自动编译生成 Docker 镜像，并生成本地 peer 可执行文件：
 
@@ -180,7 +180,7 @@ $ hub pull-request [-b upstream:master] [-r <REVIEWERS> ]
 
 ### 评审代码
 
-提交成功后，可以打开项目在 GitHub 上的页面，查看自己最新提交的合并请求。新提交的请求会自动触发 CI 的测试任务，测试都通过后可邀请项目的维护者（maintainer）进行评审。为了引起关注，可将链接添加到对应的 Jira 任务，并在 RocketChat 上对应项目频道内贴出。
+提交成功后，可以打开项目在 GitHub 上的页面，查看自己最新提交的合并请求。新提交的请求会自动触发 CI 的测试任务，测试都通过后可邀请项目的维护者（maintainer）进行评审。为了引起关注，可在对应的 GitHub Issue 中关联该 PR，并在 Hyperledger Discord 对应项目频道内贴出。
 
 如果评审通过，则会被合并到主分支；否则还需要针对审阅意见进一步的修正。修正过程跟提交代码过程类似，唯一不同是，提交时需要添加 `-a --amend` 参数：
 
@@ -190,7 +190,7 @@ $ git commit -a --amend
 
 表示这个提交是对旧提交的一次修订。
 
-一般情况下，为了方便评审，尽量保证每个 patchset 完成的改动不要太多（最好不要超过 5 个文件，200 行），并且实现功能要明确，集中在对应 Jira 任务定义的范围内。
+一般情况下，为了方便评审，尽量保证每个 patchset 完成的改动不要太多（最好不要超过 5 个文件，200 行），并且实现功能要明确，集中在对应 GitHub Issue 定义的范围内。
 
 补丁被接收后可以删除对应的分支：
 
@@ -204,6 +204,6 @@ $ git branch -d issue-xxx
 
 ![代码提交流程](_images/patchset-lifecycle.png)
 
-总结一下，完整的流程如上图所示，开发者用 git 进行代码的版本管理，用 gerrit 进行代码的评审合作。
+总结一下，完整的流程如上图所示，开发者用 git 进行代码的版本管理，通过 GitHub Pull Request 进行代码的评审合作。
 
-如果需要修复某个提交补丁的问题，则通过 `git commit -a --amend` 进行修复，并作为补丁的新版本再次提交审阅。每次通过 `git review` 提交时，应当通过 `git log` 查看，确保本地只有一条提交记录。
+如果需要修复某个提交补丁的问题，则通过 `git commit -a --amend` 进行修复，并作为补丁的新版本再次提交审阅。每次修订后重新推送（`git push -f`）更新对应的 Pull Request 时，应当通过 `git log` 查看，确保提交记录清晰。
