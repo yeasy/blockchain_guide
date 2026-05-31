@@ -10,7 +10,7 @@
 
 ![David Chaum](_images/David_Chaum.jpg)
 
-1983 年，时任加州大学圣塔芭芭拉分校教授的 [David Chaum](https://en.wikipedia.org/wiki/David_Chaum) 最早在论文《Blind Signature for Untraceable Payments》中提出了 [e-Cash](https://doi.org/10.1007/978-1-4757-0602-4_18)，并于 1989 年创建了 [DigiCash](https://en.wikipedia.org/wiki/Digicash) 公司。ecash 系统是首个尝试实现不可追踪（untraceable）的匿名数字货币，基于 David Chaum 自己发明的盲签名技术，曾被应用于部分银行的小额支付系统中。ecash 虽然不可追踪，但仍依赖中心化机构（银行）的协助，同期也由于信用卡体系的快速崛起，DigiCash 公司最终于 1998 年宣告破产。鉴于 David Chaum 在数字货币研究领域发展早期的贡献，有人认为他是“数字货币之父”。值得一提的是，David Chaum 目前仍活跃在数字货币领域，期待他能做出更重要的贡献。
+1983 年，时任加州大学圣塔芭芭拉分校教授的 [David Chaum](https://en.wikipedia.org/wiki/David_Chaum) 最早在论文《Blind Signatures for Untraceable Payments》中提出了 [e-Cash](https://doi.org/10.1007/978-1-4757-0602-4_18)，并于 1989 年创建了 [DigiCash](https://en.wikipedia.org/wiki/Digicash) 公司。ecash 系统是首个尝试实现不可追踪（untraceable）的匿名数字货币，基于 David Chaum 自己发明的盲签名技术，曾被应用于部分银行的小额支付系统中。ecash 虽然不可追踪，但仍依赖中心化机构（银行）的协助，同期也由于信用卡体系的快速崛起，DigiCash 公司最终于 1998 年宣告破产。鉴于 David Chaum 在数字货币研究领域发展早期的贡献，有人认为他是“数字货币之父”。值得一提的是，David Chaum 目前仍活跃在数字货币领域，期待他能做出更重要的贡献。
 
 ![Adam Back](_images/Adam_Back.jpg)
 
