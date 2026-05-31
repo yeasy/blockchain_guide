@@ -9,7 +9,7 @@
 * [IBM](https://www.ibm.com): 早期向 Hyperledger 项目贡献企业区块链相关代码，并参与多家银行和企业区块链项目；IBM Blockchain Platform 已结束原产品支持路径。
 * [DTCC](https://www.dtcc.com/): 参与过 Hyperledger 等企业区块链生态合作。
 * [Circle](https://www.circle.com/)：基于区块链的支付应用公司，已获得 6000 万美元 D 轮投资，投资者包括 IDG、百度、中金甲子、广大投资等，目前年交易额超过 10 亿美金。
-* [Consensus](https://consensys.io/)：区块链创业团队，试图打造区块链平台技术和应用支撑，获得多家投资。
+* [ConsenSys](https://consensys.io/)：区块链创业团队，试图打造区块链平台技术和应用支撑，获得多家投资。
 
 #### 组织
 
