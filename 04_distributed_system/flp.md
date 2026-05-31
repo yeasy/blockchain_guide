@@ -4,7 +4,7 @@
 
 **FLP 不可能原理**：在网络可靠、但允许节点失效（即便只有一个）的最小化异步模型系统中，不存在一个可以解决一致性问题的确定性共识算法（No completely asynchronous consensus protocol can tolerate even a single unannounced process death）。
 
-提出并证明该定理的论文《Impossibility of Distributed Consensus with One Faulty Process》是由 Fischer、Lynch 和 Patterson 三位科学家于 1985 年发表，该论文后来获得了 Dijkstra（就是发明最短路径算法的那位计算机科学家）奖。
+提出并证明该定理的论文《Impossibility of Distributed Consensus with One Faulty Process》是由 Fischer、Lynch 和 Paterson 三位科学家于 1985 年发表，该论文后来获得了 Dijkstra（就是发明最短路径算法的那位计算机科学家）奖。
 
 FLP 不可能原理告诉我们，**不要浪费时间去试图为异步分布式系统设计面向任意场景的共识算法**。
 
