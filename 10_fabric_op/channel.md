@@ -266,10 +266,10 @@ Blockchain info: {"height":7,"currentBlockHash":"bHlVT/swOzeJ8JaTXyhStu40QL4JBxZ
 
 主要步骤包括：
 
-* 客户端首先创建一个 ChaincodeSpec 结构，其 input 中的 Args 第一个参数是 CSCC.Getchannels（指定调用配置链码的操作），第二个参数为所加入通道的配置区块；
+* 客户端首先创建一个 ChaincodeSpec 结构，其 input 中的 Args 第一个参数是 QSCC.GetChainInfo（指定调用查询系统链码的操作），第二个参数为目标通道的名称；
 * 利用 ChaincodeSpec 构造一个 ChaincodeInvocationSpec 结构；
-* 利用 ChaincodeInvocationSpec，创建 Proposal 结构并进行签名，channel 头部类型为 CONFIG。
-* 客户端通过 gRPC 将 Proposal 签名后发给 Endorser（所操作的 Peer），调用 `ProcessProposal(ctx context.Context, in *SignedProposal, opts ...grpc.CallOption) (*ProposalResponse, error)` 方法进行处理，主要通过配置系统链码获取对应账本的基本信息并返回客户端。
+* 利用 ChaincodeInvocationSpec，创建 Proposal 结构并进行签名，channel 头部类型为 ENDORSER_TRANSACTION。
+* 客户端通过 gRPC 将 Proposal 签名后发给 Endorser（所操作的 Peer），调用 `ProcessProposal(ctx context.Context, in *SignedProposal, opts ...grpc.CallOption) (*ProposalResponse, error)` 方法进行处理，主要通过查询系统链码（QSCC）获取对应账本的基本信息并返回客户端。
 
 其中，比较重要的数据结构包括 ChaincodeSpec、ChaincodeInvocationSpec、Proposal 等，它们的具体结构如下图所示。
 
