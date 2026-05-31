@@ -259,7 +259,7 @@ contract SecureBridge {
 
 两个参与者在链下进行多轮互动，仅在最后一次在链上进行清算。
 
-```yaml
+```text
 场景: Alice 和 Bob 进行多次支付
 
 步骤 1: Alice 和 Bob 各向合约存入 100 ETH（总计 200 ETH）

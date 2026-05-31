@@ -53,7 +53,7 @@ graph TD
 
 #### Move 语言的安全模型
 
-```javascript
+```text
 传统 Solidity 的陷阱：
 function transfer(address to, uint amount) public {
     // 重入风险：攻击者在转账前反复调用此函数
@@ -308,7 +308,7 @@ async def call_depin_api(model_input):
 
 | 项目 | 启动年份 | 代币 | 关注点 | 核心机制 | 代表特性 |
 |------|---------|------|------|---------|---------|
-| **ASI Alliance** | 2023 | ASI | AI 服务网络 | DAO 治理 + 网络效应 | 三路线图（Cloud/Create/Chain） |
+| **ASI Alliance** | 2024 | ASI | AI 服务网络 | DAO 治理 + 网络效应 | 三路线图（Cloud/Create/Chain） |
 | **Morpheus** | 2023 | MOR | 去中心化代理路由 | stETH 质押 + P2P 路由 | 公平启动，资本证明 |
 | **Autonolas** | 2021 | OLAS | 链上组件市场 | NFT 组件注册 + DAO | 链上组件市场，链下代理执行 |
 | **Ora Protocol** | 2023 | ORA | 链上 AI 验证 | opML 验证 + 预言机 | 链上 AI，嵌入式 zkML |
