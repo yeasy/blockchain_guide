@@ -72,14 +72,14 @@ A 链 <--> 中继/预言机网络 <--> B 链
 
 - **Stargate**（跨 Rollup）：专门连接 Layer 2 网络（Arbitrum、Optimism、Polygon 等），提供统一的流动性池，支持 1 秒内确认。
 
-- **Synapse Protocol**：跨链 DEX 和资产桥接，采用 Torus 模式，每条链上都有镜像 AMM。
+- **Synapse Protocol**：跨链 DEX 和资产桥接，基于跨链稳定币 nUSD 与各链上的 stableswap AMM 流动性池，实现原生资产的跨链兑换。
 
 **桥的风险**：
 
 桥合约往往成为高价值攻击目标。历史上最大的黑客事件很多都是桥的故障：
 
 - **Ronin Bridge (2022)**：6.2 亿美元 - 攻击者总共获得了 9 个验证者中 5 个的私钥（Sky Mavis 的 4 个 + Axie DAO 的 1 个），恰好达到 5/9 多签门槛
-- **Wormhole (2022)**：3.2 亿美元 - 利用 Solana 验证者签名的漏洞
+- **Wormhole (2022)**：3.2 亿美元 - 利用其 Solana 合约中签名验证的漏洞伪造验证消息
 - **Poly Network (2021)**：6.1 亿美元 - 获取管理员私钥
 
 #### 2025-2026年跨链安全风险分析与假想场景
