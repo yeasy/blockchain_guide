@@ -285,7 +285,7 @@ contract SecureBridge {
 
 **典型项目**：
 
-- **Lightning Network**（比特币）：专为支付优化的状态通道，支持 1 毫秒级别的确认
+- **Lightning Network**（比特币）：专为支付优化的状态通道，通常可实现亚秒级的支付确认（实际取决于路由跳数与网络状况）
 - **Raiden Network**（以太坊）：通用的状态通道实现，支持任意智能合约
 
 **侧链 (Sidechains)**：
