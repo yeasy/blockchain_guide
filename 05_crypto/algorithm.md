@@ -134,7 +134,7 @@ DH 协议的基本交换过程如下，以 Alice 和 Bob 两人协商为例：
 
 * Alice 和 Bob 两个人协商密钥，先公开商定 p，g；
 * Alice 自行选取私密的整数 x，计算 X=g^x mod p，发送 X 给 Bob；
-* Bob 自行选取私密的整数 y，计算 Y=g^y mod p，发送 Y 给 A；
+* Bob 自行选取私密的整数 y，计算 Y=g^y mod p，发送 Y 给 Alice；
 * Alice 根据 x 和 Y，求解共同密钥 Z_A=Y^x mod p；
 * Bob 根据 X 和 y，求解共同密钥 Z_B=X^y mod p。
 

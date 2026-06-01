@@ -57,7 +57,7 @@
 * PoS：Proof of Stake，权益证明，验证者按质押权益和协议规则参与出块、证明或投票，不再依赖 PoW 式算力挖矿；
 * PoW：Proof of Work，工作量证明，在一定难题前提下求解一个 SHA256 的 Hash 问题；
 * Smart Contract（智能合约）：运行在区块链上的提前约定的合同；
-* Sybil Attack（女巫攻击）：少数节点通过伪造或盗用身份伪装成大量节点，进而对分布式系统系统进行破坏。
+* Sybil Attack（女巫攻击）：少数节点通过伪造或盗用身份伪装成大量节点，进而对分布式系统进行破坏。
 * DeFi：Decentralized Finance，去中心化金融。利用智能合约构建的无需许可的金融应用；
 * NFT：Non-Fungible Token，非同质化代币。用于表示独一无二的数字资产的所有权；
 * Layer 2（二层网络）：构建在 Layer 1（主链）之上的扩展协议，旨在提高交易速度并降低成本，如 Rollup；

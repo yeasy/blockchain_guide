@@ -159,7 +159,7 @@ Channels peers has joined to:
 * 利用 ChaincodeSpec 构造一个 ChaincodeInvocationSpec 结构。
 * 利用 ChaincodeInvocationSpec，创建 Proposal 结构并进行签名，channel 头部类型为 ENDORSER_TRANSACTION。
 * 客户端通过 gRPC 将 Proposal 发给 Endorser（所操作的 Peer），调用 `ProcessProposal(ctx context.Context, in *SignedProposal, opts ...grpc.CallOption) (*ProposalResponse, error)` 方法进行处理，主要是通过配置系统链码查询本地链信息并返回。
-* 命令执行成功后，客户端会受到来自 Peer 端的回复消息，从其中提取出应用通道列表信息并输出。
+* 命令执行成功后，客户端会收到来自 Peer 端的回复消息，从其中提取出应用通道列表信息并输出。
 
 其中，比较重要的数据结构同样也包括 ChaincodeSpec、ChaincodeInvocationSpec、Proposal 等，注意 channel 头部类型和 ChaincodeSpec 结构中数据与加入通道的消息中略有差异。
 

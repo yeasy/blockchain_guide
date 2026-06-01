@@ -52,7 +52,7 @@ Discord 支持网页、桌面端和移动端，可用于项目讨论、工作组
 
 例如，大中华区技术工作组的频道为 `twg-china@lists.hyperledger.org`。
 
-用户在 https://lists.hyperledger.org/g/main/subgroups 看到社区已有的邮件列表并选择加入。
+用户可在 https://lists.hyperledger.org/g/main/subgroups 看到社区已有的邮件列表并选择加入。
 
 ### 提问的智慧
 

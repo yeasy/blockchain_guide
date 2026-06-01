@@ -27,7 +27,7 @@ LFDT 的组织治理由 Governing Board、Technical Advisory Council（TAC）、
 
 技术工作组的 [主要职责](https://docs.google.com/document/d/1sXVltDZxnlB5Srd1A-EW0jtTz7P2cDLG8JmgaAYvMzU) 包括：
 
-* 带领和引导大中华区的技术开发相关活动，包括贡献代码、文档、项目提案等。
+* 带领和引导大中华区的技术开发相关活动，包括贡献代码、文档、项目提案等；
 * 推动技术相关的交流，促进会员企业之间的合作和实践案例的落地；
 * 通过邮件列表、Discord、论坛和 Wiki 等方式促进社区开发者们的技术交流；
 * 协助举办社区活动，包括 Meetup、黑客松、Hackfest、技术分享、培训等。

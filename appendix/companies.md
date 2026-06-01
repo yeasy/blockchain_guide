@@ -13,7 +13,7 @@
 
 #### 组织
 
-* [R3 CEV](https://r3cev.com)：创立于 2015 年 9 月，总部位于纽约的金融联盟组织，专注于研究和评估基于区块链的金融技术解决方案，由 40 多家国际金融机构组成，包括 Citi、BOA、高盛、摩根、瑞银、IBM、微软等。R3 开源技术已经 [宣布](https://www.newsbtc.com/2016/10/22/r3-corda-hyperledger-open-source/) 加入 HyperLedger 项目。
+* [R3 CEV](https://r3cev.com)：创立于 2015 年 9 月，总部位于纽约的金融联盟组织，专注于研究和评估基于区块链的金融技术解决方案，由 40 多家国际金融机构组成，包括 Citi、BOA、高盛、摩根、瑞银、IBM、微软等。R3 开源技术已经 [宣布](https://www.newsbtc.com/2016/10/22/r3-corda-hyperledger-open-source/) 加入 Hyperledger 项目。
 * [Hyperledger 社区](https://www.hyperledger.org/)：创立于 2015 年 12 月，现属于 Linux Foundation Decentralized Trust 生态，聚焦面向企业和公共部门场景的分布式账本、身份、互操作和相关基础设施项目。
 * [Ethereum 社区](https://ethereum.org): 围绕以太坊区块链平台的开放社区。
 * [DAO](https://ethereum.org/dao/)： Distributed Autonomous Organization，基于以太坊平台的公募基金(众筹)组织，或去中心化的风投。众筹资金超过 1.6 亿美金。

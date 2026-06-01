@@ -31,7 +31,7 @@
 * 瑞士联合银行（Union Bank of Switzerland）
 * 德意志银行（Deutsche Bank AG）
 * 美国证券集中保管结算公司（Depository Trust Clearing Corporation，DTCC）
-* 全球同业银行金融电讯协会（Society for Worldwide Interbank Financial Telecommunication，SWIFT）
+* 环球同业银行金融电讯协会（Society for Worldwide Interbank Financial Telecommunication，SWIFT）
 * 三菱日联金融集团（Mitsubishi UFJ Financial Group, Inc.，MUFG）
 * 国际商业机器公司（International Business Machines Corporation，IBM）
 * 甲骨文公司（Oracle Corporation）

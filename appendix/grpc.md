@@ -159,7 +159,7 @@ Starting listen on port: :50051
 
 #### 生成客户端代码
 
-生成的 Go 文件中客户端相关代码如下，主要和实现了 HelloServiceClient 接口。用户可以通过 gRPC 来直接调用这个接口。
+生成的 Go 文件中客户端相关代码如下，主要定义和实现了 GreeterClient 接口。用户可以通过 gRPC 来直接调用这个接口。
 
 ```go
 type GreeterClient interface {

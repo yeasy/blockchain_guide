@@ -157,7 +157,7 @@ $ go list [-e] [-f format] [-json] [build flags] [packages]
 
 编译并直接运行某个主程序包。
 
-需要注意，该可以执行 `go run` 的程序包必须是主包，意味着包内必须有入口的主函数：main。
+需要注意，可以执行 `go run` 的程序包必须是主包，意味着包内必须有入口的主函数：main。
 
 #### go test
 

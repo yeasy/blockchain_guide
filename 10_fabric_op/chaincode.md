@@ -162,7 +162,7 @@ collection.json 的一个示例如下所示。
 	 "policy": "OR('Org1MSP.member', 'Org2MSP.member')", // 集合成员
 	 "requiredPeerCount": 1, // 至少扩散私密数据到几个节点
 	 "maxPeerCount": 3, // 最大扩散节点个数
-	 "blockToLive":99999, //私密数据存货时长
+	 "blockToLive":99999, //私密数据存活时长
 	 "memberOnlyRead": true // 是否只允许集合的成员访问私密数据
 },
  {
