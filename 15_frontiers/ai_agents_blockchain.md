@@ -707,9 +707,12 @@ class SecureAgent:
         })
 
         # Step 2：硬编码检查（签名权限门控）
-        assert plan.output_token in self.WHITELIST
-        assert plan.amount < self.MAX_TRANSACTION_SIZE
-        assert self.get_balance(input_token) >= plan.amount
+        if plan.output_token not in self.WHITELIST:
+            raise PolicyViolation("Output token is not whitelisted")
+        if plan.amount >= self.MAX_TRANSACTION_SIZE:
+            raise PolicyViolation("Transaction amount exceeds policy limit")
+        if self.get_balance(input_token) < plan.amount:
+            raise PolicyViolation("Insufficient balance for planned swap")
 
         # Step 3：构造交易对象
         tx = SwapTransaction(
