@@ -2,7 +2,7 @@
 
 ![超级账本项目](_images/hyperledger_logo.png)
 
-2015 年 12 月，开源世界的旗舰组织 —— [Linux 基金会](https://www.linuxfoundation.org) 宣布启动超级账本（Hyperledger）联合项目；2016 年 2 月 9 日，[公布](https://www.hyperledger.org/news/announcement/2016/02/hyperledger-project-announces-30-founding-members) 了 30 家创始企业成员（包括 IBM、Accenture、Intel、J.P.Morgan、R3、DAH、DTCC、FUJITSU、HITACHI、SWIFT、Cisco 等）。2024 年 9 月 16 日，Linux 基金会正式启动 [LF Decentralized Trust](https://www.lfdecentralizedtrust.org/announcements/linux-foundation-decentralized-trust-launches-with-17-projects-100-founding-members)，将 Hyperledger Foundation、Trust Over IP 等社区纳入更大的去中心化信任技术伞形组织；Hyperledger 相关技术成为 LFDT 项目，项目官方网站和目录以 [lfdecentralizedtrust.org](https://www.lfdecentralizedtrust.org/projects) 为准。
+2015 年 12 月，开源世界的旗舰组织 —— [Linux 基金会](https://www.linuxfoundation.org) 宣布启动超级账本（Hyperledger）联合项目；2016 年 2 月 9 日，[公布](https://www.linuxfoundation.org/press/press-release/linux-foundations-hyperledger-project-announces-30-founding-members-and-code-proposals-to-advance-blockchain-technology) 了 30 家创始企业成员（包括 IBM、Accenture、Intel、J.P.Morgan、R3、DAH、DTCC、FUJITSU、HITACHI、SWIFT、Cisco 等）。2024 年 9 月 16 日，Linux 基金会正式启动 [LF Decentralized Trust](https://www.lfdecentralizedtrust.org/announcements/linux-foundation-decentralized-trust-launches-with-17-projects-100-founding-members)，将 Hyperledger Foundation、Trust Over IP 等社区纳入更大的去中心化信任技术伞形组织；Hyperledger 相关技术成为 LFDT 项目，项目官方网站和目录以 [lfdecentralizedtrust.org](https://www.lfdecentralizedtrust.org/projects) 为准。
 
 成立之初，项目就收到了众多开源技术贡献。IBM 贡献了 4 万多行已有的 [Open Blockchain](https://github.com/openblockchain) 代码，Digital Asset 贡献了企业和开发者相关资源，R3 贡献了新的金融交易架构，Intel 贡献了分布式账本相关的代码。
 
