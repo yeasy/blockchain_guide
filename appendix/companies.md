@@ -8,15 +8,15 @@
 
 * [IBM](https://www.ibm.com): 早期向 Hyperledger 项目贡献企业区块链相关代码，并参与多家银行和企业区块链项目；IBM Blockchain Platform 已结束原产品支持路径。
 * [DTCC](https://www.dtcc.com/): 参与过 Hyperledger 等企业区块链生态合作。
-* [Circle](https://www.circle.com/)：基于区块链的支付应用公司，已获得 6000 万美元 D 轮投资，投资者包括 IDG、百度、中金甲子、广大投资等，目前年交易额超过 10 亿美金。
+* [Circle](https://www.circle.com/)：稳定币和区块链支付基础设施公司，核心产品包括 USDC 等数字美元服务。Circle 2026 年一季度公告显示，季末 USDC 流通量为 770 亿美元，Q1'26 链上交易量为 21.5 万亿美元。
 * [ConsenSys](https://consensys.io/)：区块链创业团队，试图打造区块链平台技术和应用支撑，获得多家投资。
 
 #### 组织
 
-* [R3 CEV](https://r3cev.com)：创立于 2015 年 9 月，总部位于纽约的金融联盟组织，专注于研究和评估基于区块链的金融技术解决方案，由 40 多家国际金融机构组成，包括 Citi、BOA、高盛、摩根、瑞银、IBM、微软等。R3 开源技术已经 [宣布](https://www.newsbtc.com/2016/10/22/r3-corda-hyperledger-open-source/) 加入 Hyperledger 项目。
-* [Hyperledger 社区](https://www.hyperledger.org/)：创立于 2015 年 12 月，现属于 Linux Foundation Decentralized Trust 生态，聚焦面向企业和公共部门场景的分布式账本、身份、互操作和相关基础设施项目。
+* [R3 / Corda](https://r3.com/get-corda/)：R3 成立于 2015 年，当前重点产品是面向受监管数字市场的 Corda 分布式账本平台。早期 R3 CEV 联盟与 Hyperledger 相关的新闻应作为历史背景阅读。
+* [Hyperledger 社区](https://www.lfdecentralizedtrust.org/projects)：创立于 2015 年 12 月，现属于 Linux Foundation Decentralized Trust 生态，聚焦面向企业和公共部门场景的分布式账本、身份、互操作和相关基础设施项目。
 * [Ethereum 社区](https://ethereum.org): 围绕以太坊区块链平台的开放社区。
-* [DAO](https://ethereum.org/dao/)： Distributed Autonomous Organization，基于以太坊平台的公募基金(众筹)组织，或去中心化的风投。众筹资金超过 1.6 亿美金。
+* [DAO](https://ethereum.org/dao/)：Decentralized Autonomous Organization，指由成员共同拥有、通过链上规则和治理流程协作的组织形态。“The DAO” 曾是以太坊早期众筹案例，不应把单一历史事件等同于 DAO 的通用定义。
 
 ### 国内
 
@@ -31,11 +31,11 @@
 * [中国电信](https://www.chinatelecom.com.cn/)：研究区块链相关技术，包括去中心化共享经济平台等。
 * [世纪互联](https://www.vnet.com/)：投资区块链技术团队，牵头成立“中关村区块链产业联盟”。
 * [银联](https://cn.unionpay.com/)：关注区块链相关技术，尝试引入基于区块链的银行业积分系统。
-* [能链](http://www.energy-blockchain.com/)：专注于能源产品相关的区块链应用。
+* 能链：早期关注能源产品相关区块链应用的创业项目，原公开站点已不可稳定访问，适合作为历史案例而非当前活跃项目引用。
 * [恒生电子](https://www.hundsun.com/)：2016 年牵头成立“金链盟”，希望通过区块链技术为金融行业提供更简单的产品。
 * [布比](https://bubi.cn)：主要关注数字资产管理的技术型创业企业，区块链相关平台和产品。
 * [小蚁](https://neo.org/)：主要关注对资产和权益进行数字化，2014年于上海组建成立。
-* 火币：国内较大的比特币交易代理平台。
+* [HTX（原火币）](https://www.htx.com/)：火币于 2023 年宣布品牌更新为 HTX。需注意中国人民银行等部门 2021 年通知已明确虚拟货币相关业务活动在中国大陆的监管红线，境外交易所面向境内居民提供服务同样属于非法金融活动。
 * BeLink：关注保险行业积分系统，主要产品为数贝荷包。
 * BitSe：主要产品为唯链（Vechain），面向物品防伪追踪、数字版权管理相关。
 * [万向集团](https://www.wxblockchain.com/)：投资多家区块链创业团队，致力于推动产业发展。
