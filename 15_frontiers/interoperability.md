@@ -395,7 +395,7 @@ contract AtomicSwap {
 | **Wormhole** | 桥接 | 20+ | 多签中继 | 快速，支持链多 | 高价值目标，曾被黑 |
 | **Stargate** | 桥接 | 8 | 统一流动性 | 1 秒确认，流动性好 | 流动性依赖，费用较高 |
 | **LayerZero** | 全链消息传递 | 50+ | Endpoint + DVN + Executor | 灵活可编程，应用可配置验证网络 | DVN/Executor 配置和应用集成风险 |
-| **Polygon zkEVM** | 侧链 + zkProof | 2 | zk 证明 | 完全 EVM 兼容，安全 | 复杂度高，生态新 |
+| **Polygon zkEVM** | 侧链 + zkProof | 2 | zk 证明 | EVM 兼容，现阶段主要作为历史/迁移案例 | Mainnet Beta 已公告 2026 年 sunset，不宜作为新项目主推选项 |
 
 ### 4. 跨链安全事件及教训
 
@@ -430,9 +430,12 @@ contract AtomicSwap {
 ```solidity
 // 高安全性跨链合约设计示例
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
-contract SecureCrossChainBridge {
+import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import "@openzeppelin/contracts/utils/cryptography/EIP712.sol";
+
+contract SecureCrossChainBridge is EIP712 {
     // 1. 严格的验证者管理
     struct Validator {
         address addr;
@@ -446,12 +449,28 @@ contract SecureCrossChainBridge {
     uint8 public constant TOTAL_VALIDATORS = 10;
     address public governance;
 
+    bytes32 private constant MESSAGE_TYPEHASH = keccak256(
+        "CrossChainMessage(bytes32 messageId,uint256 sourceChainId,uint256 destinationChainId,address target,uint256 nonce,uint256 deadline,bytes32 payloadHash)"
+    );
+
+    struct CrossChainMessage {
+        bytes32 messageId;
+        uint256 sourceChainId;
+        uint256 destinationChainId;
+        address target;
+        uint256 nonce;
+        uint256 deadline;
+        bytes payload;
+    }
+
+    mapping(bytes32 => bool) public processedMessages;
+
     modifier onlyGovernance() {
         require(msg.sender == governance, "Only governance");
         _;
     }
 
-    constructor(address _governance) {
+    constructor(address _governance) EIP712("SecureCrossChainBridge", "1") {
         require(_governance != address(0), "Invalid governance");
         governance = _governance;
     }
@@ -482,17 +501,22 @@ contract SecureCrossChainBridge {
 
     // 5. 跨链消息验证
     function relayMessage(
-        bytes memory message,
-        bytes[] memory signatures
+        CrossChainMessage calldata message,
+        bytes[] calldata signatures
     ) external {
         require(signatures.length >= REQUIRED_SIGNATURES, "Insufficient signatures");
+        require(block.timestamp <= message.deadline, "Message expired");
+        require(message.destinationChainId == block.chainid, "Wrong destination chain");
+        require(message.target == address(this), "Wrong target contract");
+        require(!processedMessages[message.messageId], "Message already processed");
 
-        bytes32 msgHash = keccak256(message);
+        bytes32 msgHash = _hashMessage(message);
         address[] memory signers = new address[](signatures.length);
 
         // 恢复签名者并去重
         for (uint i = 0; i < signatures.length; i++) {
-            address signer = recoverSigner(msgHash, signatures[i]);
+            // OpenZeppelin ECDSA 会处理签名长度和 low-s 等可锻性校验
+            address signer = ECDSA.recover(msgHash, signatures[i]);
             require(isValidator(signer), "Invalid signer");
 
             // 检查重复签名
@@ -502,8 +526,10 @@ contract SecureCrossChainBridge {
             signers[i] = signer;
         }
 
+        processedMessages[message.messageId] = true;
+
         // 处理消息
-        _processMessage(message);
+        _processMessage(message.payload);
     }
 
     // 6. 安全的提款函数
@@ -580,13 +606,19 @@ contract SecureCrossChainBridge {
     }
 
     // 内部辅助函数
-    function recoverSigner(
-        bytes32 msgHash,
-        bytes memory signature
-    ) internal pure returns (address) {
-        // 标准 ECDSA 恢复
-        (bytes32 r, bytes32 s, uint8 v) = splitSignature(signature);
-        return ecrecover(msgHash, v, r, s);
+    function _hashMessage(
+        CrossChainMessage calldata message
+    ) internal view returns (bytes32) {
+        return _hashTypedDataV4(keccak256(abi.encode(
+            MESSAGE_TYPEHASH,
+            message.messageId,
+            message.sourceChainId,
+            message.destinationChainId,
+            message.target,
+            message.nonce,
+            message.deadline,
+            keccak256(message.payload)
+        )));
     }
 
     function isValidator(address addr) internal view returns (bool) {
@@ -602,18 +634,6 @@ contract SecureCrossChainBridge {
         // 根据消息类型进行处理
     }
 
-    function splitSignature(bytes memory sig)
-        internal
-        pure
-        returns (bytes32 r, bytes32 s, uint8 v)
-    {
-        require(sig.length == 65, "Invalid signature");
-        assembly {
-            r := mload(add(sig, 32))
-            s := mload(add(sig, 64))
-            v := byte(0, mload(add(sig, 96)))
-        }
-    }
 }
 ```
 
