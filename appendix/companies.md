@@ -13,7 +13,7 @@
 
 #### 组织
 
-* [R3 / Corda](https://r3.com/get-corda/)：R3 成立于 2015 年，当前重点产品是面向受监管数字市场的 Corda 分布式账本平台。早期 R3 CEV 联盟与 Hyperledger 相关的新闻应作为历史背景阅读。
+* [R3 / Corda](https://r3.com/get-corda/)：R3 成立于 2014 年，其银行联盟（R3 CEV）于 2015 年 9 月启动；当前重点产品是面向受监管数字市场的 Corda 分布式账本平台。早期 R3 CEV 联盟与 Hyperledger 相关的新闻应作为历史背景阅读。
 * [Hyperledger 社区](https://www.lfdecentralizedtrust.org/projects)：创立于 2015 年 12 月，现属于 Linux Foundation Decentralized Trust 生态，聚焦面向企业和公共部门场景的分布式账本、身份、互操作和相关基础设施项目。
 * [Ethereum 社区](https://ethereum.org): 围绕以太坊区块链平台的开放社区。
 * [DAO](https://ethereum.org/dao/)：Decentralized Autonomous Organization，指由成员共同拥有、通过链上规则和治理流程协作的组织形态。“The DAO” 曾是以太坊早期众筹案例，不应把单一历史事件等同于 DAO 的通用定义。

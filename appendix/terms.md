@@ -21,7 +21,7 @@
 * Non-validating Peer（非验证节点）：不参与账本维护，仅作为交易代理响应客户端的请求，并对交易进行一些基本的有效性检查，之后转发给验证节点。
 * P2P：点到点的通信网络，网络中所有节点地位均等，不存在中心化的控制机制；
 * SLA/SLI/SLO：Service Level Agreement/Indicator/Objective，分别描述服务可用性对用户的承诺，功能指标和目标值；
-* SWIFT：Society for Worldwide Interbank Financial Telecommunication，环球银行金融电信协会，运营世界金融电文网络，服务银行和金融机构；
+* SWIFT：Society for Worldwide Interbank Financial Telecommunication，环球同业银行金融电讯协会，运营世界金融电文网络，服务银行和金融机构；
 * Turing-complete（图灵完备）：指一个机器或装置能用来模拟图灵机（现代通用计算机的雏形）的功能，图灵完备的机器在可计算性上等价；
 * Validating Peer（验证节点）：维护账本的核心节点，参与一致性维护、对交易的验证和执行。更进一步可以划分为 Endorser、Committer 等多种角色。
 
