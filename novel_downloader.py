@@ -35,6 +35,15 @@ AD_RE = re.compile(
     r'|(最新|最快)更新.{0,20}章节'
     r'|章节错误.{0,30}举报'
     r'|举报本章'
+    r'|温馨提示[：:].{0,80}'
+    r'|登录用户.{0,80}'
+    r'|建议大家登录使用'
+    r'|跨设备永久保存'
+    r'|站内信.{0,60}'
+    r'|用户中心.{0,60}'
+    r'|本站新增.{0,60}'
+    r'|点击.{0,10}设置.{0,30}切换'
+    r'|搜书名找不到.{0,60}'
     r'|www\.[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}'
     r'|http[s]?://\S+',
     re.IGNORECASE,
@@ -67,11 +76,21 @@ def fetch(url, retries=4):
     return None
 
 
+CHAPTER_TITLE_RE = re.compile(r'^第\d+章\s*.{0,20}\(\d+/\d+\)\s*$')
+
+STOP_MARKERS = re.compile(r'温馨提示|溫馨提示|登录用户|登錄用戶|VIP会员|VIP會員|点击查看|點擊查看')
+
 def clean_text(raw):
     lines = raw.splitlines()
     out, blanks = [], 0
     for line in lines:
+        # 遇到站点提示/广告标记行，后续内容全部丢弃
+        if STOP_MARKERS.search(line):
+            break
         line = AD_RE.sub('', line).strip()
+        # 去掉分页标题行，如"第1章 魂瓶 (2/2)"
+        if CHAPTER_TITLE_RE.match(line):
+            continue
         if len(re.sub(r'[\s　\W]', '', line)) < 2:
             blanks += 1
             if blanks == 1:
@@ -98,9 +117,9 @@ def extract_body(soup):
 
 def get_chapter_content(first_url, base):
     """抓取章节所有分页，合并正文。利用 URL 前缀判断是否仍在本章。"""
-    # 章节基础名：如 8096_3（去掉 .html 及可能的页码后缀 _2/_3...）
+    # 章节基础名：如 8096_3（目录给的 URL 永远是第一页，直接用文件名去掉 .html）
     name0 = re.sub(r'\.html$', '', first_url.split('/')[-1])
-    ch_base = re.sub(r'(_\d+)+$', '', name0)
+    ch_base = name0  # e.g. "8096_3"；页码 URL 形如 "8096_3_2"，以 ch_base+"_" 开头
 
     parts = []
     current_url = first_url
@@ -111,9 +130,8 @@ def get_chapter_content(first_url, base):
             break
 
         soup = BeautifulSoup(html, 'html.parser')
-        parts.append(clean_text(extract_body(soup)))
 
-        # 找"下一章/页"链接，只有 URL 前缀仍属于本章时才继续跟进
+        # 先找导航链接（extract_body 会 decompose 掉 nav 标签，必须在此之前处理）
         next_url = None
         for a in soup.find_all('a', href=True):
             if re.search(r'下一[章页頁]', a.get_text(strip=True)):
@@ -123,6 +141,8 @@ def get_chapter_content(first_url, base):
                 if cname == ch_base or cname.startswith(ch_base + '_'):
                     next_url = candidate
                 break
+
+        parts.append(clean_text(to_s(extract_body(soup))))
 
         if next_url:
             current_url = next_url
@@ -208,7 +228,7 @@ def main():
             if lines and ch_s.replace(' ', '') in lines[0].replace(' ', ''):
                 body = '\n'.join(lines[1:]).lstrip()
 
-            f.write(f"\n\n{'—'*6} {ch_s} {'—'*6}\n\n{body}\n")
+            f.write(f"\n\n{ch_s}\n\n{body}\n")
             f.flush()
 
             if i < end:
