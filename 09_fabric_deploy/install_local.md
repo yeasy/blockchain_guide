@@ -44,10 +44,10 @@ chmod +x install-fabric.sh
 ./install-fabric.sh docker binary samples
 ```
 
-官方脚本默认使用当前 Fabric LTS 和 Fabric CA 版本。需要固定版本时显式指定，例如 Fabric v2.5.15 和 Fabric CA v1.5.17：
+官方脚本默认使用当前 Fabric LTS 和 Fabric CA 版本。需要固定版本时显式指定，例如 Fabric v2.5.16 和 Fabric CA v1.5.21：
 
 ```bash
-./install-fabric.sh --fabric-version 2.5.15 --ca-version 1.5.17 docker binary samples
+./install-fabric.sh --fabric-version 2.5.16 --ca-version 1.5.21 docker binary samples
 ```
 
 该脚本会执行以下操作：
