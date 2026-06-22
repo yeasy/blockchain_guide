@@ -41,13 +41,17 @@ jobs:
         id: tag
         run: |
           if [[ "$GITHUB_REF" == refs/tags/* ]]; then
-            echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+            tag_name="${GITHUB_REF#refs/tags/}"
           else
-            echo "TAG_NAME=latest" >> "$GITHUB_OUTPUT"
+            tag_name="latest"
           fi
+          safe_tag_name=$(printf '%s' "$tag_name" | sed 's/[^A-Za-z0-9._-]/-/g')
+          safe_tag_name="${safe_tag_name:-latest}"
+          echo "TAG_NAME=${tag_name}" >> "$GITHUB_OUTPUT"
+          echo "SAFE_TAG_NAME=${safe_tag_name}" >> "$GITHUB_OUTPUT"
 
       - name: Build PDF
-        run: mdpress build --format pdf --output blockchain_guide-${{ steps.tag.outputs.TAG_NAME }}.pdf
+        run: mdpress build --format pdf --output blockchain_guide-${{ steps.tag.outputs.SAFE_TAG_NAME }}.pdf
 
       - name: Upload PDF as artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -66,7 +70,7 @@ jobs:
           sudo dpkg -i /tmp/pandoc.deb && pandoc --version | head -1
           PUPPETEER_SKIP_DOWNLOAD=true npm install -g @mermaid-js/mermaid-cli@10
           TITLE=$(python3 -c "import json,os;print((json.load(open('book.json')).get('title') if os.path.exists('book.json') else '') or '${{ github.event.repository.name }}')")
-          TAG=$(echo "${{ steps.tag.outputs.TAG_NAME || 'latest' }}" | sed 's#.*/##')
+          TAG="${{ steps.tag.outputs.SAFE_TAG_NAME || 'latest' }}"
           python3 tools/render_mermaid.py --book-dir . --svg-out /tmp/mmsvg
           python3 tools/build_html_reader.py --book-dir . --title "$TITLE" --svg-dir /tmp/mmsvg \
             --out "${{ github.event.repository.name }}-${TAG}.html"
