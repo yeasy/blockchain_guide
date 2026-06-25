@@ -21,7 +21,7 @@ jobs:
       MDPRESS_VERSION: "0.7.10"
       MDPRESS_SHA256: "17e53e455996940bbbce64c69c43b3fb543f1501e03b74cf0434074efebd2db4"
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v6
 
       - name: Install Chromium and CJK fonts
         uses: browser-actions/setup-chrome@v2
