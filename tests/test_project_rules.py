@@ -59,6 +59,44 @@ class ProjectRuleTests(unittest.TestCase):
                 self.assertEqual(result, 1)
                 self.assertIn("remote image", output)
 
+    def test_checker_rejects_pandoc_reference_labels_with_escaped_punctuation(self):
+        cases = (
+            (
+                "![dynamic\\] chart](https://example.com/inline-escaped.svg)\n",
+                "inline-escaped.svg",
+            ),
+            (
+                "![dynamic chart][Chart\\]   ID]\n\n"
+                "[chart\\] id]: https://example.com/full-escaped.svg\n",
+                "full-escaped.svg",
+            ),
+            (
+                "![chart\\]][]\n\n"
+                "[chart\\]]: https://example.com/collapsed-escaped.svg\n",
+                "collapsed-escaped.svg",
+            ),
+            (
+                "![chart\\]]\n\n"
+                "[chart\\]]: https://example.com/shortcut-escaped.svg\n",
+                "shortcut-escaped.svg",
+            ),
+            (
+                "\\\\![chart\\]]\n\n"
+                "[chart\\]]: https://example.com/even-backslashes.svg\n",
+                "even-backslashes.svg",
+            ),
+            (
+                "![chart\\\\][]\n\n"
+                "[chart\\\\]: https://example.com/escaped-backslash.svg\n",
+                "escaped-backslash.svg",
+            ),
+        )
+        for source, target in cases:
+            with self.subTest(source=source.splitlines()[0]):
+                result, output = self.run_checker(source)
+                self.assertEqual(result, 1)
+                self.assertIn(target, output)
+
     def test_checker_applies_badge_allowlist_to_reference_images(self):
         result, output = self.run_checker(
             "[![build][badge]][project]\n\n"
@@ -70,6 +108,7 @@ class ProjectRuleTests(unittest.TestCase):
     def test_checker_ignores_escaped_and_empty_reference_image_syntax(self):
         cases = (
             "\\![dynamic chart]\n\n[dynamic chart]: https://example.com/escaped.svg\n",
+            "\\![chart\\]]\n\n[chart\\]]: https://example.com/escaped-bracket.svg\n",
             "![   ]\n\n[   ]: https://example.com/empty.svg\n",
         )
         for source in cases:

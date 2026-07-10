@@ -126,6 +126,22 @@ class ReleaseArtifactTests(unittest.TestCase):
             self.assertIn("reference.svg", stderr.getvalue())
 
             source.write_text(
+                "![dynamic chart][chart\\]]\n\n"
+                "[chart\\]]: https://example.com/escaped-reference.svg\n",
+                encoding="utf-8",
+            )
+            with (
+                mock.patch.object(module, "parse_args", return_value=args),
+                mock.patch.object(module, "verify_pdf"),
+                mock.patch.object(module, "verify_html"),
+                mock.patch.object(module, "write_checksums"),
+                mock.patch.object(module, "verify_checksums"),
+                contextlib.redirect_stderr(io.StringIO()) as stderr,
+            ):
+                self.assertEqual(module.main(), 1)
+            self.assertIn("escaped-reference.svg", stderr.getvalue())
+
+            source.write_text(
                 "[![build](https://img.shields.io/badge/build-passing-green.svg)](https://example.com)\n",
                 encoding="utf-8",
             )
