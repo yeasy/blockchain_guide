@@ -1,6 +1,6 @@
 ## 物流供应链简单案例
 
-[chaincode_example06.go](chaincode_example06.go) 演示物流公司、快递点、寄件人、收件人和寄货单的基本流程。
+[examples/example06/main.go](examples/example06/main.go) 演示物流公司、快递点、寄件人、收件人和寄货单的基本流程。
 
 ### 数据结构
 
@@ -20,4 +20,4 @@
 * `FinishExpressOrder`：收件人签收并完成付款；
 * `GetExpressOrderByID`、`GetExpress`、`GetUserByAddress`、`GetExpressPointByAddress`：读取状态。
 
-示例保留两种付款方式：寄件人预付和收件人到付。真实系统中，签收验签与资金结算应接入正式身份、支付和风控流程。
+示例保留两种付款方式：寄件人预付和收件人到付。物流公司和订单路线均拒绝重复添加同一网点；签收完成后不能重复签收或继续修改路线。真实系统中，签收验签与资金结算应接入正式身份、支付和风控流程。

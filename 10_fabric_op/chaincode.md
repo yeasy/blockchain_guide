@@ -1,6 +1,6 @@
 ## 管理链上代码
 
-> **历史说明**：本节记录 Fabric 1.x 及未启用 `V2_0` 应用能力时的旧链码生命周期，包含 `peer chaincode install/instantiate/upgrade/list/package/signpackage` 和 LSCC（Lifecycle System Chaincode）内部流程。Fabric 2.5 LTS 和 Fabric 3.x 的生产网络应使用 `peer lifecycle chaincode` 命令族，详见 [管理链上代码（Lifecycle）](chaincode_v2.md)。在启用 `V2_0` 应用能力的通道上，旧生命周期不能再用于安装、实例化或升级链码；迁移场景中，旧生命周期部署过的链码仍可被调用。
+> **历史说明**：本节记录 Fabric 1.x 及未启用 `V2_0` 应用能力时的旧链码生命周期，包含 `peer chaincode install/instantiate/upgrade/list/package/signpackage` 和 LSCC（Lifecycle System Chaincode）内部流程。Fabric 2.5 LTS 和 Fabric 3.x 的生产网络应使用 `peer lifecycle chaincode` 命令族，详见 [管理链上代码（Lifecycle）](chaincode_v2.md)。在启用 `V2_0` 应用能力的通道上，旧生命周期不能再用于安装、实例化或升级链码；迁移场景中，旧生命周期部署过的链码仍可被调用。Fabric-X 是另一套实现，不能直接套用本节的经典 Fabric 链码部署命令，也不是从 2.5/3.x 原地升级得到；版本选择和迁移边界见[升级矩阵](upgrade.md)。
 
 链上代码（Chaincode），简称链码，一般指的是用户编写的用来实现智能合约的应用代码。
 

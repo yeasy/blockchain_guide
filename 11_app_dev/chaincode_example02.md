@@ -1,6 +1,6 @@
 ## 链码示例二：交易资产
 
-[chaincode_example02.go](chaincode_example02.go) 使用 Go Contract API 实现两个账户之间的整数余额转账。
+[examples/example02/main.go](examples/example02/main.go) 使用 Go Contract API 实现两个账户之间的整数余额转账。
 
 ### 主要交易函数
 
@@ -15,4 +15,4 @@
 import "github.com/hyperledger/fabric-contract-api-go/v2/contractapi"
 ```
 
-转账逻辑会检查金额必须为正数、账户必须存在、付款账户余额必须充足。客户端应用应通过 Gateway API 的 submit 类调用提交 `Transfer`，通过 evaluate 类调用读取 `ReadAccount`。
+转账逻辑会检查金额必须为正数、账户必须存在、付款账户余额必须充足，并拒绝源账户和目标账户相同的转账，避免覆盖同一状态键时破坏余额守恒。客户端应用应通过 Gateway API 的 submit 类调用提交 `Transfer`，通过 evaluate 类调用读取 `ReadAccount`。

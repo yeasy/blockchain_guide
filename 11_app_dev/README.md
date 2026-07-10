@@ -8,4 +8,4 @@
 
 本章将介绍 Fabric 链码的基本概念、结构和核心 API，并通过案例演示如何实现典型区块链应用，最后还介绍了外部链码机制，讨论了应用开发的最佳实践。通过本章学习，读者将掌握设计和开发链码的实践技巧。
 
-> 本目录中的 `chaincode_example*.go` 是章节级独立示例，为便于阅读保留在同一目录下，部分示例会复用 `SmartContract`、`main` 等符号。不要在本目录直接运行 `go test ./...`；如需检查某个示例，请按单文件运行，例如 `go test chaincode_example01.go`，或将示例复制到独立链码工程中验证。
+> 六个链码示例分别位于 `examples/example01` 至 `examples/example06`，每个目录都是可独立编译和测试的 `main` 包。可在本目录运行 `go test ./examples/... -count=1` 一次验证全部示例。

@@ -1,4 +1,4 @@
-name: Update Preview PDF
+name: Update Preview Publications
 
 on:
   push:
@@ -6,97 +6,210 @@ on:
       - master
   workflow_dispatch:
 
-permissions:
-  contents: read
+permissions: {}
 
 concurrency:
-  group: preview-pdf
+  group: preview-publications
   cancel-in-progress: true
 
 jobs:
-  build-preview-pdf:
-    name: Build preview PDF
-    runs-on: ubuntu-latest
-    env:
-      MDPRESS_VERSION: "0.7.10"
-      MDPRESS_SHA256: "17e53e455996940bbbce64c69c43b3fb543f1501e03b74cf0434074efebd2db4"
+  build:
+    permissions:
+      contents: read
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
 
-      - name: Install Chromium and CJK fonts
-        uses: browser-actions/setup-chrome@v2
+      - name: Run book contract tests
+        run: |
+          python3 -m unittest discover -s tests -p 'test_*.py' -v
+          python3 check_project_rules.py
+
+      - name: Set up Chrome
+        id: setupchrome
+        uses: browser-actions/setup-chrome@2e1d749697dd1612b833dba4a722266286fbefcd # v2.1.2
         with:
           chrome-version: stable
-      - name: Install CJK fonts
+
+      - name: Install CJK fonts and PDF inspection tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk fonts-noto-cjk-extra
+          sudo apt-get install -y fonts-noto-cjk fonts-noto-cjk-extra poppler-utils
 
-      - name: Install mdpress
+      - name: Install verified mdPress 0.7.11
+        env:
+          MDPRESS_VERSION: "0.7.11"
+          MDPRESS_SHA256: "cf499f03926f09debb3460b751e1e8f789d098fa81e4265deb7bcac269f72efe"
         run: |
-          curl -fsSL "https://github.com/yeasy/mdPress/releases/download/v${MDPRESS_VERSION}/mdpress_${MDPRESS_VERSION}_linux_amd64.tar.gz" -o /tmp/mdpress.tar.gz
-          echo "${MDPRESS_SHA256}  /tmp/mdpress.tar.gz" | sha256sum -c -
-          tar xzf /tmp/mdpress.tar.gz -C /tmp mdpress
-          sudo install -m 0755 /tmp/mdpress /usr/local/bin/mdpress
-          mdpress --version
+          archive="$RUNNER_TEMP/mdpress_${MDPRESS_VERSION}_linux_amd64.tar.gz"
+          curl -fsSL --retry 3 \
+            "https://github.com/yeasy/mdPress/releases/download/v${MDPRESS_VERSION}/mdpress_${MDPRESS_VERSION}_linux_amd64.tar.gz" \
+            -o "$archive"
+          echo "${MDPRESS_SHA256}  $archive" | sha256sum -c -
+          tar xzf "$archive" -C "$RUNNER_TEMP" mdpress
+          mkdir -p "$RUNNER_TEMP/bin"
+          install -m 0755 "$RUNNER_TEMP/mdpress" "$RUNNER_TEMP/bin/mdpress"
+          echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
 
-      - name: Build latest preview PDF
+      - name: Install verified Pandoc 3.5
+        env:
+          PANDOC_VERSION: "3.5"
+          PANDOC_SHA256: "4f41d817d262ef3d17953a3e6e0fefddb971aa4f2f121544a9a86db449d945e1"
+        run: |
+          package="$RUNNER_TEMP/pandoc-${PANDOC_VERSION}-1-amd64.deb"
+          curl -fsSL --retry 3 \
+            "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb" \
+            -o "$package"
+          echo "${PANDOC_SHA256}  $package" | sha256sum -c -
+          sudo dpkg -i "$package"
+          pandoc --version | head -1
+
+      - name: Install locked Mermaid CLI
+        run: |
+          PUPPETEER_SKIP_DOWNLOAD=true npm ci --prefix tools/mermaid --ignore-scripts
+          echo "$GITHUB_WORKSPACE/tools/mermaid/node_modules/.bin" >> "$GITHUB_PATH"
+
+      - name: Build preview PDF and HTML
+        env:
+          CHROME_BIN: ${{ steps.setupchrome.outputs.chrome-path }}
         run: |
           mkdir -p dist
+          title=$(python3 -c 'import json; print(json.load(open("book.json"))["title"])')
           mdpress build --format pdf --output dist/blockchain_guide.pdf
+          python3 tools/render_mermaid.py \
+            --book-dir . \
+            --svg-out "$RUNNER_TEMP/mermaid-svg" \
+            --require-all
+          python3 tools/build_html_reader.py \
+            --book-dir . \
+            --title "$title" \
+            --svg-dir "$RUNNER_TEMP/mermaid-svg" \
+            --out dist/blockchain_guide.html
 
-      - name: Write release notes
+      - name: Verify preview artifacts
         run: |
-          cat > dist/release-notes.md <<EOF
-          Auto-updated preview PDF from \`${GITHUB_SHA::7}\`.
+          title=$(python3 -c 'import json; print(json.load(open("book.json"))["title"])')
+          python3 tools/verify_release_artifacts.py \
+            --title "$title" \
+            --pdf dist/blockchain_guide.pdf \
+            --html dist/blockchain_guide.html \
+            --source-root . \
+            --checksums dist/SHA256SUMS
+          (cd dist && sha256sum -c SHA256SUMS)
 
-          - Branch: \`${GITHUB_REF_NAME}\`
-          - Commit: https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}
-          - Run: https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
-          EOF
-
-      - name: Upload preview artifact
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+      - name: Upload verified preview bundle
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: preview-pdf-dist
+          name: blockchain-guide-preview
           path: dist/
+          if-no-files-found: error
 
-  update-preview-release:
-    name: Update preview release
-    needs: build-preview-pdf
-    runs-on: ubuntu-latest
+  publish:
     permissions:
       contents: write
+    needs: build
+    runs-on: ubuntu-24.04
     env:
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
     steps:
-      - name: Download preview artifact
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+      - name: Download verified preview bundle
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
-          name: preview-pdf-dist
+          name: blockchain-guide-preview
           path: dist
 
-      - name: Create preview release
+      - name: Recheck preview checksums
+        run: (cd dist && sha256sum -c SHA256SUMS)
+
+      - name: Write release notes
         run: |
-          gh release view preview-pdf >/dev/null 2>&1 || \
+          cat > dist/release-notes.md <<EOF
+          Auto-updated preview PDF and HTML reader from `${GITHUB_SHA::7}`.
+
+          - Branch: `${GITHUB_REF_NAME}`
+          - Commit: https://github.com/${GH_REPO}/commit/${GITHUB_SHA}
+          - Run: https://github.com/${GH_REPO}/actions/runs/${GITHUB_RUN_ID}
+
+          This is a mutable preview without formal provenance. Use a tagged release for attested artifacts.
+          EOF
+
+      - name: Synchronize mutable preview tag
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! "$GH_REPO" =~ ^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$ ]]; then
+            echo "Invalid GH_REPO: $GH_REPO" >&2
+            exit 1
+          fi
+          if [[ ! "$GITHUB_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "Invalid GITHUB_SHA" >&2
+            exit 1
+          fi
+
+          probe_dir=$(mktemp -d)
+          trap 'rm -rf "$probe_dir"' EXIT
+          set +e
+          gh api --include --method GET \
+            "repos/${GH_REPO}/git/ref/tags/preview-pdf" \
+            >"$probe_dir/response" 2>"$probe_dir/error"
+          probe_rc=$?
+          set -e
+          http_status=$(awk '$1 ~ /^HTTP\// && $2 ~ /^[0-9][0-9][0-9]$/ { status=$2 } END { print status }' "$probe_dir/response")
+
+          if [[ $probe_rc -eq 0 && "$http_status" == "200" ]]; then
+            gh api --silent --method PATCH \
+              "repos/${GH_REPO}/git/refs/tags/preview-pdf" \
+              --raw-field sha="$GITHUB_SHA" \
+              --field force=true
+          elif [[ $probe_rc -eq 1 && "$http_status" == "404" ]]; then
+            gh api --silent --method POST \
+              "repos/${GH_REPO}/git/refs" \
+              --raw-field ref="refs/tags/preview-pdf" \
+              --raw-field sha="$GITHUB_SHA"
+          else
+            cat "$probe_dir/response" >&2
+            cat "$probe_dir/error" >&2
+            echo "Preview tag lookup failed (exit=$probe_rc, HTTP=${http_status:-unavailable}); refusing to mutate refs or releases." >&2
+            exit 1
+          fi
+
+      - name: Create or update preview release
+        shell: bash
+        run: |
+          set -euo pipefail
+          error_file=$(mktemp)
+          trap 'rm -f "$error_file"' EXIT
+          set +e
+          gh release view preview-pdf >/dev/null 2>"$error_file"
+          release_rc=$?
+          set -e
+
+          if [[ $release_rc -eq 0 ]]; then
+            gh release edit preview-pdf \
+              --title "Latest Preview Publications" \
+              --notes-file dist/release-notes.md \
+              --prerelease
+          elif [[ $release_rc -eq 1 && "$(tr -d '\r' < "$error_file")" == "release not found" ]]; then
             gh release create preview-pdf \
-              --title "Latest Preview PDF" \
+              --title "Latest Preview Publications" \
               --notes-file dist/release-notes.md \
               --prerelease \
               --latest=false \
-              --target "$GITHUB_SHA"
+              --verify-tag
+          else
+            cat "$error_file" >&2
+            echo "Preview release lookup failed (exit=$release_rc); refusing to create or edit the release." >&2
+            exit 1
+          fi
 
-      - name: Update preview release metadata
+      - name: Replace preview assets
         run: |
-          gh release edit preview-pdf \
-            --title "Latest Preview PDF" \
-            --notes-file dist/release-notes.md \
-            --prerelease \
-            --target "$GITHUB_SHA"
-
-      - name: Remove legacy preview asset
-        run: gh release delete-asset preview-pdf latest.pdf -y || true
-
-      - name: Upload preview PDF
-        run: gh release upload preview-pdf dist/blockchain_guide.pdf --clobber
+          gh release upload preview-pdf \
+            dist/blockchain_guide.pdf \
+            dist/blockchain_guide.html \
+            dist/SHA256SUMS \
+            --clobber

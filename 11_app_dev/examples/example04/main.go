@@ -86,8 +86,11 @@ func (s *SmartContract) EnrollStudent(ctx contractapi.TransactionContextInterfac
 	if _, err := readStudent(ctx, studentAddress); err != nil {
 		return nil, err
 	}
+	if containsString(school.StudentAddresses, studentAddress) {
+		return nil, fmt.Errorf("student is already enrolled in this school")
+	}
 
-	school.StudentAddresses = appendUnique(school.StudentAddresses, studentAddress)
+	school.StudentAddresses = append(school.StudentAddresses, studentAddress)
 	if err := putJSON(ctx, schoolKey(schoolAddress), school); err != nil {
 		return nil, err
 	}
@@ -105,6 +108,19 @@ func (s *SmartContract) UpdateDiploma(ctx contractapi.TransactionContextInterfac
 	student, err := readStudent(ctx, studentAddress)
 	if err != nil {
 		return nil, err
+	}
+	if !containsString(school.StudentAddresses, studentAddress) {
+		return nil, fmt.Errorf("student is not enrolled in this school")
+	}
+	if len(student.BackgroundIDs) > 0 {
+		latestID := student.BackgroundIDs[len(student.BackgroundIDs)-1]
+		latest, err := readBackground(ctx, latestID)
+		if err != nil {
+			return nil, err
+		}
+		if latest.Status == status {
+			return nil, fmt.Errorf("student already has diploma status %q", status)
+		}
 	}
 
 	backgroundID, err := nextID(ctx, backgroundCounterKey)
@@ -226,13 +242,13 @@ func validSchoolSignature(school *School, signature string) bool {
 	return signature == school.PriKey || signature == school.PriKey+":signed" || signature == school.Address+"1"
 }
 
-func appendUnique(values []string, value string) []string {
+func containsString(values []string, value string) bool {
 	for _, existing := range values {
 		if existing == value {
-			return values
+			return true
 		}
 	}
-	return append(values, value)
+	return false
 }
 
 func newAddress(ctx contractapi.TransactionContextInterface, prefix string) string {

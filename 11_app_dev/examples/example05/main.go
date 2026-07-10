@@ -71,6 +71,9 @@ func (s *SmartContract) CreateUser(ctx contractapi.TransactionContextInterface, 
 }
 
 func (s *SmartContract) BuyByAddress(ctx contractapi.TransactionContextInterface, sellerAddress string, buyerSignature string, buyerAddress string, energy string) (*EnergyTransaction, error) {
+	if sellerAddress == buyerAddress {
+		return nil, fmt.Errorf("seller and buyer must differ")
+	}
 	energyValue, err := parsePositiveAmount(energy)
 	if err != nil {
 		return nil, err
@@ -140,9 +143,15 @@ func (s *SmartContract) ChangeStatus(ctx contractapi.TransactionContextInterface
 	if err != nil {
 		return nil, err
 	}
+	if statusValue != 0 && statusValue != homeAvailableForTrade {
+		return nil, fmt.Errorf("status must be 0 or %d", homeAvailableForTrade)
+	}
 	home, err := readHome(ctx, address)
 	if err != nil {
 		return nil, err
+	}
+	if home.Status == statusValue {
+		return nil, fmt.Errorf("home already has status %d", statusValue)
 	}
 	home.Status = statusValue
 	if err := putHome(ctx, home); err != nil {

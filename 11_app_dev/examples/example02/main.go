@@ -35,6 +35,9 @@ func (s *SmartContract) InitAccounts(ctx contractapi.TransactionContextInterface
 
 // Transfer moves amount from one account to another.
 func (s *SmartContract) Transfer(ctx contractapi.TransactionContextInterface, from string, to string, amount string) (*Account, error) {
+	if from == to {
+		return nil, fmt.Errorf("source and destination accounts must differ")
+	}
 	value, err := parseAmount(amount)
 	if err != nil {
 		return nil, err

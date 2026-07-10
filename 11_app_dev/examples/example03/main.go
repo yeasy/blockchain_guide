@@ -185,6 +185,9 @@ func (s *SmartContract) Transfer(ctx contractapi.TransactionContextInterface, fr
 	if err != nil {
 		return nil, err
 	}
+	if fromID == toID {
+		return nil, fmt.Errorf("source and destination companies must differ")
+	}
 
 	from, err := readCompany(ctx, fromID)
 	if err != nil {

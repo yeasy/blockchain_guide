@@ -1,6 +1,6 @@
 ## 链码示例一：信息公证
 
-[chaincode_example01.go](chaincode_example01.go) 使用 Go Contract API 实现一个最小键值账本：
+[examples/example01/main.go](examples/example01/main.go) 使用 Go Contract API 实现一个最小键值账本：
 
 * `InitLedger`：初始化 `hello_world` 的值；
 * `Write`：创建或更新指定 key 的 value；

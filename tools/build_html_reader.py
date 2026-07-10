@@ -218,7 +218,10 @@ def main():
     tpl = "/tmp/_book_template.html"; out_tmp = "/tmp/_book_out.html"
     with open(tmp_md, "w", encoding="utf-8") as f: f.write(combined)
     with open(tpl, "w", encoding="utf-8") as f: f.write(TEMPLATE)
-    cmd = ["pandoc", "_combined_tmp.md", "-f", "markdown", "-t", "html5",
+    # Chapter horizontal rules must not become simple-table separators, and
+    # chapter content must not become a YAML metadata block after concatenation.
+    reader = "markdown-simple_tables-multiline_tables-grid_tables-yaml_metadata_block"
+    cmd = ["pandoc", "_combined_tmp.md", "-f", reader, "-t", "html5",
            "--standalone", "--embed-resources", "--mathml",
            "--template", tpl, "--metadata", f"title={a.title}", "-o", out_tmp]
     print("  running pandoc ...")

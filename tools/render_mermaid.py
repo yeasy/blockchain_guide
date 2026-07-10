@@ -1,76 +1,203 @@
 #!/usr/bin/env python3
-"""Render all Mermaid diagrams in a GitBook-style book to SVG (for the mobile reader).
+"""Render Mermaid diagrams from SUMMARY chapters to numbered SVG files."""
 
-Extracts ```mermaid blocks in SUMMARY.md order and renders them with mermaid-cli,
-pointing puppeteer at a system Chrome (CHROME_BIN env or auto-detected). Chunked +
-retried because a single large mmdc pass can crash headless Chrome. Diagrams that
-still fail are simply left out — build_mobile_book.py shows their source as fallback.
-Writes d-1.svg .. d-N.svg into --svg-out. Exits 0 even if some/all fail (non-fatal).
-"""
-import os, re, sys, glob, time, shutil, subprocess, argparse
+from __future__ import annotations
 
-ap = argparse.ArgumentParser()
-ap.add_argument("--book-dir", default=".")
-ap.add_argument("--svg-out", required=True)
-ap.add_argument("--chunk", type=int, default=25)
-a = ap.parse_args()
-BOOK, SVG = os.path.abspath(a.book_dir), os.path.abspath(a.svg_out)
-shutil.rmtree(SVG, ignore_errors=True); os.makedirs(SVG)
+import argparse
+import glob
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+from pathlib import Path
 
-# extract mermaid sources in SUMMARY order (same order build_mobile_book.py uses)
-srcs, seen = [], set()
-sm = os.path.join(BOOK, "SUMMARY.md")
-order = []
-for line in open(sm, encoding="utf-8"):
-    m = re.match(r'^\s*[-*]\s+\[.*?\]\(([^)]+?)\)', line)
-    if m and m.group(1).endswith(".md"):
-        p = m.group(1).strip()
-        if p not in seen and os.path.isfile(os.path.join(BOOK, p)):
-            seen.add(p); order.append(p)
-for p in order:
-    txt = open(os.path.join(BOOK, p), encoding="utf-8").read()
-    for mm in re.finditer(r'```mermaid[ \t]*\n(.*?)\n[ \t]*```', txt, re.DOTALL):
-        srcs.append(mm.group(1))
-N = len(srcs)
-print(f"mermaid diagrams found: {N}")
-if N == 0:
-    sys.exit(0)
 
-chrome = os.environ.get("CHROME_BIN") or next(
-    (shutil.which(n) for n in ["google-chrome-stable","google-chrome","chromium-browser","chromium","chrome"] if shutil.which(n)), None)
+SAFETY_MESSAGE = "must be an independent directory outside protected source trees"
+STANDARD_CHROME_PATHS = (
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+)
+
+
+def paths_overlap(left: Path, right: Path) -> bool:
+    return left == right or left in right.parents or right in left.parents
+
+
+def validate_output_directory(book_dir: str, svg_out: str) -> tuple[Path, Path]:
+    book = Path(book_dir).expanduser().resolve()
+    output = Path(svg_out).expanduser().resolve()
+    repository = Path(__file__).resolve().parents[1]
+    protected_exact = {Path(output.anchor).resolve(), Path.home().resolve(), Path.cwd().resolve()}
+    if output in protected_exact or paths_overlap(output, book) or paths_overlap(output, repository):
+        raise ValueError(f"--svg-out {output} {SAFETY_MESSAGE}")
+    return book, output
+
+
+def clean_generated_files(output: Path) -> None:
+    generated_svg = re.compile(r"^(?:d-\d+|_c(?:-\d+)?)\.svg$")
+    generated_names = {"_chunk.md", "_pptr.json", "_rc.json"}
+    for entry in output.iterdir():
+        if entry.name in generated_names or generated_svg.fullmatch(entry.name):
+            if entry.is_file() or entry.is_symlink():
+                entry.unlink()
+
+
+def find_chrome() -> str | None:
+    configured = os.environ.get("CHROME_BIN")
+    candidates = (
+        [configured]
+        if configured
+        else [
+            *(shutil.which(name) for name in (
+                "google-chrome-stable", "google-chrome", "chromium-browser", "chromium", "chrome"
+            )),
+            *STANDARD_CHROME_PATHS,
+        ]
+    )
+    return next(
+        (str(Path(path).resolve()) for path in candidates if path and Path(path).is_file()),
+        None,
+    )
+
+
+def summary_sources(book: Path) -> list[str]:
+    summary = book / "SUMMARY.md"
+    if not summary.is_file():
+        raise ValueError(f"SUMMARY.md not found under {book}")
+    sources: list[str] = []
+    seen: set[str] = set()
+    for line in summary.read_text(encoding="utf-8").splitlines():
+        match = re.match(r"^\s*[-*]\s+\[.*?\]\(([^)]+?)\)", line)
+        if not match:
+            continue
+        relative = match.group(1).split("#", 1)[0].strip()
+        chapter = (book / relative).resolve()
+        if not relative.endswith(".md") or relative in seen or not chapter.is_file():
+            continue
+        if book not in chapter.parents:
+            raise ValueError(f"SUMMARY entry escapes book directory: {relative}")
+        seen.add(relative)
+        text = chapter.read_text(encoding="utf-8")
+        sources.extend(
+            match.group(1)
+            for match in re.finditer(r"```mermaid[ \t]*\n(.*?)\n[ \t]*```", text, re.DOTALL)
+        )
+    return sources
+
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--book-dir", default=".")
+parser.add_argument("--svg-out", required=True)
+parser.add_argument("--chunk", type=int, default=25)
+mode = parser.add_mutually_exclusive_group()
+mode.add_argument(
+    "--require-all",
+    action="store_true",
+    help="fail if Chrome, mmdc, or any rendered SVG is missing",
+)
+mode.add_argument(
+    "--allow-fallback",
+    action="store_true",
+    help="explicitly allow missing SVGs to fall back to Mermaid source",
+)
+args = parser.parse_args()
+
+try:
+    book_path, svg_path = validate_output_directory(args.book_dir, args.svg_out)
+    sources = summary_sources(book_path)
+except ValueError as error:
+    print(f"Mermaid rendering failed: {error}", file=sys.stderr)
+    raise SystemExit(2)
+
+svg_path.mkdir(parents=True, exist_ok=True)
+clean_generated_files(svg_path)
+total = len(sources)
+print(f"mermaid diagrams found: {total}")
+if total == 0:
+    raise SystemExit(0)
+
+chrome = find_chrome()
 if not chrome:
-    print("WARNING: no Chrome found -> all diagrams will fall back to source"); sys.exit(0)
+    message = "no Chrome executable found"
+    if args.require_all:
+        print(f"Mermaid rendering failed: {message}", file=sys.stderr)
+        raise SystemExit(1)
+    print(f"WARNING: {message} -> all diagrams will fall back to source")
+    raise SystemExit(0)
+
+mmdc = shutil.which("mmdc")
+if not mmdc:
+    message = "mmdc is not on PATH"
+    if args.require_all:
+        print(f"Mermaid rendering failed: {message}", file=sys.stderr)
+        raise SystemExit(1)
+    print(f"WARNING: {message} -> all diagrams will fall back to source")
+    raise SystemExit(0)
+
 print(f"using Chrome: {chrome}")
-pptr = os.path.join(SVG, "_pptr.json")
-open(pptr, "w").write('{"executablePath":"%s","args":["--no-sandbox","--disable-gpu","--disable-dev-shm-usage"]}' % chrome)
-rc = os.path.join(SVG, "_rc.json"); open(rc, "w").write('{"theme":"default"}')
-MMDC = shutil.which("mmdc") or "mmdc"
+puppeteer_config = svg_path / "_pptr.json"
+render_config = svg_path / "_rc.json"
+puppeteer_config.write_text(
+    json.dumps({
+        "executablePath": chrome,
+        "args": ["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"],
+    }),
+    encoding="utf-8",
+)
+render_config.write_text(json.dumps({"theme": "default"}), encoding="utf-8")
 
-def render(indices):
-    cm = os.path.join(SVG, "_chunk.md")
-    open(cm, "w", encoding="utf-8").write("\n".join("```mermaid\n"+srcs[i]+"\n```\n" for i in indices))
-    subprocess.run(["pkill", "-f", "enable-automation"], capture_output=True)  # only puppeteer Chrome
-    time.sleep(1)
-    subprocess.run([MMDC, "-i", cm, "-o", os.path.join(SVG, "_c.svg"), "-p", pptr, "-c", rc, "-b", "transparent"],
-                   capture_output=True, text=True)
-    for j, i in enumerate(indices, 1):
-        sp = os.path.join(SVG, f"_c-{j}.svg")
-        if os.path.isfile(sp) and os.path.getsize(sp) > 0:
-            os.replace(sp, os.path.join(SVG, f"d-{i+1}.svg"))
-    for st in glob.glob(os.path.join(SVG, "_c-*.svg")): os.remove(st)
 
-def done(): return len([i for i in range(N) if os.path.isfile(os.path.join(SVG, f"d-{i+1}.svg"))])
+def rendered_count() -> int:
+    return sum((svg_path / f"d-{index + 1}.svg").is_file() for index in range(total))
 
-for c in range((N + a.chunk - 1) // a.chunk):
-    s, e = c*a.chunk, min(c*a.chunk + a.chunk, N)
-    render(list(range(s, e)))
-    print(f"  chunk {c+1}: {done()}/{N}", flush=True)
-for att in range(4):
-    miss = [i for i in range(N) if not os.path.isfile(os.path.join(SVG, f"d-{i+1}.svg"))]
-    if not miss: break
-    print(f"  retry {att+1}: {len(miss)} missing", flush=True)
-    for b in range(0, len(miss), 8): render(miss[b:b+8])
 
-for f in glob.glob(os.path.join(SVG, "*.json")) + glob.glob(os.path.join(SVG, "_chunk.md")):
-    os.remove(f)
-print(f"RENDERED {done()}/{N} diagrams")
+def render(indices: list[int]) -> None:
+    chunk = svg_path / "_chunk.md"
+    chunk.write_text(
+        "\n".join(f"```mermaid\n{sources[index]}\n```\n" for index in indices),
+        encoding="utf-8",
+    )
+    for stale in glob.glob(str(svg_path / "_c*.svg")):
+        Path(stale).unlink()
+    result = subprocess.run(
+        [
+            mmdc, "-i", str(chunk), "-o", str(svg_path / "_c.svg"),
+            "-p", str(puppeteer_config), "-c", str(render_config), "-b", "transparent",
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        print(result.stderr.strip() or result.stdout.strip(), file=sys.stderr)
+    for rendered_index, source_index in enumerate(indices, 1):
+        candidate = svg_path / f"_c-{rendered_index}.svg"
+        if len(indices) == 1 and not candidate.is_file():
+            candidate = svg_path / "_c.svg"
+        if candidate.is_file() and candidate.stat().st_size > 0:
+            candidate.replace(svg_path / f"d-{source_index + 1}.svg")
+    for stale in glob.glob(str(svg_path / "_c*.svg")):
+        Path(stale).unlink()
+
+
+for chunk_index, start in enumerate(range(0, total, args.chunk), 1):
+    render(list(range(start, min(start + args.chunk, total))))
+    print(f"  chunk {chunk_index}: {rendered_count()}/{total}", flush=True)
+
+for attempt in range(4):
+    missing = [index for index in range(total) if not (svg_path / f"d-{index + 1}.svg").is_file()]
+    if not missing:
+        break
+    print(f"  retry {attempt + 1}: {len(missing)} missing", flush=True)
+    for start in range(0, len(missing), 8):
+        render(missing[start:start + 8])
+
+for temporary in (puppeteer_config, render_config, svg_path / "_chunk.md"):
+    temporary.unlink(missing_ok=True)
+print(f"RENDERED {rendered_count()}/{total} diagrams")
+missing = [index + 1 for index in range(total) if not (svg_path / f"d-{index + 1}.svg").is_file()]
+if args.require_all and missing:
+    print(f"Mermaid rendering failed for diagrams: {missing}", file=sys.stderr)
+    raise SystemExit(1)

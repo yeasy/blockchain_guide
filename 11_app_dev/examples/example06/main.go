@@ -139,9 +139,12 @@ func (s *SmartContract) AddExpressPoint(ctx contractapi.TransactionContextInterf
 	if err != nil {
 		return nil, err
 	}
+	if containsString(express.ExpressPointAddresses, pointAddress) {
+		return nil, fmt.Errorf("express point is already assigned to this carrier")
+	}
 
 	point.ExpressAddress = express.Address
-	express.ExpressPointAddresses = appendUnique(express.ExpressPointAddresses, pointAddress)
+	express.ExpressPointAddresses = append(express.ExpressPointAddresses, pointAddress)
 
 	if err := putJSON(ctx, expressPointKey(pointAddress), point); err != nil {
 		return nil, err
@@ -222,7 +225,13 @@ func (s *SmartContract) UpdateExpressOrder(ctx contractapi.TransactionContextInt
 	if err != nil {
 		return nil, err
 	}
-	order.ExpressPointAddresses = appendUnique(order.ExpressPointAddresses, pointAddress)
+	if order.ExpressOrderSign == signedOrderState {
+		return nil, fmt.Errorf("signed order cannot be updated")
+	}
+	if containsString(order.ExpressPointAddresses, pointAddress) {
+		return nil, fmt.Errorf("express point is already recorded for this order")
+	}
+	order.ExpressPointAddresses = append(order.ExpressPointAddresses, pointAddress)
 	if err := putJSON(ctx, expressOrderKey(id), order); err != nil {
 		return nil, err
 	}
@@ -365,13 +374,13 @@ func parseNonNegativeAmount(value string) (int, error) {
 	return amount, nil
 }
 
-func appendUnique(values []string, value string) []string {
+func containsString(values []string, value string) bool {
 	for _, existing := range values {
 		if existing == value {
-			return values
+			return true
 		}
 	}
-	return append(values, value)
+	return false
 }
 
 func newAddress(ctx contractapi.TransactionContextInterface, prefix string) string {

@@ -1,6 +1,6 @@
 ## 社区能源共享
 
-[chaincode_example05.go](chaincode_example05.go) 演示社区能源微网中的家庭账户和电力交易。
+[examples/example05/main.go](examples/example05/main.go) 演示社区能源微网中的家庭账户和电力交易。
 
 ### 数据结构
 
@@ -14,6 +14,6 @@
 * `ChangeStatus`：账户所有者修改是否可交易；
 * `GetHomeByAddress`、`GetHomes`、`GetTransactionByID`、`GetTransactions`：读取状态。
 
-交易逻辑会检查买方签名、卖方交易状态、卖方电量和买方余额。交易时间使用 Fabric 交易时间戳。
+交易逻辑会检查买方签名、卖方交易状态、卖方电量和买方余额，并拒绝买卖双方地址相同的交易。家庭状态只允许在不可交易（`0`）和可交易（`1`）之间发生实际变化。交易时间使用 Fabric 交易时间戳。
 
 > 与 [学历认证示例](chaincode_example04.md) 一样，本例使用派生字符串模拟签名验证，仅保留业务流程骨架。真实系统中应由客户端身份、证书和密码学库完成签名与验签。

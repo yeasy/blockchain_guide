@@ -1,6 +1,6 @@
 ## 数字货币发行与管理
 
-[chaincode_example03.go](chaincode_example03.go) 演示一个简化的数字货币业务：中央银行发行货币，商业银行接收发行额度，企业接收和转移余额。
+[examples/example03/main.go](examples/example03/main.go) 演示一个简化的数字货币业务：中央银行发行货币，商业银行接收发行额度，企业接收和转移余额。
 
 ### 数据结构
 
@@ -20,4 +20,4 @@
 * `Transfer`：企业之间转账；
 * `GetCenterBank`、`GetBankByID`、`GetCompanyByID`、`GetTransactionByID`、`GetBanks`、`GetCompanies`、`GetTransactions`：读取状态。
 
-示例使用账本状态维护递增 ID，并使用 Fabric 交易时间戳记录交易时间，避免在链码中直接调用本地系统时间。
+示例使用账本状态维护递增 ID，并使用 Fabric 交易时间戳记录交易时间，避免在链码中直接调用本地系统时间。企业转账会检查余额并拒绝自转账，使中央银行可用余额、商业银行可用余额和企业余额之和保持与发行总量一致。

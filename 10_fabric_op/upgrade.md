@@ -1,12 +1,27 @@
 ## 如何升级版本
 
-Fabric 保持了较好的向后兼容性，从 v1.0.0 版本开始支持手动升级到更高版本。
+经典 Fabric 支持在满足版本前置条件时滚动升级组件，但不能据此假定任意历史版本都可直接跨级升级，也不能把 Fabric-X 当作经典 Fabric 的下一主版本。
 
 网络升级主要包括对如下资源进行升级：
 
 * 核心组件：包括 Peer、Orderer、CA 等核心程序；
 * 能力配置：更新通道配置中支持的能力集合版本号，以启动新的特性；
 * 第三方资源：包括依赖的 CouchDB，以及旧网络中可能仍存在但升级到 Fabric 3.x 前必须迁移掉的 Kafka 排序服务。
+
+### 支持状态与迁移矩阵
+
+起点 | 目标 | 路径性质 | 必做事项 | 结论
+--- | --- | --- | --- | ---
+经典 Fabric v1.4.x | 经典 Fabric 2.5 LTS | 官方支持滚动升级 | 备份；修正链码 shim/运行时兼容性；对 Peer 执行 `peer node upgrade-dbs`；节点升级完成后再启用 `V2_0`/`V2_5` 能力并迁移到 v2 链码生命周期 | 可升级；不要跳过 v1.4 到 v2.x 的专项步骤
+早于 v1.4 的经典 Fabric 1.x | 经典 Fabric 2.5 LTS | 没有当前文档覆盖的直接跨级路径 | 先按对应历史版本文档升级到 v1.4.x，或经业务停机、账本导出与重新部署评估后重建 | 不应直接套用 v1.4→2.5 命令
+经典 Fabric 2.x/2.5 | 经典 Fabric 3.x | 官方支持滚动升级组件 | 在升级二进制前移除 Solo/Kafka、迁移全部链码到 v2 生命周期、移除系统通道并启用 Channel Participation API；配置组织级 `OrdererEndpoints` | 前置条件满足后，先滚动升级 Orderer/Peer，再启用 `V3_0` 能力
+经典 Fabric 2.5/3.x | Fabric-X 1.x | 新平台迁移，不是经典 Fabric 原地升级 | 建立独立试验网络；重新验证客户端、智能合约、MSP/策略、状态与历史数据导入、性能及灾备；设计双写、停机切换或回滚方案 | **不存在“替换镜像后沿用原账本”的官方直接升级路径**
+
+官方依据如下：
+
+* [Fabric 2.5 文档](https://hyperledger-fabric.readthedocs.io/en/release-2.5/whatsnew.html)将 2.5.x 定位为 LTS，并说明 v1.4.x 可直接滚动升级到 2.5.x；[2.5 升级注意事项](https://hyperledger-fabric.readthedocs.io/en/release-2.5/upgrade_to_newest_version.html)给出了数据库和链码生命周期转换步骤。
+* [Fabric 3.x 升级注意事项](https://hyperledger-fabric.readthedocs.io/en/latest/upgrade_to_newest_version.html)明确移除了 Solo、Kafka 和 v1.x 链码生命周期；[能力说明](https://hyperledger-fabric.readthedocs.io/en/latest/capabilities_concept.html)要求仍使用系统通道的网络先迁移到 Channel Participation API。
+* LF Decentralized Trust 将[经典 Fabric 和 Fabric-X 描述为两种不同实现](https://www.lfdecentralizedtrust.org/projects/fabric)。[Fabric-X 路线图](https://www.lfdecentralizedtrust.org/blog/the-hyperledger-fabric-x-roadmap)说明其使用新的编程、排序和提交架构，并仍在探索经典 Fabric 链码兼容性。因此，Fabric-X 的 API 或账本格式兼容点不能被解释为经典 Fabric 的升级承诺。
 
 ### 能力类型
 
