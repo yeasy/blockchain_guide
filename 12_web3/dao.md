@@ -26,7 +26,7 @@ DAO 拥有的公共资金池，通常由多重签名钱包（Multi-sig Wallet）
 ## DAO 的类型
 
 *   **协议 DAO (Protocol DAO)**：管理 DeFi 协议的参数和升级。如 **MakerDAO**（管理 DAI 利率）、**Uniswap DAO**。
-*   **投资 DAO (Investment DAO)**：汇集资金进行联合投资。如 **The LAO**、**BitDAO**。
+*   **投资 DAO (Investment DAO)**：汇集资金进行联合投资。如 **The LAO**、**BitDAO**（2023 年经 BIP-21 提案并入 Mantle 生态，现名 Mantle）。
 *   **社交 DAO (Social DAO)**：以社交和俱乐部为目的。如 **FWB (Friends With Benefits)**。
 *   **资助 DAO (Grants DAO)**：资助公共产品开发。如 **Gitcoin DAO**。
 
@@ -40,7 +40,7 @@ DAO 拥有的公共资金池，通常由多重签名钱包（Multi-sig Wallet）
 ## 工具栈
 
 *   **Snapshot**：基于 IPFS 的链下投票工具，零 Gas 费，是目前最流行的 DAO 投票平台。
-*   **Gnosis Safe**：多重签名钱包，用于安全管理国库资金。
+*   **Safe**（原 Gnosis Safe，2023 年更名）：多重签名钱包，用于安全管理国库资金。
 *   **Tally**：链上治理仪表盘，用于查看提案和代理投票。
 
 DAO 正在重塑我们对“工作”和“组织”的理解。在未来，一个人可能同时为多个 DAO 工作，凭借贡献获得 Token 奖励，成为真正的“自由职业者”。

@@ -18,12 +18,12 @@
 * MTBF：Mean Time Between Failures，平均故障间隔时间，即系统可以无故障运行的预期时间；
 * MTTR：Mean Time to Repair，平均修复时间，即发生故障后，系统可以恢复到正常运行的预期时间；
 * MVCC：Multi-Version Concurrency Control，多版本并发控制。数据库领域的技术，通过引入版本来实现并发更新请求的乐观处理，当更新处理时数据版本跟请求中注明版本不一致时则拒绝更新。发生更新成功则将数据的版本递增；
-* Non-validating Peer（非验证节点）：不参与账本维护，仅作为交易代理响应客户端的请求，并对交易进行一些基本的有效性检查，之后转发给验证节点。
+* Non-validating Peer（非验证节点）：Fabric 0.6 时代的历史术语。不参与账本维护，仅作为交易代理响应客户端的请求，并对交易进行一些基本的有效性检查，之后转发给验证节点。现行架构中已不再使用。
 * P2P：点到点的通信网络，网络中所有节点地位均等，不存在中心化的控制机制；
 * SLA/SLI/SLO：Service Level Agreement/Indicator/Objective，分别描述服务可用性对用户的承诺，功能指标和目标值；
 * SWIFT：Society for Worldwide Interbank Financial Telecommunication，环球同业银行金融电讯协会，运营世界金融电文网络，服务银行和金融机构；
 * Turing-complete（图灵完备）：指一个机器或装置能用来模拟图灵机（现代通用计算机的雏形）的功能，图灵完备的机器在可计算性上等价；
-* Validating Peer（验证节点）：维护账本的核心节点，参与一致性维护、对交易的验证和执行。更进一步可以划分为 Endorser、Committer 等多种角色。
+* Validating Peer（验证节点）：Fabric 0.6 时代的历史术语。维护账本的核心节点，参与一致性维护、对交易的验证和执行。现行架构中已由 Endorser、Committer 等角色取代。
 
 ### 密码学与安全相关
 
@@ -98,7 +98,7 @@
 * Permissioned Ledger（带权限的账本）：网络中所有节点必须是经过许可的，非许可过的节点则无法加入网络；
 * Privacy（隐私保护）：交易员可以隐藏交易的身份，其它成员在无特殊权限的情况下，只能对交易进行验证，而无法获知身份信息；
 * Private Data（私密数据）：通道内只有部分成员组织可以看到原文的数据，可以避免交易数据泄露给其它无关组织或排序节点；
-* System Chain（系统链）：由对网络中配置进行变更的配置区块组成，一般可以用来作为组成网络成员们形成的联盟约定；
+* System Chain（系统链）：由对网络中配置进行变更的配置区块组成，一般可以用来作为组成网络成员们形成的联盟约定；注意 Fabric 3.0 起已移除系统通道机制，应用通道改由通道参与（Channel Participation）API 管理；
 * Transaction（交易）：执行账本上的某个函数调用或者部署、更新链码。调用的具体函数在链码中实现；
 * Transactor（交易者）：发起交易调用的客户端；
 * World State（世界状态）：即最新的全局账本状态。Fabric 用它来存储历史交易发生后产生的最新的状态，可以用键值或文档数据库实现。
