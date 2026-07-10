@@ -10,6 +10,12 @@ scroll by default; JS (Safari, Documents app, etc.) upgrades to one-page-at-a-ti
 """
 import argparse, os, re, subprocess, sys, posixpath
 
+if __package__:
+    from .publication_sources import PANDOC_MARKDOWN_READER
+else:
+    from publication_sources import PANDOC_MARKDOWN_READER
+
+
 def esc(s):  return s.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;")
 def escattr(s): return s.replace("&","&amp;").replace('"',"&quot;").replace("<","&lt;")
 
@@ -220,7 +226,7 @@ def main():
     with open(tpl, "w", encoding="utf-8") as f: f.write(TEMPLATE)
     # Chapter horizontal rules must not become simple-table separators, and
     # chapter content must not become a YAML metadata block after concatenation.
-    reader = "markdown-simple_tables-multiline_tables-grid_tables-yaml_metadata_block"
+    reader = PANDOC_MARKDOWN_READER
     cmd = ["pandoc", "_combined_tmp.md", "-f", reader, "-t", "html5",
            "--standalone", "--embed-resources", "--mathml",
            "--template", tpl, "--metadata", f"title={a.title}", "-o", out_tmp]

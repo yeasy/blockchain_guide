@@ -1,40 +1,55 @@
-"""Find unsafe remote images in Markdown files published by SUMMARY.md."""
+"""Find unsafe remote images in published Markdown via Pandoc's production AST."""
 
 from __future__ import annotations
 
 import html
+import json
 import re
+import secrets
+import shutil
 import string
+import subprocess
+from html.parser import HTMLParser
 from pathlib import Path
+from typing import Iterator
 from urllib.parse import urlparse
 
 
 ALLOWED_REMOTE_IMAGE_HOSTS = frozenset({"img.shields.io"})
 SUMMARY_ENTRY_RE = re.compile(r"(?m)^\s*[-*]\s+\[[^]]*\]\(([^)]+)\)")
-HTML_IMAGE_RE = re.compile(
-    r"<img\b[^>]*\bsrc\s*=\s*(?:\"([^\"]+)\"|'([^']+)'|([^\s>]+))",
-    re.IGNORECASE,
+PANDOC_MARKDOWN_READER = (
+    "markdown-simple_tables-multiline_tables-grid_tables-yaml_metadata_block"
 )
-FENCE_RE = re.compile(r"^\s{0,3}(`{3,}|~{3,})")
+PANDOC_TIMEOUT_SECONDS = 60
 ESCAPABLE_PUNCTUATION = frozenset(string.punctuation)
-MAX_REFERENCE_LABEL_LENGTH = 999
 
 
-def _strip_fenced_blocks(text: str) -> str:
-    output: list[str] = []
-    open_fence: tuple[str, int] | None = None
-    for line in text.splitlines():
-        match = FENCE_RE.match(line)
-        if match:
-            marker = match.group(1)
-            if open_fence is None:
-                open_fence = (marker[0], len(marker))
-            elif marker[0] == open_fence[0] and len(marker) >= open_fence[1]:
-                open_fence = None
-            output.append("")
-            continue
-        output.append("" if open_fence else line)
-    return "\n".join(output)
+class _HTMLImageParser(HTMLParser):
+    """Extract img src values from HTML fragments already identified by Pandoc."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.targets: list[str] = []
+
+    def _record_image(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        if tag.casefold() != "img":
+            return
+        for name, value in attrs:
+            if name.casefold() == "src" and value is not None:
+                self.targets.append(value)
+                return
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        self._record_image(tag, attrs)
+
+    def handle_startendtag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        self._record_image(tag, attrs)
 
 
 def published_markdown_paths(source_root: Path) -> list[Path]:
@@ -69,245 +84,199 @@ def _is_unapproved_remote_image(raw_target: str) -> bool:
     )
 
 
-def _normalize_reference_label(label: str) -> str:
-    return re.sub(r"\s+", " ", label.strip()).casefold()
+def _pandoc_document(source: str, source_root: Path, source_count: int) -> dict:
+    pandoc = shutil.which("pandoc")
+    if pandoc is None:
+        raise ValueError(
+            f"Pandoc is required to inspect publication images under {source_root}"
+        )
+
+    command = [
+        pandoc,
+        "--from",
+        PANDOC_MARKDOWN_READER,
+        "--to",
+        "json",
+    ]
+    try:
+        result = subprocess.run(
+            command,
+            input=source,
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=PANDOC_TIMEOUT_SECONDS,
+        )
+    except (OSError, subprocess.TimeoutExpired) as error:
+        raise ValueError(
+            f"Pandoc publication image parse could not run for {source_count} "
+            f"source(s) under {source_root} ({' '.join(command)}): {error}"
+        ) from error
+
+    if result.returncode != 0:
+        detail = (result.stderr or result.stdout).strip() or "no diagnostic output"
+        raise ValueError(
+            f"Pandoc publication image parse failed for {source_count} source(s) "
+            f"under {source_root} ({' '.join(command)}): {detail}"
+        )
+
+    try:
+        document = json.loads(result.stdout)
+    except (TypeError, json.JSONDecodeError) as error:
+        raise ValueError(
+            f"Pandoc returned invalid JSON while inspecting {source_count} source(s) "
+            f"under {source_root}: {error}"
+        ) from error
+    if not isinstance(document, dict) or not isinstance(document.get("blocks"), list):
+        raise ValueError(
+            f"Pandoc returned an invalid document AST while inspecting "
+            f"{source_count} source(s) under {source_root}"
+        )
+    return document
 
 
-def _is_escaped(body: str, start: int) -> bool:
-    backslashes = 0
-    while start > 0 and body[start - 1] == "\\":
-        backslashes += 1
-        start -= 1
-    return backslashes % 2 == 1
-
-
-def _scan_bracket_content(
-    body: str,
-    start: int,
-    *,
-    allow_nested: bool,
-    max_length: int | None = None,
-    reject_blank_lines: bool = False,
-) -> tuple[str, int, int] | None:
-    """Return decoded content, the next offset, and raw content length."""
-    if start >= len(body) or body[start] != "[":
+def _source_marker_index(block: object, marker_prefix: str) -> int | None:
+    if not isinstance(block, dict) or block.get("t") not in {"Para", "Plain"}:
         return None
-
-    content: list[str] = []
-    cursor = start + 1
-    nesting = 0
-    while cursor < len(body):
-        char = body[cursor]
-        raw_length = cursor - start
-        if char == "]" and nesting == 0:
-            return "".join(content), cursor + 1, raw_length - 1
-        if max_length is not None and raw_length > max_length:
-            return None
-        if char == "\\" and cursor + 1 < len(body):
-            escaped = body[cursor + 1]
-            if escaped in ESCAPABLE_PUNCTUATION:
-                if max_length is not None and raw_length + 1 > max_length:
-                    return None
-                content.append(escaped)
-                cursor += 2
-                continue
-        if char == "[":
-            if not allow_nested:
-                return None
-            nesting += 1
-        elif char == "]":
-            nesting -= 1
-        elif char == "\n" and reject_blank_lines:
-            lookahead = cursor + 1
-            while lookahead < len(body) and body[lookahead] in " \t":
-                lookahead += 1
-            if lookahead < len(body) and body[lookahead] == "\n":
-                return None
-        content.append(char)
-        cursor += 1
-    return None
+    content = block.get("c")
+    if not isinstance(content, list) or len(content) != 1:
+        return None
+    token = content[0]
+    if not isinstance(token, dict) or token.get("t") != "Str":
+        return None
+    value = token.get("c")
+    if not isinstance(value, str):
+        return None
+    match = re.fullmatch(re.escape(marker_prefix) + r"(\d+)BOUNDARY", value)
+    return int(match.group(1)) if match else None
 
 
-def _scan_reference_label(body: str, start: int) -> tuple[str, int, int] | None:
-    return _scan_bracket_content(
-        body,
-        start,
-        allow_nested=False,
-        max_length=MAX_REFERENCE_LABEL_LENGTH,
-        reject_blank_lines=True,
-    )
+def _walk_ast(value: object) -> Iterator[dict]:
+    if isinstance(value, dict):
+        yield value
+        for child in value.values():
+            yield from _walk_ast(child)
+    elif isinstance(value, list):
+        for child in value:
+            yield from _walk_ast(child)
 
 
-def _closing_brackets(body: str) -> dict[int, int]:
-    closing_brackets: dict[int, int] = {}
-    stack: list[int] = []
-    backslashes = 0
-    for offset, char in enumerate(body):
-        if char == "\\":
-            backslashes += 1
-            continue
-        escaped = backslashes % 2 == 1
-        backslashes = 0
-        if escaped:
-            continue
-        if char == "[":
-            stack.append(offset)
-        elif char == "]" and stack:
-            closing_brackets[stack.pop()] = offset
-    return closing_brackets
+def _image_targets(node: dict, source_root: Path) -> list[str]:
+    node_type = node.get("t")
+    content = node.get("c")
+    if node_type == "Image":
+        if (
+            not isinstance(content, list)
+            or not content
+            or not isinstance(content[-1], list)
+            or not content[-1]
+            or not isinstance(content[-1][0], str)
+        ):
+            raise ValueError(
+                f"Pandoc returned a malformed Image node while inspecting {source_root}"
+            )
+        return [content[-1][0]]
+
+    if node_type not in {"RawInline", "RawBlock"}:
+        return []
+    if (
+        not isinstance(content, list)
+        or len(content) != 2
+        or not isinstance(content[0], str)
+        or not isinstance(content[1], str)
+        or not content[0].casefold().startswith("html")
+    ):
+        return []
+    parser = _HTMLImageParser()
+    parser.feed(content[1])
+    parser.close()
+    return parser.targets
 
 
-def _decode_bracket_content(body: str, start: int, end: int) -> str:
-    content: list[str] = []
-    cursor = start + 1
-    while cursor < end:
-        char = body[cursor]
-        if char == "\\" and cursor + 1 < end:
-            escaped = body[cursor + 1]
-            if escaped in ESCAPABLE_PUNCTUATION:
-                content.append(escaped)
-                cursor += 2
-                continue
-        content.append(char)
-        cursor += 1
-    return "".join(content)
+def _markdown_unescape(text: str) -> str:
+    """Decode target spelling only for best-effort diagnostic line lookup."""
 
-
-def _parse_reference_destination(value: str) -> str:
-    value = value.lstrip()
-    if not value:
-        return ""
-    if value.startswith("<"):
-        end = value.find(">", 1)
-        return value[1:end] if end >= 0 else ""
-
-    destination: list[str] = []
-    depth = 0
-    escaped = False
-    for char in value:
-        if escaped:
-            destination.append(char)
-            escaped = False
-            continue
-        if char == "\\":
-            destination.append(char)
-            escaped = True
-            continue
-        if char.isspace() and depth == 0:
-            break
-        if char == "(":
-            depth += 1
-        elif char == ")":
-            if depth == 0:
-                break
-            depth -= 1
-        destination.append(char)
-    return "".join(destination)
-
-
-def _reference_definitions(body: str) -> dict[str, str]:
-    definitions: dict[str, str] = {}
-    line_start = 0
-    while line_start < len(body):
-        line_end = body.find("\n", line_start)
-        if line_end < 0:
-            line_end = len(body)
-
-        label_start = line_start
-        while label_start < line_end and body[label_start] in " \t":
-            label_start += 1
-        if label_start - line_start > 3 or label_start >= line_end:
-            line_start = line_end + 1
-            continue
-
-        scanned = _scan_reference_label(body, label_start)
-        if scanned is None:
-            line_start = line_end + 1
-            continue
-        label, label_end, _ = scanned
-        if not label or label_end >= len(body) or body[label_end] != ":":
-            line_start = line_end + 1
-            continue
-
-        destination_line_end = body.find("\n", label_end + 1)
-        if destination_line_end < 0:
-            destination_line_end = len(body)
-        remainder = body[label_end + 1 : destination_line_end]
-        normalized_label = _normalize_reference_label(label)
-        if not normalized_label:
-            line_start = line_end + 1
-            continue
-        destination = _parse_reference_destination(remainder)
-        if not destination and destination_line_end < len(body):
-            next_line = body[destination_line_end + 1 :].split("\n", 1)[0]
-            destination = _parse_reference_destination(next_line)
-        if destination:
-            definitions.setdefault(normalized_label, destination)
-        line_start = line_end + 1
-    return definitions
-
-
-def _markdown_image_matches(
-    body: str, definitions: dict[str, str]
-) -> list[tuple[int, str]]:
-    matches: list[tuple[int, str]] = []
-    closing_brackets = _closing_brackets(body)
+    output: list[str] = []
     cursor = 0
-    while cursor < len(body):
-        marker = body.find("![", cursor)
-        if marker < 0:
-            break
-        if _is_escaped(body, marker):
-            cursor = marker + 2
-            continue
+    while cursor < len(text):
+        if (
+            text[cursor] == "\\"
+            and cursor + 1 < len(text)
+            and text[cursor + 1] in ESCAPABLE_PUNCTUATION
+        ):
+            cursor += 1
+        output.append(text[cursor])
+        cursor += 1
+    return html.unescape("".join(output))
 
-        alt_start = marker + 1
-        alt_end = closing_brackets.get(alt_start)
-        if alt_end is None:
-            cursor = marker + 2
-            continue
-        alt = _decode_bracket_content(body, alt_start, alt_end)
-        image_end = alt_end + 1
-        alt_length = alt_end - alt_start - 1
-        cursor = image_end
 
-        if image_end < len(body) and body[image_end] == "(":
-            target = _parse_reference_destination(body[image_end + 1 :])
-            if target:
-                matches.append((marker, target))
-            continue
+def _target_line(source: str, target: str) -> int:
+    """Locate a resolved target for diagnostics; AST detection remains authoritative."""
 
-        label = alt
-        label_length = alt_length
-        if image_end < len(body) and body[image_end] == "[":
-            label_scanned = _scan_reference_label(body, image_end)
-            if label_scanned is None:
-                continue
-            explicit_label, cursor, explicit_length = label_scanned
-            if explicit_label:
-                label = explicit_label
-                label_length = explicit_length
-        if not label or label_length > MAX_REFERENCE_LABEL_LENGTH:
-            continue
-        normalized_label = _normalize_reference_label(label)
-        if not normalized_label:
-            continue
-        target = definitions.get(normalized_label)
-        if target is not None:
-            matches.append((marker, target))
-    return matches
+    decoded_source = _markdown_unescape(source)
+    offset = decoded_source.find(target)
+    if offset < 0:
+        return 1
+    return decoded_source[:offset].count("\n") + 1
 
 
 def find_unapproved_remote_images(source_root: Path) -> list[tuple[Path, int, str]]:
+    source_root = source_root.resolve()
+    paths = published_markdown_paths(source_root)
+    if not paths:
+        return []
+
+    bodies: list[str] = []
+    for path in paths:
+        try:
+            bodies.append(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError) as error:
+            raise ValueError(
+                f"Could not read publication source {path} while inspecting images: {error}"
+            ) from error
+
+    marker_prefix = f"PANDOCSOURCE{secrets.token_hex(16).upper()}ZZ"
+    chunks = [
+        f"\n\n{marker_prefix}{index}BOUNDARY\n\n{body}\n"
+        for index, body in enumerate(bodies)
+    ]
+    document = _pandoc_document("".join(chunks), source_root, len(paths))
+
     issues: list[tuple[Path, int, str]] = []
-    for path in published_markdown_paths(source_root):
-        body = _strip_fenced_blocks(path.read_text(encoding="utf-8", errors="ignore"))
-        definitions = _reference_definitions(body)
-        matches = _markdown_image_matches(body, definitions)
-        for match in HTML_IMAGE_RE.finditer(body):
-            target = next(group for group in match.groups() if group is not None)
-            matches.append((match.start(), target))
-        for start, target in matches:
-            if _is_unapproved_remote_image(target):
-                issues.append((path, body[:start].count("\n") + 1, target))
+    current_index: int | None = None
+    next_marker = 0
+    for block in document["blocks"]:
+        marker_index = _source_marker_index(block, marker_prefix)
+        if marker_index is not None:
+            if marker_index != next_marker or marker_index >= len(paths):
+                raise ValueError(
+                    f"Pandoc source boundaries were invalid while inspecting {source_root}"
+                )
+            current_index = marker_index
+            next_marker += 1
+            continue
+
+        for node in _walk_ast(block):
+            targets = _image_targets(node, source_root)
+            if targets and current_index is None:
+                raise ValueError(
+                    f"Pandoc found an image outside a publication source boundary under "
+                    f"{source_root}"
+                )
+            for target in targets:
+                if _is_unapproved_remote_image(target):
+                    assert current_index is not None
+                    issues.append(
+                        (
+                            paths[current_index],
+                            _target_line(bodies[current_index], target),
+                            target,
+                        )
+                    )
+
+    if next_marker != len(paths):
+        raise ValueError(
+            f"Pandoc did not preserve all {len(paths)} publication source boundaries "
+            f"under {source_root}; refusing an incomplete image check"
+        )
     return sorted(issues, key=lambda issue: (str(issue[0]), issue[1], issue[2]))

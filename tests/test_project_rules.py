@@ -45,13 +45,14 @@ class ProjectRuleTests(unittest.TestCase):
             '  "Dynamic chart"\n'
         )
         self.assertEqual(result, 1)
-        self.assertIn("README.md:1: remote image", output)
+        self.assertIn("README.md:6: remote image", output)
         self.assertIn("https://example.com/dynamic.svg", output)
 
     def test_checker_rejects_collapsed_and_shortcut_reference_images(self):
         cases = (
             "![dynamic chart][]\n\n[dynamic chart]: https://example.com/collapsed.svg\n",
             "![dynamic chart]\n\n[dynamic chart]: https://example.com/shortcut.svg\n",
+            "![   ]\n\n[   ]: https://example.com/empty.svg\n",
         )
         for source in cases:
             with self.subTest(source=source.splitlines()[0]):
@@ -90,6 +91,18 @@ class ProjectRuleTests(unittest.TestCase):
                 "[chart\\\\]: https://example.com/escaped-backslash.svg\n",
                 "escaped-backslash.svg",
             ),
+            (
+                "![chart](https\\://example.com/escaped-scheme.svg)\n",
+                "escaped-scheme.svg",
+            ),
+            (
+                "![chart][id]\n\n> [id]: https://example.com/blockquote.svg\n",
+                "blockquote.svg",
+            ),
+            (
+                "![a `]`][id]\n\n[id]: https://example.com/code-span.svg\n",
+                "code-span.svg",
+            ),
         )
         for source, target in cases:
             with self.subTest(source=source.splitlines()[0]):
@@ -105,11 +118,13 @@ class ProjectRuleTests(unittest.TestCase):
         )
         self.assertEqual(result, 0, output)
 
-    def test_checker_ignores_escaped_and_empty_reference_image_syntax(self):
+    def test_checker_ignores_non_image_markdown_syntax(self):
         cases = (
             "\\![dynamic chart]\n\n[dynamic chart]: https://example.com/escaped.svg\n",
             "\\![chart\\]]\n\n[chart\\]]: https://example.com/escaped-bracket.svg\n",
-            "![   ]\n\n[   ]: https://example.com/empty.svg\n",
+            "`![code](https://example.com/inline-code.svg)`\n",
+            "    ![code](https://example.com/indented-code.svg)\n",
+            "<!-- ![comment](https://example.com/comment.svg) -->\n",
         )
         for source in cases:
             with self.subTest(source=source.splitlines()[0]):

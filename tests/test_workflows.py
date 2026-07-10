@@ -126,6 +126,15 @@ class WorkflowTests(unittest.TestCase):
         self.assertEqual(package["dependencies"]["@mermaid-js/mermaid-cli"], "10.9.1")
         self.assertEqual(lock["packages"][""]["dependencies"]["@mermaid-js/mermaid-cli"], "10.9.1")
 
+    def test_pandoc_is_installed_and_verified_before_publication_source_checks(self):
+        for name in ("ci.yaml", "auto-release.yml", "preview-pdf.yml"):
+            text = self.text(name)
+            install = text.index("- name: Install verified Pandoc 3.5")
+            version_check = text.index("pandoc --version", install)
+            contract_tests = text.index("- name: Run book contract tests")
+            self.assertLess(install, version_check, name)
+            self.assertLess(version_check, contract_tests, name)
+
     def test_every_publication_workflow_builds_pdf_html_and_checksums(self):
         for name in ("ci.yaml", "auto-release.yml", "preview-pdf.yml"):
             text = self.text(name)

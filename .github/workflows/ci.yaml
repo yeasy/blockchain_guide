@@ -20,6 +20,19 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Install verified Pandoc 3.5
+        env:
+          PANDOC_VERSION: "3.5"
+          PANDOC_SHA256: "4f41d817d262ef3d17953a3e6e0fefddb971aa4f2f121544a9a86db449d945e1"
+        run: |
+          package="$RUNNER_TEMP/pandoc-${PANDOC_VERSION}-1-amd64.deb"
+          curl -fsSL --retry 3 \
+            "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb" \
+            -o "$package"
+          echo "${PANDOC_SHA256}  $package" | sha256sum -c -
+          sudo dpkg -i "$package"
+          pandoc --version | head -1
+
       - name: Run book contract tests
         run: |
           python3 -m unittest discover -s tests -p 'test_*.py' -v
@@ -50,19 +63,6 @@ jobs:
           mkdir -p "$RUNNER_TEMP/bin"
           install -m 0755 "$RUNNER_TEMP/mdpress" "$RUNNER_TEMP/bin/mdpress"
           echo "$RUNNER_TEMP/bin" >> "$GITHUB_PATH"
-
-      - name: Install verified Pandoc 3.5
-        env:
-          PANDOC_VERSION: "3.5"
-          PANDOC_SHA256: "4f41d817d262ef3d17953a3e6e0fefddb971aa4f2f121544a9a86db449d945e1"
-        run: |
-          package="$RUNNER_TEMP/pandoc-${PANDOC_VERSION}-1-amd64.deb"
-          curl -fsSL --retry 3 \
-            "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb" \
-            -o "$package"
-          echo "${PANDOC_SHA256}  $package" | sha256sum -c -
-          sudo dpkg -i "$package"
-          pandoc --version | head -1
 
       - name: Install locked Mermaid CLI
         run: |
