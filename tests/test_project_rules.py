@@ -36,6 +36,47 @@ class ProjectRuleTests(unittest.TestCase):
         )
         self.assertEqual(result, 0, output)
 
+    def test_checker_rejects_full_reference_image_with_normalized_multiline_label(self):
+        result, output = self.run_checker(
+            "![dynamic chart][Chart\n   ID]\n\n"
+            "[  chart\n"
+            "   id ]:\n"
+            "  <https://example.com/dynamic.svg>\n"
+            '  "Dynamic chart"\n'
+        )
+        self.assertEqual(result, 1)
+        self.assertIn("README.md:1: remote image", output)
+        self.assertIn("https://example.com/dynamic.svg", output)
+
+    def test_checker_rejects_collapsed_and_shortcut_reference_images(self):
+        cases = (
+            "![dynamic chart][]\n\n[dynamic chart]: https://example.com/collapsed.svg\n",
+            "![dynamic chart]\n\n[dynamic chart]: https://example.com/shortcut.svg\n",
+        )
+        for source in cases:
+            with self.subTest(source=source.splitlines()[0]):
+                result, output = self.run_checker(source)
+                self.assertEqual(result, 1)
+                self.assertIn("remote image", output)
+
+    def test_checker_applies_badge_allowlist_to_reference_images(self):
+        result, output = self.run_checker(
+            "[![build][badge]][project]\n\n"
+            "[badge]: https://img.shields.io/badge/build-passing-green.svg\n"
+            "[project]: https://example.com\n"
+        )
+        self.assertEqual(result, 0, output)
+
+    def test_checker_ignores_escaped_and_empty_reference_image_syntax(self):
+        cases = (
+            "\\![dynamic chart]\n\n[dynamic chart]: https://example.com/escaped.svg\n",
+            "![   ]\n\n[   ]: https://example.com/empty.svg\n",
+        )
+        for source in cases:
+            with self.subTest(source=source.splitlines()[0]):
+                result, output = self.run_checker(source)
+                self.assertEqual(result, 0, output)
+
 
 if __name__ == "__main__":
     unittest.main()
