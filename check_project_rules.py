@@ -8,6 +8,8 @@ import sys
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
+from tools.publication_sources import find_unapproved_remote_images
+
 
 ROOT = Path(__file__).resolve().parent
 SKIP_DIRS = {
@@ -179,6 +181,18 @@ def check_summary_links() -> list[str]:
     return check_links(summary, summary.read_text(encoding="utf-8", errors="ignore"))
 
 
+def check_publication_images() -> list[str]:
+    root = ROOT.resolve()
+    try:
+        remote_images = find_unapproved_remote_images(root)
+    except ValueError as error:
+        return [str(error)]
+    return [
+        f"{path.relative_to(root)}:{line_no}: remote image is not allowed in published source: {target}"
+        for path, line_no, target in remote_images
+    ]
+
+
 def main() -> int:
     issues: list[str] = []
     files = iter_markdown_files()
@@ -187,6 +201,7 @@ def main() -> int:
         issues.extend(check_fences(path, text))
         issues.extend(check_links(path, text))
     issues.extend(check_summary_links())
+    issues.extend(check_publication_images())
 
     unique_issues = sorted(set(issues))
     if unique_issues:

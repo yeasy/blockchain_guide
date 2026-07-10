@@ -152,6 +152,35 @@ class WorkflowTests(unittest.TestCase):
         for name in ("ci.yaml", "auto-release.yml", "preview-pdf.yml"):
             self.assertIn("--require-all", self.text(name), name)
 
+    def test_preview_release_notes_preserve_markdown_literals(self):
+        script = step_script(self.text("preview-pdf.yml"), "Write release notes")
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "dist").mkdir()
+            env = os.environ.copy()
+            env.update({
+                "GITHUB_SHA": SHA,
+                "GITHUB_REF_NAME": "master",
+                "GITHUB_RUN_ID": "123",
+                "GH_REPO": REPO,
+            })
+            result = subprocess.run(
+                ["/bin/bash", "-e", "-o", "pipefail", "-c", script],
+                cwd=root,
+                env=env,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            notes = (root / "dist" / "release-notes.md").read_text(encoding="utf-8")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("command not found", result.stderr)
+        self.assertIn(f"`{SHA[:7]}`", notes)
+        self.assertIn("`master`", notes)
+        self.assertIn(f"https://github.com/{REPO}/commit/{SHA}", notes)
+        self.assertIn(f"https://github.com/{REPO}/actions/runs/123", notes)
+
     def run_preview(self, scenario: str, *, repo: str = REPO, sha: str = SHA):
         text = self.text("preview-pdf.yml")
         scripts = [step_script(text, name) for name in (

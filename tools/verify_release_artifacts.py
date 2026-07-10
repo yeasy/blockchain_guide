@@ -12,6 +12,11 @@ import subprocess
 import sys
 from pathlib import Path
 
+if __package__:
+    from .publication_sources import find_unapproved_remote_images
+else:
+    from publication_sources import find_unapproved_remote_images
+
 
 class ArtifactError(ValueError):
     """A publication is missing, malformed, or inconsistent with its source."""
@@ -131,6 +136,20 @@ def verify_html(path: Path, expected_title: str, *, expected_mermaid_count: int)
         )
 
 
+def verify_publication_images(source_root: Path) -> None:
+    source_root = source_root.resolve()
+    try:
+        remote_images = find_unapproved_remote_images(source_root)
+    except ValueError as error:
+        raise ArtifactError(str(error)) from error
+    if remote_images:
+        path, line_no, target = remote_images[0]
+        raise ArtifactError(
+            f"{path.relative_to(source_root)}:{line_no}: remote image is not allowed "
+            f"in published source: {target}"
+        )
+
+
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as source:
@@ -195,6 +214,7 @@ def main() -> int:
     args = parse_args()
     try:
         verify_pdf(args.pdf, args.title)
+        verify_publication_images(args.source_root)
         expected_mermaid_count = count_summary_mermaid(args.source_root)
         verify_html(args.html, args.title, expected_mermaid_count=expected_mermaid_count)
         write_checksums([args.pdf, args.html], args.checksums)

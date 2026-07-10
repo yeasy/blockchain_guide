@@ -141,8 +141,4 @@ mdpress serve
 
 ## Star History
 
-<p align="center">
-  <a href="https://star-history.com/#yeasy/blockchain_guide&Date">
-    <img src="https://api.star-history.com/svg?repos=yeasy/blockchain_guide&type=Date" alt="Star History Chart">
-  </a>
-</p>
+[查看《区块链技术指南》的 Star History](https://star-history.com/#yeasy/blockchain_guide&Date)。

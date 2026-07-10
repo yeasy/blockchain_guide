@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import contextlib
+import io
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest import mock
 
 
@@ -75,6 +78,50 @@ class ReleaseArtifactTests(unittest.TestCase):
             (root / "a.md").write_text("```mermaid\ngraph TD\n```\n", encoding="utf-8")
             (root / "unused.md").write_text("```mermaid\ngraph LR\n```\n", encoding="utf-8")
             self.assertEqual(module.count_summary_mermaid(root), 1)
+
+    def test_artifact_main_rejects_unapproved_remote_publication_images(self):
+        module = self.module()
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            pdf, html = root / "book.pdf", root / "book.html"
+            manifest = root / "SHA256SUMS"
+            (root / "SUMMARY.md").write_text("* [Book](book.md)\n", encoding="utf-8")
+            source = root / "book.md"
+            source.write_text(
+                '<img src="https://example.com/dynamic.svg" alt="dynamic">\n',
+                encoding="utf-8",
+            )
+            args = SimpleNamespace(
+                title="Book",
+                pdf=pdf,
+                html=html,
+                source_root=root,
+                checksums=manifest,
+            )
+            with (
+                mock.patch.object(module, "parse_args", return_value=args),
+                mock.patch.object(module, "verify_pdf"),
+                mock.patch.object(module, "verify_html"),
+                mock.patch.object(module, "write_checksums"),
+                mock.patch.object(module, "verify_checksums"),
+                contextlib.redirect_stderr(io.StringIO()) as stderr,
+            ):
+                self.assertEqual(module.main(), 1)
+            self.assertIn("remote image", stderr.getvalue())
+
+            source.write_text(
+                "[![build](https://img.shields.io/badge/build-passing-green.svg)](https://example.com)\n",
+                encoding="utf-8",
+            )
+            with (
+                mock.patch.object(module, "parse_args", return_value=args),
+                mock.patch.object(module, "verify_pdf"),
+                mock.patch.object(module, "verify_html"),
+                mock.patch.object(module, "write_checksums"),
+                mock.patch.object(module, "verify_checksums"),
+                contextlib.redirect_stdout(io.StringIO()),
+            ):
+                self.assertEqual(module.main(), 0)
 
     def test_html_reader_disables_ambiguous_pandoc_block_syntax(self):
         source = (Path(__file__).resolve().parents[1] / "tools" / "build_html_reader.py").read_text(

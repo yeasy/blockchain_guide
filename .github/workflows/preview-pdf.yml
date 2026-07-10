@@ -128,9 +128,9 @@ jobs:
       - name: Write release notes
         run: |
           cat > dist/release-notes.md <<EOF
-          Auto-updated preview PDF and HTML reader from `${GITHUB_SHA::7}`.
+          Auto-updated preview PDF and HTML reader from \`${GITHUB_SHA::7}\`.
 
-          - Branch: `${GITHUB_REF_NAME}`
+          - Branch: \`${GITHUB_REF_NAME}\`
           - Commit: https://github.com/${GH_REPO}/commit/${GITHUB_SHA}
           - Run: https://github.com/${GH_REPO}/actions/runs/${GITHUB_RUN_ID}
 
