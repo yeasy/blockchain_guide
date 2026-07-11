@@ -172,12 +172,13 @@ def render(indices: list[int]) -> None:
     )
     if result.returncode != 0:
         print(result.stderr.strip() or result.stdout.strip(), file=sys.stderr)
-    for rendered_index, source_index in enumerate(indices, 1):
-        candidate = svg_path / f"_c-{rendered_index}.svg"
-        if len(indices) == 1 and not candidate.is_file():
-            candidate = svg_path / "_c.svg"
-        if candidate.is_file() and candidate.stat().st_size > 0:
-            candidate.replace(svg_path / f"d-{source_index + 1}.svg")
+    else:
+        for rendered_index, source_index in enumerate(indices, 1):
+            candidate = svg_path / f"_c-{rendered_index}.svg"
+            if len(indices) == 1 and not candidate.is_file():
+                candidate = svg_path / "_c.svg"
+            if candidate.is_file() and candidate.stat().st_size > 0:
+                candidate.replace(svg_path / f"d-{source_index + 1}.svg")
     for stale in glob.glob(str(svg_path / "_c*.svg")):
         Path(stale).unlink()
 
@@ -186,13 +187,16 @@ for chunk_index, start in enumerate(range(0, total, args.chunk), 1):
     render(list(range(start, min(start + args.chunk, total))))
     print(f"  chunk {chunk_index}: {rendered_count()}/{total}", flush=True)
 
-for attempt in range(4):
+for attempt, retry_batch_size in enumerate((8, 4, 2, 1), 1):
     missing = [index for index in range(total) if not (svg_path / f"d-{index + 1}.svg").is_file()]
     if not missing:
         break
-    print(f"  retry {attempt + 1}: {len(missing)} missing", flush=True)
-    for start in range(0, len(missing), 8):
-        render(missing[start:start + 8])
+    print(
+        f"  retry {attempt} (batch={retry_batch_size}): {len(missing)} missing",
+        flush=True,
+    )
+    for start in range(0, len(missing), retry_batch_size):
+        render(missing[start:start + retry_batch_size])
 
 for temporary in (puppeteer_config, render_config, svg_path / "_chunk.md"):
     temporary.unlink(missing_ok=True)

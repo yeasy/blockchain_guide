@@ -78,6 +78,23 @@ print(f"unexpected argv: {args!r}", file=sys.stderr); raise SystemExit(2)
 '''
 
 
+FAKE_MMDC = r'''#!/usr/bin/env python3
+import os, pathlib, sys
+args = sys.argv[1:]
+output = pathlib.Path(args[args.index("-o") + 1])
+attempt_file = pathlib.Path(os.environ["MMDC_ATTEMPT_FILE"])
+attempt = int(attempt_file.read_text()) if attempt_file.exists() else 0
+attempt_file.write_text(str(attempt + 1), encoding="utf-8")
+output.write_text(
+    f'<svg id="my-svg"><text>candidate-{attempt + 1}</text></svg>',
+    encoding="utf-8",
+)
+if attempt < int(os.environ["MMDC_FAIL_ATTEMPTS"]):
+    print(f"fatal renderer attempt {attempt + 1}", file=sys.stderr)
+    raise SystemExit(1)
+'''
+
+
 def step_script(text: str, name: str) -> str:
     marker = f"      - name: {name}\n"
     start = text.index(marker) + len(marker)
@@ -91,6 +108,54 @@ class WorkflowTests(unittest.TestCase):
         path = WORKFLOW_DIR / name
         self.assertTrue(path.is_file(), path)
         return path.read_text(encoding="utf-8")
+
+    def run_renderer(self, failed_attempts: int):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            book = root / "book"
+            binary = root / "bin"
+            output = root / "svg"
+            book.mkdir()
+            binary.mkdir()
+            (book / "SUMMARY.md").write_text("* [A](a.md)\n", encoding="utf-8")
+            (book / "a.md").write_text(
+                "# A\n\n```mermaid\ngraph TD\nA-->B\n```\n", encoding="utf-8"
+            )
+            chrome = binary / "chrome"
+            chrome.write_text("", encoding="utf-8")
+            chrome.chmod(0o755)
+            mmdc = binary / "mmdc"
+            mmdc.write_text(FAKE_MMDC, encoding="utf-8")
+            mmdc.chmod(0o755)
+            attempt_file = root / "attempt"
+            env = os.environ.copy()
+            env.update(
+                {
+                    "CHROME_BIN": str(chrome),
+                    "MMDC_ATTEMPT_FILE": str(attempt_file),
+                    "MMDC_FAIL_ATTEMPTS": str(failed_attempts),
+                    "PATH": f"{binary}{os.pathsep}{env.get('PATH', '')}",
+                }
+            )
+            result = subprocess.run(
+                [
+                    "python3",
+                    str(ROOT / "tools" / "render_mermaid.py"),
+                    "--book-dir",
+                    str(book),
+                    "--svg-out",
+                    str(output),
+                    "--require-all",
+                ],
+                cwd=ROOT,
+                env=env,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            attempts = int(attempt_file.read_text())
+            rendered = (output / "d-1.svg").read_text() if (output / "d-1.svg").is_file() else None
+            return result, attempts, rendered
 
     def test_all_actions_are_full_sha_pinned_with_version_comments(self):
         failures = []
@@ -160,6 +225,24 @@ class WorkflowTests(unittest.TestCase):
         self.assertIn("--require-all", source)
         for name in ("ci.yaml", "auto-release.yml", "preview-pdf.yml"):
             self.assertIn("--require-all", self.text(name), name)
+
+    def test_renderer_rejects_outputs_from_every_failed_command(self):
+        result, attempts, rendered = self.run_renderer(failed_attempts=99)
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(attempts, 5)
+        self.assertIsNone(rendered)
+        self.assertIn("fatal renderer attempt 5", result.stderr)
+        self.assertIn("Mermaid rendering failed", result.stderr)
+
+    def test_renderer_promotes_only_a_successful_retry(self):
+        result, attempts, rendered = self.run_renderer(failed_attempts=1)
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(attempts, 2)
+        self.assertIn("candidate-2", rendered)
+        self.assertNotIn("candidate-1", rendered)
+        self.assertIn("fatal renderer attempt 1", result.stderr)
 
     def test_preview_release_notes_preserve_markdown_literals(self):
         script = step_script(self.text("preview-pdf.yml"), "Write release notes")
