@@ -73,8 +73,6 @@ jobs:
           echo "$GITHUB_WORKSPACE/tools/mermaid/node_modules/.bin" >> "$GITHUB_PATH"
 
       - name: Build preview PDF and HTML
-        env:
-          CHROME_BIN: ${{ steps.setupchrome.outputs.chrome-path }}
         run: |
           mkdir -p dist
           title=$(python3 -c 'import json; print(json.load(open("book.json"))["title"])')
