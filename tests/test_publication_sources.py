@@ -113,6 +113,43 @@ class PublicationSourceTests(unittest.TestCase):
                 [("first.md", "https://example.com/cross-file.svg")],
             )
 
+    def test_markdown_image_srcset_checks_every_candidate(self):
+        source = (
+            '![local](local.png){srcset="local-small.png 1x, '
+            'https://example.com/remote-one.png 2x, '
+            'https://img.shields.io/badge/build-passing-green.svg 3x"}\n'
+        )
+        self.assertEqual(
+            self.scan(source),
+            ["https://example.com/remote-one.png"],
+        )
+
+    def test_raw_html_img_srcset_handles_quoted_and_escaped_urls(self):
+        source = (
+            "<img src='local.png' "
+            "srcset='local-small.png 1x, "
+            "https&#x3A;//example.com/remote-two.png 2x'>\n"
+        )
+        self.assertEqual(
+            self.scan(source),
+            ["https://example.com/remote-two.png"],
+        )
+
+    def test_picture_source_checks_src_and_srcset_without_splitting_data_commas(self):
+        source = (
+            '<picture><source src="https://example.com/source-direct.webp" '
+            'srcset="data:text/plain,https://example.com/not-a-candidate 1x, '
+            'local.webp 2x, https://example.com/remote-three.webp 3x">'
+            '<img src="local.png"></picture>\n'
+        )
+        self.assertEqual(
+            self.scan(source),
+            [
+                "https://example.com/remote-three.webp",
+                "https://example.com/source-direct.webp",
+            ],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

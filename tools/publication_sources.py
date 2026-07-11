@@ -22,10 +22,47 @@ PANDOC_MARKDOWN_READER = (
 )
 PANDOC_TIMEOUT_SECONDS = 60
 ESCAPABLE_PUNCTUATION = frozenset(string.punctuation)
+ASCII_WHITESPACE = frozenset("\t\n\f\r ")
+
+
+def _srcset_targets(value: str) -> list[str]:
+    """Return candidate URLs using the HTML srcset tokenization boundaries."""
+
+    targets: list[str] = []
+    position = 0
+    while position < len(value):
+        while position < len(value) and (
+            value[position] in ASCII_WHITESPACE or value[position] == ","
+        ):
+            position += 1
+        if position >= len(value):
+            break
+
+        start = position
+        while position < len(value) and value[position] not in ASCII_WHITESPACE:
+            position += 1
+        target = value[start:position]
+        if target.endswith(","):
+            target = target.rstrip(",")
+        else:
+            in_parentheses = False
+            while position < len(value):
+                character = value[position]
+                position += 1
+                if character == "(":
+                    in_parentheses = True
+                elif character == ")":
+                    in_parentheses = False
+                elif character == "," and not in_parentheses:
+                    break
+
+        if target:
+            targets.append(target)
+    return targets
 
 
 class _HTMLImageParser(HTMLParser):
-    """Extract img src values from HTML fragments already identified by Pandoc."""
+    """Extract image candidate URLs from HTML fragments identified by Pandoc."""
 
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
@@ -34,12 +71,14 @@ class _HTMLImageParser(HTMLParser):
     def _record_image(
         self, tag: str, attrs: list[tuple[str, str | None]]
     ) -> None:
-        if tag.casefold() != "img":
+        if tag.casefold() not in {"img", "source"}:
             return
         for name, value in attrs:
-            if name.casefold() == "src" and value is not None:
+            attribute = name.casefold()
+            if attribute == "src" and value is not None:
                 self.targets.append(value)
-                return
+            elif attribute == "srcset" and value is not None:
+                self.targets.extend(_srcset_targets(value))
 
     def handle_starttag(
         self, tag: str, attrs: list[tuple[str, str | None]]
@@ -168,6 +207,9 @@ def _image_targets(node: dict, source_root: Path) -> list[str]:
         if (
             not isinstance(content, list)
             or not content
+            or not isinstance(content[0], list)
+            or len(content[0]) != 3
+            or not isinstance(content[0][2], list)
             or not isinstance(content[-1], list)
             or not content[-1]
             or not isinstance(content[-1][0], str)
@@ -175,7 +217,23 @@ def _image_targets(node: dict, source_root: Path) -> list[str]:
             raise ValueError(
                 f"Pandoc returned a malformed Image node while inspecting {source_root}"
             )
-        return [content[-1][0]]
+        targets = [content[-1][0]]
+        for attribute in content[0][2]:
+            if (
+                not isinstance(attribute, list)
+                or len(attribute) != 2
+                or not all(isinstance(item, str) for item in attribute)
+            ):
+                raise ValueError(
+                    f"Pandoc returned malformed Image attributes while inspecting "
+                    f"{source_root}"
+                )
+            name, value = attribute
+            if name.casefold() == "src":
+                targets.append(value)
+            elif name.casefold() == "srcset":
+                targets.extend(_srcset_targets(value))
+        return targets
 
     if node_type not in {"RawInline", "RawBlock"}:
         return []
