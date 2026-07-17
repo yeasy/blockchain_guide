@@ -395,7 +395,7 @@ contract AtomicSwap {
 | **Wormhole** | 桥接 | 20+ | 多签中继 | 快速，支持链多 | 高价值目标，曾被黑 |
 | **Stargate** | 桥接 | 8 | 统一流动性 | 1 秒确认，流动性好 | 流动性依赖，费用较高 |
 | **LayerZero** | 全链消息传递 | 50+ | Endpoint + DVN + Executor | 灵活可编程，应用可配置验证网络 | DVN/Executor 配置和应用集成风险 |
-| **Polygon zkEVM** | 侧链 + zkProof | 2 | zk 证明 | EVM 兼容，现阶段主要作为历史/迁移案例 | Mainnet Beta 已公告 2026 年 sunset，不宜作为新项目主推选项 |
+| **Polygon zkEVM** | ZK Rollup | 2 | zk 证明 | EVM 兼容，现阶段主要作为历史/迁移案例 | Mainnet Beta 已于 2026 年 7 月 sunset（sequencer 停止出块），不宜作为新项目主推选项 |
 
 ### 4. 跨链安全事件及教训
 
