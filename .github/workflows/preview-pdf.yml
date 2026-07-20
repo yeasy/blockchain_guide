@@ -55,7 +55,7 @@ jobs:
       - name: Install verified mdPress 0.7.11
         env:
           MDPRESS_VERSION: "0.7.11"
-          MDPRESS_SHA256: "cf499f03926f09debb3460b751e1e8f789d098fa81e4265deb7bcac269f72efe"
+          MDPRESS_SHA256: "39df7d2c45d09c08de669e00e7b0692dd572f3247960db67d934ed1feed620ef"
         run: |
           archive="$RUNNER_TEMP/mdpress_${MDPRESS_VERSION}_linux_amd64.tar.gz"
           curl -fsSL --retry 3 \
