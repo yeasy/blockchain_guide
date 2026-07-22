@@ -2,7 +2,7 @@
 
 比特币网络是完全公开的，任何人都可以匿名接入，因此共识协议的稳定性和防攻击性十分关键。
 
-比特币区块链采用了 Proof of Work（PoW）机制来实现共识。PoW 的核心思想最早由 Cynthia Dwork 和 Moni Naor 在 1993 年论文《Pricing via Processing or Combatting Junk Mail》中提出，1997 年由 Adam Back 在 [Hashcash](https://www.hashcash.org/) 中给出基于 SHA-1 的具体实例，1998 年被 [B-money](http://www.weidai.com/bmoney.txt) 采纳用于去中心化货币设计。
+比特币区块链采用了 Proof of Work（PoW）机制来实现共识。PoW 的核心思想最早由 Cynthia Dwork 和 Moni Naor 在 1993 年论文《Pricing via Processing or Combatting Junk Mail》中提出，1997 年由 Adam Back 在 [Hashcash](http://www.hashcash.org/) 中给出基于 SHA-1 的具体实例，1998 年被 [B-money](http://www.weidai.com/bmoney.txt) 采纳用于去中心化货币设计。
 
 目前，Proof of X 系列中比较出名的一致性协议包括 PoW、PoS 和 DPoS 等，都是通过经济惩罚来限制恶意参与。
 
