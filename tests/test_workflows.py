@@ -182,7 +182,7 @@ class WorkflowTests(unittest.TestCase):
     def test_downloads_mermaid_and_artifacts_have_integrity_gates(self):
         for name in ("ci.yaml", "auto-release.yml", "preview-pdf.yml"):
             text = self.text(name)
-            for marker in ("MDPRESS_SHA256", "PANDOC_SHA256", "sha256sum -c -", "tools/verify_release_artifacts.py", "SHA256SUMS"):
+            for marker in ("checksums.txt", "PANDOC_SHA256", "sha256sum -c -", "tools/verify_release_artifacts.py", "SHA256SUMS"):
                 self.assertIn(marker, text, f"{name}: {marker}")
             self.assertIn("npm ci --prefix tools/mermaid --ignore-scripts", text, name)
             self.assertNotIn("continue-on-error", text, name)
