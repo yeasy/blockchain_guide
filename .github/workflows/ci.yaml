@@ -37,7 +37,7 @@ jobs:
       - name: Run book contract tests
         run: |
           python3 -m unittest discover -s tests -p 'test_*.py' -v
-          python3 check_project_rules.py
+          python3 check_project_rules.py && python3 check_emphasis.py
 
       - name: Set up Chrome
         id: setupchrome
