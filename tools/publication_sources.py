@@ -19,6 +19,7 @@ ALLOWED_REMOTE_IMAGE_HOSTS = frozenset({"img.shields.io"})
 SUMMARY_ENTRY_RE = re.compile(r"(?m)^\s*[-*]\s+\[[^]]*\]\(([^)]+)\)")
 PANDOC_MARKDOWN_READER = (
     "markdown-simple_tables-multiline_tables-grid_tables-yaml_metadata_block"
+    "+lists_without_preceding_blankline"
 )
 PANDOC_TIMEOUT_SECONDS = 60
 ESCAPABLE_PUNCTUATION = frozenset(string.punctuation)
