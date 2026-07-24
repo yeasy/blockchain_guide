@@ -79,6 +79,10 @@ jobs:
 
       - name: Build PDF and HTML
         run: |
+          # mdPress PDF generation drives headless Chrome, which intermittently dies with
+          # "websocket url timeout reached" + dbus errors. Retry the build, not the whole job.
+          mdpress() { local a; for a in 1 2 3; do command mdpress "$@" && return 0;
+            echo "::warning::mdpress attempt $a failed; retrying in 10s"; sleep 10; done; return 1; }
           mkdir -p dist
           title=$(python3 -c 'import json; print(json.load(open("book.json"))["title"])')
           mdpress build --format pdf --output dist/blockchain_guide.pdf
