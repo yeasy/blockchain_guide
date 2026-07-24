@@ -12,7 +12,10 @@ from unittest import mock
 from tools import publication_sources
 
 
-PANDOC_READER = "markdown-simple_tables-multiline_tables-grid_tables-yaml_metadata_block"
+# Mirror the reader format used in tools/publication_sources.py (incl. the
+# 2026-07-24 lists_without_preceding_blankline extension) so this helper parses
+# exactly what the real build parses.
+PANDOC_READER = "markdown-simple_tables-multiline_tables-grid_tables-yaml_metadata_block+lists_without_preceding_blankline"
 
 
 def pandoc_image_targets(source: str) -> list[str]:
