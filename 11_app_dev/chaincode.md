@@ -11,7 +11,7 @@ Fabric 支持多种链码开发语言，包括 Go、JavaScript/TypeScript、Java
 Contract API 用普通 Go 方法描述交易函数，框架负责参数映射、返回值序列化、错误处理和交易上下文注入。当前示例使用 v2 模块：
 
 ```go
-require github.com/hyperledger/fabric-contract-api-go/v2 v2.2.1
+require github.com/hyperledger/fabric-contract-api-go/v2 v2.2.2
 ```
 
 最小结构如下。
