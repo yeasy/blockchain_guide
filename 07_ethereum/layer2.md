@@ -24,7 +24,7 @@ Rollups（汇总）的核心思想是将数百笔交易在 Layer 2 上执行和�
 *   **缺点**：生成零知识证明需要额外计算资源；通用 zkEVM 的工程成熟度和生态状态仍需按具体项目评估。
 *   **代表项目**：**zkSync**、**Starknet**、**Scroll** 等。
 
-*注：Polygon 已在 2025 年 6 月宣布将停止维护 Polygon zkEVM Mainnet Beta，Sequencer 计划运行至 2026 年 7 月 1 日。它可作为 zkEVM 技术案例理解，但不宜再作为新项目默认选型。*
+*注：Polygon 在 2025 年 6 月宣布停止维护 Polygon zkEVM Mainnet Beta，Sequencer 已于 2026 年 7 月 1 日停止出块。它可作为 zkEVM 技术案例理解，但不宜再作为新项目默认选型。*
 
 ### 关键升级：EIP-4844 与 Blob
 
