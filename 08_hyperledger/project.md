@@ -37,7 +37,7 @@ LFDT 当前治理文件中，项目正式生命周期包括孵化（Incubation�
 
 Fabric 项目基于 Go 语言实现，贡献者超过 200 人，总提交次数已经超过 15000 次，核心代码数超过 15 万行。
 
-Fabric 是 LFDT/Hyperledger 已毕业项目。官方文档将 Fabric 2.5.x 标记为当前长期支持版本线；Fabric 3.x 是当前主要功能版本线，3.0 引入了拜占庭容错（BFT）排序服务并移除了系统通道等 2.x 中已弃用的机制。官方发布页显示，2026 年 2 月已发布 3.1.x 和 2.5.x 的维护版本；生产网络应以官方发布说明和升级文档为准选择版本。项目同时包括 Fabric CA、Fabric Gateway、多语言客户端库等子项目。
+Fabric 是 LFDT/Hyperledger 已毕业项目。官方文档将 Fabric 2.5.x 标记为当前长期支持版本线；Fabric 3.x 是当前主要功能版本线，3.0 引入了拜占庭容错（BFT）排序服务并移除了系统通道等 2.x 中已弃用的机制。两条线都在持续发布维护版本；生产网络应以官方发布说明和升级文档为准选择版本。项目同时包括 Fabric CA、Fabric Gateway、多语言客户端库等子项目。
 
 项目的邮件列表地址为 fabric@lists.hyperledger.org。
 
