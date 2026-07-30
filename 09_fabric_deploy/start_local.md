@@ -180,24 +180,6 @@ crypto-config
 configtx.yaml 配置文件定义了整个网络中的相关配置和拓扑结构信息，用户可参考 `sampleconfig/configtx.yaml` 示例文件进行编写。这里采用如下内容，各个字段含义可参考后续配置说明章节：
 
 ```yaml
-Profiles:
-    TwoOrgsApplicationGenesis:
-        <<: *ChannelDefaults
-        Capabilities:
-            <<: *ChannelCapabilities
-        Orderer:
-            <<: *OrdererDefaults
-            Organizations:
-                - *OrdererOrg
-            Capabilities:
-                <<: *OrdererCapabilities
-        Application:
-            <<: *ApplicationDefaults
-            Organizations:
-                - *Org1
-                - *Org2
-            Capabilities:
-                <<: *ApplicationCapabilities
 Organizations:
     - &OrdererOrg
         Name: OrdererOrg
@@ -367,6 +349,24 @@ Channel: &ChannelDefaults
             Rule: "MAJORITY Admins"
     Capabilities:
         <<: *ChannelCapabilities
+Profiles:
+    TwoOrgsApplicationGenesis:
+        <<: *ChannelDefaults
+        Capabilities:
+            <<: *ChannelCapabilities
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+            Capabilities:
+                <<: *OrdererCapabilities
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Org1
+                - *Org2
+            Capabilities:
+                <<: *ApplicationCapabilities
 ```
 
 该配置文件定义了 `TwoOrgsApplicationGenesis` 模板，可直接生成应用通道的初始配置块。排序服务的共识类型采用 Raft 模式。
