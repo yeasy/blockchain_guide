@@ -69,7 +69,7 @@ function withdraw() public {
 *   严格检查每个 public/external 函数的权限需求。
 *   使用 OpenZeppelin 的 `Ownable` 或 `AccessControl` 库；按当前 v5 示例编写时，`Ownable` 构造函数需要显式传入 `initialOwner`。
 
-### 6. 其它常见漏洞
+### 6. 其他常见漏洞
 
 *   **TX.Origin 攻击**：使用 `tx.origin` 进行鉴权而不是 `msg.sender`，可能导致钓鱼攻击。
 *   **未处理的返回值**：低级调用（如 `call`）失败时会返回 false 但不会抛出异常，如果未检查返回值，后续逻辑会继续执行。

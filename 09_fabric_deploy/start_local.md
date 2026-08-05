@@ -23,7 +23,7 @@
 
 ![网络拓扑结构](_images/network_topology.png)
 
-其中，排序服务采用 Raft 模式，所有节点都加入到新建的 businesschannel 中。4 个 Peer 节点分属两个组织：Org1 和 Org2，也都是应用通道成员。每个组织中的 peer0 节点作为锚节点（Anchor Peer）负责与其它组织节点分享信息。
+其中，排序服务采用 Raft 模式，所有节点都加入到新建的 businesschannel 中。4 个 Peer 节点分属两个组织：Org1 和 Org2，也都是应用通道成员。每个组织中的 peer0 节点作为锚节点（Anchor Peer）负责与其他组织节点分享信息。
 
 ### 准备启动配置文件
 
@@ -426,9 +426,9 @@ ORDERER_GENERAL_TLS_ENABLED=true | 是否启用 TLS | 建议开启，提高安�
 ORDERER_GENERAL_TLS_PRIVATEKEY=/etc/hyperledger/fabric/tls/server.key | TLS 开启时指定签名私钥位置 | 需与实际证书路径一致
 ORDERER_GENERAL_TLS_CERTIFICATE=/etc/hyperledger/fabric/tls/server.crt| TLS 开启时指定身份证书位置 | 需与实际证书路径一致
 ORDERER_GENERAL_TLS_ROOTCAS=[/etc/hyperledger/fabric/tls/ca.crt] | TLS 开启时指定信任的根 CA 证书位置 | 需与实际证书路径一致
-ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key |与其它排序节点进行双向 TLS 认证时的客户端私钥| 仅在 Raft 模式下使用
-ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt |与其它排序节点进行双向 TLS 认证时的客户端证书| 仅在 Raft 模式下使用
-ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt] |与其它排序节点进行双向 TLS 认证时的信任的服务端的根证书| 仅在 Raft 模式下使用
+ORDERER_GENERAL_CLUSTER_CLIENTPRIVATEKEY=/var/hyperledger/orderer/tls/server.key |与其他排序节点进行双向 TLS 认证时的客户端私钥| 仅在 Raft 模式下使用
+ORDERER_GENERAL_CLUSTER_CLIENTCERTIFICATE=/var/hyperledger/orderer/tls/server.crt |与其他排序节点进行双向 TLS 认证时的客户端证书| 仅在 Raft 模式下使用
+ORDERER_GENERAL_CLUSTER_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt] |与其他排序节点进行双向 TLS 认证时的信任的服务端的根证书| 仅在 Raft 模式下使用
 ORDERER_OPERATIONS_LISTENADDRESS=127.0.0.1:8443 | 运营管理 REST 服务的监听地址 | 本机调试可开启；远程监控应绑定受控内网地址并启用 operations TLS 与客户端证书
 ORDERER_METRICS_PROVIDER=prometheus | 开启统计功能后，指定的采集器机制 | statsd、prometheus 或 disabled
 
@@ -500,7 +500,7 @@ Peer 节点启动后，由于尚未跟 Orderer 建立连接，暂时还未加入
 
 在无系统通道流程中，创建通道的核心动作是让排序节点通过管理端点加入应用通道。客户端不再使用 `peer channel create` 向系统通道提交创建通道交易；`peer channel create` 在新版本命令参考中已标记为 deprecated，只适用于仍运行系统通道的旧 Fabric 2.x 网络。
 
-每个排序节点管理员使用 `osnadmin channel join` 将节点加入通道。以下示例先加入 `orderer0`，再按相同方式加入其它排序节点：
+每个排序节点管理员使用 `osnadmin channel join` 将节点加入通道。以下示例先加入 `orderer0`，再按相同方式加入其他排序节点：
 
 ```bash
 $ APP_CHANNEL=businesschannel
@@ -551,7 +551,7 @@ Peer joined the channel!
 
 ### 更新锚节点配置
 
-锚节点（作为组织内成员代表）负责跟其它组织节点进行信息交换。通道配置内会记录各组织的锚节点列表信息，Peer 通过访问其他组织的锚节点来获取其他组织内的 Peer 信息。
+锚节点（作为组织内成员代表）负责跟其他组织节点进行信息交换。通道配置内会记录各组织的锚节点列表信息，Peer 通过访问其他组织的锚节点来获取其他组织内的 Peer 信息。
 
 组织管理员可以通过通道配置更新来修改锚节点。更新流程通常是获取最新配置块、解码为 JSON、修改 `Application` 组内对应组织的 `AnchorPeers`、计算配置更新、封装为 envelope，并使用 `peer channel update` 提交。例如，生成 `${UPDATE_ANCHOR_ORG1_TX}` 后提交：
 

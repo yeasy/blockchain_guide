@@ -111,7 +111,7 @@ SSL 协议是 HTTPS 初期采用的标准协议，最早由 Netscape 于 1994 �
 * 协商过程算法是 ECDHE（Elliptic Curve Diffie–Hellman Ephemeral），基于椭圆曲线的短期 DH 交换，每次交换都用新的临时密钥，保障前向安全性；
 * 证书签名算法是 ECDSA（Elliptic Curve Digital Signature Algorithm），基于椭圆曲线的签名；
 * 加密数据算法是 AES-256-GCM，AES 密钥长度为 256 位，AES 分组长度仍然固定为 128 位；GCM 同时提供机密性和认证标签；
-* SHA384 是该套件使用的哈希算法，参与 TLS 伪随机函数或密钥派生和握手完整性校验，并不是把 SHA 单独当作加密算法使用。
+* SHA384 是该套件使用的 Hash 算法，参与 TLS 伪随机函数或密钥派生和握手完整性校验，并不是把 SHA 单独当作加密算法使用。
 
 目前，推荐选用如下的加密算法套件：
 

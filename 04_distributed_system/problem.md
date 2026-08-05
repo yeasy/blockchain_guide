@@ -69,7 +69,7 @@
 
 强一致性主要包括顺序一致性（[Sequential Consistency](https://en.wikipedia.org/wiki/Sequential_consistency)）和线性一致性（[Linearizability Consistency](https://en.wikipedia.org/wiki/Linearizability)）：
 
-* 顺序一致性：最早由 Leslie Lamport 1979 年经典论文《How to Make a Multiprocessor Computer That Correctly Executes Multiprocess Programs》中提出，是一种较强的约束。所有进程看到的全局执行顺序（total order）一致；并且每个进程看自身操作的顺序（local order）跟实际发生顺序一致。例如，某进程先执行 A，后执行 B，则实际得到的全局结果（其它进程也看到这个结果）中就应该为 A 在 B 前面，而不能反过来。如果另一个进程先后执行了 C、D 操作，则全局顺序可以共识为 A、B、C、D 或 A、C、B、D 或 C、A、B、D 或 C、D、A、B 的一种（即 A、B 和 C、D 的组合），决不能出现 B、A 或 D、C。顺序一致性限制了各进程自身指令的偏序关系，但不要求不同进程之间按照真实物理时间排序，属于实践中应用较多的强一致性。以算盘为例，每个进程的事件是某根横轴上的算珠，它们可以前后拨动（改变不同进程之间先后顺序），但同一个横轴上的算珠的相对先后顺序无法改变。
+* 顺序一致性：最早由 Leslie Lamport 1979 年经典论文《How to Make a Multiprocessor Computer That Correctly Executes Multiprocess Programs》中提出，是一种较强的约束。所有进程看到的全局执行顺序（total order）一致；并且每个进程看自身操作的顺序（local order）跟实际发生顺序一致。例如，某进程先执行 A，后执行 B，则实际得到的全局结果（其他进程也看到这个结果）中就应该为 A 在 B 前面，而不能反过来。如果另一个进程先后执行了 C、D 操作，则全局顺序可以共识为 A、B、C、D 或 A、C、B、D 或 C、A、B、D 或 C、D、A、B 的一种（即 A、B 和 C、D 的组合），决不能出现 B、A 或 D、C。顺序一致性限制了各进程自身指令的偏序关系，但不要求不同进程之间按照真实物理时间排序，属于实践中应用较多的强一致性。以算盘为例，每个进程的事件是某根横轴上的算珠，它们可以前后拨动（改变不同进程之间先后顺序），但同一个横轴上的算珠的相对先后顺序无法改变。
 * 线性一致性：由 Maurice P. Herlihy 与 Jeannette M. Wing 在 1990 年经典论文《Linearizability: A Correctness Condition for Concurrent Objects》中共同提出，是单对象场景下很强的一致性。它在顺序一致性前提下增加了真实时间顺序要求：如果操作 A 完成后操作 B 才开始，则全局顺序中 A 必须排在 B 前面。线性一致性要求系统看起来似乎只有一个数据副本，客户端操作都是原子的，并且顺序执行。例如某个客户端写入成功后，另一个客户端随后发起读取，就应该看到该写入或更新的结果。线性一致性较难实现，目前基本上要么依赖于全局的时钟或锁，要么通过一些共识算法，性能往往不高。
 
 因果一致性（Causal Consistency）弱于顺序一致性。它要求所有进程以相同顺序观察存在因果关系的操作，但允许对并发且互不依赖的操作观察到不同顺序。例如先发问题再收到回答，任何人都不应先看到回答再看到问题；但两个互不依赖的回答可以被不同人以不同顺序看到。

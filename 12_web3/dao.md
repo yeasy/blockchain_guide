@@ -1,6 +1,6 @@
 # DAO 组织形式
 
-DAO（Decentralized Autonomous Organization，去中心化自治组织）是 Web3 时代全新的人类协作模式。它不再依赖传统的公司法、董事会和层级管理，而是通过**智能合约**和**通证（Token）** 来管理组织的资源、决策和运行。
+DAO（Decentralized Autonomous Organization，去中心化自治组织）是 Web3 时代全新的人类协作模式。它不再依赖传统的公司法、董事会和层级管理，而是通过**智能合约**和**代币（Token）** 来管理组织的资源、决策和运行。
 
 ## 什么是 DAO
 

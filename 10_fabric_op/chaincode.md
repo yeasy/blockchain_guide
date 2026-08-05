@@ -70,7 +70,7 @@ signpackage | 本地操作 | 为给定链码包添加签名（旧生命周期）
 --peerAddresses | string list | Peer 节点地址，可以指定多个
 -o, --orderer | string | 排序服务地址
 --tlsRootCertFiles | string list | 采用 TLS 时，信任的 Peer 的根证书列表，需要跟 Peer 节点地址列表给出的顺序一致
--p, --path  | string | 所操作链码的本地路径，如果是 Go 语言为包路径（相对于 $GOPATH/src），如果是其它语言则为绝对路径
+-p, --path  | string | 所操作链码的本地路径，如果是 Go 语言为包路径（相对于 $GOPATH/src），如果是其他语言则为绝对路径
 -P, --policy | string  | 链码所关联的背书策略，例如 `-P "OR ('Org1MSP.member','Org2MSP.member')"`
 -t, --tid  | string |  ChaincodeInvocationSpec 中的 ID 生成算法和编码，目前支持默认的 sha256+base64
 -v, --version | string | install/instantiate/upgrade 等命令中指定的版本信息

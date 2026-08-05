@@ -505,7 +505,7 @@ npx hardhat test --network anvil
 **选择测试网**：
 
 - **Sepolia**（推荐）：以太坊应用和智能合约开发的默认测试网
-- **Hoodi**：验证者、质押和协议升级测试网，不是普通 dApp 的默认选择
+- **Hoodi**：验证者、质押和协议升级测试网，不是普通 DApp 的默认选择
 - **Polygon Amoy**：Polygon PoS 当前测试网，替代旧 Polygon PoS 测试网
 
 **获取测试代币**：

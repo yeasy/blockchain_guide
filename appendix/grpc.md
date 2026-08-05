@@ -69,9 +69,9 @@ ProtoBuf 提供了 `Marshal/Unmarshal` 方法来将数据结构进行序列化�
 相关工具主要包括：
 
 * 运行时库：各种不同语言有不同的安装方法，可参考 [gRPC 官方文档](https://grpc.io/docs/) 和对应语言的 quickstart，例如 [Go quickstart](https://grpc.io/docs/languages/go/quickstart/)；主流语言的包管理器都已支持。
-* protoc，以及 gRPC 插件和其它插件：采用 ProtoBuf 作为 IDL 时，对 .proto 文件进行编译处理。
+* protoc，以及 gRPC 插件和其他插件：采用 ProtoBuf 作为 IDL 时，对 .proto 文件进行编译处理。
 
-类似其它 RPC 框架，gRPC 的库在服务端提供一个 gRPC Server，客户端的库是 gRPC Stub。典型的场景是客户端发送请求，同步或异步调用服务端的接口。客户端和服务端之间的通信协议是基于 HTTP2 的 [gRPC](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md) 协议，支持双工的流式保序消息，性能比较好，同时也很轻。
+类似其他 RPC 框架，gRPC 的库在服务端提供一个 gRPC Server，客户端的库是 gRPC Stub。典型的场景是客户端发送请求，同步或异步调用服务端的接口。客户端和服务端之间的通信协议是基于 HTTP2 的 [gRPC](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md) 协议，支持双工的流式保序消息，性能比较好，同时也很轻。
 
 采用 ProtoBuf 作为 IDL，则需要定义 service 类型。生成客户端和服务端代码。用户自行实现服务端代码中的调用接口，并且利用客户端代码来发起请求到服务端。一个完整的例子可以参考 [https://github.com/grpc/grpc-go/blob/master/examples/helloworld](https://github.com/grpc/grpc-go/blob/master/examples/helloworld/)。
 
