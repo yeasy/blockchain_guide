@@ -21,19 +21,19 @@ Web2 是社交网络和平台经济的时代。如 Facebook, Twitter, 微信。
 
 Web3 是基于区块链的价值互联网。
 *   **特征**：基于密码学和分布式账本，用户拥有自己的身份（私钥）、数据和资产（Token/NFT）。
-*   **核心理念**：**无需许可 (Permissionless)**、**抗审查 (Censorship Resistant)**、**用户主权 (User Sovereignty)**。
+*   **核心理念**：**无需许可（Permissionless）**、**抗审查（Censorship Resistant）**、**用户主权（User Sovereignty）**。
 
 ### Web3 技术架构
 
 Web3 的技术栈通常被划分为四层架构：
 
-#### 1. 基础设施层 (Layer 0 & Layer 1)
+#### 1. 基础设施层（Layer 0 & Layer 1）
 
 这是 Web3 的物理根基和信任之源。
 *   **Layer 0**：负责异构链之间的通信和安全性共享，如 **Polkadot** (Relay Chain) 和 **Cosmos** (IBC)。
 *   **Layer 1**：基础公链，负责共识机制、账本维护和智能合约执行。如 **Ethereum**、**Solana**、**Bitcoin**。
 
-#### 2. 扩展层 (Layer 2)
+#### 2. 扩展层（Layer 2）
 
 为了解决 Layer 1 的性能瓶颈而生（详见以太坊章节）。
 *   主要技术：**Rollups** (Optimism, ZK-Rollups)。
@@ -43,8 +43,8 @@ Web3 的技术栈通常被划分为四层架构：
 
 连接底层区块链与上层应用的关键组件。
 *   **去中心化存储**：IPFS, Arweave, Filecoin。解决“区块链存不下图片和视频”的问题。
-*   **预言机 (Oracle)**：Chainlink。将现实世界的数据（如币价、天气）可信地喂给智能合约。
-*   **数字身份 (DID)**：ENS (Ethereum Name Service)。将复杂的哈希地址解析为人类可读的名称（如 alice.eth）。
+*   **预言机（Oracle）**：Chainlink。将现实世界的数据（如币价、天气）可信地喂给智能合约。
+*   **数字身份（DID）**：ENS (Ethereum Name Service)。将复杂的哈希地址解析为人类可读的名称（如 alice.eth）。
 *   **索引查询**：The Graph。方便 DApp 快速查询链上复杂数据。
 
 #### 4. 应用层 （DApp）
@@ -57,9 +57,9 @@ Web3 的技术栈通常被划分为四层架构：
 
 ### Web3 账户体系：钱包
 
-在 Web3 中，**钱包 (Wallet)** 不仅仅是管理资金的工具，更是用户的**通用数字身份**。
-*   **非托管 (Non-custodial)**：私钥完全由用户自己掌管，“Not your keys, not your coins”。
-*   **钱包登录 (Sign-in with Ethereum)**：支持 EIP-4361 的应用可以让用户用钱包签名完成认证，减少重复注册账号；但是否能跨应用登录、携带数据，仍取决于各应用是否采用兼容标准和开放权限。
+在 Web3 中，**钱包（Wallet）** 不仅仅是管理资金的工具，更是用户的**通用数字身份**。
+*   **非托管（Non-custodial）**：私钥完全由用户自己掌管，“Not your keys, not your coins”。
+*   **钱包登录（Sign-in with Ethereum）**：支持 EIP-4361 的应用可以让用户用钱包签名完成认证，减少重复注册账号；但是否能跨应用登录、携带数据，仍取决于各应用是否采用兼容标准和开放权限。
 
 这一架构有助于缓解 Web2 时代不同应用之间的数据孤岛（Walled Gardens），为跨应用组合提供基础。但实际可组合性仍受钱包体验、隐私、监管、链间互操作和应用自身权限设计影响。
 

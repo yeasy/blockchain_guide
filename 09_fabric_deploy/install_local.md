@@ -23,7 +23,7 @@ Fabric 运行依赖 Docker 容器环境。
 *   **Docker**: 24.0 或更高版本。（推荐使用 24.0+ 以支持最新特性和安全补丁）
 *   **Docker Compose**: 推荐安装 Docker Desktop（包含 Docker Compose）或独立的 Docker Compose 插件。
 
-## 使用官方脚本安装 (推荐)
+## 使用官方脚本安装（推荐）
 
 最简单的方法是使用官方提供的 `install-fabric.sh` 脚本。
 
@@ -70,7 +70,7 @@ export PATH=$HOME/hyperledger/fabric-samples/bin:$PATH
 peer version
 ```
 
-## 从源码编译安装 (高级)
+## 从源码编译安装（高级）
 
 如果你是开发者，或者需要跟踪正式发布版本之外的源码变更，可以选择从源码编译。Fabric 3.x 已是正式发布系列，不应再按 Beta 版本处理。
 

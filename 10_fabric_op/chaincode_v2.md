@@ -8,10 +8,10 @@
 
 在 Fabric 2.5 LTS 和 Fabric 3.x 中，部署一个链码需要经历以下四个核心步骤：
 
-1.  **打包 (Package)**: 将链码源码和元数据打包成 `.tar.gz` 文件。
-2.  **安装 (Install)**: 将链码包安装到 **每个** 需要运行该链码的 Peer 节点上。
-3.  **批准 (Approve)**: 每个组织根据自己的意愿，为特定的链码定义（版本、背书策略等）投票（批准）。
-4.  **提交 (Commit)**: 当获得足够多组织（满足生命周期背书策略，默认是大多数）的批准后，链码定义被提交到通道，正式生效。
+1.  **打包（Package）**: 将链码源码和元数据打包成 `.tar.gz` 文件。
+2.  **安装（Install）**: 将链码包安装到 **每个** 需要运行该链码的 Peer 节点上。
+3.  **批准（Approve）**: 每个组织根据自己的意愿，为特定的链码定义（版本、背书策略等）投票（批准）。
+4.  **提交（Commit）**: 当获得足够多组织（满足生命周期背书策略，默认是大多数）的批准后，链码定义被提交到通道，正式生效。
 
 之后，用户就可以调用或查询链码了。
 
@@ -45,7 +45,7 @@ peer lifecycle chaincode package ${CC_NAME}.tar.gz \
 peer lifecycle chaincode install ${CC_NAME}.tar.gz
 ```
 
-安装成功后，系统会返回一个**包标识符 (Package ID)**，格式为 `label:hash`。你需要记录下这个 ID，后续步骤会用到。
+安装成功后，系统会返回一个**包标识符（Package ID）**，格式为 `label:hash`。你需要记录下这个 ID，后续步骤会用到。
 
 ```bash
 
@@ -112,7 +112,7 @@ peer lifecycle chaincode commit \
 
 链码提交成功后，即可正常使用。如果链码包含 `Init` 方法且需要初始化，可以使用 `--isInit` 标志调用一次（需要在 Approve 和 Commit 时指定 `--init-required`）。大多数现代链码不需要显式 Init。
 
-**调用 (Invoke):**
+**调用（Invoke）:**
 
 ```bash
 peer chaincode invoke \
@@ -126,7 +126,7 @@ peer chaincode invoke \
     -c '{"function":"InitLedger","Args":[]}'
 ```
 
-**查询 (Query):**
+**查询（Query）:**
 
 ```bash
 peer chaincode query -C ${CHANNEL_NAME} -n ${CC_NAME} -c '{"Args":["GetAllAssets"]}'

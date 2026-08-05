@@ -12,9 +12,9 @@ Peer 节点是 Fabric 网络的核心组件，主要负责：
 *   **参与共识**：验证交易并提交区块。
 
 根据角色不同，Peer 可以分为：
-*   **背书节点 (Endorser)**：执行链码并对结果签名背书。
-*   **提交节点 (Committer)**：验证交易并将区块写入账本（所有 Peer 都是 Committer）。
-*   **锚节点 (Anchor Peer)**：用于跨组织的 Gossip 通信发现。
+*   **背书节点（Endorser）**：执行链码并对结果签名背书。
+*   **提交节点（Committer）**：验证交易并将区块写入账本（所有 Peer 都是 Committer）。
+*   **锚节点（Anchor Peer）**：用于跨组织的 Gossip 通信发现。
 
 ### Orderer 节点
 
