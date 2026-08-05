@@ -163,7 +163,7 @@ crypto-config
             `-- User1@org2.example.com/
 ```
 
-按照 crypto-config.yaml 中定义，crypto-config 目录下包括多级目录结构。其中 ordererOrganizations 下包括构成 Orderer 组织（包括 3 个 Orderer 节点）的身份信息；peerOrganizations 下为所有的 Peer 节点组织（包括2 个组织，4 个节点）的相关身份信息。各个实体都含有 msp 和 tls 目录，分别包括对应的认证身份文件和 TLS 身份文件（公钥证书、私钥等）。
+按照 crypto-config.yaml 中定义，crypto-config 目录下包括多级目录结构。其中 ordererOrganizations 下包括构成 Orderer 组织（包括 3 个 Orderer 节点）的身份信息；peerOrganizations 下为所有的 Peer 节点组织（包括 2 个组织，4 个节点）的相关身份信息。各个实体都含有 msp 和 tls 目录，分别包括对应的认证身份文件和 TLS 身份文件（公钥证书、私钥等）。
 
 对于 Orderer 节点来说，需要将 `ordererOrganizations/example.com/orderers/ordererX.example.com` 目录下内容（包括 msp 和 tls 两个子目录）复制到对应 Orderer 节点的配置路径（默认为 `/etc/hyperledger/fabric`）下。
 

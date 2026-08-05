@@ -191,23 +191,23 @@ Active Chains 页面会显示所有正在运行的链，包括链的名称、类
 
 ![添加链](_images/cello_dashboard_addcluster.png)
 
-### 用户控制台，申请使用Chain
+### 用户控制台，申请使用 Chain
 
-用户可以登录User Dashboard来申请和使用Chain
+用户可以登录 User Dashboard 来申请和使用 Chain
 
 ![登录页面](_images/cello_user_dashboard_login.png)
 
-#### Chain列表页面
+#### Chain 列表页面
 
-Chain列表页面显示所有用户已经申请的链。
+Chain 列表页面显示所有用户已经申请的链。
 
-![Chain列表页面](_images/cello_user_dashboard_chain_list.png)
+![Chain 列表页面](_images/cello_user_dashboard_chain_list.png)
 
-#### Chain详情页面
+#### Chain 详情页面
 
-Chain详情页面可以查看链的基本信息（链高度，channel数，链码安装/实例化个数，最近的block/transaction），操作历史记录。
+Chain 详情页面可以查看链的基本信息（链高度，channel 数，链码安装/实例化个数，最近的 block/transaction），操作历史记录。
 
-![Chain详情页面](_images/cello_user_dashboard_chain_info.png)
+![Chain 详情页面](_images/cello_user_dashboard_chain_info.png)
 
 #### 智能合约模板列表页面
 
@@ -223,7 +223,7 @@ Chain详情页面可以查看链的基本信息（链高度，channel数，链�
 
 #### 智能合约操作页面
 
-在这个页面可以invoke/query已经部署好的智能合约。
+在这个页面可以 invoke/query 已经部署好的智能合约。
 
 ![智能合约操作页面](_images/cello_user_dashboard_chain_code_operate.png)
 

@@ -194,7 +194,7 @@ $ peer channel fetch 1 businesschannel_1.block \
 主要步骤包括：
 
 * 客户端构造 SeekInfo 结构，该结构可以指定要获取的区块范围。这里 Start、Stop 指定为目标区块；
-* 客户端利用 SeekInfo 结构，构造 Envelope 并进行签名，通过deliverClient经 gRPC 通道发给排序服务接口；
+* 客户端利用 SeekInfo 结构，构造 Envelope 并进行签名，通过 deliverClient 经 gRPC 通道发给排序服务接口；
 * 从 Orderer 获取指定通道的区块后，写到本地文件中。
 
 其中，比较重要的数据结构包括 SeekInfo、Envelope 结构等，它们的具体结构如下图所示。

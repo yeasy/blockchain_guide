@@ -41,7 +41,7 @@
 
 反过来，如果节点都很鲁棒，性能足够强，同时网络带宽足够大、延迟足够低，这样的集群系统往往更容易实现一致性。
 
-然而，真实情况可能比人们预期的糟糕。2015年，论文《Taming Uncertainty in Distributed Systems with Help from the Network》中指出，即便部署了专业设备和冗余网络的中等规模的数据中心，每个月发生的网络故障高达 12 次。
+然而，真实情况可能比人们预期的糟糕。2015 年，论文《Taming Uncertainty in Distributed Systems with Help from the Network》中指出，即便部署了专业设备和冗余网络的中等规模的数据中心，每个月发生的网络故障高达 12 次。
 
 ### 一致性的要求
 

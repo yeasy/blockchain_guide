@@ -34,7 +34,7 @@ Manuel Blum、Alfredo De Santis、Silvio Micali 和 Giuseppe Persiano 在 1991 �
 
 Pedersen 承诺利用离散对数问题，在一个大阶质数阶循环群中（如椭圆曲线群），选取两个公开的生成元 $G$ 和 $H$，并确保没有人知道 $H$ 相对于 $G$ 的离散对数关系（即不存在已知的标量 $h$ 使得 $H = hG$）​。给定要承诺的实际数值 $v$（例如交易金额）和一个随机**盲值**（blinding factor）$r$，Pedersen 承诺的计算公式为：$C=r⋅G+v⋅H$。**承诺阶段**：发送方随机选择 $r$，计算 $C$ 并发送给接收方；**验证阶段**：发送方公开 $v$ 和 $r$，接收方验证 $C$ 是否等于 $r⋅G+v⋅H$。若验证通过，则承诺成立。
 
-除了隐藏性和绑定性之外，Pedersen 承诺还具有加法同态性。这使得它被应用到Monero、Zcash、Grin 等区块链中检查和审计交易的输入输出是否一致。需要注意，Pedersen Commitment本身无法限制明文范围（如是否是负数），需结合其他技术（如Bulletproofs）证明交易金额在合理区间内。
+除了隐藏性和绑定性之外，Pedersen 承诺还具有加法同态性。这使得它被应用到 Monero、Zcash、Grin 等区块链中检查和审计交易的输入输出是否一致。需要注意，Pedersen Commitment 本身无法限制明文范围（如是否是负数），需结合其他技术（如 Bulletproofs）证明交易金额在合理区间内。
 
 ### 可验证随机函数
 

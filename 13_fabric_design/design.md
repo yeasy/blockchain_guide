@@ -6,7 +6,7 @@
 
 为了突破这些限制，满足企业级高并发、高隐私保护的业务需求，Hyperledger Fabric 创新性地提出了 **执行-排序-验证（Execute-Order-Validate）** 的解耦架构。
 
-Fabric 的整体重构围绕着以下核心组件展开：**Peer节点（包含背书节点、提交节点和 Gateway 服务）**、**排序服务节点（Orderer）**、**客户端（Client/Gateway API）** 以及 **成员身份管理服务（CA）**。
+Fabric 的整体重构围绕着以下核心组件展开：**Peer 节点（包含背书节点、提交节点和 Gateway 服务）**、**排序服务节点（Orderer）**、**客户端（Client/Gateway API）** 以及 **成员身份管理服务（CA）**。
 
 ### 核心组件与角色分工
 

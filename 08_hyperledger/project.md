@@ -113,7 +113,7 @@ Composer 项目由 IBM 团队于 2017 年 3 月底贡献到社区，试图提供
 
 Burrow 项目由 Monax、Intel 等企业于 2017 年 4 月提交到社区。核心代码在 GitHub 上地址为 https://github.com/hyperledger-archives/burrow（项目已被归档，原地址已重定向至归档库）。
 
-该项目的前身为 eris-db，基于 Go 语言实现的以太坊虚拟机，目前贡献者超过 20人，提交次数已经超过 2000 次。
+该项目的前身为 eris-db，基于 Go 语言实现的以太坊虚拟机，目前贡献者超过 20 人，提交次数已经超过 2000 次。
 
 Burrow 项目提供了支持以太坊虚拟机的智能合约区块链平台，并支持 Proof-of-Stake 共识机制（Tendermint）和权限管理，可以提供快速的区块链交易。
 
@@ -135,7 +135,7 @@ Quilt 项目前身为 W3C 支持的 Interledger 协议的 Java 实现，主要�
 
 Caliper 项目由华为于 2018 年 3 月提交到社区。核心代码在 GitHub 上地址为 https://github.com/hyperledger-caliper/caliper。
 
-Caliper 项目希望能为评测区块链的性能（包括吞吐、延迟、资源使用率等）提供统一的工具套装，主要基于 Node.js 语言实现，支持对 Fabric、Sawtooth、Burrow 等项目进行性能测试。目前贡献者超过 20人，提交次数超过 400 次。
+Caliper 项目希望能为评测区块链的性能（包括吞吐、延迟、资源使用率等）提供统一的工具套装，主要基于 Node.js 语言实现，支持对 Fabric、Sawtooth、Burrow 等项目进行性能测试。目前贡献者超过 20 人，提交次数超过 400 次。
 
 项目的邮件列表地址为 caliper@lists.hyperledger.org。
 

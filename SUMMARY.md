@@ -139,7 +139,7 @@
   * [本章小结](14_baas/summary.md)
 * [前沿趋势](15_frontiers/README.md)
   * [AI 与 Web3 的融合](15_frontiers/ai_web3.md)
-  * [AI+Web3深度融合案例与实战分析](15_frontiers/ai_web3_deep_cases.md)
+  * [AI+Web3 深度融合案例与实战分析](15_frontiers/ai_web3_deep_cases.md)
   * [代理型 AI 与区块链的深度融合：基础设施、自主经济与系统性影响](15_frontiers/ai_agents_blockchain.md)
   * [DePIN：去中心化物理基础设施](15_frontiers/depin.md)
   * [RWA：现实世界资产代币化](15_frontiers/rwa.md)
