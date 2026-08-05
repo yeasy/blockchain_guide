@@ -20,7 +20,7 @@ discover 工具目前提供如下的查询功能：
 
 discover 支持的全局参数和相关说明如下：
 
-```bash
+```text
 * --help：输出帮助信息；
 * --configFile=CONFIGFILE：指定从配置文件中载入参数配置，则无需从命令行指定参数；
 * --peerTLSCA=PEERTLSCA：指定校验 peer 端 TLS 的 CA 证书；
@@ -41,7 +41,7 @@ discover 目前支持四个子命令：`peers`、`config`、`endorsers`、`saveC
 
 命令格式为 `peers [参数列表]`，支持参数如下：
 
-```bash
+```text
 * --server=SERVER：指定命令连接的 Peer 节点地址；
 * --channel=CHANNEL：指定查询某个特定通道内的节点信息。
 ```
@@ -99,7 +99,7 @@ $ discover \
 
 命令格式为 `config [<参数>]`，支持参数如下：
 
-```bash
+```text
 * --server=SERVER：指定命令连接的 Peer 节点地址；
 * --channel=CHANNEL：指定查询某个特定通道内的配置信息。
 ```
@@ -212,7 +212,7 @@ $ discover \
 
 命令格式为 `endorsers [参数列表]`，支持参数如下：
 
-```bash
+```text
 * --server=SERVER：指定命令连接的 Peer 节点地址；
 * --channel=CHANNEL：指定查询某个特定通道内的节点信息；
 * --chaincode=CHAINCODE：指定链码名称列表；

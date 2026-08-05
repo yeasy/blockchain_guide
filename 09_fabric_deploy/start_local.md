@@ -421,7 +421,6 @@ ORDERER_ADMIN_TLS_CLIENTAUTHREQUIRED=true | 是否要求客户端证书 | `osnad
 ORDERER_ADMIN_TLS_CLIENTROOTCAS=[/etc/hyperledger/fabric/admin-tls/client-ca.crt] | 管理客户端 TLS 根证书 | 用于验证 `osnadmin` 客户端证书
 ORDERER_GENERAL_LOCALMSPID=OrdererMSP | MSP 的 ID | 建议根据实际情况更新
 ORDERER_GENERAL_LOCALMSPDIR=/etc/hyperledger/fabric/msp | MSP 文件路径 | 需与 Fabric CA、企业 PKI 或测试用 cryptogen 生成路径一致
-ORDERER_GENERAL_LEDGERTYPE=file | 账本类型 | 建议使用 file 支持持久化
 ORDERER_GENERAL_TLS_ENABLED=true | 是否启用 TLS | 建议开启，提高安全
 ORDERER_GENERAL_TLS_PRIVATEKEY=/etc/hyperledger/fabric/tls/server.key | TLS 开启时指定签名私钥位置 | 需与实际证书路径一致
 ORDERER_GENERAL_TLS_CERTIFICATE=/etc/hyperledger/fabric/tls/server.crt| TLS 开启时指定身份证书位置 | 需与实际证书路径一致
@@ -559,11 +558,11 @@ Peer joined the channel!
 $ CORE_PEER_LOCALMSPID="Org1MSP" \
     CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp \
     peer channel update \
-    -o orderer.example.com:7050 \
+    -o orderer0.example.com:7050 \
     -c ${APP_CHANNEL} \
     -f ${UPDATE_ANCHOR_ORG1_TX} \
     --tls \
-    --cafile /etc/hyperledger/fabric/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+    --cafile /etc/hyperledger/fabric/crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 ```
 
 锚节点配置更新后，同一通道内不同组织之间的 Peer 也可以进行 Gossip 通信，共同维护通道账本。后续，用户可以在通道内通过智能合约更新账本记录。

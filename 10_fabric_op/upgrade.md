@@ -50,8 +50,7 @@ OrdererV2_0 | v2.0.0 | 排序 | 排序服务支持从 Kafka 切换到 Raft
 ApplicationV1_1 |v1.1.0 | 应用 | 禁止区块内重复交易 Id
 ApplicationV1_2 |v1.2.0 | 应用 | 正式支持私有数据，支持升级私有数据成员组配置，细粒度的通道资源访问控制（ACL）
 ApplicationV1_3 |v1.3.0 | 应用 | 支持基于键值的背书
-ApplicationV2_0 |v2.0.0 | 应用 | 新的链码生命周期管理
-ApplicationV2_0 |v2.0.0 | 应用 | 支持链码操作
+ApplicationV2_0 |v2.0.0 | 应用 | 新的链码生命周期管理，以及配套的链码操作命令
 
 ### 推荐升级步骤
 

@@ -41,7 +41,7 @@ signconfigtx | 本地操作 | 为本地的通道配置更新添加签名。
 $ CORE_PEER_ADDRESS=peer1:7051 \
   CORE_PEER_LOCALMSPID="org1" \
   CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/crypto/org1/users/Admin@org1/msp \
-  CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/crypto/org1/peers/peer1/tls/ca.cert \
+  CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/crypto/org1/peers/peer1/tls/ca.crt \
   peer channel <subcommand>
 ```
 

@@ -352,7 +352,7 @@ query 的主要实现过程如下所示。
 
 ```bash
 $ peer chaincode list \
-		--installed \
+		--installed
 
 Get installed chaincodes on peer:
 Name: exp02, Version: 1.0, Path: examples/chaincode/go/chaincode_example02, Id: 08ca675c39a8bae2631847a521fc92e12969fe122bd4a9df0a707cf1059e8730
