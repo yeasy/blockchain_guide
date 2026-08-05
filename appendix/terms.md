@@ -13,12 +13,12 @@
 * DTCC：Depository Trust and Clearing Corporation，存托和结算公司。全球最大的金融交易后台服务机构；
 * Fintech：Financial Technology，跟金融相关的（信息）技术；
 * Gossip：一种 P2P 网络中多个节点之间进行数据同步的协议，如随机选择邻居进行转发；
-* LDAP：Lightweight Directory Access Protocol，轻量级目录访问协议，是一种为查询、搜索业务而设计的分布式数据库协议，一般具有优秀的读性能，但写性能往往较差。
+* LDAP：Lightweight Directory Access Protocol，轻量级目录访问协议，是一种为查询、搜索业务而设计的分布式数据库协议，一般具有优秀的读性能，但写性能往往较差；
 * Market Depth（市场深度）：衡量市场承受大额交易后汇率的稳定能力，例如证券交易市场出现大额交易后价格不出现大幅波动；
 * MTBF：Mean Time Between Failures，平均故障间隔时间，即系统可以无故障运行的预期时间；
 * MTTR：Mean Time to Repair，平均修复时间，即发生故障后，系统可以恢复到正常运行的预期时间；
 * MVCC：Multi-Version Concurrency Control，多版本并发控制。数据库领域的技术，通过引入版本来实现并发更新请求的乐观处理，当更新处理时数据版本跟请求中注明版本不一致时则拒绝更新。发生更新成功则将数据的版本递增；
-* Non-validating Peer（非验证节点）：Fabric 0.6 时代的历史术语。不参与账本维护，仅作为交易代理响应客户端的请求，并对交易进行一些基本的有效性检查，之后转发给验证节点。现行架构中已不再使用。
+* Non-validating Peer（非验证节点）：Fabric 0.6 时代的历史术语。不参与账本维护，仅作为交易代理响应客户端的请求，并对交易进行一些基本的有效性检查，之后转发给验证节点。现行架构中已不再使用；
 * P2P：点到点的通信网络，网络中所有节点地位均等，不存在中心化的控制机制；
 * SLA/SLI/SLO：Service Level Agreement/Indicator/Objective，分别描述服务可用性对用户的承诺，功能指标和目标值；
 * SWIFT：Society for Worldwide Interbank Financial Telecommunication，环球同业银行金融电讯协会，运营世界金融电文网络，服务银行和金融机构；
@@ -28,52 +28,52 @@
 ### 密码学与安全相关
 
 * ASN.1：Abstract Syntax Notation One，定义了描述数据的表示、编码、传输、解码的一套标准，被广泛应用在计算机、通信和安全领域；
-* CA：Certificate Authority，负责证书的创建、颁发，在 PKI 体系中最为核心的角色；
+* CA：Certification Authority，负责证书的创建、颁发，在 PKI 体系中最为核心的角色；
 * CBDC：Central Bank Digital Currency，央行数字货币，由中央银行发行的数字货币，多与已有法币体系挂钩；
 * CRL：Certificate Revocation List，证书吊销列表，包含所撤销的证书列表；
 * CSR：Certificate Signing Request，证书签名申请，包括通用名、名称、主机、生成私钥算法和大小、CA 配置和序列号等信息，用来发给 CA 服务以颁发签名的证书；
-* DER：Distinguished Encoding Rules，ASN.1 中定义的一种二进制编码格式，可以用来保存证书或密钥内容。
+* DER：Distinguished Encoding Rules，ASN.1 中定义的一种二进制编码格式，可以用来保存证书或密钥内容；
 * Genesis Block：创世区块，区块链的第一个区块，一般用于初始化，不带有交易信息；
 * Hash：Hash 算法，任意长度的二进制值映射为较短的固定长度的二进制值的算法；
 * IES：Integrated Encryption Scheme，集成加密机制，一种混合加密机制，可以应对选择明文攻击（可以获知任意明文和对应密文）情况下的攻击。包括 DLIES（基于离散对数）和 ECIES（基于椭圆曲线）两种实现；
 * Nonce：密码学术语，表示一个临时的值，多为随机字符串；
 * OCSP：Online Certificate Status Protocol，在线证书状态协议，通过查询服务来在线确认证书的状态（如是否撤销）。RFC 2560 中定义；
-* PKCS：Public-Key Cryptography Standards，公钥密码标准，由 RSA 实验室提出，定义了利用 RSA 算法和相关密码学技术来实现安全的系列规范，目前包括 15 个不同领域的规范。最早的版本在 1991 年提出，目前最新版本为 2012 年提出的 2.2 版本；
 * PEM：Privacy Enhanced Mail，用来保存证书和密钥的一种编码格式，RFC 1421-1424 中定义；
+* PKCS：Public-Key Cryptography Standards，公钥密码标准，由 RSA 实验室提出，定义了利用 RSA 算法和相关密码学技术来实现安全的系列规范，目前包括 15 个不同领域的规范。最早的版本在 1991 年提出，目前最新版本为 2012 年提出的 2.2 版本；
 * PKI：Public Key Infrastructure，基于公钥体系的安全基础架构；
 * SM：ShangMi，国家商用密码算法，2010 年以来陆续由国家密码管理局发布的相关标准和规范，主要包括：SM2（基于椭圆曲线密码的公钥密码算法标准）、SM3（Hash 算法标准）、SM4（基于分组加密的对称密码算法标准）、SM9（基于身份的数字证书体系）。2017 年 10 月 30 日，SM2 与 SM9 的数字签名算法在第 55 次 ISO/IEC 信息安全分技术委员会（SC27）上被正式接纳，成为国际标准之一；
 * ZKP：Zero-knowledge proof，零知识证明。在不泄露无关信息的前提下证实某个论断。
 
 ### 比特币、以太坊相关术语
 
+* Account Abstraction（账户抽象）：通过 ERC-4337 等标准，允许智能合约作为用户账户，支持社交恢复、Gas 代付等功能；
 * Bitcoin（比特币）：最早由中本聪提出和实现的基于区块链思想的数字货币技术；
+* BLS：Boneh-Lynn-Shacham 签名，支持签名聚合的密码学方案，广泛用于 PoS 共识中的验证者签名；
 * DAO：Decentralized Autonomous Organization，分布式自治组织，基于区块链的按照智能合约联系起来的松散自治群体；
 * DApp：Decentralized Application，去中心化应用。部署在区块链中的智能合约；
-* Lightning Network（闪电网络）：通过链外的微支付通道来增大交易吞吐量的技术；
-* Mining（挖矿）：通过暴力尝试来找到一个字符串，使得它加上一组交易信息后的 Hash 值符合特定规则（例如前缀包括若干个 0），找到的人可以宣称新区块被发现，并获得系统奖励的数字货币；
-* Miner（矿工）：参与挖矿的人或组织；
-* Mining Machine（矿机）：专门为数字货币挖矿而设计的设备，包括基于软件、GPU、FPGA、专用芯片等多种实现；
-* Mining Pool（矿池）：采用团队协作方式来集中算力进行挖矿，对产出的数字货币进行分配；
-* PoS：Proof of Stake，权益证明，验证者按质押权益和协议规则参与出块、证明或投票，不再依赖 PoW 式算力挖矿；
-* PoW：Proof of Work，工作量证明，在一定难题前提下求解一个 SHA256 的 Hash 问题；
-* Smart Contract（智能合约）：运行在区块链上的提前约定的合同；
-* Sybil Attack（女巫攻击）：少数节点通过伪造或盗用身份伪装成大量节点，进而对分布式系统进行破坏。
 * DeFi：Decentralized Finance，去中心化金融。利用智能合约构建的无需许可的金融应用；
-* NFT：Non-Fungible Token，非同质化代币。用于表示独一无二的数字资产的所有权；
-* Layer 2（二层网络）：构建在 Layer 1（主链）之上的扩展协议，旨在提高交易速度并降低成本，如 Rollup；
-* Rollup（汇总）：一种 Layer 2 方案，将大量交易在链下执行并压缩，然后提交到主链进行验证；
-* Web3：基于区块链的下一代互联网，强调用户对数据和资产的拥有权；
-* Account Abstraction（账户抽象）：通过 ERC-4337 等标准，允许智能合约作为用户账户，支持社交恢复、Gas 代付等功能；
 * DePIN：Decentralized Physical Infrastructure Network，去中心化物理基础设施网络，通过代币激励来建设和维护现实世界的物理设施；
 * EIP-4844（Proto-Danksharding）：以太坊 Dencun 升级引入的 Blob 数据类型，大幅降低 Layer 2 交易成本；
 * Flash Loan（闪电贷）：DeFi 中无需抵押的即时贷款，必须在同一交易内完成借还；
+* Layer 2（二层网络）：构建在 Layer 1（主链）之上的扩展协议，旨在提高交易速度并降低成本，如 Rollup；
+* Lightning Network（闪电网络）：通过链外的微支付通道来增大交易吞吐量的技术；
 * MEV：Maximal Extractable Value，最大可提取价值，验证者通过重排交易获取的额外利润；
+* Miner（矿工）：参与挖矿的人或组织；
+* Mining（挖矿）：通过暴力尝试来找到一个字符串，使得它加上一组交易信息后的 Hash 值符合特定规则（例如前缀包括若干个 0），找到的人可以宣称新区块被发现，并获得系统奖励的数字货币；
+* Mining Machine（矿机）：专门为数字货币挖矿而设计的设备，包括基于软件、GPU、FPGA、专用芯片等多种实现；
+* Mining Pool（矿池）：采用团队协作方式来集中算力进行挖矿，对产出的数字货币进行分配；
+* NFT：Non-Fungible Token，非同质化代币。用于表示独一无二的数字资产的所有权；
+* PoS：Proof of Stake，权益证明，验证者按质押权益和协议规则参与出块、证明或投票，不再依赖 PoW 式算力挖矿；
+* PoW：Proof of Work，工作量证明，在一定难题前提下求解一个 SHA256 的 Hash 问题；
+* Rollup（汇总）：一种 Layer 2 方案，将大量交易在链下执行并压缩，然后提交到主链进行验证；
 * RWA：Real World Assets，现实世界资产代币化，将传统金融资产（如债券、房地产）映射到区块链上；
 * SBT：Soulbound Token，灵魂绑定代币，不可转让的 NFT，用于表示身份、资质等；
+* Smart Contract（智能合约）：运行在区块链上的提前约定的合同；
+* Sybil Attack（女巫攻击）：少数节点通过伪造或盗用身份伪装成大量节点，进而对分布式系统进行破坏；
 * TVL：Total Value Locked，总锁定价值，衡量 DeFi 协议中锁定资产规模的指标；
-* ZKML：Zero-Knowledge Machine Learning，零知识机器学习，利用 ZKP 验证 ML 模型推理的正确性；
 * VRF：Verifiable Random Function，可验证随机函数，可以生成可验证的伪随机输出的密码学工具；
-* BLS：Boneh-Lynn-Shacham 签名，支持签名聚合的密码学方案，广泛用于 PoS 共识中的验证者签名。
+* Web3：基于区块链的下一代互联网，强调用户对数据和资产的拥有权；
+* ZKML：Zero-Knowledge Machine Learning，零知识机器学习，利用 ZKP 验证 ML 模型推理的正确性。
 
 ### 超级账本相关术语
 
@@ -84,12 +84,12 @@
 * Bootstrap（启动）：刚启动的节点可以连接到启动节点列表以获取网络中其他节点信息。启动节点必须为同一组织内节点；
 * Chaincode（链码）：区块链上的应用代码，扩展自“智能合约”概念，支持 Golang、Node.js 等语言，多为图灵完备；
 * Channel（通道）：Fabric 网络上的私有隔离机制。通道中的链码和交易只有加入该通道的节点可见。同一个节点可以加入多个通道，并为每个通道内容维护一个账本；
-* Committer（提交节点）：一种 Peer 节点角色，负责对 Orderer 排序后的交易进行背书策略、读写集版本和 MVCC 等验证，将有效交易提交到账本并更新世界状态；它不重新执行链码，也不是在排序后“选择交易执行”。
 * Commitment（提交）：提交节点完成对排序后交易的验证，将交易内容写到区块，并更新世界状态的过程；
+* Committer（提交节点）：一种 Peer 节点角色，负责对 Orderer 排序后的交易进行背书策略、读写集版本和 MVCC 等验证，将有效交易提交到账本并更新世界状态；它不重新执行链码，也不是在排序后“选择交易执行”；
 * Confidentiality（保密）：只有交易相关方可以看到交易内容，其他人未经授权则无法看到；
 * Consenter Set（共识组）：在 Raft 共识机制中，每个通道可以由指定的若干排序节点来进行维护，这些排序节点构成通道的共识组。特别的，系统通道的共识组包括所有的排序节点；
-* Endorser（推荐节点或背书节点）：一种 Peer 节点角色，负责检验某个交易是否合法，是否愿意为之背书、签名；
 * Endorsement：背书过程。按照链码部署时候的背书策略，相关 Peer 对交易提案进行模拟和检查，决策是否为之背书。如果交易提案获得了足够多的背书，则可以构造正式交易进行进一步的共识；
+* Endorser（推荐节点或背书节点）：一种 Peer 节点角色，负责检验某个交易是否合法，是否愿意为之背书、签名；
 * Invoke（调用）：一种交易类型，对链码中的某个方法进行调用，一般需要包括调用方法和调用参数；
 * Ledger（账本）：包括区块链结构（带有所有的交易信息）和当前的世界状态（world state）；
 * Member（成员）：代表某个具体的实体身份，在网络中拥有自己的根证书。节点和应用都必须属于某个成员身份。同一个成员可以在同一个通道中拥有多个 Peer 节点，其中一个为 Leader 节点，代表成员与排序节点进行交互，并分发排序后的区块给属于同一成员的其他节点；
