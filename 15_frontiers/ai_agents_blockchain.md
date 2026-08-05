@@ -316,11 +316,11 @@ async def call_depin_api(model_input):
 
 ---
 
-### 3.2 ASI 联盟（Fetch.ai + SingularityNET + Ocean Protocol）
+### 3.2 ASI 联盟（Fetch.ai + SingularityNET + CUDOS）
 
-**Artificial Superintelligence Alliance** 代表了开源 AI 基础设施与区块链的最深度融合。
+**Artificial Superintelligence Alliance** 代表了开源 AI 基础设施与区块链的最深度融合。联盟由 Fetch.ai、SingularityNET 与 Ocean Protocol 于 2024 年 3 月发起，将各自代币统一为 FET。其后 Ocean Protocol 基金会宣布撤回其委派董事并退出联盟，联盟现由 Fetch.ai、SingularityNET 与 CUDOS 组成。下面的架构图描述的是联盟成立时的三方分工，其中数据交易层的能力随 Ocean Protocol 退出而不再属于联盟内部。
 
-#### 联盟架构
+#### 联盟架构（成立时的三方分工）
 
 ```text
 ┌─────────────────────────────────────────────────────────┐

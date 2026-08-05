@@ -57,7 +57,7 @@ ZKML（Zero-Knowledge Machine Learning）是连接 AI 和区块链智能合约�
 
 随着该赛道的爆发，目前涌现了一大批专注 Crypto x AI 融合的明星项目生态：
 * **Bittensor (TAO)**：去中心化的机器智能网络，采用独特的“智能证明”（Proof of Intelligence）共识机制，通过子网（Subnet）竞争激励不同细分领域的 AI 模型互相学习并进行质量评估。
-* **ASI 联盟**：Fetch.ai、SingularityNET、Ocean Protocol 三大加密 AI 老牌项目在 2024 年组建了“超级智能联盟（Artificial Superintelligence Alliance）”，旨在打造抗衡闭源科技寡头的开源 AGI 基础设施。
+* **ASI 联盟**：Fetch.ai、SingularityNET、Ocean Protocol 三大加密 AI 老牌项目在 2024 年组建了“超级智能联盟（Artificial Superintelligence Alliance）”，旨在打造抗衡闭源科技寡头的开源 AGI 基础设施。其后 Ocean Protocol 基金会退出联盟，现有成员为 Fetch.ai、SingularityNET 与 CUDOS。
 * **Worldcoin**：由 OpenAI 创始人 Sam Altman 牵头，利用称为 Orb 的本地硬件设备扫描虹膜进行不可伪造的生物识别，旨在解决“如何在全球范围低成本区分人类与 AI”的身份痛点。
 
 ---
