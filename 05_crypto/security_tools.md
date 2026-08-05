@@ -165,33 +165,33 @@ docker run --rm -v /path/to/contracts:/contracts trailofbits/echidna echidna /co
 
 ```bash
 
-# 安装 Hardhat、ethers 插件和 OpenZeppelin Upgrades
-npm install --save-dev hardhat @nomicfoundation/hardhat-ethers ethers @openzeppelin/hardhat-upgrades
+# 安装 Hardhat（Hardhat 3 要求 Node.js 22 或以上）、工具箱和 OpenZeppelin Upgrades
+npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox-mocha-ethers @openzeppelin/hardhat-upgrades
 
 # 创建项目
-npx hardhat init
+npx hardhat --init
 ```
 
-```javascript
-// hardhat.config.js
-require("@nomicfoundation/hardhat-ethers");
-require("@openzeppelin/hardhat-upgrades");
+```typescript
+// hardhat.config.ts
+import { defineConfig } from "hardhat/config";
+import hardhatToolboxMochaEthers from "@nomicfoundation/hardhat-toolbox-mocha-ethers";
+import hardhatUpgrades from "@openzeppelin/hardhat-upgrades";
 
-module.exports = {
+export default defineConfig({
+  plugins: [hardhatToolboxMochaEthers, hardhatUpgrades],
   solidity: "0.8.24",
   paths: {
     sources: "./contracts",
-    tests: "./test",
-    cache: "./cache",
-    artifacts: "./artifacts"
+    tests: "./test"
   },
   networks: {
-    hardhat: {},
     localhost: {
+      type: "http",
       url: "http://127.0.0.1:8545"
     }
   }
-};
+});
 ```
 
 ```bash
@@ -220,17 +220,18 @@ describe("VulnerableContract", function () {
         contract = await VulnerableContract.deploy();
     });
 
-    it("Should prevent reentrancy attack", async function () {
+    it("重入攻击可以打穿 VulnerableContract，印证工具告警属实", async function () {
         const [owner, attacker] = await ethers.getSigners();
 
         // 部署攻击合约
         const AttackContract = await ethers.getContractFactory("ReentrancyAttack");
         const attack = await AttackContract.deploy(await contract.getAddress());
 
-        // 尝试发动重入攻击，应该被阻止
+        // VulnerableContract 先外部转账、后扣减余额，且未加重入保护，
+        // 因此攻击应当成功。修好之后这条断言要反过来写。
         await expect(
             attack.attack({ value: ethers.parseEther("1") })
-        ).to.be.revertedWithCustomError(contract, "ReentrancyGuardReentrantCall");
+        ).to.not.be.reverted;
     });
 });
 ```

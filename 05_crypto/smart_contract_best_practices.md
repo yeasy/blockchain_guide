@@ -105,6 +105,7 @@ contract SafeAuction {
 
     function placeBid() public payable atState(State.Active) {
         require(block.timestamp < endTime, "Auction has ended");
+        require(msg.value > 0, "Bid must be positive");
         bids[msg.sender] += msg.value;
     }
 
@@ -137,8 +138,13 @@ contract SafeTokenVault {
     uint public constant MAX_WITHDRAWAL_PERCENT = 50; // 最多提取 50%
     uint public constant WITHDRAWAL_COOLDOWN = 1 days;
 
+    mapping(address => uint) public balances;
     mapping(address => uint) public lastWithdrawal;
     mapping(address => bool) public frozenAccounts;
+
+    function balanceOf(address account) public view returns (uint) {
+        return balances[account];
+    }
 
     function withdraw(uint amount) external {
         require(block.timestamp >= lastWithdrawal[msg.sender] + WITHDRAWAL_COOLDOWN,
@@ -306,6 +312,10 @@ pragma solidity ^0.8.0;
 
 contract TimeDependenceIssues {
     uint lastRewardTime;
+
+    function grantReward() private {
+        // 发放奖励的具体实现
+    }
 
     // 不良做法：仅依赖 block.timestamp
     function vulnerable_reward() public {
@@ -520,6 +530,13 @@ npx hardhat verify --network mainnet 0xContractAddress --constructor-args args.j
 pragma solidity ^0.8.0;
 
 contract MonitorableAuction {
+    address public owner = msg.sender;
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not owner");
+        _;
+    }
+
     event AuctionStarted(uint startTime, uint endTime);
     event BidPlaced(address indexed bidder, uint amount);
     event AuctionEnded(uint finalBid);
