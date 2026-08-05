@@ -5,18 +5,18 @@ Hyperledger/LFDT 项目代码主要托管在 [GitHub](https://github.com/hyperle
 * [Fabric](https://github.com/hyperledger/fabric)：LFDT/Hyperledger 已毕业项目，包括 [Fabric](https://github.com/hyperledger/fabric)、[Fabric CA](https://github.com/hyperledger/fabric-ca)、Fabric Gateway、多语言客户端库等，目标是区块链的基础核心平台，支持权限管理和可插拔架构，最早由 IBM 和 DAH 于 2015 年底发起；当前长期支持版本线为 2.5.x，3.x 版本线已发布并引入 BFT 排序服务等能力；
 * [Sawtooth](https://github.com/hyperledger/sawtooth-core) [Archived]：包括 arcade、[core](https://github.com/hyperledger/sawtooth-core)、dev-tools、[validator](https://github.com/hyperledger/sawtooth-validator)、mktplace 等。是 Intel 主要发起和贡献的区块链平台，支持基于硬件芯片的共识机制 Proof of Elapsed Time（PoET），2016 年 4 月贡献到社区；该项目已归档，并于 2024 年 2 月应维护者请求停止在 Hyperledger 社区内继续活跃维护，后续维护说明指向 Splinter 社区；
 * [Blockchain Explorer](https://github.com/hyperledger-labs/blockchain-explorer) [Labs/Archived]：曾提供 Web 操作界面，通过界面快速查看查询绑定区块链的状态（区块个数、交易历史）信息等，由 DTCC、IBM、Intel 等开发支持，2016 年 8 月贡献到社区；当前仓库已迁移到 hyperledger-labs 并处于归档只读状态；
-* [Iroha](https://github.com/hyperledger/Iroha)：账本平台项目，基于 C++ 实现，带有不少面向 Web 和 Mobile 的特性，主要由 Soramitsu 于 2016 年 10 月发起和贡献；
+* [Iroha](https://github.com/hyperledger-iroha/iroha)：账本平台项目，基于 C++ 实现，带有不少面向 Web 和 Mobile 的特性，主要由 Soramitsu 于 2016 年 10 月发起和贡献；
 * [Cello](https://github.com/hyperledger-cello/cello)：提供区块链平台的部署和运行时管理功能。使用 Cello，管理员可以轻松部署和管理多条区块链；应用开发者可以无需关心如何搭建和维护区块链，由 IBM 团队于 2017 年 1 月贡献到社区；当前仓库已从 `hyperledger/cello` 重定向到 `hyperledger-cello/cello`；
-* [Indy](https://github.com/hyperledger/indy)：提供基于分布式账本技术的数字身份管理机制，由 Sovrin 基金会发起，2017 年 3 月底正式贡献到社区；
+* [Indy](https://github.com/hyperledger-indy/indy)：提供基于分布式账本技术的数字身份管理机制，由 Sovrin 基金会发起，2017 年 3 月底正式贡献到社区；
 * [Composer](https://github.com/hyperledger/composer)：[Archived] 曾提供面向链码开发的高级语言支持，自动生成链码代码等，由 IBM 团队发起并维护，2017 年 3 月底贡献到社区。目前已经停止维护；
 * [Burrow](https://github.com/hyperledger-archives/burrow) [Archived]：提供以太坊虚拟机的支持，实现支持高效交易的带权限的区块链平台，由 Monax 公司发起支持，2017 年 4 月贡献到社区。该项目已被归档，代码已移至归档库；
 * [Quilt](https://github.com/hyperledger/quilt) [Archived]：对 W3C 支持的跨账本协议 Interledger 的 Java 实现。2017 年 10 月正式贡献到社区，现已归档（仓库迁至 hyperledger-archives）；
-* [Caliper](https://github.com/hyperledger/caliper)：提供对区块链平台性能的测试工具，由华为公司发起支持，2018 年 3 月正式贡献到社区。
+* [Caliper](https://github.com/hyperledger-caliper/caliper)：提供对区块链平台性能的测试工具，由华为公司发起支持，2018 年 3 月正式贡献到社区。
 * [Ursa](https://github.com/hyperledger/ursa)：[Archived] 曾提供一套密码学相关组件，初始贡献者包括来自 Fujitsu、Sovrin、Intel、DFINITY、State Street、IBM、Bitwise IO 等企业的开发者，2018 年 11 月正式被接收到社区，2023 年 4 月停止维护；
 * [Grid](https://github.com/hyperledger/grid) [Archived]：提供帮助快速构建供应链应用的框架，由 Cargill、Intel 和 Bitwise IO 公司发起支持，2018 年 12 月正式贡献到社区，现已归档；
 * [Transact](https://github.com/hyperledger/transact) [Archived]：提供运行交易的引擎和框架，由 Bitwise IO、Cargill、Intel、IBM、HACERA 等公司发起支持，2019 年 5 月正式贡献到社区，现已归档；
 * [Aries](https://www.lfdecentralizedtrust.org/projects/aries) [Archived]：曾为客户端提供共享的密码学钱包、可复用代理框架和链下交互消息支持，由 Sovrin、C3I 和 Evernym 等公司发起支持，2019 年 5 月正式贡献到社区；该项目官方页面已标记为归档，核心组件迁移到 ACA-Py、OpenWallet Foundation、DIF Aries RFCs 和 LFDT Labs 等位置；
-* [Besu](https://github.com/hyperledger/besu)：作为企业级的以太坊客户端支持，由 Consensys、Hacera、JPM 和 Redhat 等公司发起支持，2019 年 8 月正式贡献到社区；
+* [Besu](https://github.com/besu-eth/besu)：作为企业级的以太坊客户端支持，由 Consensys、Hacera、JPM 和 Redhat 等公司发起支持，2019 年 8 月正式贡献到社区；
 * [Avalon](https://github.com/hyperledger/avalon) [Archived]：提供链下计算支持，增强安全性和可扩展性，由 Intel、IEX、IBM 和 Consensys 等公司发起支持，2019 年 9 月正式贡献到社区，现已归档。
 
 这些项目在不同历史阶段分别从平台、工具和类库三个层次支撑 Hyperledger / LFDT 生态；其中活跃项目、孵化项目、休眠项目和归档项目的当前状态应以 LFDT Projects 与年度 TAC 评审为准。
@@ -57,7 +57,7 @@ Sawtooth 项目利用 Intel 芯片的专属功能，实现了低功耗的 Proof 
 
 ![Hyperledger Iroha 项目](_images/iroha.png)
 
-Iroha 项目由 Soramitsu 等企业于 2016 年 10 月提交到社区，包括 iroha、iroha-android、iroha-ios、iroha-python、iroha-javascript 等子项目。核心代码在 GitHub 上地址为 https://github.com/hyperledger/iroha。
+Iroha 项目由 Soramitsu 等企业于 2016 年 10 月提交到社区，包括 iroha、iroha-android、iroha-ios、iroha-python、iroha-javascript 等子项目。核心代码在 GitHub 上地址为 https://github.com/hyperledger-iroha/iroha。
 
 该项目的定位是分布式账本平台框架，基于 C++ 语言实现。LFDT 项目目录将 Iroha 标记为已毕业项目，贡献者超过 50 人，提交次数已经超过 7000 次。
 
@@ -133,7 +133,7 @@ Quilt 项目前身为 W3C 支持的 Interledger 协议的 Java 实现，主要�
 
 ![Hyperledger Caliper 项目](_images/caliper.png)
 
-Caliper 项目由华为于 2018 年 3 月提交到社区。核心代码在 GitHub 上地址为 https://github.com/hyperledger/caliper。
+Caliper 项目由华为于 2018 年 3 月提交到社区。核心代码在 GitHub 上地址为 https://github.com/hyperledger-caliper/caliper。
 
 Caliper 项目希望能为评测区块链的性能（包括吞吐、延迟、资源使用率等）提供统一的工具套装，主要基于 Node.js 语言实现，支持对 Fabric、Sawtooth、Burrow 等项目进行性能测试。目前贡献者超过 20人，提交次数超过 400 次。
 
@@ -184,7 +184,7 @@ Aries 项目已归档。官方页面说明，原 Aries 生态的核心组件已�
 
 ![Hyperledger Besu 项目](_images/besu.png)
 
-* Besu 项目由 Consensys、Hacera、JPM 和 Redhat 等公司于 2019 年 8 月正式贡献到社区。核心代码在 GitHub 上地址为 https://github.com/hyperledger/besu。
+* Besu 项目由 Consensys、Hacera、JPM 和 Redhat 等公司于 2019 年 8 月正式贡献到社区。核心代码在 GitHub 上地址为 https://github.com/besu-eth/besu。
 
 Besu 提供对以太坊协议的支持，由 Java 实现。
 

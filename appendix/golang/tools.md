@@ -131,7 +131,8 @@ $ go get google.golang.org/grpc@latest
 支持如下参数：
 
 * `-u` 参数：可以强制更新到最新版。
-* `-d` 参数：仅获取软件包，不执行编译安装。
+
+注意：早期用于“只下载不安装”的 `-d` 参数自 Go 1.18 起恒为默认行为并已弃用，当前版本执行时会提示 `-d flag is deprecated`。
 
 注意：若要安装命令行工具，应改用 `go install` 命令并指定版本（例如 `go install google.golang.org/protobuf/cmd/protoc-gen-go@latest`），以避免污染项目的依赖管理。
 
@@ -180,7 +181,7 @@ $ go test ./...
 安装该工具十分简单，通过如下命令即可快速安装。
 
 ```bash
-$ go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+$ go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
 ```
 
 使用时，指定软件包路径即可，如对超级账本 Fabric 项目所有代码进行风格检查。

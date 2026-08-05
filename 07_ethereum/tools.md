@@ -7,7 +7,7 @@
 **执行层客户端（Execution Client）：**
 *   [Geth (go-ethereum)](https://github.com/ethereum/go-ethereum)：Go 语言实现，最主流的客户端；
 *   [Nethermind](https://github.com/NethermindEth/nethermind)：C# 语言实现，性能优异；
-*   [Besu](https://github.com/hyperledger/besu)：Java 语言实现，Hyperledger 项目之一，适合企业级应用；
+*   [Besu](https://github.com/besu-eth/besu)：Java 语言实现，Hyperledger 项目之一，适合企业级应用；
 *   [Erigon](https://github.com/ledgerwatch/erigon)：Go 语言实现，专注于存储效率和同步速度。
 
 **共识层客户端（Consensus Client）：**

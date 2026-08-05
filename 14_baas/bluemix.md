@@ -1,4 +1,4 @@
-﻿## IBM Blockchain Platform
+## IBM Blockchain Platform
 
 IBM Blockchain Platform 是 IBM 曾推出的企业级区块链管理平台，基于 Hyperledger Fabric 技术构建。它并非简单的云服务，而是一套完整的区块链网络管理工具；但该产品现已进入历史阶段，本节内容应主要作为演进背景参考。
 

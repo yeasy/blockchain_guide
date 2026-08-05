@@ -30,7 +30,7 @@
 * ASN.1：Abstract Syntax Notation One，定义了描述数据的表示、编码、传输、解码的一套标准，被广泛应用在计算机、通信和安全领域；
 * CA：Certificate Authority，负责证书的创建、颁发，在 PKI 体系中最为核心的角色；
 * CBDC：Central Bank Digital Currency，央行数字货币，由中央银行发行的数字货币，多与已有法币体系挂钩；
-* CRL：Certification Revocation List，证书吊销列表，包含所撤销的证书列表；
+* CRL：Certificate Revocation List，证书吊销列表，包含所撤销的证书列表；
 * CSR：Certificate Signing Request，证书签名申请，包括通用名、名称、主机、生成私钥算法和大小、CA 配置和序列号等信息，用来发给 CA 服务以颁发签名的证书；
 * DER：Distinguished Encoding Rules，ASN.1 中定义的一种二进制编码格式，可以用来保存证书或密钥内容。
 * Genesis Block：创世区块，区块链的第一个区块，一般用于初始化，不带有交易信息；
