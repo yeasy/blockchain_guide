@@ -43,4 +43,4 @@ Liquid 的信任模型不同于比特币主链 PoW。Liquid 由 Liquid Federatio
 
 基于一年多的探索，Blockstream 于 2017 年 1 月发表文章《Strong Federations: An Interoperable Blockchain Solution to Centralized Third Party Risks》，被称为对侧链早期白皮书的补充和改良。白皮书中着重描述了联合挂钩（Federated Pegs）的相关概念和应用。
 
-此外，还有一些其他公司或组织也在探索如何合理地应用侧链技术，包括 ConsenSys、Rootstock、Lisk 等。
+此外，还有一些其他公司或组织也在探索如何合理地应用侧链技术，包括 ConsenSys、Rootstock 等。Lisk 曾以 Lisk SDK 走侧链路线，但已于 2024 年转为基于 OP Stack 的以太坊 Layer 2，加入 Optimism Superchain，不再作为侧链方案的代表。

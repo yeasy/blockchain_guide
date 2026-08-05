@@ -7,10 +7,10 @@
 * M. J. Fischer, N. A. Lynch, and M. S. Paterson, “Impossibility of Distributed Consensus with One Faulty Process,” J. ACM, vol. 32, no. 2, pp. 374–382, 1985.
 * L. Lamport, “The Part-Time Parliament,” ACM Trans. Comput. Systems, vol. 16, no. 2, pp. 133–169, 1998.
 * M. Castro and B. Liskov, “Practical Byzantine Fault Tolerance,” Proc. Symp. Oper. Syst. Des. Implement., no. February, pp. 1–14, 1999.
-* Satoshi Nakamoto, "Bitcoin: A Peer-to-Peer Electronic Cash System", https://bitcoin.org/bitcoin.pdf，2008.
+* Satoshi Nakamoto, "Bitcoin: A Peer-to-Peer Electronic Cash System", https://bitcoin.org/bitcoin.pdf, 2008.
 * A. Back, M. Corallo, L. Dashjr, M. Friedenbach, G. Maxwell, A. Miller, A. Poelstra, J. Timón, and P. Wuille, “Enabling Blockchain Innovations with Pegged Sidechains,” pp. 1–25, 2014.
-* T. D. Joseph Poon, “The Bitcoin Lightning Network: Scalable Off-Chain Payments, https://lightning.network/lightning-network-paper.pdf,” pp. 1–59, 2016.
-* Gentry C., Halevi S.，"Implementing Gentry’s Fully-Homomorphic Encryption Scheme". In: Paterson K.G. (eds) Advances in Cryptology – EUROCRYPT 2011. EUROCRYPT 2011. Lecture Notes in Computer Science, vol 6632. Springer, Berlin, Heidelberg.
+* T. D. Joseph Poon, “The Bitcoin Lightning Network: Scalable Off-Chain Payments,” https://lightning.network/lightning-network-paper.pdf, pp. 1–59, 2016.
+* Gentry C., Halevi S., “Implementing Gentry’s Fully-Homomorphic Encryption Scheme”. In: Paterson K.G. (eds) Advances in Cryptology – EUROCRYPT 2011. EUROCRYPT 2011. Lecture Notes in Computer Science, vol 6632. Springer, Berlin, Heidelberg.
 * van Dijk M., Gentry C., Halevi S., Vaikuntanathan V., "Fully Homomorphic Encryption over the Integers". In: Gilbert H. (eds) Advances in Cryptology – EUROCRYPT 2010. EUROCRYPT 2010. Lecture Notes in Computer Science, vol 6110. Springer, Berlin, Heidelberg.
 * López-Alt, Adriana, Eran Tromer, and Vinod Vaikuntanathan. "On-the-Fly Multiparty Computation on the Cloud via Multikey Fully Homomorphic Encryption.". Proceeding STOC '12 Proceedings of the forty-fourth annual ACM symposium on Theory of computing, Pages 1219-1234.
 * I. Miers, C. Garman, M. Green, and A. D. Rubin, “Zerocoin: Anonymous distributed e-cash from bitcoin,” Proc. - IEEE Symp. Secur. Priv., pp. 397–411, 2013.
@@ -27,13 +27,13 @@
 * 以太坊项目：https://ethereum.org/
 * [Etherscan](https://etherscan.io/)：以太坊区块浏览器，查询交易和合约。
 * [DefiLlama](https://defillama.com/)：DeFi TVL 和数据分析平台。
-* 超级账本项目：https://www.hyperledger.org/
+* 超级账本项目：https://www.lfdecentralizedtrust.org/
 * 超级账本 Docker 镜像：https://hub.docker.com/u/hyperledger/
 
 ### 培训课程
 
-* [Bitcoin and Cryptocurrency Technologies](https://www.coursera.org/course/bitcointech)：https://www.coursera.org/course/bitcointech, Princeton University；
-* Blockchain: Understanding Its Uses and Implications：https://www.edx.org/course/understanding-blockchain-and-its-implications, Linux Foundation。
+* [Bitcoin and Cryptocurrency Technologies](https://www.coursera.org/learn/cryptocurrency)：https://www.coursera.org/learn/cryptocurrency, Princeton University；
+* Blockchain: Understanding Its Uses and Implications：https://www.edx.org/learn/blockchain/the-linux-foundation-blockchain-understanding-its-uses-and-implications, Linux Foundation。
 
 ### 区块链服务平台
 

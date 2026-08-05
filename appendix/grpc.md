@@ -1,8 +1,8 @@
 ## ProtoBuf 与 gRPC
 
-[ProtoBuf](https://github.com/google/protobuf) 是一套接口描述语言（[Interface Definition Language，IDL](https://en.wikipedia.org/wiki/Interface_description_language)），类似 Apache 的 [Thrift](https://thrift.apache.org/)。
+[ProtoBuf](https://github.com/protocolbuffers/protobuf) 是一套接口描述语言（[Interface Definition Language，IDL](https://en.wikipedia.org/wiki/Interface_description_language)），类似 Apache 的 [Thrift](https://thrift.apache.org/)。
 
-相关处理工具主要是 [protoc](https://github.com/google/protobuf)，基于 C++ 语言实现。
+相关处理工具主要是 [protoc](https://github.com/protocolbuffers/protobuf)，基于 C++ 语言实现。
 
 用户写好 `.proto` 描述文件，之后便可以使用 protoc 自动编译生成众多计算机语言（C++、Java、Python、C#、Go 等）的接口代码。这些代码可以支持 gRPC，也可以不支持。
 
@@ -16,10 +16,10 @@
 
 需要工具主要包括：
 
-* 编译工具：[protoc](https://github.com/google/protobuf)，以及一些官方没有带的语言插件；
+* 编译工具：[protoc](https://github.com/protocolbuffers/protobuf)，以及一些官方没有带的语言插件；
 * 运行环境：各种语言的 protobuf 库，不同语言有不同的安装来源；
 
-语法类似 C++ 语言，可以参考 ProtoBuf 语言规范：https://developers.google.com/protocol-buffers/docs/proto。
+语法类似 C++ 语言，可以参考 ProtoBuf 语言规范：https://protobuf.dev/programming-guides/proto3/。
 
 比较核心的，`message` 是代表数据结构（里面可以包括不同类型的成员变量，包括字符串、数字、数组、字典……），`service` 代表 RPC 接口。变量后面的数字是代表进行二进制编码时候的提示信息，1~15 表示热变量，会用较少的字节来编码。另外，支持导入。
 
@@ -31,6 +31,8 @@
 syntax = "proto3";
 
 package helloworld;
+
+option go_package = "./helloworld";
 
 // The greeting service definition.
 service Greeter {
@@ -62,7 +64,7 @@ $ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 
 之后，正常使用 `protoc --go_out=./ ./hello.proto` 命令调用 `protoc-gen-go` 插件来生成 hello.pb.go。
 
-ProtoBuf 提供了 `Marshal/Unmarshal` 方法来将数据结构进行序列化操作。所生成的二进制文件在存储效率上比 XML 高 3~10 倍，并且处理性能高 1~2 个数量级。
+ProtoBuf 提供了 `Marshal/Unmarshal` 方法来将数据结构进行序列化操作。相比 XML 等文本格式，ProtoBuf 的二进制编码通常更紧凑、解析也更快，具体倍数取决于数据结构和实现，应以自己场景下的实测为准。
 
 ### gRPC
 

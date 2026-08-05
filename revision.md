@@ -1,5 +1,7 @@
 ## Version History
 
+> 以下条目按版本号从新到旧排列。1.8.x 属于并行维护的旧版本线，其日期可能晚于列在它前面的 2.x 条目。
+
 * 2.2.5: 2026-03-24
   * Align README quick start and learning paths with the current SUMMARY structure;
   * Clarify version marker and refresh front-page navigation guidance.

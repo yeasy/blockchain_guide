@@ -115,7 +115,7 @@ $ make start
 ```sh
 CONTAINER ID   IMAGE                            COMMAND                  CREATED         STATUS         PORTS                                                                                  NAMES
 81e6459965ec   hyperledger/cello-agent-docker   "gunicorn server:app…"   4 seconds ago   Up 2 seconds   127.0.0.1:5001->5001/tcp                    cello.docker.agent
-04367ab6bd5e   postgres:11.1                    "docker-entrypoint.s…"   4 seconds ago   Up 2 seconds   127.0.0.1:5432->5432/tcp                    cello-postgres
+04367ab6bd5e   postgres:16.4                    "docker-entrypoint.s…"   4 seconds ago   Up 2 seconds   127.0.0.1:5432->5432/tcp                    cello-postgres
 29b56a279893   hyperledger/cello-api-engine     "/bin/sh -c 'bash /e…"   4 seconds ago   Up 2 seconds   127.0.0.1:8080->8080/tcp                    cello-api-engine
 a272a06d8280   hyperledger/cello-dashboard      "bash -c 'nginx -g '…"   4 seconds ago   Up 2 seconds   127.0.0.1:8081->8081/tcp                    cello-dashboard
 ```

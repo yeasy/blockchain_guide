@@ -337,7 +337,7 @@ func main() {
 }
 ```
 
-执行 `go run main.go` 编译和运行程序，观察到 CPU 使用率会逐步上升。
+执行 `go build -o main .` 编译后运行 `./main`，观察到 CPU 使用率会逐步上升（后面 pprof 需要读取该二进制的符号表，因此这里不用 `go run`）。
 
 程序运行完成后，同一路径下会生成 cpu.prof 和 mem.prof 文件。其中记录了运行过程中的调用信息，之后可以通过 pprof 工具或较新版本的 `go tool pprof` 对其进行分析。这里以分析 CPU 使用为例。
 

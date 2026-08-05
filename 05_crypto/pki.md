@@ -78,7 +78,7 @@ $ openssl req -in for_request.csr -noout -text
 Certificate Request:
     Data:
         Version: 0 (0x0)
-        Subject: C=CN, ST=Beijing, L=Beijing, O=Blockchain, OU=Dev, CN=yeasy.github.com
+        Subject: C=CN, ST=Beijing, L=Beijing, O=Blockchain, OU=Dev, CN=example.com
         Subject Public Key Info:
             Public Key Algorithm: rsaEncryption
             Public-Key: (2048 bit)

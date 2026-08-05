@@ -6,7 +6,7 @@
 
 LFDT 的组织治理由 Governing Board、Technical Advisory Council（TAC）、各项目自己的技术监督/维护者机制以及 Linux Foundation 支持团队共同构成。TAC 负责跨项目技术协作、总体技术愿景和项目生命周期评估；各项目的技术委员会或维护者团队负责本项目的日常技术方向和发布；Governing Board 负责 directed fund 的预算、规则和整体社区事务。
 
-社区十分重视大中华地区的应用落地和开发情况，2016 年 12 月，[中国技术工作组](https://wiki.hyperledger.org/display/TWGC) 正式成立，负责推动社区组织建设和开源技术的发展和应用。
+社区十分重视大中华地区的应用落地和开发情况，2016 年 12 月，[中国技术工作组](https://lf-hyperledger.atlassian.net/wiki/spaces/TWGC) 正式成立，负责推动社区组织建设和开源技术的发展和应用。
 
 ### 基本结构
 
