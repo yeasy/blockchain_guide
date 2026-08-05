@@ -1173,14 +1173,14 @@ gantt
 ### 参考资源
 
 * Ritual：https://ritual.net/
-* Movement Labs：https://movementlabs.xyz/
+* Movement Network：https://www.movementnetwork.xyz/
 * COTI：https://coti.io/
 * ERC-6551：https://github.com/ethereum/ERCs/blob/master/ERCS/erc-6551.md
 * ASI Alliance：https://asi-alliance.org/
 * Morpheus：https://mor.org/
 * Autonolas：https://autonolas.network/
 * Ora Protocol：https://ora.io/
-* Allora：https://alloranetwork.com/
+* Allora：https://www.allora.network/
 * Forta Network：https://forta.org/
 * Forta 文档：https://docs.forta.network/en/latest/how-forta-works/
 * Virtuals Protocol：https://www.virtuals.io/
