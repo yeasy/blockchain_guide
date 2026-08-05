@@ -70,7 +70,7 @@ signpackage | 本地操作 | 为给定链码包添加签名（旧生命周期）
 --peerAddresses | string list | Peer 节点地址，可以指定多个
 -o, --orderer | string | 排序服务地址
 --tlsRootCertFiles | string list | 采用 TLS 时，信任的 Peer 的根证书列表，需要跟 Peer 节点地址列表给出的顺序一致
--p, --path  | string | 所操作链码的本地路径，如果是 Go 语言为包路径（相对于 $GOPAH/src），如果是其它语言则为绝对路径
+-p, --path  | string | 所操作链码的本地路径，如果是 Go 语言为包路径（相对于 $GOPATH/src），如果是其它语言则为绝对路径
 -P, --policy | string  | 链码所关联的背书策略，例如 `-P "OR ('Org1MSP.member','Org2MSP.member')"`
 -t, --tid  | string |  ChaincodeInvocationSpec 中的 ID 生成算法和编码，目前支持默认的 sha256+base64
 -v, --version | string | install/instantiate/upgrade 等命令中指定的版本信息
@@ -129,7 +129,7 @@ CIP 文件中主要包括如下数据。
 主要步骤包括：
 
 * 首先是构造带签名的提案结构（SignedProposal）。
-	* 调用 `InitCmdFactory(isEndorserRequired, isOrdererRequired bool) (*ChaincodeCmdFactory, error)` 方法，初始化 EndoserClient（跟 Peer 通信）、BroadcastClient（跟 Orderer 通信）、Signer（签名操作）等辅助结构体。所有链码子命令都会执行该过程，会根据需求具体初始化不同的结构。
+	* 调用 `InitCmdFactory(isEndorserRequired, isOrdererRequired bool) (*ChaincodeCmdFactory, error)` 方法，初始化 EndorserClient（跟 Peer 通信）、BroadcastClient（跟 Orderer 通信）、Signer（签名操作）等辅助结构体。所有链码子命令都会执行该过程，会根据需求具体初始化不同的结构。
 	* 然后根据命令行参数进行解析，判断是根据传入的打包文件来直接读取 ChaincodeDeploymentSpec（CDS）结构，还是根据传入参数从本地链码源代码文件来构造生成。
 	* 以本地重新构造情况为例，首先根据命令行中传入的路径、名称等信息，构造生成 ChaincodeSpec（CS）结构。
 	* 利用 ChaincodeSpec 结构，结合链码包数据生成一个 ChaincodeDeploymentSpec 结构（chainID 为空），调用本地的 `install(msg proto.Message, cf *ChaincodeCmdFactory) error` 方法。

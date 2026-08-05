@@ -40,8 +40,9 @@ func main() {
 	defer clientConnection.Close()
 
 	// 2. 创建客户端身份（从 MSP 证书和私钥）
-	clientCert, _ := os.ReadFile("path/to/client-cert.pem")
-	clientID, _ := identity.NewX509Identity("Org1MSP", identity.CertificateToPEM(clientCert))
+	clientCertPEM, _ := os.ReadFile("path/to/client-cert.pem")
+	clientCert, _ := identity.CertificateFromPEM(clientCertPEM)
+	clientID, _ := identity.NewX509Identity("Org1MSP", clientCert)
 	// ... 此处省略私钥加载和 Sign 函数创建
 
 	// 3. 创建 Gateway 连接

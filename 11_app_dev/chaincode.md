@@ -75,8 +75,8 @@ import (
 
 ```go
 type Chaincode interface {
-	Init(stub shim.ChaincodeStubInterface) pb.Response
-	Invoke(stub shim.ChaincodeStubInterface) pb.Response
+	Init(stub shim.ChaincodeStubInterface) *pb.Response
+	Invoke(stub shim.ChaincodeStubInterface) *pb.Response
 }
 ```
 

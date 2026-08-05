@@ -214,9 +214,11 @@ update 子命令的执行过程与 create 命令类似，会向排序服务发�
 
 例如，通过如下操作来更新通道中的锚节点配置，首先利用 configtxgen 来创建锚节点配置更新文件，之后使用该更新文件对通道进行配置更新操作。
 
+注意：`configtxgen --outputAnchorPeersUpdate` 在 Fabric 2.5 中已弃用，在 Fabric 3.x 中已移除，下面的命令仅供旧网络参考。新流程应按标准通道配置更新流程生成 config update envelope，再用 `peer channel update` 提交。
+
 ```bash
 $ configtxgen \
-    -profile APP_CHANNEL_PROFILE \
+    -profile ${APP_CHANNEL_PROFILE} \
     -outputAnchorPeersUpdate ./update_anchors.tx \
     -channelID businesschannel \
     -asOrg Org1MSP
