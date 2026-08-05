@@ -50,8 +50,10 @@ peer lifecycle chaincode queryinstalled
 # 查看 Docker 容器日志
 docker logs peer0.org1.example.com
 
-# 调整日志级别
-peer node logging setlevel gossip warning
+# 调整日志级别（通过运维服务的 /logspec 接口，详见本章“使用运维服务”一节）
+curl -X PUT -H 'Content-Type: application/json' \
+  -d '{"spec":"gossip=warning:info"}' \
+  http://peer:9443/logspec
 ```
 
 ### Orderer 集群管理
