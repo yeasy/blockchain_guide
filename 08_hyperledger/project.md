@@ -3,21 +3,21 @@
 Hyperledger/LFDT 项目代码主要托管在 [GitHub](https://github.com/hyperledger/) 和相关 LFDT 组织下。当前项目清单请以 [LFDT Projects](https://www.lfdecentralizedtrust.org/projects) 和项目矩阵为准；下面按贡献时间列出本章涉及的代表项目和历史项目。
 
 * [Fabric](https://github.com/hyperledger/fabric)：LFDT/Hyperledger 已毕业项目，包括 [Fabric](https://github.com/hyperledger/fabric)、[Fabric CA](https://github.com/hyperledger/fabric-ca)、Fabric Gateway、多语言客户端库等，目标是区块链的基础核心平台，支持权限管理和可插拔架构，最早由 IBM 和 DAH 于 2015 年底发起；当前长期支持版本线为 2.5.x，3.x 版本线已发布并引入 BFT 排序服务等能力；
-* [Sawtooth](https://github.com/hyperledger/sawtooth-core) [Archived]：包括 arcade、[core](https://github.com/hyperledger/sawtooth-core)、dev-tools、[validator](https://github.com/hyperledger/sawtooth-validator)、mktplace 等。是 Intel 主要发起和贡献的区块链平台，支持基于硬件芯片的共识机制 Proof of Elapsed Time（PoET），2016 年 4 月贡献到社区；该项目已归档，并于 2024 年 2 月应维护者请求停止在 Hyperledger 社区内继续活跃维护，后续维护说明指向 Splinter 社区；
+* [Sawtooth](https://github.com/hyperledger-archives/sawtooth-core) [Archived]：包括 arcade、[core](https://github.com/hyperledger-archives/sawtooth-core)、dev-tools、[validator](https://github.com/hyperledger-archives/sawtooth-validator)、mktplace 等。是 Intel 主要发起和贡献的区块链平台，支持基于硬件芯片的共识机制 Proof of Elapsed Time（PoET），2016 年 4 月贡献到社区；该项目已归档，并于 2024 年 2 月应维护者请求停止在 Hyperledger 社区内继续活跃维护，后续维护说明指向 Splinter 社区；
 * [Blockchain Explorer](https://github.com/hyperledger-labs/blockchain-explorer) [Labs/Archived]：曾提供 Web 操作界面，通过界面快速查看查询绑定区块链的状态（区块个数、交易历史）信息等，由 DTCC、IBM、Intel 等开发支持，2016 年 8 月贡献到社区；当前仓库已迁移到 hyperledger-labs 并处于归档只读状态；
 * [Iroha](https://github.com/hyperledger-iroha/iroha)：账本平台项目，基于 C++ 实现，带有不少面向 Web 和 Mobile 的特性，主要由 Soramitsu 于 2016 年 10 月发起和贡献；
 * [Cello](https://github.com/hyperledger-cello/cello)：提供区块链平台的部署和运行时管理功能。使用 Cello，管理员可以轻松部署和管理多条区块链；应用开发者可以无需关心如何搭建和维护区块链，由 IBM 团队于 2017 年 1 月贡献到社区；当前仓库已从 `hyperledger/cello` 重定向到 `hyperledger-cello/cello`；
 * [Indy](https://github.com/hyperledger-indy/indy)：提供基于分布式账本技术的数字身份管理机制，由 Sovrin 基金会发起，2017 年 3 月底正式贡献到社区；
 * [Composer](https://github.com/hyperledger/composer)：[Archived] 曾提供面向链码开发的高级语言支持，自动生成链码代码等，由 IBM 团队发起并维护，2017 年 3 月底贡献到社区。目前已经停止维护；
 * [Burrow](https://github.com/hyperledger-archives/burrow) [Archived]：提供以太坊虚拟机的支持，实现支持高效交易的带权限的区块链平台，由 Monax 公司发起支持，2017 年 4 月贡献到社区。该项目已被归档，代码已移至归档库；
-* [Quilt](https://github.com/hyperledger/quilt) [Archived]：对 W3C 支持的跨账本协议 Interledger 的 Java 实现。2017 年 10 月正式贡献到社区，现已归档（仓库迁至 hyperledger-archives）；
+* [Quilt](https://github.com/hyperledger-archives/quilt) [Archived]：对 W3C 支持的跨账本协议 Interledger 的 Java 实现。2017 年 10 月正式贡献到社区，现已归档（仓库迁至 hyperledger-archives）；
 * [Caliper](https://github.com/hyperledger-caliper/caliper)：提供对区块链平台性能的测试工具，由华为公司发起支持，2018 年 3 月正式贡献到社区。
-* [Ursa](https://github.com/hyperledger/ursa)：[Archived] 曾提供一套密码学相关组件，初始贡献者包括来自 Fujitsu、Sovrin、Intel、DFINITY、State Street、IBM、Bitwise IO 等企业的开发者，2018 年 11 月正式被接收到社区，2023 年 4 月停止维护；
-* [Grid](https://github.com/hyperledger/grid) [Archived]：提供帮助快速构建供应链应用的框架，由 Cargill、Intel 和 Bitwise IO 公司发起支持，2018 年 12 月正式贡献到社区，现已归档；
-* [Transact](https://github.com/hyperledger/transact) [Archived]：提供运行交易的引擎和框架，由 Bitwise IO、Cargill、Intel、IBM、HACERA 等公司发起支持，2019 年 5 月正式贡献到社区，现已归档；
+* [Ursa](https://github.com/hyperledger-archives/ursa)：[Archived] 曾提供一套密码学相关组件，初始贡献者包括来自 Fujitsu、Sovrin、Intel、DFINITY、State Street、IBM、Bitwise IO 等企业的开发者，2018 年 11 月正式被接收到社区，2023 年 4 月停止维护；
+* [Grid](https://github.com/hyperledger-archives/grid) [Archived]：提供帮助快速构建供应链应用的框架，由 Cargill、Intel 和 Bitwise IO 公司发起支持，2018 年 12 月正式贡献到社区，现已归档；
+* [Transact](https://github.com/hyperledger-archives/transact) [Archived]：提供运行交易的引擎和框架，由 Bitwise IO、Cargill、Intel、IBM、HACERA 等公司发起支持，2019 年 5 月正式贡献到社区，现已归档；
 * [Aries](https://www.lfdecentralizedtrust.org/projects/aries) [Archived]：曾为客户端提供共享的密码学钱包、可复用代理框架和链下交互消息支持，由 Sovrin、C3I 和 Evernym 等公司发起支持，2019 年 5 月正式贡献到社区；该项目官方页面已标记为归档，核心组件迁移到 ACA-Py、OpenWallet Foundation、DIF Aries RFCs 和 LFDT Labs 等位置；
 * [Besu](https://github.com/besu-eth/besu)：作为企业级的以太坊客户端支持，由 Consensys、Hacera、JPM 和 Redhat 等公司发起支持，2019 年 8 月正式贡献到社区；
-* [Avalon](https://github.com/hyperledger/avalon) [Archived]：提供链下计算支持，增强安全性和可扩展性，由 Intel、IEX、IBM 和 Consensys 等公司发起支持，2019 年 9 月正式贡献到社区，现已归档。
+* [Avalon](https://github.com/hyperledger-archives/avalon) [Archived]：提供链下计算支持，增强安全性和可扩展性，由 Intel、IEX、IBM 和 Consensys 等公司发起支持，2019 年 9 月正式贡献到社区，现已归档。
 
 这些项目在不同历史阶段分别从平台、工具和类库三个层次支撑 Hyperledger / LFDT 生态；其中活跃项目、孵化项目、休眠项目和归档项目的当前状态应以 LFDT Projects 与年度 TAC 评审为准。
 
@@ -45,7 +45,7 @@ Fabric 是 LFDT/Hyperledger 已毕业项目。官方文档将 Fabric 2.5.x 标�
 
 ![Hyperledger Sawtooth 项目](_images/sawtooth.png)
 
-Sawtooth 项目由 Intel 等企业于 2016 年 4 月提交到社区，包括 sawtooth-core、sawtooth-supply-chain、sawtooth-marketplace、sawtooth-seth、sawtooth-next-directory、sawtooth-explorer 等数十个子项目。核心代码在 GitHub 上地址为 https://github.com/hyperledger/sawtooth-core。
+Sawtooth 项目由 Intel 等企业于 2016 年 4 月提交到社区，包括 sawtooth-core、sawtooth-supply-chain、sawtooth-marketplace、sawtooth-seth、sawtooth-next-directory、sawtooth-explorer 等数十个子项目。核心代码在 GitHub 上地址为 https://github.com/hyperledger-archives/sawtooth-core。
 
 该项目的定位也是分布式账本平台，基于 Python 语言实现。项目已归档，停止在 Hyperledger 社区内继续活跃维护，历史核心项目的贡献者超过 70 人，提交次数超过 8000 次。
 
@@ -123,7 +123,7 @@ Burrow 项目提供了支持以太坊虚拟机的智能合约区块链平台，�
 
 ![Hyperledger Quilt 项目](_images/quilt.png)
 
-Quilt 项目由 NTT、Ripple 等企业于 2017 年 10 月提交到社区。核心代码在 GitHub 上地址为 https://github.com/hyperledger/quilt。
+Quilt 项目由 NTT、Ripple 等企业于 2017 年 10 月提交到社区。核心代码在 GitHub 上地址为 https://github.com/hyperledger-archives/quilt。
 
 Quilt 项目前身为 W3C 支持的 Interledger 协议的 Java 实现，主要试图为转账服务提供跨多个区块链平台的支持。项目已归档（仓库迁至 hyperledger-archives，2022 年后停止更新），历史贡献者超过 10 人，提交次数超过 100 次。
 
@@ -143,7 +143,7 @@ Caliper 项目希望能为评测区块链的性能（包括吞吐、延迟、资
 
 ![Hyperledger Ursa 项目](_images/ursa.png)
 
-Ursa 项目前身为加密实现库项目，由 Fujitsu、Sovrin、Intel、DFINITY、State Street、IBM、Bitwise IO 等企业的开发者于 2018 年 11 月正式贡献到社区。核心代码在 GitHub 上地址为 https://github.com/hyperledger/ursa。
+Ursa 项目前身为加密实现库项目，由 Fujitsu、Sovrin、Intel、DFINITY、State Street、IBM、Bitwise IO 等企业的开发者于 2018 年 11 月正式贡献到社区。核心代码在 GitHub 上地址为 https://github.com/hyperledger-archives/ursa。
 
 Ursa 项目曾经提供一套方便、安全的密码学软件库（包括加解密、零知识证明等），为实现区块链平台实现提供便利。主要基于 Rust 语言实现，包括两个子组件（基础密码实现库 Base Crypto 和零知识证明库 Z-Mix）。参与贡献者超过 10 人，提交次数超过 400 次。项目已于 2023 年 4 月停止维护。
 
@@ -153,7 +153,7 @@ Ursa 项目曾经提供一套方便、安全的密码学软件库（包括加解
 
 ![Hyperledger Grid 项目](_images/grid.png)
 
-Grid 项目由 Cargill、Intel 和 Bitwise IO 公司于 2018 年 12 月提交到社区。核心代码在 GitHub 上地址为 https://github.com/hyperledger/grid。
+Grid 项目由 Cargill、Intel 和 Bitwise IO 公司于 2018 年 12 月提交到社区。核心代码在 GitHub 上地址为 https://github.com/hyperledger-archives/grid。
 
 Grid 项目为开发基于区块链的供应链场景应用提供框架支持和参考实现，包括智能合约、数据模型、领域模型、样例应用等。
 主要基于 Python 语言实现，并使用 Sabre（基于 WebAssembly/WASM 的智能合约引擎）来运行智能合约。项目已归档（仓库迁至 hyperledger-archives），历史贡献者超过 40 人，提交次数超过 5000 次。
@@ -164,7 +164,7 @@ Grid 项目为开发基于区块链的供应链场景应用提供框架支持和
 
 ![Hyperledger Transact 项目](_images/transact.png)
 
-Transact 项目由 Bitwise IO、Cargill、Intel、IBM、HACERA 等公司于 2019 年 5 月提交到社区。核心代码在 GitHub 上地址为 https://github.com/hyperledger/transact。
+Transact 项目由 Bitwise IO、Cargill、Intel、IBM、HACERA 等公司于 2019 年 5 月提交到社区。核心代码在 GitHub 上地址为 https://github.com/hyperledger-archives/transact。
 
 Transact 项目为区块链提供交易执行的平台和代码库，其他的框架性项目可以基于 Transact 来管理交易的执行过程和状态。Transact 项目试图打造一个通用的智能合约引擎来支持包括 EVM、WebAssembly 等合约的运行。目前包括 transact、transact-rfcs、transact-contrib 等子项目。
 
@@ -194,6 +194,6 @@ Besu 提供对以太坊协议的支持，由 Java 实现。
 
 ![Hyperledger Avalon 项目](_images/avalon.png)
 
-* Avalon 项目由 Intel、IEX、IBM 和 Consensys 等公司于 2019 年 9 月正式贡献到社区。主要提供链下的安全计算支持，重点考虑了安全性和可扩展性。项目核心代码在 https://github.com/hyperledger/avalon。
+* Avalon 项目由 Intel、IEX、IBM 和 Consensys 等公司于 2019 年 9 月正式贡献到社区。主要提供链下的安全计算支持，重点考虑了安全性和可扩展性。项目核心代码在 https://github.com/hyperledger-archives/avalon。
 
 项目的邮件列表地址为 avalon@lists.hyperledger.org。
