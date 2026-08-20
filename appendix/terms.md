@@ -39,7 +39,7 @@
 * Nonce：密码学术语，表示一个临时的值，多为随机字符串；
 * OCSP：Online Certificate Status Protocol，在线证书状态协议，通过查询服务来在线确认证书的状态（如是否撤销）。RFC 2560 中定义；
 * PEM：Privacy Enhanced Mail，用来保存证书和密钥的一种编码格式，RFC 1421-1424 中定义；
-* PKCS：Public-Key Cryptography Standards，公钥密码标准，由 RSA 实验室提出，定义了利用 RSA 算法和相关密码学技术来实现安全的系列规范，目前包括 15 个不同领域的规范。最早的版本在 1991 年提出，目前最新版本为 2012 年提出的 2.2 版本；
+* PKCS：Public-Key Cryptography Standards，公钥密码标准，由 RSA 实验室提出，定义了利用 RSA 算法和相关密码学技术来实现安全的系列规范，编号从 PKCS #1 到 PKCS #15。最早的版本在 1991 年提出，此后各子规范独立演进，部分已交由其他组织维护，例如 PKCS #1 停留在 2012 年的 2.2 版，而密码令牌接口 PKCS #11 由 OASIS 接手后已发布到 3.2 版；
 * PKI：Public Key Infrastructure，基于公钥体系的安全基础架构；
 * SM：ShangMi，国家商用密码算法，2010 年以来陆续由国家密码管理局发布的相关标准和规范，主要包括：SM2（基于椭圆曲线密码的公钥密码算法标准）、SM3（Hash 算法标准）、SM4（基于分组加密的对称密码算法标准）、SM9（基于身份的数字证书体系）。2017 年 10 月 30 日，SM2 与 SM9 的数字签名算法在第 55 次 ISO/IEC 信息安全分技术委员会（SC27）上被正式接纳，成为国际标准之一；
 * ZKP：Zero-knowledge proof，零知识证明。在不泄露无关信息的前提下证实某个论断。
