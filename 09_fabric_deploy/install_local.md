@@ -8,7 +8,7 @@ Hyperledger Fabric 官方提供了 `install-fabric.sh` 脚本，可以按需下�
 
 ### 1. 操作系统
 
-Linux (Ubuntu/CentOS), macOS 或 Windows (通过 WSL2)。
+Linux (Ubuntu/CentOS), macOS 或 Windows（通过 WSL2）。
 
 ### 2. 安装 Git 和 cURL
 

@@ -158,7 +158,7 @@ DH 协议的基本交换过程如下，以 Alice 和 Bob 两人协商为例：
 
 目前主要的抗量子算法路线包括：
 
-*   **基于格的密码（Lattice-based Cryptography）**：这是目前最被看好的路线，NIST 选定的 **Kyber** (ML-KEM, 用于密钥封装) 和 **Dilithium** (ML-DSA, 用于数字签名) 均属于此类。其优势是计算速度快，公钥和密文尺寸适中，但也面临着参数选择复杂的挑战。
+*   **基于格的密码（Lattice-based Cryptography）**：这是目前最被看好的路线，NIST 选定的 **Kyber**（ML-KEM, 用于密钥封装）和 **Dilithium**（ML-DSA, 用于数字签名）均属于此类。其优势是计算速度快，公钥和密文尺寸适中，但也面临着参数选择复杂的挑战。
 *   **基于哈希的签名（Hash-based Signature）**：如 **SPHINCS+** (SLH-DSA)。其安全性完全依赖于哈希函数的安全性（十分稳健），不依赖其他数学假设，但签名体积较大。
 *   **基于编码的密码（Code-based Cryptography）**：如 McEliece 算法，历史悠久且从未被攻破，但公钥尺寸极大（KB 级别），限制了其应用。
 *   **多变量密码（Multivariate Cryptography）**：签名速度快且非常短，但公钥较大。

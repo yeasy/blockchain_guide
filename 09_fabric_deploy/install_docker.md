@@ -60,10 +60,10 @@ Fabric 的网络节点大多运行在 Docker 容器中。主要涉及以下核�
 | `hyperledger/fabric-ccenv` | Go/Java 链码的编译环境。 |
 | `hyperledger/fabric-baseos` | 链码运行时的基础操作系统环境。 |
 | `hyperledger/fabric-ca` | 证书授权服务（CA），用于身份管理。 |
-| `couchdb` | (可选) 用作 Peer 节点的状态数据库，支持富查询。 |
+| `couchdb` |（可选）用作 Peer 节点的状态数据库，支持富查询。 |
 
 **状态数据库选择建议**：
-*   **LevelDB (首选)**：Peer 节点的默认状态数据库（内嵌在 `fabric-peer` 镜像中）。它性能更高、运维更简单。除非你有明确的富查询需求，否则应优先选择 LevelDB。
+*   **LevelDB（首选）**：Peer 节点的默认状态数据库（内嵌在 `fabric-peer` 镜像中）。它性能更高、运维更简单。除非你有明确的富查询需求，否则应优先选择 LevelDB。
 *   **CouchDB**：支持基于 JSON 数据的复杂查询（Rich Queries）。如果你的应用需要对链上数据进行多维度的检索和统计，才建议配置 CouchDB。
 
 **注意**：早期版本的 Kafka 和 Zookeeper 镜像已在 Fabric 2.x 中被弃用，并在 Fabric 3.x 中移除。新网络应优先使用 Raft；需要拜占庭容错时可在 Fabric 3.x 中评估 BFT 排序服务。

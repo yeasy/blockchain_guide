@@ -37,7 +37,7 @@
 
 *   CertiK
 *   OpenZeppelin
-*   SlowMist (慢雾)
+*   SlowMist（慢雾）
 *   Trail of Bits
 *   ConsenSys Diligence
 

@@ -600,7 +600,7 @@ fs.writeFileSync(
 npx hardhat run scripts/deploy.ts --network sepolia
 ```
 
-**验证合约** (在 Etherscan 上公开代码)：
+**验证合约**（在 Etherscan 上公开代码）：
 
 ```bash
 npx hardhat verify --network sepolia CONTRACT_ADDRESS "constructor arguments"
