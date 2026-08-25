@@ -5,7 +5,7 @@ go 1.25.0
 require (
 	github.com/hyperledger/fabric-chaincode-go/v2 v2.3.1-0.20260319210430-56968fdc7833
 	github.com/hyperledger/fabric-contract-api-go/v2 v2.2.2
-	google.golang.org/protobuf v1.36.11
+	google.golang.org/protobuf v1.36.12
 )
 
 require (
