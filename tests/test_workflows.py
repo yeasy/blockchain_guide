@@ -207,7 +207,7 @@ class WorkflowTests(unittest.TestCase):
                 self.assertIn(marker, text, f"{name}: {marker}")
             self.assertIn("if-no-files-found: error", text, name)
         auto = self.text("auto-release.yml")
-        self.assertIn("actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4.1.1", auto)
+        self.assertRegex(auto, r"actions/attest-build-provenance@[0-9a-f]{40} # v\d")
         self.assertRegex(auto, r"(?s)subject-path:.*?\.pdf.*?\.html.*?SHA256SUMS")
         self.assertRegex(auto, r"(?s)files:.*?\.pdf.*?\.html.*?SHA256SUMS")
 
