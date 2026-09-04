@@ -33,7 +33,7 @@
 * CRL：Certificate Revocation List，证书吊销列表，包含所撤销的证书列表；
 * CSR：Certificate Signing Request，证书签名申请，包括通用名、名称、主机、生成私钥算法和大小、CA 配置和序列号等信息，用来发给 CA 服务以颁发签名的证书；
 * DER：Distinguished Encoding Rules，ASN.1 中定义的一种二进制编码格式，可以用来保存证书或密钥内容；
-* Genesis Block：创世区块，区块链的第一个区块，一般用于初始化，不带有交易信息；
+* Genesis Block：创世区块，区块链的第一个区块，一般用于初始化，不含用户交易（但通常带有 coinbase 交易或配置交易，如比特币创世区块中的 50 BTC 与泰晤士报标题）；
 * Hash：Hash 算法，任意长度的二进制值映射为较短的固定长度的二进制值的算法；
 * IES：Integrated Encryption Scheme，集成加密机制，一种混合加密机制，可以应对选择明文攻击（可以获知任意明文和对应密文）情况下的攻击。包括 DLIES（基于离散对数）和 ECIES（基于椭圆曲线）两种实现；
 * Nonce：密码学术语，表示一个临时的值，多为随机字符串；
