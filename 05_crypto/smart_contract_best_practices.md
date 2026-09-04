@@ -381,7 +381,7 @@ contract ComplexAccess is AccessControl {
 import { expect } from "chai";
 import { network } from "hardhat";
 
-const { ethers } = await network.connect();
+const { ethers } = await network.create();
 
 describe("SafeAuction", function () {
     let auction;

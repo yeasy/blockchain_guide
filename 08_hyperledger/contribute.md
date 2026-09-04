@@ -46,12 +46,12 @@ $ brew install hub
 $ hub clone https://github.com/hyperledger/<PROJECT>.git
 $ cd <PROJECT>
 $ hub fork --remote-name=origin
-$ git branch master --set-upstream-to origin/master
+$ git branch main --set-upstream-to origin/main
 ```
 
 此时，项目下会包括两个仓库：
 
-* `origin` 仓库：会指向用户仓库。master 分支会追踪本仓库；
+* `origin` 仓库：会指向用户仓库。main 分支会追踪本仓库；
 * `upstream` 仓库：会指向官方仓库，供后续同步更新使用。
 
 ### 编译和测试
@@ -94,7 +94,7 @@ $ make native
 
 会自动生成 orderer、peer、configtxgen、configtxlator、cryptogen、discover、idemixgen 等可执行文件。
 
-用户也可以使用对应的可执行文件名称来单独编译，例如，执行如下命令会自动编译生成 Docker 镜像，并生成本地 peer 可执行文件：
+用户也可以使用对应的可执行文件名称来单独编译。注意 `make peer` 只生成本地可执行文件，若还需要对应的 Docker 镜像，应使用 `make peer-docker`：
 
 ```sh
 $ make peer
@@ -175,7 +175,7 @@ $ git push --set-upstream origin FAB-XXX
 创建合并请求（Pull Request），例如：
 
 ```bash
-$ hub pull-request [-b upstream:master] [-r <REVIEWERS> ]
+$ hub pull-request [-b upstream:main] [-r <REVIEWERS> ]
 ```
 
 ### 评审代码
@@ -195,7 +195,7 @@ $ git commit -a --amend
 补丁被接收后可以删除对应的分支：
 
 ```bash
-$ git fetch upstream master && git rebase FETCH_HEAD
+$ git fetch upstream main && git rebase FETCH_HEAD
 $ git push -d origin issue-xxx
 $ git branch -d issue-xxx
 ```

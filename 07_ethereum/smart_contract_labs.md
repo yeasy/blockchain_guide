@@ -663,7 +663,7 @@ contract Unoptimized {
     uint256 public counter;
 
     function increment() public {
-        counter = counter + 1;  // SSTORE + SLOAD
+        counter = counter + 1;  // SLOAD + ADD（带溢出检查）+ SSTORE
     }
 }
 
@@ -673,7 +673,7 @@ contract Optimized {
 
     function increment() public {
         unchecked {  // 0.8.0 起默认检查，如果确定不溢出可禁用
-            ++counter;  // ++counter 比 counter+1 少一次 SLOAD
+            ++counter;  // 省下的是溢出检查，不是 SLOAD：对状态变量而言 ++counter 与 counter+1 生成的读写次数相同
         }
     }
 }

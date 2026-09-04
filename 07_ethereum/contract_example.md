@@ -46,12 +46,14 @@ contract Ballot {
     // May only be called by `chairperson`.
     function giveRightToVote(address voter) public {
         require((msg.sender == chairperson) && !voters[voter].voted);
+        require(voters[voter].weight == 0);
         voters[voter].weight = 1;
     }
 
     // Delegate your vote to the voter `to`.
     function delegate(address to) public {
         Voter storage sender = voters[msg.sender];
+        require(sender.weight != 0, "You have no right to vote");
         require(!sender.voted);
         require(to != msg.sender);
 
@@ -76,7 +78,8 @@ contract Ballot {
     // to proposal `proposals[proposal].name`.
     function vote(uint proposal) public {
         Voter storage sender = voters[msg.sender];
-        require(!sender.voted);
+        require(sender.weight != 0, "Has no right to vote");
+        require(!sender.voted, "Already voted.");
         sender.voted = true;
         sender.vote = proposal;
 
@@ -86,13 +89,13 @@ contract Ballot {
     // @dev Computes the winning proposal taking all
     // previous votes into account.
     function winningProposal() public view
-            returns (uint winningProposal)
+            returns (uint winningProposal_)
     {
         uint winningVoteCount = 0;
         for (uint p = 0; p < proposals.length; p++) {
             if (proposals[p].voteCount > winningVoteCount) {
                 winningVoteCount = proposals[p].voteCount;
-                winningProposal = p;
+                winningProposal_ = p;
             }
         }
     }
@@ -101,9 +104,9 @@ contract Ballot {
     // of the winner contained in the proposals array and then
     // returns the name of the winner
     function winnerName() public view
-            returns (bytes32 winnerName)
+            returns (bytes32 winnerName_)
     {
-        winnerName = proposals[winningProposal()].name;
+        winnerName_ = proposals[winningProposal()].name;
     }
 }
 ```
@@ -129,7 +132,7 @@ Solidity 中的合约（contract）类似面向对象编程语言中的类。每
 * `struct Voter`：投票人，其属性包括 `uint weight`（该投票人的权重）、`bool voted`（是否已投票）、`address delegate`（如果该投票人将投票委托给他人，则记录受委托人的账户地址）和 `uint vote`（投票做出的选择，即相应提案的索引号）。
 * `struct Proposal`：提案，其属性包括 `bytes32 name`（名称）和 `uint voteCount`（已获得的票数）。
 
-需要注意，`address` 类型记录了一个以太坊账户的地址。`address` 可看作一个数值类型，但也包括一些与以太币相关的方法，如查询余额 `<address>.balance`、向该地址转账 `<address>.transfer(uint256 amount)` 等。
+需要注意，`address` 类型记录了一个以太坊账户的地址。`address` 可看作一个数值类型，可以查询余额 `<address>.balance`。注意转账相关的 `transfer`/`send` 只属于 `address payable`，普通 `address` 上没有这两个成员；且官方文档已把 `transfer` 标记为废弃、计划移除，推荐改用 `call{value: ...}("")`（本书 [智能合约最佳实践](../05_crypto/smart_contract_best_practices.md) 中即用此写法）。
 
 #### 状态变量
 
@@ -149,7 +152,7 @@ Solidity 中的合约（contract）类似面向对象编程语言中的类。每
 
 #### 函数
 
-合约中的函数用于处理业务逻辑。函数的可见性默认为 `public`，即可以从内部或外部调用，是合约的对外接口。函数可见性也可设置为 `external`、`internal` 和 `private`。
+合约中的函数用于处理业务逻辑。自 Solidity 0.5.0 起，函数**必须显式声明可见性**，省略会编译报错（状态变量则不同，默认为 `internal`）。可选值为 `public`（内外皆可调用，是合约的对外接口）、`external`、`internal` 和 `private`。
 
 本例实现了 6 个 `public` 函数，可看作 6 个对外接口，功能分别如下。
 
@@ -183,14 +186,14 @@ Solidity 中的合约（contract）类似面向对象编程语言中的类。每
 
 ##### 查询获胜提案
 
-函数 `function winningProposal() public view returns (uint winningProposal)` 将返回获胜提案的索引号。
+函数 `function winningProposal() public view returns (uint winningProposal_)` 将返回获胜提案的索引号。返回值名加下划线是为了避免与函数同名（同名会触发 shadowing 警告），这也是官方示例的写法。
 
-这里，`returns (uint winningProposal)` 指定了函数的返回值类型，`view` 表示该函数不会改变合约状态变量的值。
+这里，`returns (uint winningProposal_)` 指定了函数的返回值类型，`view` 表示该函数不会改变合约状态变量的值。
 
 函数通过遍历所有提案进行记票，得到获胜提案。
 
 ##### 查询获胜者名称
 
-函数 `function winnerName() public view returns (bytes32 winnerName)` 实现返回获胜者的名称。
+函数 `function winnerName() public view returns (bytes32 winnerName_)` 实现返回获胜者的名称。
 
 这里采用内部调用 `winningProposal()` 函数的方式获得获胜提案。如果需要采用外部调用，则需要写为 `this.winningProposal()`。

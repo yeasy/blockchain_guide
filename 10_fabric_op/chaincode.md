@@ -47,7 +47,7 @@ signpackage | 本地操作 | 为给定链码包添加签名（旧生命周期）
 
 全局选项 | 类型 | 含义
 --- | --- | ---
---connTimeout | int | 客户端连接超时，默认为 3 秒
+--connTimeout | duration | 客户端连接超时，默认为 `3s`（duration 类型，须写成 `3s` 这类带单位的形式）
 --keyfile | string | 与排序服务双向 TLS 认证时使用的私钥文件
 -o, --orderer | string | Orderer 服务地址
 --transient | string | JSON 格式的临时数据，仅供 Peer 在背书环节使用
@@ -62,7 +62,7 @@ signpackage | 本地操作 | 为给定链码包添加签名（旧生命周期）
 子命令选项 | 类型 | 含义
 --- | --- | ---
 --connectionProfile | string | 指定连接配置（Connection Profile）文件
--C, --chainID | string | 所面向的通道，默认为 `testchainid`
+-C, --channelID | string | 所面向的通道（无默认值）
 -c, --ctor  | string | 指定链码命令的参数信息，JSON 格式，默认为 `{}`
 -E, --escc  | string | 指定所用背书系统链码的名称，默认为 `escc`
 -l, --lang  | string | 链码实现语言，默认为 `golang`
@@ -72,7 +72,6 @@ signpackage | 本地操作 | 为给定链码包添加签名（旧生命周期）
 --tlsRootCertFiles | string list | 采用 TLS 时，信任的 Peer 的根证书列表，需要跟 Peer 节点地址列表给出的顺序一致
 -p, --path  | string | 所操作链码的本地路径，如果是 Go 语言为包路径（相对于 $GOPATH/src），如果是其他语言则为绝对路径
 -P, --policy | string  | 链码所关联的背书策略，例如 `-P "OR ('Org1MSP.member','Org2MSP.member')"`
--t, --tid  | string |  ChaincodeInvocationSpec 中的 ID 生成算法和编码，目前支持默认的 sha256+base64
 -v, --version | string | install/instantiate/upgrade 等命令中指定的版本信息
 -V, --vscc  | string | 指定所使用验证系统链码的名称，默认为 `vscc`
 

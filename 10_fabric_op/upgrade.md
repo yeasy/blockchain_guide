@@ -46,11 +46,15 @@
 ChannelV1_1 | v1.1.0 | 通道 | 仅供标记，程序版本为 1.1.0+
 ChannelV1_3 | v1.3.0 | 通道 | 支持 idemix
 OrdererV1_1 | v1.1.0 | 排序 | 重新提交和身份超时检查
-OrdererV2_0 | v2.0.0 | 排序 | 排序服务支持从 Kafka 切换到 Raft
+OrdererV1_4_2 | v1.4.2 | 排序 | 引入共识类型迁移，即排序服务从 Kafka 切换到 Raft
+OrdererV2_0 | v2.0.0 | 排序 | 继承 V1_4_2 的共识类型迁移能力；注意排序能力没有 V3_0
 ApplicationV1_1 |v1.1.0 | 应用 | 禁止区块内重复交易 Id
 ApplicationV1_2 |v1.2.0 | 应用 | 正式支持私有数据，支持升级私有数据成员组配置，细粒度的通道资源访问控制（ACL）
 ApplicationV1_3 |v1.3.0 | 应用 | 支持基于键值的背书
 ApplicationV2_0 |v2.0.0 | 应用 | 新的链码生命周期管理，以及配套的链码操作命令
+ApplicationV2_5 |v2.5.0 | 应用 | 支持 Purge Private Data
+ChannelV2_0 | v2.0.0 | 通道 | 与 V2_0 应用/排序能力配套
+ChannelV3_0 | v3.0.0 | 通道 | Fabric 3.x 的通道能力（BFT 排序服务需要）
 
 ### 推荐升级步骤
 

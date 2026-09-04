@@ -24,7 +24,7 @@ signconfigtx | 本地操作 | 为本地的通道配置更新添加签名。
 
 全局选项 | 类型 | 含义
 --- | --- | ---
---connTimeout | int | 客户端连接超时，默认为 3 秒
+--connTimeout | duration | 客户端连接超时，默认为 `3s`（duration 类型，须写成 `3s` 这类带单位的形式）
 --keyfile | string | 与排序服务双向 TLS 认证时使用的私钥文件
 -o, --orderer | string | Orderer 服务地址
 --tls | bool | 连接到 Orderer 服务时是否启用 TLS
@@ -56,7 +56,7 @@ Fabric 2.3 之后推荐使用 **Channel Participation API** 创建应用通道�
 * -c, --channelID string：所创建通道的名称；
 * -f, --file string：指定创建通道所用的交易文件；
 * --outputBlock string：创建通道成功后，将初始区块写到本地指定文件，默认为 ./<channelID>.block；
-* -t, --timeout duration：创建超时，默认为 5 秒。
+* -t, --timeout duration：创建超时，默认为 10 秒（`10s`）。
 
 旧流程一般通过提前创建的通道配置交易文件来指定配置信息。如果不指定通道配置文件，则默认采用 SampleConsortium 配置和本地的 MSP 组织来构造配置交易结构。
 
