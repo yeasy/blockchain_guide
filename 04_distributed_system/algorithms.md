@@ -53,7 +53,7 @@ Algorand 算法（2017 年）基于 PBFT 进行改进，通过引入可验证随
 在 BFT 算法领域，也有了突破性进展：
 
 *   **Tendermint**：Cosmos 网络采用的 BFT 共识，具有即时最终性（Instant Finality），极大地简化了应用开发。
-*   **HotStuff**：由 VMware Research 提出，它是首个具有线性视图变换（Linear View Change）的 BFT 算法，将通信复杂度从 O(n^2) 降为 O(n)。HotStuff 是 Aptos、Sui 等高性能公链共识的基础。
+*   **HotStuff**：由 VMware Research 提出，它是首个具有线性视图变换（Linear View Change）的 BFT 算法，将通信复杂度从 O(n^2) 降为 O(n)。HotStuff 是 Diem 及 Aptos（AptosBFT/Jolteon）等公链共识的基础；Sui 并不属于这一系，它采用由 Narwhal/Bullshark 演进而来的 DAG 共识 Mysticeti。
 
 ### 理论界限
 

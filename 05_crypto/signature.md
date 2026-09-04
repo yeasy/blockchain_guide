@@ -4,7 +4,7 @@
 
 ### 消息认证码
 
-消息认证码（Hash-based Message Authentication Code，HMAC），利用共享密钥和密码学 Hash 函数构造认证值，对消息完整性（Integrity）和来源真实性进行保护。HMAC 不是对称加密算法，不提供机密性。
+消息认证码（Message Authentication Code，MAC），利用共享密钥构造认证值，对消息完整性（Integrity）和来源真实性进行保护。其中最常用的是基于密码学 Hash 函数的构造 HMAC（RFC 2104）；此外还有基于分组密码的 CMAC/GMAC、基于 Poly1305 的构造等，并非都是「基于 Hash」的。MAC 不是对称加密算法，不提供机密性。
 
 基本过程为对某个消息，利用提前共享的对称密钥和 Hash 算法进行处理，得到 HMAC 值。该 HMAC 值持有方可以向对方证明自己拥有某个对称密钥，并且确保所传输消息内容未被篡改。
 
@@ -28,7 +28,7 @@
 
 #### 盲签名
 
-盲签名（Blind Signature），1982 年由 David Chaum 在论文《Blind Signatures for Untraceable Payment》中[提出](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)。签名者需要在无法看到原始内容的前提下对信息进行签名。
+盲签名（Blind Signature），由 David Chaum 在 1982 年的 CRYPTO '82 上提出、论文集 1983 年出版，论文《Blind Signatures for Untraceable Payments》中[提出](http://www.hit.bme.hu/~buttyan/courses/BMEVIHIM219/2009/Chaum.BlindSigForPayment.1982.PDF)。签名者需要在无法看到原始内容的前提下对信息进行签名。
 
 盲签名可以实现对所签名内容的保护，防止签名者看到原始内容；另一方面，盲签名还可以实现防止追踪（Unlinkability），签名者无法将签名内容和签名结果进行对应。典型的实现包括 RSA 盲签名算法等。
 
