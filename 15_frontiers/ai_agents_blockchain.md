@@ -1178,13 +1178,13 @@ gantt
 * ERC-6551：https://github.com/ethereum/ERCs/blob/master/ERCS/erc-6551.md
 * ASI Alliance：https://asi-alliance.org/
 * Morpheus：https://mor.org/
-* Autonolas：https://autonolas.network/
-* Ora Protocol：https://ora.io/
+* Autonolas（现名 Olas）：https://olas.network/
+* Ora Protocol：原域名 ora.io 已无 A 记录、无法解析（2026-09 核验）
 * Allora：https://www.allora.network/
 * Forta Network：https://forta.org/
 * Forta 文档：https://docs.forta.network/en/latest/how-forta-works/
 * Virtuals Protocol：https://www.virtuals.io/
 * Parallel Colony：https://parallel.ai/
-* Supra Labs：https://supraoracles.com/
+* Supra Labs：https://supra.com/
 * Circle Programmable Wallets：https://developers.circle.com/
-* Chainlink Keepers：https://chain.link/automation
+* Chainlink Automation（原名 Keepers）：已被 Chainlink Runtime Environment（CRE）取代，Automation v1.x 于 2026-06-30、v2.1 于 2026-07-31 停止服务，迁移见 https://docs.chain.link/cre

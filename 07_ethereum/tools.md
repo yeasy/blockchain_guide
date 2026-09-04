@@ -13,7 +13,7 @@
 **共识层客户端（Consensus Client）：**
 *   [Prysm](https://github.com/OffchainLabs/prysm)：Go 语言实现；
 *   [Lighthouse](https://github.com/sigp/lighthouse)：Rust 语言实现；
-*   [Teku](https://github.com/Consensys/teku)：Java 语言实现。
+*   [Teku](https://github.com/Consensys-Incorporated/teku)：Java 语言实现。
 
 **开发库：**
 *   [ethers.js](https://docs.ethers.org/v6/)：轻量级且功能强大的 JavaScript/TypeScript 库，当前 v6 API 使用 `bigint`、`ethers.parseEther()` 等现代接口；

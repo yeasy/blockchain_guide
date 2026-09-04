@@ -24,7 +24,7 @@ $ git config user.email "Your-addr@some-email-server"
 
 安装 hub 工具，方便与 GitHub 的仓库进行交互。
 
-Linux 下可以直接从 https://github.com/github/hub/releases 下载工具使用。
+Linux 下可以直接从 https://github.com/mislav/hub/releases 下载工具使用（`hub` 仓库已迁至 mislav 名下并进入维护状态，新项目建议改用官方的 GitHub CLI：https://cli.github.com/ ）。
 
 macOS 下可以通过 homebrew 工具来安装：
 
