@@ -79,4 +79,4 @@ UTXO 模型和账户模型的对比如下。
 *   **Rollups**：在链下批量处理交易，然后将压缩的交易数据和证明提交到 Layer 1。包括 Optimistic Rollups（如 Arbitrum、Optimism）和 ZK Rollups（如 zkSync、Starknet）。
 *   **Proto-Danksharding (EIP-4844)**：2024 年 3 月的 Dencun 升级引入了 Blob 数据类型，专门用于存储 Rollup 的数据，大幅降低了 Layer 2 的交易成本。2025 年 5 月的 Pectra 升级进一步提高了 blob 目标值；2025 年 12 月的 Fusaka 升级激活 PeerDAS（数据可用性采样），向完整 Danksharding 迈出关键一步。
 
-未来，以太坊仍计划实现完整的 Danksharding，进一步扩大数据可用性容量。
+再往后，官方路线图上的下一次升级是 Glamsterdam（开发中，目标 2026 年第四季度，截至 2026 年 9 月尚未激活），之后是计划于 2027 年的 Hegotá。更远期，以太坊仍计划实现完整的 Danksharding，进一步扩大数据可用性容量。

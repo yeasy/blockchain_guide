@@ -46,7 +46,7 @@ geth version
 
 ### 1. 安装 Go 语言环境
 
-访问 [go.dev/dl](https://go.dev/dl/) 下载并安装 Go 1.24 或更高版本。编译旧稳定分支时，以该分支 `go.mod` 中声明的 Go 版本为准。
+访问 [go.dev/dl](https://go.dev/dl/) 下载并安装 Go 1.25 或更高版本（`master` 分支的 `go.mod` 已声明 go 1.25.0，而 Go 1.24 已结束支持）。编译旧稳定分支时，以该分支 `go.mod` 中声明的 Go 版本为准。
 
 ```bash
 

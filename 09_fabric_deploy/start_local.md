@@ -478,9 +478,9 @@ Peer 的 operations endpoint 同样独立于业务端口，且不通过通道 MS
 ```bash
 $ peer node start
 UTC [ledgermgmt] initialize -> INFO 002 Starting peer:
- Version: 2.5.15
+ Version: 2.5.16
  Commit SHA: 83c7930
- Go version: go1.26.0
+ Go version: go1.26.4
  OS/Arch: linux/amd64
  Chaincode:
   Base Docker Namespace: hyperledger

@@ -78,7 +78,7 @@ Fabric 的网络节点大多运行在 Docker 容器中。主要涉及以下核�
 
 # 设置版本变量；以当前 Fabric 2.5 LTS 补丁线和 Fabric CA 1.5 补丁线为例
 export FABRIC_VERSION=2.5.16
-export CA_VERSION=1.5.21
+export CA_VERSION=1.5.22
 
 # 拉取镜像
 docker pull hyperledger/fabric-peer:$FABRIC_VERSION
