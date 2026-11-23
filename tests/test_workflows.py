@@ -188,8 +188,9 @@ class WorkflowTests(unittest.TestCase):
             self.assertNotIn("continue-on-error", text, name)
         package = json.loads((ROOT / "tools/mermaid/package.json").read_text(encoding="utf-8"))
         lock = json.loads((ROOT / "tools/mermaid/package-lock.json").read_text(encoding="utf-8"))
-        self.assertEqual(package["dependencies"]["@mermaid-js/mermaid-cli"], "11.16.0")
-        self.assertEqual(lock["packages"][""]["dependencies"]["@mermaid-js/mermaid-cli"], "11.16.0")
+        pinned = package["dependencies"]["@mermaid-js/mermaid-cli"]
+        self.assertRegex(pinned, r"^\d+\.\d+\.\d+$", "mermaid-cli must be pinned to an exact version")
+        self.assertEqual(lock["packages"][""]["dependencies"]["@mermaid-js/mermaid-cli"], pinned)
 
     def test_pandoc_is_installed_and_verified_before_publication_source_checks(self):
         for name in ("ci.yaml", "auto-release.yml", "preview-pdf.yml"):
