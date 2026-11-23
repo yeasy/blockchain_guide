@@ -26,12 +26,16 @@
 
 <details>
 
-<summary>全书结构与学习路线图</summary>
+<summary>全书结构</summary>
 
 - **基础与应用（第 1–3 章）** · 介绍区块链的起源、定义和关键挑战，并从[典型应用场景](https://yeasy.gitbook.io/blockchain_guide/03_scenario)考察金融、溯源、政务和失败案例。
 - **核心机制（第 4–5 章）** · 学习[分布式系统核心技术](https://yeasy.gitbook.io/blockchain_guide/04_distributed_system)中的一致性和共识，再读[密码学与区块链安全](https://yeasy.gitbook.io/blockchain_guide/05_crypto)。
 - **公链与企业实践（第 6–12 章）** · 探索比特币、以太坊和 Web3，从[超级账本](https://yeasy.gitbook.io/blockchain_guide/08_hyperledger)了解 Fabric 的权限、通道和背书机制，并练习链码开发。
 - **架构与前沿（第 13–15 章）** · 读完基础和核心机制后，从 [Fabric 架构与设计](https://yeasy.gitbook.io/blockchain_guide/13_fabric_design)了解高可用、高性能账本的设计，再读[区块链服务平台](https://yeasy.gitbook.io/blockchain_guide/14_baas)和[前沿趋势](https://yeasy.gitbook.io/blockchain_guide/15_frontiers)。
+
+</details>
+
+## 学习路线图
 
 ```mermaid
 graph LR
@@ -47,8 +51,6 @@ graph LR
     Role3 --> End3["搭建企业方案"]
     Role4 --> End4["系统设计与创新"]
 ```
-
-</details>
 
 <details>
 
