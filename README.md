@@ -1,20 +1,12 @@
-<div align="center">
-
 # 区块链技术指南
 
-[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-[![GitHub stars](https://img.shields.io/github/stars/yeasy/blockchain_guide?style=social)](https://github.com/yeasy/blockchain_guide)
-[![Release](https://img.shields.io/github/release/yeasy/blockchain_guide.svg)](https://github.com/yeasy/blockchain_guide/releases)
-[![Online Reading](https://img.shields.io/badge/在线阅读-GitBook-brightgreen)](https://yeasy.gitbook.io/blockchain_guide)
-[![PDF](https://img.shields.io/badge/PDF-下载-orange)](https://github.com/yeasy/blockchain_guide/releases/latest)
+从分布式记账原理出发，理解比特币与以太坊，并动手部署 Fabric 网络、开发链码。
 
-> 从原理到实践，系统掌握区块链核心技术与企业级应用
+**[在 GitBook 阅读第一章 · 区块链的诞生](https://yeasy.gitbook.io/blockchain_guide/01_history)**
 
-<img src="cover.jpg" width="300" alt="区块链技术指南封面">
+[全书目录（GitHub）](https://github.com/yeasy/blockchain_guide/blob/master/SUMMARY.md) · [正式 PDF（发布页）](https://github.com/yeasy/blockchain_guide/releases/latest)
 
-</div>
-
----
+<img src="cover.jpg" width="210" alt="区块链技术指南封面">
 
 ## 关于本书
 
@@ -24,25 +16,22 @@
 
 本书希望能客观探索区块链概念的来龙去脉，剖析关键技术和原理，同时以 Linux 基金会生态中的重要开源分布式账本项目——超级账本为例讲解具体应用。在开发超级账本项目，以及为企业设计方案过程中，笔者积累了一些实践经验，也通过本书分享出来，希望能有助于分布式账本科技的发展和应用。
 
-## 目标读者
+本书面向对区块链和金融科技感兴趣的读者。没有技术背景的读者可以先读基础和应用场景。
 
-- **区块链入门者**：对区块链技术充满好奇，希望系统了解其原理和应用
-- **以太坊开发者**：希望掌握智能合约开发与 DeFi 生态
-- **企业级应用者**：需要设计和部署超级账本解决方案的技术人员
-- **架构师**：需要设计高可用、高性能区块链系统的资深工程师
+## 从哪里开始
 
-## 五分钟快速上手
+- **区块链基础** · 先读[区块链的诞生](https://yeasy.gitbook.io/blockchain_guide/01_history)、[核心技术概览](https://yeasy.gitbook.io/blockchain_guide/02_overview)和[典型应用场景](https://yeasy.gitbook.io/blockchain_guide/03_scenario)，再从[比特币](https://yeasy.gitbook.io/blockchain_guide/06_bitcoin)了解公链的工作原理。
+- **以太坊开发** · 先读[以太坊](https://yeasy.gitbook.io/blockchain_guide/07_ethereum)的核心概念，再做[智能合约开发实验](https://yeasy.gitbook.io/blockchain_guide/07_ethereum/smart_contract_labs)，最后选读 [Web3 与去中心化金融](https://yeasy.gitbook.io/blockchain_guide/12_web3)。
+- **企业级 Fabric 实践** · 从[安装与部署](https://yeasy.gitbook.io/blockchain_guide/09_fabric_deploy)开始，学习[管理 Fabric 网络](https://yeasy.gitbook.io/blockchain_guide/10_fabric_op)，再按[信息公证链码示例](https://yeasy.gitbook.io/blockchain_guide/11_app_dev/chaincode_example01)练习应用开发。
 
-“5 分钟理解区块链”——跟随以下步骤快速掌握核心概念：
+<details>
 
-1. **区块链基础**（第 1-2 章）：理解区块链的起源、定义、演化与关键挑战
-2. **应用场景**（第 3 章）：了解金融、溯源、政务等领域的落地形态与失败案例
-3. **核心机制**（第 4-5 章）：探索一致性、共识算法与密码学安全
-4. **比特币与以太坊**（第 6-7 章）：掌握主流公链的工作原理、设计与智能合约能力
-5. **企业级应用**（第 8-11 章）：了解超级账本 Fabric 的权限、通道、背书机制，并动手开发链码
-6. **架构与前沿**（第 12-15 章）：学习 Web3 与 DeFi、Fabric 架构设计、区块链服务平台与前沿趋势
+<summary>全书结构与学习路线图</summary>
 
-## 学习路线图
+- **基础与应用（第 1–3 章）** · 介绍区块链的起源、定义和关键挑战，并从[典型应用场景](https://yeasy.gitbook.io/blockchain_guide/03_scenario)考察金融、溯源、政务和失败案例。
+- **核心机制（第 4–5 章）** · 学习[分布式系统核心技术](https://yeasy.gitbook.io/blockchain_guide/04_distributed_system)中的一致性和共识，再读[密码学与区块链安全](https://yeasy.gitbook.io/blockchain_guide/05_crypto)。
+- **公链与企业实践（第 6–12 章）** · 探索比特币、以太坊和 Web3，从[超级账本](https://yeasy.gitbook.io/blockchain_guide/08_hyperledger)了解 Fabric 的权限、通道和背书机制，并练习链码开发。
+- **架构与前沿（第 13–15 章）** · 读完基础和核心机制后，从 [Fabric 架构与设计](https://yeasy.gitbook.io/blockchain_guide/13_fabric_design)了解高可用、高性能账本的设计，再读[区块链服务平台](https://yeasy.gitbook.io/blockchain_guide/14_baas)和[前沿趋势](https://yeasy.gitbook.io/blockchain_guide/15_frontiers)。
 
 ```mermaid
 graph LR
@@ -59,48 +48,42 @@ graph LR
     Role4 --> End4["系统设计与创新"]
 ```
 
-| 读者角色 | 学习重点 | 核心成果 |
-|---------|---------|---------|
-| **技术入门** | 第 1-3 章 → 第 6 章 | 理解区块链基础概念、应用场景与比特币实现 |
-| **以太坊开发者** | 第 1-2 章 → 第 7 章 → 第 12 章 | 掌握智能合约开发与 DeFi 生态 |
-| **企业级应用** | 第 1-2 章 → 第 8-11 章 → 第 13 章 | 设计与部署超级账本解决方案，并开发链码 |
-| **架构师** | 第 1-5 章 → 第 13-15 章 | 设计高可用、高性能的区块链系统 |
+</details>
 
-## 阅读使用
+<details>
 
-本书适用于对区块链技术感兴趣，且具备一定金融科技基础的读者；无技术背景的读者也可以从中了解到区块链技术的现状。
+<summary>本地预览与 PDF 预览版</summary>
 
-**在线阅读**：https://yeasy.gitbook.io/blockchain_guide/
-
-**本地阅读**（先安装 [mdPress](https://github.com/yeasy/mdpress)）：
+使用 [mdPress](https://github.com/yeasy/mdpress) 在仓库根目录启动本地预览，再打开 `http://localhost:9000`。
 
 ```bash
 brew tap yeasy/tap && brew install mdpress
 mdpress serve
 ```
 
-## 下载离线版本
+[默认分支 PDF 预览版](https://github.com/yeasy/blockchain_guide/releases/download/preview-pdf/blockchain_guide.pdf)随主线更新，正式版本以发布页为准。
 
-本书提供 PDF 版本供离线阅读，可前往 [GitHub Releases](https://github.com/yeasy/blockchain_guide/releases/latest) 页面下载最新版本。
+</details>
 
-如需获取默认分支自动更新的预览版，可直接下载 [blockchain_guide.pdf](https://github.com/yeasy/blockchain_guide/releases/download/preview-pdf/blockchain_guide.pdf)。该文件会随主线更新覆盖，不代表正式发布版本。
+## 延伸阅读
 
-## 进阶学习
+<details>
 
-<p align="center">
-  <img src="_images/blockchain_book2.png" alt="区块链原理、设计与应用 第二版">
-</p>
+<summary>纸质书《区块链原理、设计与应用》与勘误</summary>
 
-《[区块链原理、设计与应用 第 2 版](https://item.jd.com/12159265.html)》 成书时围绕超级账本 Fabric 2.x 展开，详细介绍了区块链和分布式账本领域的核心技术，以及企业分布式账本方案的设计、架构和应用。截至 2026 年，Fabric 社区同时维护 2.5 LTS 和 3.x 发布线，读者实践时应结合官方文档确认当前版本。欢迎大家阅读并反馈建议。本书已被译为多国语言发行，有意者欢迎与作者联系。
+《区块链原理、设计与应用（第 2 版）》围绕超级账本 Fabric 2.x 展开，详细介绍区块链和分布式账本的核心技术，以及企业分布式账本方案的设计、架构和应用。实践时可查阅 [Fabric 官方发布说明](https://github.com/hyperledger/fabric/releases)确认版本。该书已有多种语言版本，有意者欢迎与作者联系。
 
-* [京东图书](https://item.jd.com/12935394.html)
-* [当当图书](https://product.dangdang.com/28996031.html)
+<img src="_images/blockchain_book2.png" width="210" alt="区块链原理、设计与应用第二版封面">
 
-如果发现疏漏，欢迎提交到 [勘误表](https://github.com/yeasy/blockchain_guide/wiki/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B2%E7%89%88%E5%8B%98%E8%AF%AF%E8%A1%A8)。
+第 2 版 · [京东图书](https://item.jd.com/12935394.html) · [当当图书](https://product.dangdang.com/28996031.html) · [勘误表](https://github.com/yeasy/blockchain_guide/wiki/%E3%80%8A%E5%8C%BA%E5%9D%97%E9%93%BE%E5%8E%9F%E7%90%86%E3%80%81%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BA%94%E7%94%A8%E3%80%8B2%E7%89%88%E5%8B%98%E8%AF%AF%E8%A1%A8)
 
-## 推荐阅读
+[初版（京东）](https://item.jd.com/12159265.html)
 
-本书是技术丛书的一部分。以下书籍与本书形成互补：
+</details>
+
+<details>
+
+<summary>系列图书</summary>
 
 | 书名 | 与本书的关系 |
 |------|------------|
@@ -109,36 +92,36 @@ mdpress serve
 | [《智能体 AI 权威指南》](https://yeasy.gitbook.io/agentic_ai_guide) | AI 智能体与区块链结合的前沿探索 |
 | [《零基础学 AI》](https://yeasy.gitbook.io/ai_beginner_guide) | AI 基础入门，理解 AI + Web3 融合趋势 |
 
-## 参与贡献
+</details>
+
+## 反馈与贡献
 
 欢迎 [参与维护项目](contribute.md)。
 
 * [修订记录](revision.md)
 * [贡献者名单](https://github.com/yeasy/blockchain_guide/graphs/contributors)
 
-## 支持鼓励
+<details>
 
-欢迎鼓励一杯 coffee~
+<summary>读者交流与支持</summary>
 
-<p align="center">
-  <img src="_images/coffee.jpeg" alt="coffee">
-</p>
-
-## 在线交流
-
-欢迎大家加入区块链技术讨论群：
+区块链技术讨论 QQ 群
 
 * QQ 群  IV：364824846（可加）
 * QQ 群 III：414919574（已满）
 * QQ 群  II：523889325（已满）
 * QQ 群   I：335626996（已满）
 
+感谢支持本书，欢迎请作者喝一杯咖啡。
+
+<img src="_images/coffee.jpeg" width="160" alt="请作者喝咖啡的二维码">
+
+[查看《区块链技术指南》的 Star History](https://star-history.com/#yeasy/blockchain_guide&Date)。
+
+</details>
+
 ## 许可证
 
 本书采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可证。
 
 您可以自由分享和演绎，但需署名、非商业使用、相同方式共享。
-
-## Star History
-
-[查看《区块链技术指南》的 Star History](https://star-history.com/#yeasy/blockchain_guide&Date)。
