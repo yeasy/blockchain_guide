@@ -462,7 +462,7 @@ describe("SafeAuction", function () {
 ```bash
 
 # 运行覆盖率检查
-npx hardhat coverage
+npx hardhat test --coverage
 
 # 输出示例：
 # ¦ contracts/SafeAuction.sol ¦ 96.5 % ¦
@@ -521,7 +521,7 @@ echidna contracts/SafeAuction.sol --solc-args "--optimize"
 ```bash
 
 # 在区块链浏览器上验证源码
-npx hardhat verify --network mainnet 0xContractAddress --constructor-args args.js
+npx hardhat verify --network mainnet --constructor-args-path constructor-args.ts 0xContractAddress
 ```
 
 #### 5.2 监控和告警
@@ -606,7 +606,7 @@ contract UpgradeableAuction is Initializable, OwnableUpgradeable, UUPSUpgradeabl
 | 漏洞 | 表现 | 防护措施 | 工具检测 |
 |------|------|--------|---------|
 | 重入 | 余额被重复扣除 | CEI 模式、重入锁 | Slither, Mythril |
-| 整数溢出 | 余额变为负数 | Solidity 0.8.0+ | Slither |
+| 整数溢出 | 余额回绕为极大值（或从极大值回绕为 0） | Solidity 0.8.0+ | Slither |
 | 权限缺失 | 任何人可调用关键函数 | onlyOwner, AccessControl | Slither |
 | 外部调用失败忽略 | 状态不一致 | 检查返回值、SafeERC20 | Slither |
 | 时间戳依赖 | 矿工操纵 | 添加时间范围、预言机 | Mythril |
