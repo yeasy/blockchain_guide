@@ -49,9 +49,11 @@ jobs:
           chrome-version: stable
 
       - name: Install CJK fonts and PDF inspection tools
+        timeout-minutes: 5
         run: |
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk fonts-noto-cjk-extra poppler-utils
+          apt_options=(-o Acquire::Retries=2 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20)
+          sudo apt-get "${apt_options[@]}" update
+          sudo apt-get "${apt_options[@]}" install -y fonts-noto-cjk poppler-utils
 
       - name: Resolve latest mdPress release
         run: |
